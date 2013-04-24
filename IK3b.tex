@@ -1,0 +1,1803 @@
+%% LyX 2.0.5.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[11pt,english,ngerman]{scrreprt}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper]{geometry}
+\geometry{verbose,tmargin=2.6cm,bmargin=3.5cm,lmargin=2.6cm,rmargin=2.6cm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\parskip}{\smallskipamount}
+\setlength{\parindent}{0pt}
+\usepackage{babel}
+\usepackage{float}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{esint}
+\usepackage[unicode=true,
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=false,
+ breaklinks=true,pdfborder={0 0 0},backref=page,colorlinks=false]
+ {hyperref}
+\hypersetup{pdftitle={Quantenfeldtheorie},
+ pdfauthor={Andreas Völklein},
+ pdfkeywords={Quantenfeldtheorie, Physik}}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\providecommand{\LyX}{\texorpdfstring%
+  {L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+  {LyX}}
+\newcommand{\noun}[1]{\textsc{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\usepackage{enumitem}		% customizable list environments
+\newlength{\lyxlabelwidth}      % auxiliary length 
+
+\@ifundefined{date}{}{\date{}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{tikz,pgfplots}
+%\usepackage{tikz-3dplot,cancel,polynom}
+\usetikzlibrary{matrix,arrows,calc,decorations.pathmorphing,decorations.markings,intersections,shapes}
+\usetikzlibrary{external}
+\tikzexternalize
+\usepackage{latexsym,stmaryrd,stackrel,braket,bbm,subfig,framed,esvect,scrhack,calc,slashed}
+\usepackage [OMLmathrm,OMLmathbf,sfdefault=fav]{isomath}
+\usepackage[explicit]{titlesec}
+\usepackage[activate]{pdfcprot}
+
+\pgfkeys{/pgf/number format/dec sep={\text{,}}}
+\pgfplotsset{compat=newest}
+
+% Inhaltsverzeichnis
+\usepackage[subfigure]{tocloft}
+
+\tocloftpagestyle{fancy}
+
+\renewcommand{\cftchapindent}{1 em}
+\renewcommand{\cftchapnumwidth}{1.5 em}
+
+\renewcommand{\cftsecindent}{2.7 em}
+\renewcommand{\cftsecnumwidth}{2.5em}
+
+\renewcommand{\cftsubsecindent}{5.2 em}
+\renewcommand{\cftsubsecnumwidth}{3.8 em}
+
+\renewcommand{\cftsubsubsecindent}{9 em}
+\renewcommand{\cftsubsubsecnumwidth}{4.5 em}
+
+% Mathe-Operatoren
+\DeclareMathOperator*{\exsop}{\exists}
+\DeclareMathOperator*{\exsgop}{\exists!}
+\DeclareMathOperator*{\fallop}{\forall}
+\DeclareMathOperator*{\bcupdop}{\dot{\bigcup}}
+\DeclareMathOperator*{\bcapdop}{\dot{\bigcap}}
+
+%Operatornorm
+\newcommand{\opnor}[1]{\abs{\hspace*{-1.1pt}\norm{#1}\hspace*{-1.1pt}}}
+
+% nicht-totales Differential
+\newcommand{\dBar}{\mathchar'26\mkern-12mu \textnormal{d}}
+
+% Angström
+\newcommand{\ang}{\textup{\AA}}
+
+% schöne Vektorpfeile
+\renewcommand{\vec}[1]{\vv{#1}}
+
+% Rotieren
+\newcommand{\Rotate}[1]{
+\tikzset{external/export next=false}
+\begin{tikzpicture}[baseline=(X.base)]
+\node[rotate=90] (X){\ensuremath{#1}};
+\end{tikzpicture}
+}
+
+% Rotieren
+\newcommand{\RotateX}[2]{
+\tikzset{external/export next=false}
+\begin{tikzpicture}[baseline=(X.base)]
+\node[rotate=#1] (X) {\ensuremath{#2}};
+\end{tikzpicture}
+}
+
+%QED-Zeichen (Box)
+\newcommand{\qed}{\ensuremath{\Box}}
+\newcommand{\qqed}[1][\arabic{chapter}.\arabic{section}\ifnum\arabic{subsection}>0{.\arabic{subsection}}\fi]{\hspace*{1mm}\hfill\qed\ensuremath{_{\text{#1}}}}
+
+% Mengen Modulo
+\newcommand{\moduloT}[2]{
+\mbox{\raisebox{0.6ex}{\ensuremath{\displaystyle #1}}
+{\hspace*{-1.5mm}\Large /}
+\raisebox{-0.6ex}{\hspace*{-1.5mm}\ensuremath{\displaystyle #2}}
+}}
+
+% Links Modulo
+\newcommand{\lmoduloT}[2]{
+\mbox{\raisebox{-0.6ex}{\ensuremath{\displaystyle #1}}
+{\hspace*{-1.5mm}\Large \ensuremath{\backslash}}
+\raisebox{0.6ex}{\hspace*{-1.5mm}\ensuremath{\displaystyle #2}}
+}}
+
+% Für Z/2Z, um nicht soviel schreiben zu müssen
+\newcommand{\modloT}[2]{\moduloT{ \mathbb{#1}}{#2\mathbb{#1}}}
+
+%Laplace-Beltrami-Operator
+\newcommand{\LBO}{
+\begin{minipage}{6mm}
+ \tikzset{external/export next=false}
+ \begin{tikzpicture}
+   \node at (0,0){$\Delta$};
+   \draw[line width=0.75] (0.25,-0.13) -- (0.1,0.15);
+ \end{tikzpicture}
+\end{minipage}
+}
+
+%Die Modulo-Kommandos in klein, für die Darstellungen unter Quantoren.
+\newcommand{\moduloScriptT}[2]{
+\mbox{\raisebox{0.4ex}{\scriptsize\ensuremath{\displaystyle #1}}
+{\hspace*{-1.5mm}\footnotesize /}
+\raisebox{-0.4ex}{\hspace*{-1.5mm}\scriptsize\ensuremath{\displaystyle #2}}
+}}
+
+\newcommand{\lmoduloScriptT}[2]{
+\mbox{\raisebox{-0.4ex}{\scriptsize\ensuremath{\displaystyle #1}}
+{\hspace*{-1.5mm}\footnotesize \ensuremath{\backslash}}
+\raisebox{0.4ex}{\hspace*{-1.5mm}\scriptsize\ensuremath{\displaystyle #2}}
+}}
+
+\newcommand{\modloScriptT}[2]{\moduloScriptT{ \mathbb{#1}}{#2\mathbb{#1}}}
+
+% stehendes Winkelzeichen
+\newcommand{\winkel}{
+\tikzset{external/export next=false}
+\begin{tikzpicture}[scale=0.25]
+\draw ({-2+3^(1/2)},0) -- (0,1) -- ({2-3^(1/2)},0);
+\draw ($(0,1) + ({cos(235)*0.7},{sin(315)*0.7})$) arc (235:315:0.7);
+\end{tikzpicture}}
+
+% Wurzel mit Häkchen
+\newcommand{\hsqrt}[2][{}]{\setbox0=\hbox{$\sqrt[#1]{\phantom{|}\!\! #2\hspace*{1pt}}$}\dimen0=\ht0
+  \advance\dimen0-0.2\ht0
+  \setbox2=\hbox{\vrule height\ht0 depth -\dimen0}
+  {\box0\lower0.4pt\box2}}
+
+% Damit nicht immer "Kapitel 1" etc. über der Kapitelüberschrift steht
+\titleformat{\chapter}
+  {\huge\bfseries}
+  {\textrm{\thechapter} }{0pt}
+  {\textrm{#1} \thispagestyle{fancy}
+  }
+
+% Neudefinition der Abschnittsmarker für die Kopfzeile
+\renewcommand\partmark[1]{\markboth{#1}{}}
+\renewcommand\chaptermark[1]{\markright{\arabic{chapter} #1}}
+\renewcommand\sectionmark[1]{}
+\renewcommand\subsectionmark[1]{}
+
+% Schriften auf Serif umstellen
+\addtokomafont{descriptionlabel}{\rmfamily}
+\addtokomafont{disposition}{\rmfamily}
+
+% Zeilenumbrüche in Gleichungen
+ \allowdisplaybreaks
+
+% Kopf- und Fußzeile
+% Höhe der Kopfzeile
+\setlength{\headheight}{14pt}
+% obere Trennlinie
+%\renewcommand{\headrulewidth}{0.4pt}
+\fancyhf{} %alle Kopf- und Fußzeilenfelder bereinigen
+\fancyhead[L]{\textbf{IK3b - Quantenfeldtheorie}} %Kopfzeile links
+%\fancyhead[C]{\leftmark} %zentrierte Kopfzeile
+\fancyhead[R]{\rightmark} %Kopfzeile rechts
+\fancyfoot[C]{\thepage\quad\!\!\!\slash\quad\!\!\!\pageref{END-front}} %Seitenzahl der Front-Matter
+
+\AtBeginDocument{
+  \def\labelitemi{\normalfont\bfseries{--}}
+  \def\labelitemii{\(\circ\)}
+  \def\labelitemiii{\(\triangleright\)}
+}
+
+\makeatother
+
+\begin{document}
+
+
+
+
+
+
+\global\long\def\norm#1{\left\lVert #1\right\rVert }
+
+
+\global\long\def\abs#1{\left\lvert #1\right\rvert }
+
+
+\global\long\def\opnorm#1{\opnor{#1}}
+
+
+\global\long\def\BRA#1{\Bra{#1}}
+
+
+\global\long\def\KET#1{\Ket{#1}}
+
+
+\global\long\def\BraKet#1{\Braket{#1}}
+
+
+\global\long\def\mins{\textnormal{-}}
+
+
+\global\long\def\LB{\LBO}
+
+
+\global\long\def\exs{\exsop}
+
+
+\global\long\def\exsg{\exsgop}
+
+
+\global\long\def\fall{\fallop}
+
+
+\global\long\def\bcupd{\bcupdop}
+
+
+\global\long\def\bcapd{\bcapdop}
+
+
+\global\long\def\sr#1#2#3{\underset{#3}{\overset{#2}{#1}}}
+
+
+\global\long\def\dd{\textnormal{d}}
+
+
+\global\long\def\DD{\textnormal{D}}
+
+
+\global\long\def\dbar{\dBar}
+
+
+\global\long\def\angs{\ang}
+
+
+\global\long\def\TT{\textnormal{T}}
+
+
+\global\long\def\ii{\textbf{i}}
+
+
+\global\long\def\slashd#1{\slashed{#1}}
+
+
+\global\long\def\modulo#1#2{\moduloT{#1}{#2}}
+
+
+\global\long\def\lmodulo#1#2{\lmoduloT{#1}{#2}}
+
+
+\global\long\def\modlo#1#2{\modloT{#1}{#2}}
+
+
+\global\long\def\moduloScript#1#2{\moduloScriptT{#1}{#2}}
+
+
+\global\long\def\lmoduloScript#1#2{\lmoduloScriptT{#1}{#2}}
+
+
+\global\long\def\modloScript#1#2{\modloScriptT{#1}{#2}}
+
+
+\global\long\def\vek#1{\vectorsym{#1}}
+
+
+\global\long\def\mat#1{\matrixsym{#1}}
+
+
+\global\long\def\ten#1{\tensorsym{#1}}
+
+
+\global\long\def\msd#1{\mathstrut_{#1}}
+
+
+\global\long\def\msu#1{\mathstrut^{#1}}
+
+
+\pagenumbering{roman}
+
+
+\title{\hspace*{1mm}\vspace*{-20mm}\\
+{\Huge Integrierter Kurs IIIb}\\
+{\Huge Quantenfeldtheorie}}
+
+
+\author{\vspace*{-5mm}\\
+\textit{\small Vorlesung von}\\
+\textit{\noun{\small Prof. Dr. Andreas Schäfer}}\\
+\textit{\small im Sommersemester 2013}\\
+\textit{\small Überarbeitung und Textsatz in \LyX{} von}\\
+\textit{\noun{\small Andreas Völklein}}\\
+\vspace*{5mm}\\
+\includegraphics[clip,width=15cm]{unir}\\
+\vspace*{3mm}\\
+{\normalsize Stand: \today}\\
+\vspace*{-30mm}}
+
+\maketitle
+\fancyhead[R]{Lizenz}
+
+
+\subsubsection*{ACHTUNG}
+
+Diese Mitschrift ersetzt \emph{nicht} die Vorlesung.
+
+Es wird daher \emph{dringend} empfohlen, die Vorlesung zu besuchen.
+
+\vfill{}
+
+
+\selectlanguage{english}%
+
+\subsubsection*{Copyright Notice}
+
+Copyright © 2013 \noun{Andreas Völklein}
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3
+or any later version published by the Free Software Foundation;
+
+with no Invariant Sections, no Front-Cover Texts, and no Back-Cover
+Texts.
+
+A copy of the license is included in the document entitled “GFDL”.
+
+
+\subsubsection*{Disclaimer of Warranty}
+
+\noun{Unless otherwise mutually agreed to by the parties in writing
+and to the extent not prohibited by applicable law, }\textbf{\noun{the
+Copyright Holders and any other party, who may distribute the Document
+as permitted above,   provide the Document “as is}}\textbf{”,}\textbf{\noun{
+without warranty of any kind}}\noun{, expressed, implied, statutory
+or otherwise, including, but not limited to, the implied warranties
+of merchantability, fitness for a particular purpose, non-infringement,
+the absence of latent or other defects, accuracy, or the absence of
+errors, whether or not discoverable.}
+
+
+\subsubsection*{Limitation of Liability}
+
+\textbf{\noun{In no event}}\noun{ unless required by applicable law
+or agreed to in writing }\textbf{\noun{will the Copyright Holders,
+or any other party, who may distribute the Document as permitted above,
+be liable to you for any damages}}\noun{, including, but not limited
+to, any general, special, incidental, consequential, punitive or exemplary
+damages, however caused, regardless of the theory of liability, arising
+out of or related to this license or any use of or inability to use
+the Document, even if they have been advised of the possibility of
+such damages.}
+
+\textbf{\noun{In no event will the Copyright Holders'/Distributor's
+liability to you}}\noun{, whether in contract, tort (including negligence),
+or otherwise, }\textbf{\noun{exceed the amount you paid the Copyright
+Holders/Distributor}}\noun{ for the document under this agreement.}
+
+\selectlanguage{ngerman}%
+
+\subsubsection*{Links}
+
+Der Text der „\foreignlanguage{english}{GNU Free Documentation License}“
+kann auch auf der Seite
+\begin{quote}
+\url{https://www.gnu.org/licenses/fdl-1.3.de.html}
+\end{quote}
+nachgelesen werden.
+
+Eine transparente Kopie der aktuellen Version dieses Dokuments kann
+von
+\begin{quote}
+\url{https://github.com/andiv/IK3b}
+\end{quote}
+heruntergeladen werden.
+
+\newpage{}
+
+\fancyhead[R]{Literatur}
+
+
+\subsection*{Literatur}
+\begin{itemize}
+\item \noun{Andreas Schäfer, Florian Rappl}: \foreignlanguage{english}{\emph{Quantum
+electrodynamics}}; 2010\\
+\url{http://www-nw.uni-regensburg.de/~sca14496/QED/Quantenelektrodynamik.pdf}
+\item \noun{Andreas Schäfer}: \foreignlanguage{english}{\emph{Quantum Chromodynamics}};\\
+\url{http://www-nw.uni-regensburg.de/~sca14496/index.html}
+\item \noun{Elliot Leader, Enrico Predazzi}: \foreignlanguage{english}{\emph{An
+introduction to gauge theories and modern particle physics I}}; \foreignlanguage{english}{Cambridge
+University Press}, 2004; ISBN: 0-521-46840-X
+\item \noun{Elliot Leader, Enrico Predazzi}: \foreignlanguage{english}{\emph{An
+introduction to gauge theories and modern particle physics} \emph{II}};
+\foreignlanguage{english}{Cambridge University Press}, 2004; ISBN:
+0-521-499510-8
+\end{itemize}
+{\small \newpage{}}\fancyhead[R]{Inhaltsverzeichnis}
+\fancyhead[C]{}
+
+\tableofcontents{}\label{END-front}\newpage{}\pagenumbering{arabic}
+\fancyfoot[C]{\thepage\quad\!\!\!\slash\quad\!\!\!\pageref{END}} % Seitenzahl des Hauptteils
+%\fancyhead[R]{\rightmark}
+%\fancyhead[C]{\leftmark}%DATE: Mo 15.04.2013
+
+
+\chapter*{Motivation}
+
+\fancyhead[R]{Motivation}
+
+Zu Beginn des 20. Jahrhunderts wurden zwei neue fundamentale Theorien
+entwickelt:
+\begin{itemize}
+\item Quantenmechanik mit Heisenbergscher Unschärferelation%
+\footnote{Wir verwenden natürliche Einheiten mit $c=1$ und $\hbar=1$.%
+}: $\Delta E\cdot\Delta t\ge\frac{1}{2}$
+\item Spezielle Relativitätstheorie mit Energie-Impuls-Beziehung: $E=\pm\sqrt{\vec{p}^{2}+m^{2}}$\\
+Die Lösungen mit negativer Energie führen zu Antiteilchen:
+\begin{align*}
+e^{-\ii\left(-\abs Et\right)} & =e^{-\ii\abs E\left(-t\right)}
+\end{align*}
+
+\end{itemize}
+\begin{figure}[H]
+\noindent \begin{centering}
+\begin{tikzpicture}
+  \draw[decoration={markings,mark=at position 1 with {\arrow[scale=2]{>}};},postaction={decorate}] (0,0) node[left]{$t_i$} -- node[right]{$e^-$} (0,2) node[left]{$t_f$};
+  \draw[decoration={markings,mark=at position 1 with {\arrow[scale=2]{>}};},postaction={decorate}] (2,2)  -- node[right]{$e^-\hspace*{5mm}\hat{=}$} (2,0);
+  \draw[decoration={markings,mark=at position 1 with {\arrow[scale=2]{>}};},postaction={decorate}] (4,0)  -- node[right]{$e^+$} (4,2);
+\end{tikzpicture}
+\par\end{centering}
+
+\noindent \begin{centering}
+\caption{Antiteilchen}
+
+\par\end{centering}
+
+\end{figure}
+
+
+Das Problem ist, dass im Vakuum virtuelle Teilchen-Antiteilchen-Paare
+entstehen können:
+
+\begin{figure}[H]
+\noindent \centering{}\begin{tikzpicture}
+  \draw[decoration={markings,mark=at position 0.5 with {\arrow[scale=2]{>}};},postaction={decorate}] (0,0) arc (180:0:1);
+  \node at (1,1.5) {$e^-$} ;
+  \draw[decoration={markings,mark=at position 0.5 with {\arrow[scale=2]{>}};},postaction={decorate}] (2,0) arc (0:-180:1);
+  \node at (1,-1.5) {$e^+$} ;
+  \draw[fill=black] (0,0) circle (0.05) (2,0) circle (0.05);
+  \node at (4,0) {$\Delta t \le \frac{1}{2E}$};
+\end{tikzpicture}\caption{virtuelles Teilchen-Antiteilchen-Paar}
+\end{figure}
+
+\begin{itemize}
+\item Das Vakuum wird dadurch ein Medium.
+\item Bei Rechnungen erhält man Unendlichkeiten.
+\end{itemize}
+Die Behandlung der Divergenzen führt zur ,,Renormierung``, dem Kern
+der Quantenfeldtheorie.
+
+Die Idee dabei ist, dass die Quantenfeldtheorie der nieder-energetische
+Grenzfall einer ,,\foreignlanguage{english}{Theory of Everything}``
+ist. Da wir diese nicht kennen, fordern wir eine ,,Entkopplung``:
+Die Physik bei Laborenergien darf nicht von der \foreignlanguage{english}{Theory
+of Everything }abhängen.
+
+Dies wird von Eichtheorien mit oder ohne ,,spontane Symmetriebrechung``
+erfüllt. Auf diese Weise erhält man das \emph{Standard-Modell} der
+Teilchenphysik.
+
+\fancyhead[R]{\rightmark}
+
+
+\chapter{Dirac-Gleichung, Klein-Gordon-Gleichung}
+
+Wir verwenden natürliche Einheiten $c=1$ und $\hbar=\frac{h}{2\pi}=1$.
+Nützlich für Umrechnungen in das SI-Einheitensystem sind folgende
+Konstanten:
+\begin{align*}
+\hbar c & =197{,}327\,\text{MeV fm} & c & =299792458\,\frac{\text{m}}{\text{s}} & 1\,\text{fm} & =10^{-15}\,\text{m}
+\end{align*}
+\begin{align*}
+\left[\text{Energie}\right]\,\hat{=}\,\left[\text{MeV}\right]\,\hat{=}\,\left[\frac{\text{MeV}}{c}\right] & \,\hat{=}\,\left[\text{Impuls}\right]\,\hat{=}\,\left[\frac{\text{MeV}}{\hbar c}\right]\,\hat{=}\,\left[\frac{1}{\text{fm}}\right]\,\hat{=}\,\left[\frac{c}{\text{fm}}\right]\,\hat{=}\,\left[\frac{1}{\text{s}}\right]
+\end{align*}
+Sei $t$ eine Zeit in der Einheit $\text{MeV}^{-1}$ gegeben. Die
+Umrechnung in Sekunden geht nun wie folgt:
+\begin{align*}
+t\left[\text{s}\right] & =\frac{t\left[\text{MeV}^{-1}\right]\cdot\hbar c}{c}
+\end{align*}
+Die Quantenmechanik nutzt die klassische Energie-Impuls-Beziehung
+(Dispersionsrelation):
+\begin{align}
+E_{\text{kin}} & =\frac{\vec{p}^{2}}{2m}
+\end{align}
+Die Wellenmechanik basiert auf ebenen Wellen:
+\begin{align*}
+\psi & \sim e^{-\ii\left(Et-\vec{p}\cdot\vec{x}\right)}
+\end{align*}
+\begin{align*}
+\ii\frac{\partial}{\partial t}e^{-\ii\left(Et-\vec{p}\cdot\vec{x}\right)} & =Ee^{-\ii\left(Et-\vec{p}\vec{x}\right)}\\
+-\ii\vec{\nabla}e^{-\ii\left(Et-\vec{p}\cdot\vec{x}\right)} & =\vec{p}e^{-\ii\left(Et-\vec{p}\vec{x}\right)}
+\end{align*}
+Ersetze nun die klassische nun durch die relativistische Dispersionsrelation:
+\begin{align}
+E^{2}-\vec{p}^{2}-m^{2} & =0
+\end{align}
+Damit erhält man die \emph{Klein-Gordon-Gleichung}:
+\begin{align}
+\left[-\frac{\partial^{2}}{\partial t^{2}}+\vec{\nabla}^{2}-m^{2}\right]\phi\left(\vec{x},t\right) & =0
+\end{align}
+Wieso verwendet man nicht folgende Gleichung?
+\begin{align*}
+\left[\ii\frac{\partial}{\partial t}\pm\sqrt{-\vec{\nabla}^{2}+m^{2}}\,\right]\psi\left(\vec{x},t\right) & =0
+\end{align*}
+Die Wurzel lässt sich nur als eine Taylor-Entwicklung mit beliebig
+hohen Potenzen in $\vec{\nabla}^{2}$ berechnen.
+\begin{align*}
+f\left(x+y\right) & =f\left(x\right)+f'\left(x\right)y+\frac{1}{2}f''\left(x\right)y^{2}+\ldots
+\end{align*}
+Unendlich hohe Ableitungen können zu einer Verletzung der Kausalität
+führen. Außerdem ist die Konvergenz nicht gesichert. Die Alternative
+ist die Linearisierung, also die Zerlegung der Klein-Gordon-Gleichung
+als Differentialgleichung zweiter Ordnung in zwei Differentialgleichungen
+erster Ordnung.
+
+
+\section{Definition \textmd{(Dirac-Matrizen)}}
+
+Seien $\gamma_{0},\gamma_{1},\gamma_{2}$ und $\gamma_{3}$ Elemente
+einer Algebra mit folgender Eigenschaft:
+\begin{align}
+\fbox{\ensuremath{{\displaystyle \gamma_{\mu}\gamma_{\nu}+\gamma_{\nu}\gamma_{\mu}=2g_{\mu\nu}\mathbbm{1}}}}
+\end{align}
+Die $\gamma_{\mu}$ werden \emph{Dirac-Matrizen} genannt, und sie
+erzeugen eine \emph{Clifford-Algebra}. Dabei ist
+\begin{align}
+\left(g_{\mu\nu}\right) & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0\\
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & -1
+\end{array}\right)=\left(\left(g^{-1}\right)_{\mu\nu}\right)=:\left(g^{\mu\nu}\right)
+\end{align}
+die Metrik des Minkowski-Raumes%
+\footnote{Mit der Metrik kann man die Indizes verschieben: $a^{\mu}=g^{\mu\nu}a_{\nu}$,
+$a_{\mu}=g_{\mu\nu}a^{\nu}$%
+}. Wir verwenden die Einsteinsche Summenkonvention. Die Multiplikation
+mit $\mathbbm{1}$ schreiben wir gewöhnlich nicht aus. 
+\begin{align*}
+\left(\hat{p}^{\mu}\gamma_{\mu}-m\right)\left(\hat{p}^{\mu}\gamma_{\mu}+m\right) & =\underbrace{\hat{p}^{\mu}\hat{p}^{\nu}}_{\text{symmetrisch}}\gamma_{\mu}\gamma_{\nu}-m^{2}=\\
+ & =\frac{1}{2}\left(\hat{p}^{\mu}\hat{p}^{\nu}\gamma_{\mu}\gamma_{\nu}+\hat{p}^{\nu}\hat{p}^{\mu}\gamma_{\mu}\gamma_{\nu}\right)-m^{2}=\\
+ & =\frac{1}{2}\hat{p}^{\mu}\hat{p}^{\nu}\left(\gamma_{\mu}\gamma_{\nu}+\gamma_{\nu}\gamma_{\mu}\right)-m^{2}=\\
+ & =\hat{p}^{\mu}\hat{p}^{\nu}g_{\mu\nu}-m^{2}=\hat{p}^{2}-m^{2}
+\end{align*}
+Wenn $\psi$ die Gleichung
+\begin{align}
+\fbox{\ensuremath{{\displaystyle \left(\hat{p}^{\mu}\gamma_{\mu}+m\right)\psi=0}}}
+\end{align}
+erfüllt, so erfüllt $\psi$ auch die Klein-Gordon-Gleichung, ist also
+eine Lösung, die der relativistischen Energie-Impuls-Beziehung genügt.
+Analoges gilt für:
+\begin{align}
+\fbox{\ensuremath{{\displaystyle \left(\hat{p}^{\mu}\gamma_{\mu}-m\right)\psi=0}}}
+\end{align}
+Dies sind die zwei Formen der \emph{Dirac-Gleichung}.
+
+%DATE: Di 16.4.13
+
+Wir verwenden die \emph{Feynman-Slash-Notation}:
+\begin{align}
+\slashd p & :=p^{\mu}\gamma_{\mu}
+\end{align}
+Die Dirac-Darstellung der Gamma-Matrizen lautet:
+\begin{align}
+\gamma^{0} & =\gamma_{0}=\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & -1
+\end{array}\right) & \gamma^{1} & =-\gamma_{1}=\left(\begin{array}{cccc}
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0\\
+0 & -1 & 0 & 0\\
+-1 & 0 & 0 & 0
+\end{array}\right)\nonumber \\
+\gamma^{2} & =-\gamma_{2}=\left(\begin{array}{cccc}
+0 & 0 & 0 & -\ii\\
+0 & 0 & \ii & 0\\
+0 & \ii & 0 & 0\\
+-\ii & 0 & 0 & 0
+\end{array}\right) & \gamma^{3} & =-\gamma_{3}=\left(\begin{array}{cccc}
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & -1\\
+-1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0
+\end{array}\right)
+\end{align}
+Beispiel:
+\begin{align*}
+\gamma_{1}\gamma_{2}+\gamma_{2}\gamma_{1} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0\\
+0 & -1 & 0 & 0\\
+-1 & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & -\ii\\
+0 & 0 & \ii & 0\\
+0 & \ii & 0 & 0\\
+-\ii & 0 & 0 & 0
+\end{array}\right)+\\
+ & \quad+\left(\begin{array}{cccc}
+0 & 0 & 0 & -\ii\\
+0 & 0 & \ii & 0\\
+0 & \ii & 0 & 0\\
+-\ii & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0\\
+0 & -1 & 0 & 0\\
+-1 & 0 & 0 & 0
+\end{array}\right)=\\
+ & =\left(\begin{array}{cccc}
+-\ii & 0 & 0 & 0\\
+0 & \ii & 0 & 0\\
+0 & 0 & -\ii & 0\\
+0 & 0 & 0 & \ii
+\end{array}\right)+\left(\begin{array}{cccc}
+\ii & 0 & 0 & 0\\
+0 & -\ii & 0 & 0\\
+0 & 0 & \ii & 0\\
+0 & 0 & 0 & -\ii
+\end{array}\right)=0
+\end{align*}
+Die Dirac-Darstellung ermöglicht die intuitive Interpretation, dass
+die ersten beiden Indizes eines \emph{Spinors} $\psi$ einer Teilchenlösung
+entsprechen und die letzten beiden einer Antiteilchenlösung.
+
+
+\section{Die freien Lösungen im Ruhesystem}
+
+Wir wollen eine Lösung $\psi\left(x^{0},\vec{x}\right)$ der Diracgleichung
+im Ruhesystem finden, das heißt für $\vec{p}=0$ und $E=m$. Wir machen
+einen Wellenansatz:
+\begin{align*}
+\psi\left(x^{0},\vec{x}\right) & =u\left(E,\vec{p}\right)e^{-\ii\left(Et-\vec{p}\cdot\vec{x}\right)}=u\left(m,\vec{0}\right)e^{-\ii mt}
+\end{align*}
+Die Dirac-Gleichung für Teilchen ist:
+\begin{align*}
+\left(m\gamma^{0}-m\right)\psi=\left(\slashd{\hat{p}}-m\right)\psi & =0\\
+\left(\begin{array}{cccc}
+m-m &  &  & 0\\
+ & m-m\\
+ &  & -m-m\\
+0 &  &  & -m-m
+\end{array}\right)\psi & =\left(\begin{array}{c}
+0\\
+0\\
+0\\
+0
+\end{array}\right)
+\end{align*}
+\begin{align}
+u\left(\vec{p}=\vec{0},+\right) & =a\left(\begin{array}{c}
+1\\
+0\\
+0\\
+0
+\end{array}\right) & u\left(\vec{p}=\vec{0},-\right) & =b\left(\begin{array}{c}
+0\\
+1\\
+0\\
+0
+\end{array}\right)
+\end{align}
+Analog lässt die Dirac-Gleichung für Antiteilchen
+\begin{align*}
+\left(\slashd{\hat{p}}+m\right)\psi & =0
+\end{align*}
+folgende Lösungen zu:
+\begin{align}
+v\left(\vec{p}=\vec{0},-\right) & =c\left(\begin{array}{c}
+0\\
+0\\
+1\\
+0
+\end{array}\right) & u\left(\vec{p}=\vec{0},+\right) & =d\left(\begin{array}{c}
+0\\
+0\\
+0\\
+1
+\end{array}\right)
+\end{align}
+
+
+
+\section{Lorentz-Transformationen der Dirac-Gleichung}
+
+Fordere nun die Invarianz der Dirac-Gleichung unter einer Lorentz-Transformationen%
+\footnote{Beachte, dass $\Lambda_{\nu}^{\mu}$ sich unter Lorentz-Transformationen
+nicht ändert, also kein Tensor ist.%
+} $\Lambda_{\nu}^{\mu}$:
+
+\begin{align}
+0 & =\left(\ii\frac{\partial}{\partial x_{\mu}}\gamma_{\mu}-m\right)\psi\left(x\right)=\left(\ii\frac{\partial}{\partial x_{\nu}'}\Lambda_{\nu}^{\mu}\gamma_{\mu}-m\right)\underbrace{S^{-1}\left(\Lambda\right)\psi'\left(x'\right)}_{=\psi\left(x\right)}\qquad/S\cdot\nonumber \\
+0 & =\bigg(\ii\frac{\partial}{\partial x_{\nu}'}\underbrace{\Lambda_{\nu}^{\mu}S\gamma_{\mu}S^{-1}}_{\stackrel{!}{=}\gamma_{\nu}}-m\bigg)\psi'\left(x'\right)
+\end{align}
+Es genügt, eine infinitesimale Lorentz-Transformation zu betrachten,
+da man eine endliche Transformation als Hintereinanderausführung von
+$N$ infinitesimalen darstellen kann.
+\begin{align*}
+g^{\nu\nu'}\Lambda_{\nu'}^{\mu}\big|_{\text{inf.}} & =g^{\nu\mu}+\frac{\omega^{\nu\mu}}{N}+\mathcal{O}\left(\frac{1}{N^{2}}\right)
+\end{align*}
+Wir benutzen dann:
+\begin{align*}
+\lim_{N\to\infty}\left(1-\ii\frac{a}{N}\right)^{N} & =e^{-\ii a}
+\end{align*}
+Zur Erinnerung: Die Lorentz-Transformation lässt die Metrik invariant:
+\begin{align*}
+\Lambda_{\mu'}^{\mu}\Lambda_{\nu'}^{\nu}g_{\mu\nu} & =g_{\mu'\nu'}
+\end{align*}
+Es folgt:
+\begin{align*}
+g^{\mu''\mu'}\Lambda_{\mu'}^{\mu}g^{\nu''\nu'}\Lambda_{\nu'}^{\nu}g_{\mu\nu} & =g^{\mu''\nu''}\\
+g^{\mu''\mu}g^{\nu''\nu}g_{\mu\nu}+\frac{\omega^{\mu''\mu}}{N}g^{\nu''\nu}g_{\mu\nu}+g^{\mu''\mu}\frac{\omega^{\nu''\nu}}{N}g_{\mu\nu} & =g^{\mu''\nu''}\\
+\frac{\omega^{\mu''\mu}}{N}g_{\mu\nu''} & =-\frac{\omega^{\nu''\nu}}{N}g_{\mu''\nu}
+\end{align*}
+\begin{align}
+\Rightarrow\qquad\fbox{\ensuremath{{\displaystyle \omega^{\mu''\nu''}=-\omega^{\nu''\mu''}}}}
+\end{align}
+Für $S$ machen wir den Ansatz:
+\begin{align}
+S & =\mathbbm{1}-\frac{\ii}{4}\cdot\frac{\omega^{\mu\nu}}{N}\sigma_{\mu\nu}\label{eq:S-Transformation-Definition}
+\end{align}
+Dabei sind die $\sigma_{\mu\nu}$ beliebige $\mathbb{C}^{4\times4}$-Matrizen,
+ohne Einschränkung mit $\sigma_{\mu\nu}=-\sigma_{\nu\mu}$, da der
+symmetrische Anteil wegfällt, weil $\omega^{\mu\nu}$ antisymmetrisch
+ist. Einsetzen liefert:
+\begin{align*}
+\gamma_{\nu}+\mathcal{O}\left(\frac{1}{N^{2}}\right) & \stackrel{!}{=}\left(\mathbbm{1}-\frac{\ii}{4}\sigma_{\mu'\nu'}\frac{\omega^{\mu'\nu'}}{N}\right)\left(\gamma_{\nu}+\frac{\omega_{\nu\mu}}{N}\gamma^{\mu}\right)\left(\mathbbm{1}+\frac{\ii}{4}\sigma_{\mu''\nu''}\frac{\omega^{\mu''\nu''}}{N}\right)=\\
+\Rightarrow\qquad0 & =-\frac{\ii}{4}\sigma_{\mu'\nu'}\frac{\omega^{\mu'\nu'}}{N}\gamma_{\nu}+\frac{\omega_{\nu}\msu{\mu}}{N}\gamma_{\mu}+\frac{\ii}{4}\gamma_{\nu}\sigma_{\mu''\nu''}\frac{\omega^{\mu''\nu''}}{N}\\
+0 & =-\frac{\ii}{4}\sigma_{\mu'\nu'}\gamma_{\nu}\frac{\omega^{\mu'\nu'}}{N}+g_{\nu\nu'}\gamma_{\mu'}\frac{\omega^{\nu'\mu'}}{N}+\frac{\ii}{4}\gamma_{\nu}\sigma_{\mu'\nu'}\frac{\omega^{\mu'\nu'}}{N}\\
+0 & =\frac{\omega^{\mu'\nu'}}{N}\left(-\frac{\ii}{4}\sigma_{\mu'\nu'}\gamma_{\nu}-g_{\nu\nu'}\gamma_{\mu'}+\frac{\ii}{4}\gamma_{\nu}\sigma_{\mu'\nu'}\right)
+\end{align*}
+Es gilt, da $\omega^{\mu'\nu'}$ antisymmetrisch ist:
+\begin{align*}
+-\omega^{\mu'\nu'}g_{\nu\nu'}\gamma_{\mu'} & =\left(-\frac{1}{2}g_{\nu\nu'}\gamma_{\mu'}+\frac{1}{2}g_{\nu\mu'}\gamma_{\nu'}\right)\omega^{\mu'\nu'}
+\end{align*}
+Somit folgt:
+\begin{align}
+\frac{\ii}{4}\left(\sigma_{\mu'\nu'}\gamma_{\nu}-\gamma_{\nu}\sigma_{\mu'\nu'}\right)\frac{\omega^{\mu'\nu'}}{N} & =\frac{1}{2}\left(-g_{\nu\nu'}\gamma_{\mu'}+g_{\nu\mu'}\gamma_{\nu'}\right)\frac{\omega^{\mu'\nu'}}{N}\nonumber \\
+\frac{\ii}{2}\left(\sigma_{\mu'\nu'}\gamma_{\nu}-\gamma_{\nu}\sigma_{\mu'\nu'}\right) & =g_{\mu'\nu}\gamma_{\nu'}-g_{\nu'\nu}\gamma_{\mu'}\label{eq:isigma}
+\end{align}
+Die $\sigma_{\mu'\nu'}$ sind antisymmetrische Tensoren der Stufe
+2, die nur von den $\gamma$-Matrizen abhängen, das heißt mit $A\in\mathbb{C}$
+gilt:
+\begin{align*}
+\sigma_{\mu'\nu'} & =A\cdot\left[\gamma_{\mu'},\gamma_{\nu'}\right]
+\end{align*}
+Die linke Seite von (\ref{eq:isigma}) ist damit:
+\begin{align*}
+ & \frac{\ii}{2}A\Big(\gamma_{\mu'}\underbrace{\gamma_{\nu'}\gamma_{\nu}}_{\text{kommutieren}}-\gamma_{\nu'}\underbrace{\gamma_{\mu'}\gamma_{\nu}}_{\text{kommutieren}}-\underbrace{\gamma_{\nu}\gamma_{\mu'}}_{\text{kommutieren}}\gamma_{\nu'}+\underbrace{\gamma_{\nu}\gamma_{\nu'}}_{\text{kommutieren}}\gamma_{\mu'}\Big)=\\
+ & \qquad\qquad\qquad=\frac{\ii}{2}A\Big(2g_{\nu'\nu}\gamma_{\mu'}-\underline{\gamma_{\mu'}\gamma_{\nu}\gamma_{\nu'}}-2g_{\mu'\nu}\gamma_{\nu'}+\underleftarrow{\gamma_{\nu'}\gamma_{\nu}\gamma_{\mu'}}-\\
+ & \qquad\qquad\qquad\qquad\;-2g_{\nu\mu'}\gamma_{\nu'}+\underline{\gamma_{\mu'}\gamma_{\nu}\gamma_{\nu'}}+2g_{\nu\nu'}\gamma_{\mu'}-\underleftarrow{\gamma_{\nu'}\gamma_{\nu}\gamma_{\mu'}}\Big)\\
+ & \qquad\qquad\qquad=2\ii A\left(g_{\nu'\nu}\gamma_{\mu'}-g_{\mu'\nu}\gamma_{\nu'}\right)
+\end{align*}
+Aus (\ref{eq:isigma}) folgt daher:
+\begin{align}
+A & =\frac{\ii}{2} & \fbox{\ensuremath{{\displaystyle \sigma_{\mu\nu}=\frac{\ii}{2}\left[\gamma_{\mu},\gamma_{\nu}\right]}}}
+\end{align}
+Damit haben wir $S$ bestimmt.
+
+Erinnerung: Kugelflächenfunktionen und Drehimpulsoperator
+\begin{align*}
+Y_{lm} & =\sqrt{\frac{2l+1}{4\pi}\cdot\frac{\left(l-m\right)!}{\left(l+m\right)!}}P_{l}^{m}\left(\cos\left(\vartheta\right)\right)e^{\ii m\varphi}\\
+\hat{L}_{z} & =\frac{\hbar}{\ii}\left(x\frac{\partial}{\partial y}-y\frac{\partial}{\partial x}\right)=\frac{\hbar}{\ii}\frac{\partial}{\partial\varphi}
+\end{align*}
+
+
+
+\subsection{Erster Spezialfall: Rotation}
+
+Betrachte die infinitesimale Transformation für Drehungen um die $z$-Achse:
+\begin{align}
+\left(\Lambda_{\nu}^{\mu}\right)_{\text{inf. Rot.}} & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 1 & -\frac{\varphi}{N} & 0\\
+0 & \frac{\varphi}{N} & 1 & 0\\
+0 & 0 & 0 & 1
+\end{array}\right) & \frac{\omega^{12}}{N} & =-\frac{\omega^{21}}{N}=-\frac{\varphi}{N}
+\end{align}
+Alle anderen $\omega^{\mu\nu}$ verschwinden. Außerdem gilt:
+\begin{align*}
+\sigma_{12} & =-\sigma_{21}=\frac{\ii}{2}\left(\gamma_{1}\gamma_{2}-\gamma_{2}\gamma_{1}\right)=\ii\gamma_{1}\gamma_{2}=\\
+ & =\ii\left(\begin{array}{cccc}
+0 & 0 & 0 & -1\\
+0 & 0 & -1 & 0\\
+0 & 1 & 0 & 0\\
+1 & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & \ii\\
+0 & 0 & -\ii & 0\\
+0 & -\ii & 0 & 0\\
+\ii & 0 & 0 & 0
+\end{array}\right)=\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & -1
+\end{array}\right)
+\end{align*}
+\begin{align}
+S & =\exp\left(-\frac{\ii}{4}N\cdot2\frac{\omega^{12}}{N}\sigma_{12}\right)=\exp\left(\frac{\ii}{2}\varphi\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & -1
+\end{array}\right)\right)=\nonumber \\
+ & =\left(\begin{array}{cccc}
+1 &  &  & 0\\
+ & 1\\
+ &  & 1\\
+0 &  &  & 1
+\end{array}\right)\cos\left(\frac{\varphi}{2}\right)+\left(\begin{array}{cccc}
+1 &  &  & 0\\
+ & -1\\
+ &  & 1\\
+0 &  &  & -1
+\end{array}\right)\ii\sin\left(\frac{\varphi}{2}\right)=\nonumber \\
+ & =\left(\begin{array}{cccc}
+e^{\ii\frac{\varphi}{2}} &  &  & 0\\
+ & e^{-\ii\frac{\varphi}{2}}\\
+ &  & e^{\ii\frac{\varphi}{2}}\\
+0 &  &  & e^{-\ii\frac{\varphi}{2}}
+\end{array}\right)
+\end{align}
+Also haben die erste und dritte Komponenten Spin $\frac{1}{2}$ und
+die anderen beiden Spin $-\frac{1}{2}$.
+
+
+\subsection{Zweiter Spezialfall: Lorentz-Boost}
+
+Für den Lorentz-Boost gilt:
+\begin{align*}
+\left(x^{0}\right)' & =\gamma\left(x^{0}+\vec{\beta}\vec{x}\right)\\
+\left(\vec{x}\right)' & =\gamma\left(\vec{\beta}x^{0}+\vec{x}\right)
+\end{align*}
+\begin{align*}
+\vec{\beta} & =\frac{\vec{v}}{c} & \gamma^{-1} & =\sqrt{1-\beta^{2}}
+\end{align*}
+\begin{align*}
+\frac{\omega^{0}\msd k}{N} & =\frac{\omega^{k}\msd 0}{N}=:\frac{\omega^{k}}{N} & \omega & :=\sqrt{\left(\omega^{1}\right)^{2}+\left(\omega^{2}\right)^{2}+\left(\omega^{3}\right)^{2}}
+\end{align*}
+\begin{align}
+\left(\Lambda\right)_{\text{inf. Boost}} & =\left(\begin{array}{cccc}
+1 & \frac{\omega^{1}}{N} & \frac{\omega^{2}}{N} & \frac{\omega^{3}}{N}\\
+\frac{\omega^{1}}{N} & 1 & 0 & 0\\
+\frac{\omega^{2}}{N} & 0 & 1 & 0\\
+\frac{\omega^{3}}{N} & 0 & 0 & 1
+\end{array}\right)
+\end{align}
+Man erhält:
+\begin{align*}
+\sigma_{10} & =\ii\left(\begin{array}{cccc}
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0\\
+0 & 1 & 0 & 0\\
+1 & 0 & 0 & 0
+\end{array}\right) & \sigma_{20} & =\ii\left(\begin{array}{cccc}
+0 & 0 & 0 & -\ii\\
+0 & 0 & \ii & 0\\
+0 & -\ii & 0 & 0\\
+\ii & 0 & 0 & 0
+\end{array}\right) & \sigma_{30} & =\ii\left(\begin{array}{cccc}
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & -1\\
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0
+\end{array}\right)
+\end{align*}
+\begin{align*}
+S & =\lim_{N\to\infty}\left(\mathbbm{1}+\frac{1}{2}\cdot\frac{\omega}{N}\underbrace{\left(\begin{array}{cccc}
+0 & 0 & p^{3} & p^{1}-\ii p^{2}\\
+0 & 0 & p^{1}+\ii p^{2} & -p^{3}\\
+p^{3} & p^{1}-\ii p^{2} & 0 & 0\\
+p^{1}+\ii p^{2} & -p^{3} & 0 & 0
+\end{array}\right)\frac{1}{\norm{\vec{p}}}}_{=:M}\right)^{N}=e^{\frac{\omega}{2}M}
+\end{align*}
+\begin{align*}
+M^{2} & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1
+\end{array}\right)
+\end{align*}
+\begin{align*}
+\Rightarrow\qquad M^{2n} & =\mathbbm{1} & M^{2n+1} & =M
+\end{align*}
+\begin{align}
+\Rightarrow\qquad S & =\cosh\left(\frac{\omega}{2}\right)\mathbbm{1}+\sinh\left(\frac{\omega}{2}\right)M
+\end{align}
+%DATE: Do 18.4.13
+
+Wir betrachten jetzt die $\Lambda_{\alpha}^{\beta}$-Matrix, die sich
+aus $N$ infinitesimalen Transformationen ergibt.
+\begin{align}
+\left(\Lambda_{\alpha}^{\beta}\right) & =\lim_{N\to\infty}\left(1+\frac{\omega}{N}\underbrace{\left(\begin{array}{cccc}
+0 & \omega^{1} & \omega^{2} & \omega^{3}\\
+\omega^{1} & 0 & 0 & 0\\
+\omega^{2} & 0 & 0 & 0\\
+\omega^{3} & 0 & 0 & 0
+\end{array}\right)\frac{1}{\omega}}_{=:\tilde{M}}\right)^{N}=e^{\omega\tilde{M}}
+\end{align}
+\begin{align*}
+\tilde{M}^{2} & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & \frac{\left(\omega^{1}\right)^{2}}{\omega^{2}} & 0 & 0\\
+0 & 0 & \frac{\left(\omega^{2}\right)^{2}}{\omega^{2}} & 0\\
+0 & 0 & 0 & \frac{\left(\omega^{3}\right)^{2}}{\omega^{2}}
+\end{array}\right)
+\end{align*}
+Damit folgt:
+\begin{align*}
+\left(\tilde{M}^{2}\right)_{0}^{0} & =1=\left(\tilde{M}^{2n}\right)_{0}^{0} & \left(\tilde{M}^{2n+1}\right)_{0}^{0} & =0
+\end{align*}
+Somit ergibt sich:
+\begin{align}
+\cosh\left(\omega\right) & =\left(\Lambda\right)_{0}^{0}\stackrel{!}{=}\gamma=\frac{E}{m}=\sqrt{\frac{\norm{\vec{p}}^{2}+m^{2}}{m^{2}}}\nonumber \\
+\cosh\left(\frac{\omega}{2}\right) & =\sqrt{\frac{\cosh\left(\omega\right)+1}{2}}=\sqrt{\frac{E+m}{2m}}\nonumber \\
+\frac{1}{\norm{\vec{p}}}\sinh\left(\frac{\omega}{2}\right) & =\frac{1}{\norm{\vec{p}}}\sqrt{\frac{\cosh\left(\omega\right)-1}{2}}=\frac{1}{\sqrt{E^{2}-m^{2}}}\sqrt{\frac{E-m}{2m}}=\nonumber \\
+ & =\frac{1}{\sqrt{2m\left(E+m\right)}}=\frac{1}{E+m}\sqrt{\frac{E+m}{2m}}\nonumber \\
+S & =\sqrt{\frac{E+m}{2m}}\left(\begin{array}{cccc}
+1 & 0 & \frac{p^{3}}{E+m} & \frac{p^{1}-\ii p^{2}}{E+m}\\
+0 & 1 & \frac{p^{1}+\ii p^{2}}{E+m} & \frac{-p^{3}}{E+m}\\
+\frac{p^{3}}{E+m} & \frac{p^{1}-\ii p^{2}}{E+m} & 1 & 0\\
+\frac{p^{1}+\ii p^{2}}{E+m} & \frac{-p^{3}}{E+m} & 0 & 1
+\end{array}\right)
+\end{align}
+\begin{align*}
+\Rightarrow\qquad u\left(\vec{p},+\right) & =\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+1\\
+0\\
+\frac{p^{3}}{E+m}\\
+\frac{p^{1}+\ii p^{2}}{E+m}
+\end{array}\right)
+\end{align*}
+Die Lösungen sind also:
+\begin{align*}
+\psi_{1} & =e^{-\ii\left(Et-\vec{p}\vec{x}\right)}u\left(\vec{p},+\right)=e^{-\ii px}u\left(\vec{p},+\right) & \psi_{2} & =e^{-\ii\left(Et-\vec{p}\vec{x}\right)}u\left(\vec{p},-\right)=e^{-\ii px}u\left(\vec{p},-\right)\\
+\psi_{3} & =e^{\ii\left(Et-\vec{p}\vec{x}\right)}v\left(\vec{p},+\right)=e^{\ii px}v\left(\vec{p},+\right) & \psi_{4} & =e^{\ii\left(Et-\vec{p}\vec{x}\right)}v\left(\vec{p},-\right)=e^{\ii px}v\left(\vec{p},-\right)
+\end{align*}
+\begin{align}
+\psi_{1}\left(\vec{x},t\right) & =e^{-\ii px}\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+1\\
+0\\
+\frac{p^{3}}{E+m}\\
+\frac{p^{1}+\ii p^{2}}{E+m}
+\end{array}\right) & \psi_{2}\left(\vec{x},t\right) & =e^{-\ii px}\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+0\\
+1\\
+\frac{p^{1}-\ii p^{2}}{E+m}\\
+\frac{-p^{3}}{E+m}
+\end{array}\right)\nonumber \\
+\psi_{3}\left(\vec{x},t\right) & =e^{\ii px}\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+\frac{p^{3}}{E+m}\\
+\frac{p^{1}+\ii p^{2}}{E+m}\\
+1\\
+0
+\end{array}\right) & \psi_{4}\left(\vec{x},t\right) & =e^{\ii px}\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+\frac{p^{1}-\ii p^{2}}{E+m}\\
+\frac{-p^{3}}{E+m}\\
+0\\
+1
+\end{array}\right)
+\end{align}
+
+
+
+\subsection{Der 4-Spinvektor}
+
+Wir suchen nun die relativistische Verallgemeinerung des Spinvektors
+$\vec{s}$, den 4-Spinvektor $s^{\mu}$. Im Ruhesystem soll gelten:
+\begin{align}
+s^{\mu} & =\left(0,\vec{s}\right) & p^{\mu} & =\left(E,\vec{0}\right)=\left(m,\vec{0}\right)
+\end{align}
+Wir verwenden, dass 4-Skalarprodukte invariant unter Lorentz-Transformationen
+sind.
+\begin{align}
+s^{2} & =s_{\mu}s^{\mu}=-\norm{\vec{s}}^{2}\stackrel{\norm{\vec{s}}:=1}{=}-1 & s\cdot p & =s_{\mu}p^{\mu}=0
+\end{align}
+Wir machen folgenden Ansatz für $s^{\mu}$, da die einzige ausgezeichnete
+Raumrichtung $\vec{p}$ ist:
+\begin{align*}
+s^{\mu} & =\left(s^{0},\alpha\vec{p}\right)
+\end{align*}
+Dabei ist $\alpha\in\mathbb{R}$ ein beliebiger Proportionalitätsfaktor.
+Einsetzen liefert:
+\begin{align*}
+s^{0}E-\alpha\vec{p}^{2} & =0\\
+\Rightarrow\qquad s^{0} & =\frac{\alpha\vec{p}^{2}}{E}
+\end{align*}
+Damit ergibt die andere Gleichung:
+\begin{align*}
+-1 & =\left(s^{0}\right)^{2}-\alpha^{2}\vec{p}^{2}=\left(\frac{\alpha\vec{p}^{2}}{E}\right)^{2}-\alpha^{2}\vec{p}^{2}=\\
+ & =\alpha^{2}\left(\frac{\vec{p}^{4}}{E^{2}}-\vec{p}^{2}\right)=\alpha^{2}\left(\frac{\vec{p}^{4}}{E^{2}}-\vec{p}^{2}\right)=\\
+ & =-\alpha^{2}\cdot\frac{\vec{p}^{2}m^{2}}{E^{2}}\\
+\Rightarrow\qquad\alpha & =\pm\frac{E}{m\norm{\vec{p}}}
+\end{align*}
+Somit ist der Spin 4-Vektor:
+\begin{align}
+\fbox{\ensuremath{{\displaystyle s^{\mu}=\pm\frac{E}{m}\left(\frac{\norm{\vec{p}}}{E},\frac{\vec{p}}{\norm{\vec{p}}}\right)}}}
+\end{align}
+Eine wichtige Eigenschaft von $s^{\mu}$ ist:
+\begin{align}
+\lim_{\frac{\norm{\vec{p}}}{m}\to\infty}s^{\mu} & =\pm\frac{1}{m}\left(E,\vec{p}\right)=\pm\frac{p^{\mu}}{m}
+\end{align}
+Was ist das Lorentz-invariante Skalarprodukt (und damit die Norm)
+für Spinoren? Wir machen folgenden Ansatz:
+\begin{align*}
+\int\dd^{3}x\left(\psi^{*}\right)^{\TT}\left(t,\vec{x}\right)\Gamma\psi\left(t,\vec{x}\right) & =1
+\end{align*}
+Dabei ist $\Gamma\in\mathbb{C}^{4\times4}$ eine Matrix. Die Lorentz-Invarianz
+bedeutet:
+\begin{align*}
+S^{\dagger}\Gamma S & \stackrel{!}{=}\Gamma
+\end{align*}
+Nebenrechnung:
+\begin{align*}
+-\frac{\omega^{\mu\nu}}{4}\left(\ii\sigma_{\mu\nu}\right)^{\dagger} & =\frac{\omega^{\mu\nu}}{8}\left(\gamma_{\mu}\gamma_{\nu}-\gamma_{\nu}\gamma_{\mu}\right)^{\dagger}=\frac{\omega^{\mu\nu}}{8}\left(\gamma_{\nu}^{\dagger}\gamma_{\mu}^{\dagger}-\gamma_{\mu}^{\dagger}\gamma_{\nu}^{\dagger}\right)
+\end{align*}
+In der Dirac-Darstellung gilt:
+\begin{align*}
+\gamma_{0} & =\gamma_{0}^{\dagger} & \gamma_{i} & =-\gamma_{i}^{\dagger}
+\end{align*}
+Dies kann man aufgrund der Antikommutator-Relationen kurz schreiben
+als:
+\begin{align*}
+\gamma_{\mu}^{\dagger} & =\gamma_{0}\gamma_{\mu}\gamma_{0}
+\end{align*}
+Es folgt:
+\begin{align*}
+-\frac{\omega^{\mu\nu}}{4}\left(\ii\sigma_{\mu\nu}\right)^{\dagger} & =\gamma_{0}\frac{\omega^{\mu\nu}}{8}\left(\gamma_{\nu}\gamma_{\mu}-\gamma_{\mu}\gamma_{\nu}\right)\gamma_{0}=\gamma_{0}\frac{\ii}{4}\omega^{\mu\nu}\sigma_{\mu\nu}\gamma_{0}
+\end{align*}
+Aus (\ref{eq:S-Transformation-Definition}) folgt für eine infinitesimale
+Transformation:
+\begin{align*}
+S^{\dagger} & =\gamma_{0}S^{-1}\gamma_{0}
+\end{align*}
+Bei einer endlichen Transformation ergibt sich dies ebenfalls:
+\begin{align*}
+\left(S^{N}\right)^{\dagger} & =\left(S^{\dagger}\right)^{N}=\gamma_{0}\left(S^{-1}\right)^{N}\gamma_{0}=\gamma_{0}\left(S^{N}\right)^{-1}\gamma_{0}
+\end{align*}
+Damit erhält man für alle $\omega^{\mu\nu}$:
+\begin{align*}
+\gamma_{0}S^{-1}\gamma_{0}\Gamma S & \stackrel{!}{=}0\\
+\Rightarrow\qquad\Gamma & =\gamma_{0}=\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & -1
+\end{array}\right)
+\end{align*}
+Die Norm ist also:
+\begin{align}
+\norm{\psi}^{2} & =\int\dd^{3}x\psi^{\dagger}\left(t,\vec{x}\right)\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & -1
+\end{array}\right)\psi\left(t,\vec{x}\right)
+\end{align}
+Im Folgenden verwenden wir die Notation:
+\begin{align*}
+\overline{\psi} & =\psi^{\dagger}\gamma_{0}
+\end{align*}
+
+
+
+\subsection{Projektions-Operatoren}
+
+Wir wollen die Lösungen der Dirac-Gleichung jetzt mit Hilfe von Projektions-Operatoren
+schreiben. Im euklidischen Raum gilt:
+\begin{align*}
+\vec{v} & =\sum_{i}\vec{e}_{i}\left(\vec{e}_{i}^{\TT}\cdot\vec{v}\right)=\sum_{i}\underbrace{\left(\vec{e}_{i}\vec{e}_{i}^{\TT}\right)}_{=:P}\cdot\vec{v}
+\end{align*}
+Die Projektions-Operatoren im Ruhesystem sind einfach:
+\begin{align}
+\hat{P}_{1} & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0
+\end{array}\right) & \hat{P}_{2} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0
+\end{array}\right)\nonumber \\
+\hat{P}_{3} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 0
+\end{array}\right) & \hat{P}_{4} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 1
+\end{array}\right)
+\end{align}
+Weiter gilt im Ruhesystem:
+\begin{align*}
+\frac{\slashd p+m}{2m} & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0
+\end{array}\right) & \frac{\slashd p-m}{2m} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1
+\end{array}\right)
+\end{align*}
+Wir definieren:
+\begin{align*}
+\gamma_{5} & =\gamma^{5}:=\ii\gamma^{0}\gamma^{1}\gamma^{2}\gamma^{3}=-\ii\gamma_{0}\gamma_{1}\gamma_{2}\gamma_{3}=\left(\begin{array}{cccc}
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0
+\end{array}\right)
+\end{align*}
+\begin{align*}
+\gamma_{5}\gamma_{\mu}s^{\mu}\bigg|_{\vec{s}=\left(0,0,1\right)} & =\gamma_{5}\gamma_{3}=\left(\begin{array}{cccc}
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & 1\\
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0
+\end{array}\right)=\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0\\
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & 1
+\end{array}\right)
+\end{align*}
+\begin{align}
+\frac{1+\gamma_{5}\slashd s}{2} & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 1
+\end{array}\right)\nonumber \\
+\Rightarrow\qquad\hat{P}_{1} & =\frac{\slashd p+m}{2m}\cdot\frac{1+\gamma_{5}\slashd s}{2}=u\left(\vec{p},+\right)\overline{u}\left(\vec{p},+\right)
+\end{align}
+Analog ergibt sich:
+\begin{align}
+\hat{P}_{2} & =\frac{\slashd p+m}{2m}\cdot\frac{1-\gamma_{5}\slashd s}{2}\\
+\hat{P}_{3} & =\frac{-\slashd p+m}{2m}\cdot\frac{1-\gamma_{5}\slashd s}{2}\\
+\hat{P}_{4} & =\frac{-\slashd p+m}{2m}\cdot\frac{1+\gamma_{5}\slashd s}{2}
+\end{align}
+Für $\norm{\vec{p}}\gg m$ ist $\slashd s\approx\slashd p$ und es
+gilt:
+\begin{align*}
+\left(\slashd p+m\right)\frac{\slashd p}{m} & =\frac{\slashd p^{2}+\slashd pm}{m}=\frac{p^{2}+m\slashd p}{m}=\frac{m^{2}+m\slashd p}{m}=m+\slashd p
+\end{align*}
+\begin{align}
+ & \text{Helizität (engl. helicity):} &  & \frac{1\pm\gamma_{5}\slashd s}{2}\\
+ & \text{Chiralität (engl. chirality):} &  & \frac{1\pm\gamma_{5}}{2}
+\end{align}
+Für $\frac{\norm{\vec{p}}}{m}\to\infty$ stimmt beides überein.
+
+%DATE: Mo 22.4.13
+
+
+\subsection{Diskrete Lorentz-Transformationen}
+
+Zur Lorentz-Gruppe gehören die diskreten Transformationen $\hat{P}$
+(Parität) und $\hat{T}$ (Zeitumkehr).
+\begin{align}
+\hat{P} & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0\\
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & -1
+\end{array}\right) & \hat{T} & =\left(\begin{array}{cccc}
+-1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1
+\end{array}\right)
+\end{align}
+\begin{align}
+\Lambda_{\mu'}^{\mu}\Lambda_{\nu'}^{\nu}g_{\mu\nu} & =g_{\mu'\nu'}\nonumber \\
+\Rightarrow\qquad\left(\det\left(\Lambda\right)\right)^{2} & =1\nonumber \\
+\det\left(\Lambda\right) & =\pm1
+\end{align}
+Für $\mu'=0=\nu'$ gilt:
+\begin{align*}
+\Lambda_{0}^{0}\Lambda_{0}^{0}-\sum_{i=1}^{3}\Lambda_{0}^{i}\Lambda_{0}^{i} & =1\\
+\Rightarrow\qquad\left(\Lambda_{0}^{0}\right)^{2} & =1+\sum_{i=1}^{3}\left(\Lambda_{0}^{i}\right)^{2}\ge1
+\end{align*}
+\begin{align}
+\Lambda_{0}^{0} & \ge1\qquad\text{oder}\qquad\Lambda_{0}^{0}\le1
+\end{align}
+Es gibt vier nicht zusammenhängende Teilmengen der Lorentzgruppe:
+\begin{align}
+L_{+}^{\uparrow}:\  & \det\left(\Lambda\right)=+1,\quad\Lambda_{0}^{0}>1 & \stackrel{\hat{T}}{\Rightarrow}\qquad L_{-}^{\downarrow}:\  & \det\left(\Lambda\right)=-1,\quad\Lambda_{0}^{0}<1\nonumber \\
+ & \hat{P}\Downarrow & \hat{P}\hat{T}\RotateX{-45}{\Rightarrow}\qquad\qquad & \hat{P}\Downarrow\nonumber \\
+L_{-}^{\uparrow}:\  & \det\left(\Lambda\right)=-1,\quad\Lambda_{0}^{0}>1 & \stackrel{\hat{T}}{\Rightarrow}\qquad L_{+}^{\downarrow}:\  & \det\left(\Lambda\right)=+1,\quad\Lambda_{0}^{0}<1
+\end{align}
+Die schwache Wechselwirkung verletzt die $\hat{P}$- und die $\hat{T}$-Symmetrie.
+
+Stetige Transformationen führen nicht aus $L_{+}^{\uparrow}$ hinaus.
+Daher muss man sich zusätzlich das Verhalten unter $\hat{P}$ und
+$\hat{T}$ ansehen.
+\begin{description}
+\item [{Nebenbemerkung:}] $\hat{C}\hat{P}\hat{T}$ ist für jede ,,vernünftige``
+Theorie eine Symmetrietransformation, wobei $\hat{C}$ die Ladungskonjugation
+ist, die Teilchen und Antiteilchen vertauscht. Daher ist $\hat{C}=\hat{P}\hat{T}$.
+\end{description}
+
+\section{Das Eichprinzip}
+
+Die Quantenmechanik ist invariant unter globalen Eichtransformationen
+$\psi\left(x\right)\to e^{\ii q\Theta}\psi\left(x\right)$. In der
+Quantenelektrodynamik fordert man nun die Invarianz unter den allgemeineren
+\emph{lokalen} Eichtransformationen $\psi\left(x\right)\to e^{\ii q\Theta\left(x\right)}$.
+
+Als heuristische Motivation hierfür betrachte zum Beispiel das Aharonov-Bohm-Experiment:
+
+\begin{figure}[H]
+\noindent \begin{centering}
+\begin{tikzpicture}
+  \draw (0,-1) -- (0,1) (0,1.3) -- (0,2.5) (0,-1.3) -- (0,-2.5);
+  \draw (4,-2.5) -- (4,2.5);
+  \draw (-4,0) node[above]{$e^-$} -- (0,1.15) -- (4,0);
+  \draw (-4,0) -- (0,-1.15) -- (4,0);
+  \draw (-1,0) node{$\vec{B}$} circle (0.7);
+  \draw plot[smooth,tension=.7] coordinates{(4.5,2.5) (5,2) (4.5,1.5) (5,1) (4.5,0.5) (5,0) (4.5,-0.5) (5,-1) (4.5,-1.5) (5,-2) (4.5,-2.5)};
+  \draw[orange, thick,<->] (5.5,1) -- node[right]{abhängig von $\vec{B}$} (5.5,-1);
+\end{tikzpicture}
+\par\end{centering}
+
+\noindent \centering{}\caption{Aharonov-Bohm-Experiment: aufgesammelte Phase $e^{\ii\int_{s}qA_{\mu}\dd x^{\mu}}$}
+\end{figure}
+
+
+Das Vektorpotential $A^{\mu}$ ist nur bis auf eine Eichtransformation
+bestimmt. Die Eichphasen dürfen also keine Rolle spielen.
+
+Die freie Dirac-Gleichung
+\begin{align*}
+\left(\ii\gamma^{\mu}\partial_{\mu}-m\right)\psi\left(x\right) & =0
+\end{align*}
+ist nicht invariant unter lokalen Eichtransformationen:
+\begin{align*}
+\left(\ii\gamma^{\mu}\partial_{\mu}-m\right)e^{\ii q\Theta\left(x\right)}\psi\left(x\right) & =e^{\ii q\Theta\left(x\right)}\left(-q\gamma^{\mu}\left(\partial_{\mu}\Theta\right)+\ii\gamma^{\mu}\partial_{\mu}-m\right)
+\end{align*}
+Aus der Forderung nach Invarianz folgt, dass es etwas geben muss,
+was sich so transformiert, dass die Dirac-Gleichung invariant wird.
+Da $\partial_{\mu}\Theta\left(x\right)$ ein Vektorfeld ist, muss
+das neue Objekt ebenfalls ein Vektorfeld sein, und zwar $A_{\mu}$
+mit:
+\begin{align}
+\left(\ii\gamma^{\mu}\partial_{\mu}-q\gamma^{\mu}A_{\mu}\left(x\right)-m\right)\psi\left(x\right) & =0
+\end{align}
+Unter einer Eichtransformation transformiert $A_{\mu}$ wie folgt:
+\begin{align}
+A_{\mu}\left(x\right) & \to A_{\mu}\left(x\right)-\partial_{\mu}\Theta\left(x\right)
+\end{align}
+Aus der Forderung nach Eichinvarianz folgt die Existenz des Photons.
+
+
+\subsection{Lagrangedichte der Quantenelektrodynamik}
+
+Um zum Beispiel die Zeitentwicklung eines Elektronfeldes beschreiben
+zu können, muss man wissen, wie sich $A_{\mu}\left(x\right)$ dynamisch
+entwickelt, das heißt wir brauchen die Lagrangedichte des Photons
+$\mathcal{L}_{A}\left(x\right)$.
+
+Wir wissen, dass $\DD_{\mu}=\partial_{\mu}+\ii qA_{\mu}$ ein eichinvarianter
+Ableitungsoperator ist, der \emph{kovariante Ableitung} genannt wird.
+\begin{itemize}
+\item Für die Dimension von $\mathcal{L}$ gilt:
+\begin{align}
+S & =\int\dd^{4}x\mathcal{L}\left(x\right)\\
+1\stackrel{\hbar=1}{=}\left[S\right] & =\left[x\right]^{4}\cdot\left[\mathcal{L}\right]\nonumber \\
+\Rightarrow\qquad\left[\mathcal{L}\right] & =\left[x\right]^{-4}\stackrel{\hbar c=1}{=}\left[E\right]^{4}\nonumber 
+\end{align}
+
+\item $\mathcal{L}\left(x\right)$ ist eine Lorentz-Skalardichte.
+\item $\mathcal{L}\left(x\right)$ ist kein Ableitungsoperator, sondern
+eine Funktion (ein Multiplikationsoperator).
+\item $\mathcal{L}\left(x\right)$ muss eichinvariant sein, dass heißt sie
+muss aus $\DD_{\mu}$-Operatoren aufgebaut sein.
+\end{itemize}
+Man beobachtet, dass $\left[\hat{D}_{\mu},\hat{D}_{\nu}\right]$ ein
+Multiplikations- und kein Ableitungsoperator ist.
+\begin{align*}
+\left(\partial_{\mu}+\ii qA_{\mu}\right)\left(\partial_{\nu}+\ii qA_{\nu}\right) & =\partial_{\mu}\partial_{\nu}+\ii q\left(\partial_{\mu}A_{\nu}\right)+\ii qA_{\nu}\partial_{\mu}+\ii qA_{\mu}\partial_{\nu}-q^{2}A_{\mu}A_{\nu}\\
+\left(\partial_{\nu}+\ii qA_{\nu}\right)\left(\partial_{\mu}+\ii qA_{\mu}\right) & =\partial_{\nu}\partial_{\mu}+\ii q\left(\partial_{\nu}A_{\mu}\right)+\ii qA_{\mu}\partial_{\nu}+\ii qA_{\nu}\partial_{\mu}-q^{2}A_{\nu}A_{\mu}
+\end{align*}
+\begin{align*}
+\Rightarrow\qquad\left[\hat{D}_{\mu},\hat{D}_{\nu}\right] & =\ii q\left(\partial_{\mu}A_{\nu}-\partial_{\nu}A_{\mu}\right)=:\ii qF_{\mu\nu}
+\end{align*}
+Wählt man $q$ dimensionslos, so hat $A_{\mu}$ die Dimension einer
+Energie und somit folgt $\left[F_{\mu\nu}\right]=\left[E\right]^{2}$.
+\begin{align}
+\stackrel{F^{\mu}\msd{\mu}=0}{\Rightarrow}\qquad\fbox{\ensuremath{{\displaystyle \mathcal{L}\left(x\right)\sim F_{\mu\nu}F^{\mu\nu}}}}
+\end{align}
+Die Wahl der Konstanten ist willkürlich. Damit die Gleichungen möglichst
+einfach werden, wählt man folgende Lagrangedichte: 
+\begin{align}
+\mathcal{L}\left(x\right) & :=-\frac{1}{4}F_{\mu\nu}F^{\mu\nu}
+\end{align}
+Die freie Euler-Lagrange-Gleichung ist also:
+\begin{align}
+\frac{\partial\mathcal{L}}{\partial A_{\sigma}}-\partial^{\lambda}\frac{\partial\mathcal{L}}{\partial\left(\partial^{\lambda}A_{\sigma}\right)} & =0\nonumber \\
+\Rightarrow\qquad\partial^{\lambda}F_{\lambda\sigma} & =0
+\end{align}
+Die Lagrange-Dichte der Quantenelektrodynamik ist somit:
+\begin{align}
+\mathcal{L}_{\text{QED}}\left(x\right) & =\sum_{\text{Fermionen }j}\overline{\psi}_{j}\left(x\right)\left(\slashd{\hat{p}}-eQ_{j}\slashd A\left(x\right)-m\right)\psi_{j}\left(x\right)-\frac{1}{4}F_{\mu\nu}\left(x\right)F^{\mu\nu}\left(x\right)
+\end{align}
+Bei der Variation sind $\overline{\psi}$ und $\psi$ als unabhängige
+Variablen aufzufassen, weil eine komplexe Größe zwei reelle Freiheitsgrade
+hat. Die Euler-Lagrange-Gleichungen für $A_{\sigma}$ sind:
+\begin{align}
+0 & =\frac{\partial\mathcal{L}_{\text{QED}}}{\partial A_{\sigma}}-\partial_{\lambda}\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\left(\partial_{\lambda}A_{\sigma}\right)}=\nonumber \\
+ & =\sum_{\text{Fermionen }j}\overline{\psi}_{j}\left(x\right)\left(-eQ_{j}\gamma^{\sigma}\right)\psi_{j}\left(x\right)-\left(\frac{-1}{4}\cdot4\right)\partial_{\lambda}F^{\lambda\sigma}\nonumber \\
+\partial_{\lambda}F^{\lambda\sigma} & =eQ_{j}\underbrace{\sum_{\text{Fermionen }j}\overline{\psi}_{j}\left(x\right)\gamma^{\sigma}\psi_{j}\left(x\right)}_{=j^{\sigma}\left(x\right)}
+\end{align}
+Die Dirac-Gleichung erhält man als Euler-Lagrange-Gleichung für $\overline{\psi}_{j}$.
+\begin{align*}
+0 & =\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\overline{\psi}_{j}}-\partial_{\lambda}\underbrace{\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\left(\partial_{\lambda}\overline{\psi}_{j}\right)}}_{=0}=\left(\slashd{\hat{p}}-eQ_{j}\slashd A\left(x\right)-m\right)\psi_{j}\left(x\right)
+\end{align*}
+Die Euler-Lagrange-Gleichung für $\psi_{j}$ ist die konjugierte Dirac-Gleichung:
+\begin{align*}
+0 & =\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\psi_{j}}-\partial_{\lambda}\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\left(\partial_{\lambda}\psi_{j}\right)}=\overline{\psi}_{j}\left(-eQ_{j}A^{\lambda}\left(x\right)-m\right)-\partial_{\lambda}\left(\overline{\psi}_{j}\cdot\ii\gamma^{\lambda}\right)=\\
+ & =\overline{\psi}_{j}\left(-\overleftarrow{\slashd p}-eQ_{j}\slashd A\left(x\right)-m\right)
+\end{align*}
+Dabei bedeutet $\overleftarrow{\slashd p}$, dass der Ableitungsoperator
+nach links wirkt, also auf $\overline{\psi}_{j}$.
+
+
+\subsection{Bilinearformen des Dirac-Feldes}
+
+Man nennt $\overline{\psi}\left(x\right)\gamma^{\sigma}\psi\left(x\right)$
+eine \emph{Bilinearform}. Physikalische Größen entsprechen Bilinearformen.
+Wir kennen bereits die Vektordichte:
+\begin{align*}
+V^{\sigma}\left(x\right) & =\overline{\psi}\left(x\right)\gamma^{\sigma}\psi\left(x\right)
+\end{align*}
+$V^{\sigma}\left(x\right)$ ist hermitesch:
+\begin{align*}
+\left[V^{\sigma}\left(x\right)\right]^{\dagger} & =\psi^{\dagger}\left(x\right)\left(\gamma^{\sigma}\right)^{\dagger}\left(\gamma_{0}\right)^{\dagger}\psi\left(x\right)=\psi^{\dagger}\left(x\right)\left(\gamma_{0}\right)^{2}\left(\gamma^{\sigma}\right)^{\dagger}\left(\gamma_{0}\right)^{\dagger}\psi\left(x\right)=\\
+ & =\overline{\psi}\left(x\right)\gamma_{0}\left(\gamma^{\sigma}\right)^{\dagger}\gamma_{0}\psi\left(x\right)=\overline{\psi}\left(x\right)\gamma^{\sigma}\psi\left(x\right)
+\end{align*}
+Es muss 16 unabhängige hermitesche Bilinearformen geben. Wir wählen
+als Basis solche Bilinearformen, die sich aus den $\gamma$-Matrizen
+berechnen lassen:
+\begin{align}
+S\left(x\right) & =\overline{\psi}\left(x\right)\psi\left(x\right) &  & \text{Skalardichte (1 Komponenten)}\\
+V^{\sigma}\left(x\right) & =\overline{\psi}\left(x\right)\gamma^{\sigma}\psi\left(x\right) &  & \text{Vektordichte (4 Komponenten)}\\
+T^{\mu\nu}\left(x\right) & =\overline{\psi}\left(x\right)\sigma^{\mu\nu}\psi\left(x\right)=\psi^{\dagger}\gamma_{0}\frac{\ii}{2}\left(\gamma^{\mu}\gamma^{\nu}-\gamma^{\nu}\gamma^{\mu}\right)\psi &  & \text{Tensordichte (6 Komponenten)}\\
+A^{\sigma}\left(x\right) & =\overline{\psi}\left(x\right)\gamma^{\sigma}\gamma_{5}\psi\left(x\right) &  & \text{Axialvektordichte (4 Komponenten)}\\
+P\left(x\right) & =\overline{\psi}\left(x\right)\ii\gamma_{5}\psi\left(x\right) &  & \text{Pseudoskalardichte (1 Komponenten)}
+\end{align}
+\begin{align*}
+P^{\dagger} & =\psi^{\dagger}\left(-\ii\right)\gamma_{5}\gamma_{0}\psi\left(x\right)=\ii\overline{\psi}\gamma_{5}\psi
+\end{align*}
+\begin{align*}
+\left(T^{\mu\nu}\left(x\right)\right)^{\dagger} & =\psi^{\dagger}\left(\gamma^{\nu\dagger}\gamma^{\mu\dagger}-\gamma^{\nu\dagger}\gamma^{\mu\dagger}\right)\left(-\frac{\ii}{2}\right)\gamma_{0}\psi=\\
+ & =\psi^{\dagger}\left(\left(\gamma_{0}\right)^{2}\gamma^{\nu\dagger}\left(\gamma_{0}\right)^{2}\gamma^{\mu\dagger}-\left(\gamma_{0}\right)^{2}\gamma^{\nu\dagger}\left(\gamma_{0}\right)^{2}\gamma^{\mu\dagger}\right)\left(-\frac{\ii}{2}\right)\gamma_{0}\psi=\\
+ & =-\overline{\psi}\frac{\ii}{2}\left(\gamma^{\nu}\gamma^{\mu}-\gamma^{\mu}\gamma^{\nu}\right)\psi=\overline{\psi}\sigma^{\mu\nu}\psi
+\end{align*}
+Die Axialvektordichte und die Pseudoskalardichte transformieren sich
+unter stetigen Lorentz-Transformationen wie ein Vektor beziehungsweise
+wie ein Skalar. Allerdings ändern sie unter der Paritätstransformation
+ihr Vorzeichen.
+
+Es gibt unter diesen 16 keine Bilinearform, die ein symmetrischer
+Tensor 2. Stufe ist. Daher kann man so nicht an das Gravitationsfeld,
+dass durch den symmetrischen Metrik-Tensor $g_{\mu\nu}$ beschrieben
+wird koppeln.
+
+%DATE: Di 23.4.13
+
+
+\subsection{Die Transformationen \texorpdfstring{$\hat{C},\hat{P},\hat{T}$}{C, P, T}}
+
+
+\subsubsection*{Ladungskonjugation $\hat{C}$}
+
+Die Ladungskonjugation vertauscht Teilchen und Antiteilchen.
+\begin{align}
+ & \text{Elektron-Dirac-Gleichung:} & \left(\ii\gamma_{\mu}\partial^{\mu}-eA^{\mu}\gamma_{\mu}-m\right)\psi & =0\\
+ & \text{Positron-Dirac-Gleichung:} & \left(\ii\gamma_{\mu}\partial^{\mu}+eA^{\mu}\gamma_{\mu}-m\right)\psi & =0
+\end{align}
+Überlegung: Ein Elektron, das mit Energie $E>0$ und Impuls $\vec{p}$
+vorwärts in der Zeit läuft entspricht einem Positron, dass mit Energie
+$-E<0$ und Impuls $-\vec{p}$ rückwärts in der Zeit läuft.
+\begin{align*}
+e^{\ii\left(-Et-\vec{p}\cdot\vec{x}\right)} & =e^{-\ii\left(\left(-E\right)\left(-t\right)+\vec{p}\cdot\vec{x}\right)}
+\end{align*}
+
+
+\begin{figure}[H]
+\noindent \begin{centering}
+\begin{tikzpicture}[scale=0.5]
+  \draw plot[smooth,tension=.7] coordinates{(-2,-3) (-0.5,-2) (0.5,2) (2,3)};
+  \node at (-2,-3) [left] {$t_1$};
+  \node at (2,3) [right] {$t_2$};
+  \draw[thick,->] (-0.9,-1) -- node[left]{$e^-$} (-0.5,1);
+  \draw[thick,<-] (0.5,-1) -- node[right]{$e^+$} (0.9,1);
+\end{tikzpicture}
+\par\end{centering}
+
+\noindent \centering{}\caption{In der Zeit vorwärts laufendes Elektron entspricht in der Zeit rückwärts
+laufendem Positron.}
+\end{figure}
+
+
+Hieraus motivieren wir den Ansatz:
+\begin{align}
+\psi_{C}\left(x\right) & =C\psi^{*}\left(x\right)
+\end{align}
+Dabei ist $C\in\text{GL}_{4}\left(\mathbb{C}\right)$ eine beliebige
+invertierbare Matrix. Komplexe Konjugation der Elektron-Dirac-Gleichung
+und Einfügen von $C$ liefert:
+\begin{align*}
+C\left(-\ii\gamma_{\mu}^{*}\partial^{\mu}-eA^{\mu}\gamma_{\mu}^{*}-m\right)C^{-1}C\psi^{*} & =0\\
+\left(-\ii C\gamma_{\mu}^{*}C^{-1}\partial^{\mu}-eA^{\mu}C\gamma_{\mu}^{*}C^{-1}-m\right)\psi_{C} & =0
+\end{align*}
+Damit dies in die Positron-Dirac-Gleichung übergeht, muss
+\begin{align*}
+C\gamma_{\mu}^{*}C^{-1} & =-\gamma_{\mu}
+\end{align*}
+gelten. Die Lösung davon ist:
+\begin{align*}
+C & =\gamma_{2}e^{\ii\varphi} & C^{-1} & =-\gamma_{2}e^{-\ii\varphi}
+\end{align*}
+\begin{align*}
+C\gamma_{2}^{*}C^{-1} & =\gamma_{2}e^{\ii\varphi}\left(-\gamma_{2}\right)\left(-\gamma_{2}\right)e^{-\ii\varphi}=\gamma_{2}^{3}=-\gamma_{2}
+\end{align*}
+Für $\mu\not=2$ gilt:
+\begin{align*}
+C\gamma_{\mu}^{*}C^{-1} & =\gamma_{2}e^{\ii\varphi}\gamma_{\mu}\left(-\gamma_{2}\right)e^{-\ii\varphi}=-\gamma_{2}\gamma_{\mu}\gamma_{2}=\gamma_{\mu}\gamma_{2}\gamma_{2}=-\gamma_{\mu}
+\end{align*}
+Damit folgt:
+\begin{align}
+\psi_{C} & =e^{\ii\varphi}\left(\begin{array}{cccc}
+0 & 0 & 0 & \ii\\
+0 & 0 & -\ii & 0\\
+0 & -\ii & 0 & 0\\
+\ii & 0 & 0 & 0
+\end{array}\right)\psi^{*}
+\end{align}
+Beispiel:
+\begin{align*}
+\psi_{4} & =v\left(p,+\right)e^{\ii p\cdot x}=\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+\frac{p_{1}-\ii p_{2}}{E+m}\\
+\frac{-p_{3}}{E+m}\\
+0\\
+1
+\end{array}\right)e^{\ii px}\\
+\psi_{1} & =u\left(p,+\right)e^{-\ii p\cdot x}=\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+1\\
+0\\
+\frac{p_{3}}{E+m}\\
+\frac{p_{1}+\ii p_{2}}{E+m}
+\end{array}\right)e^{-\ii px}
+\end{align*}
+\begin{align*}
+\left(\psi_{1}\right)_{C} & =e^{\ii\varphi}\left(\begin{array}{cccc}
+0 & 0 & 0 & \ii\\
+0 & 0 & -\ii & 0\\
+0 & -\ii & 0 & 0\\
+\ii & 0 & 0 & 0
+\end{array}\right)\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+1\\
+0\\
+\frac{p_{3}}{E+m}\\
+\frac{p_{1}-\ii p_{2}}{E+m}
+\end{array}\right)e^{\ii px}=\\
+ & =\ii e^{\ii\varphi}\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+\frac{p_{1}-\ii p_{2}}{E+m}\\
+\frac{-p_{3}}{E+m}\\
+0\\
+1
+\end{array}\right)e^{-\ii px}=\ii e^{\ii\varphi}\psi_{4}
+\end{align*}
+Ein physikalisches Positron $\psi_{C}$ mit positiver Energie ist
+äquivalent zu einer Lösung $\psi$ mit negativer Energie.
+
+
+\subsubsection*{Paritätstransformation $\hat{P}$}
+
+Die Paritätstransformation ist eine räumliche Spiegelung am Ursprung:
+\begin{align}
+x^{\mu} & \to\left(x'\right)^{\mu}=\left(x^{0},-\vec{x}\right)
+\end{align}
+Wir machen den Ansatz:
+\begin{align}
+\psi_{P}\left(x'\right) & =\psi\left(x^{0},-\vec{x}\right)=P\psi\left(x\right)
+\end{align}
+Die Dirac-Gleichung für $x'$ ist:
+\begin{align*}
+\left(\ii\gamma_{\mu}\frac{\partial}{\partial\left(x'\right)^{\mu}}-e\gamma^{\mu}A_{\mu}\left(x'\right)-m\right)\psi_{P}\left(x'\right) & =0
+\end{align*}
+Die soll äquivalent sein zu:
+\begin{align*}
+\left(\ii\gamma^{\mu}\frac{\partial}{\partial x^{\mu}}-e\gamma^{\mu}A_{\mu}\left(x\right)-m\right)\psi\left(x\right) & =0
+\end{align*}
+Wegen $\vec{E}\stackrel{P}{\to}-\vec{E}$ und $\vec{B}\stackrel{P}{\to}\vec{B}$
+sowie $\nabla\stackrel{P}{\to}-\nabla$ und $\partial_{t}\stackrel{P}{\to}\partial_{t}$
+folgt $A^{0}\stackrel{P}{\to}A^{0}$ und $A^{j}\stackrel{P}{\to}-A^{j}$.
+\begin{align*}
+\Rightarrow\qquad P^{-1}\left(\ii\gamma^{0}\frac{\partial}{\partial x^{0}}-\ii\gamma^{j}\frac{\partial}{\partial x^{j}}-e\gamma^{0}A_{0}+e\gamma^{j}A_{j}-m\right)P\psi & =0
+\end{align*}
+Es muss also gelten:
+\begin{align*}
+P^{-1}\gamma^{0}P & =\gamma^{0} & P^{-1}\gamma^{j}P & =-\gamma^{j}
+\end{align*}
+\begin{align}
+\Rightarrow\qquad P & =e^{\ii\chi}\gamma_{0} & P^{-1} & =e^{-\ii\chi}\gamma_{0}
+\end{align}
+
+
+
+\subsubsection*{Zeitumkehrinvarianz $\hat{T}$}
+
+Wegen $\vec{E}\stackrel{T}{\to}\vec{E}$ und $\vec{B}\stackrel{T}{\to}-\vec{B}$
+sowie $\nabla\stackrel{T}{\to}\nabla$ und $\partial_{t}\stackrel{T}{\to}-\partial_{t}$
+folgt $A^{0}\stackrel{T}{\to}A^{0}$ und $A^{j}\stackrel{T}{\to}-A^{j}$.
+Wir machen den Ansatz:
+\begin{align}
+\psi_{T}\left(x'\right) & =T\psi^{*}\left(x\right)
+\end{align}
+Die Dirac-Gleichung für $\psi_{T}$ ist:
+\begin{align*}
+\left(-\ii\gamma^{0}\frac{\partial}{\partial x^{0}}+\ii\gamma^{j}\frac{\partial}{\partial x^{j}}-e\gamma^{0}A_{0}\left(x\right)+e\gamma^{j}A_{j}\left(x\right)-m\right)T\psi^{*}\left(x\right) & =0\qquad/^{*}\\
+\left(T^{*}\right)^{-1}\left(\ii\gamma^{0}\frac{\partial}{\partial x^{0}}-\ii\left(\gamma^{j}\right)^{*}\frac{\partial}{\partial x^{j}}-e\gamma^{0}A_{0}\left(x\right)+e\left(\gamma^{j}\right)^{*}A_{j}\left(x\right)-m\right)T^{*}\psi\left(x\right) & =0
+\end{align*}
+Nun muss gelten:
+\begin{align*}
+\left(T^{*}\right)^{-1}\gamma^{0}T^{*} & =\gamma^{0} & \left(T^{*}\right)^{-1}\left(\gamma^{j}\right)^{*}T^{*} & =-\gamma^{j}
+\end{align*}
+Das bedeutet:
+\begin{align*}
+\left(T^{*}\right)^{-1}\gamma^{0}T^{*} & =\gamma^{0} & \left(T^{*}\right)^{-1}\gamma^{1}T^{*} & =-\gamma^{1}\\
+\left(T^{*}\right)^{-1}\gamma^{2}T^{*} & =\gamma^{2} & \left(T^{*}\right)^{-1}\gamma^{3}T^{*} & =-\gamma^{3}
+\end{align*}
+Die Lösung ist:
+\begin{align}
+T & =\gamma^{1}\gamma^{3}e^{\ii\xi} & T^{-1} & =\gamma^{3}\gamma^{1}e^{-\ii\xi}=T^{*}
+\end{align}
+Probe:
+\begin{align*}
+T^{-1}T & =\gamma^{3}\gamma^{1}\gamma^{1}\gamma^{3}=-\gamma^{3}\gamma^{3}=\mathbbm{1}
+\end{align*}
+\begin{align*}
+\gamma^{1}\gamma^{3}\gamma^{0}\gamma^{3}\gamma^{1} & =\left(-1\right)^{2}\gamma^{0}\gamma^{1}\gamma^{3}\gamma^{3}\gamma^{1}=\gamma^{0}\\
+\gamma^{1}\gamma^{3}\gamma^{1}\gamma^{3}\gamma^{1} & =-\gamma^{1}\gamma^{1}\gamma^{3}\gamma^{3}\gamma^{1}=-\gamma^{1}\\
+\gamma^{1}\gamma^{3}\gamma^{2}\gamma^{3}\gamma^{1} & =\left(-1\right)^{2}\gamma^{2}\gamma^{1}\gamma^{3}\gamma^{3}\gamma^{1}=\gamma^{2}\\
+\gamma^{1}\gamma^{3}\gamma^{3}\gamma^{3}\gamma^{1} & =-\gamma^{1}\gamma^{3}\gamma^{1}=\gamma^{1}\gamma^{1}\gamma^{3}=-\gamma^{3}
+\end{align*}
+
+
+
+\chapter{Greensche Funktion (Feynman-Propagator)}
+
+Erinnerung: Das elektrische Potential $\phi$ erfüllt in der Elektrostatik
+die Differentialgleichung:
+\begin{align}
+\upDelta\phi & =4\pi\rho
+\end{align}
+Dabei ist $\rho$ die Ladungsdichte. Die Greensche Funktion $G\left(x,x'\right)$
+ist definiert durch:
+\begin{align}
+\upDelta_{x}G\left(x,x'\right) & =\delta^{\left(3\right)}\left(x-x'\right)
+\end{align}
+Damit ergibt sich die Lösung obiger Differentialgleichung zu:
+\begin{align}
+\phi\left(x\right) & =4\pi\int\dd^{3}x'G\left(x,x'\right)\rho\left(x'\right)
+\end{align}
+Probe:
+\begin{align*}
+\upDelta_{x}\phi\left(x\right) & =4\pi\int\dd^{3}x'\delta\left(x-x'\right)\rho\left(x'\right)=4\pi\rho\left(x\right)
+\end{align*}
+
+
+
+\section{Greensche Funktion der Klein-Gordon-Gleichung}
+
+Die definierende Gleichung ist:
+\begin{align}
+\left(\square_{x}+m^{2}\right)G\left(x-x'\right) & =-\delta^{\left(4\right)}\left(x-x'\right)
+\end{align}
+Das Minus auf der rechten Seite ist Konvention und wird wegen $\square_{x}=-\hat{p}^{2}$
+eingefügt.\\
+Die Dirac-Greensche Funktion ist einfach:
+\begin{align}
+S\left(x-x'\right) & =\left(\ii\gamma^{\mu}\partial_{x,\mu}+m\right)G\left(x-x'\right)
+\end{align}
+Es gilt nämlich:
+\begin{align*}
+\left(\ii\gamma^{\nu}\partial_{x,\nu}-m\right)S\left(x-x'\right) & =\left(-\square_{x}-m^{2}\right)G\left(x-x'\right)=\delta^{\left(4\right)}\left(x-x'\right)
+\end{align*}
+Am einfachsten ist die Bestimmung von $G$ im Impulsraum. Wir führen
+also eine Fourier-Transformation durch:
+\begin{align}
+G\left(x-x'\right) & =\int\frac{\dd^{4}p}{\left(2\pi\right)^{4}}G\left(p\right)e^{-\ii p\left(x-x'\right)}\label{eq:Fouriertrafo-Green}
+\end{align}
+\begin{align*}
+\left(\square_{x}+m^{2}\right)G\left(x-x'\right) & =\int\frac{\dd^{4}p}{\left(2\pi\right)^{4}}\left(-p^{\mu}p_{\mu}+m^{2}\right)G\left(p\right)e^{-\ii p\left(x-x'\right)}\stackrel{!}{=}-\int\frac{\dd^{4}p}{\left(2\pi\right)^{4}}e^{-\ii p\left(x-x'\right)}
+\end{align*}
+Daher muss gelten:
+\begin{align}
+\left(p^{2}-m^{2}\right)G\left(p\right) & =1
+\end{align}
+Ist $p^{2}-m^{2}\not=0$, so folgt:
+\begin{align*}
+G\left(p\right) & =\frac{1}{p^{2}-m^{2}}
+\end{align*}
+Was passiert für $p^{2}=\left(p^{0}\right)^{2}-\vec{p}^{2}=m^{2}$?
+\begin{align}
+p^{0} & =\pm\sqrt{\vec{p}^{2}+m^{2}}
+\end{align}
+Da für $p^{2}=m^{2}$ Divergenzen auftreten, muss man (\ref{eq:Fouriertrafo-Green})
+um eine Zusatzvorschrift ergänzen, wie man diese umschiffen soll.
+
+\begin{figure}[H]
+\noindent \begin{centering}
+\hfill{}\subfloat[Integrationswege um die Pole herum]{\begin{tikzpicture}
+  \draw[thick,->] (-3,0) -- (3,0) node[right]{Re$(p^\mu)$};
+  \draw[thick,->] (0,-3) -- (0,3) node[above]{Im$(p^\mu)$};
+  \draw[very thick, orange] (-3,0) -- (-2,0) arc (-180:0:0.25) -- (1.5,0) arc(-180:0:0.25) node[below=7pt]{1} -- (3,0);
+  \draw[very thick, green] (-3,0) -- (-2.1,0) arc (180:0:0.35) -- (1.4,0) node[below =3pt]{2} arc(-180:0:0.35) -- (3,0);
+  \draw[very thick, red] (-3,0) -- (-2.1,0) arc (-180:0:0.35) -- (1.4,0) node[above =3pt]{3} arc(180:0:0.35) -- (3,0);
+  \draw[very thick, blue] (-3,0) -- (-2,0) arc (180:0:0.25) -- (1.5,0) arc(180:0:0.25) node[above=7pt]{4} -- (3,0);
+  \draw (1.75,0) node[below=15pt]{$\sqrt{\vec{p}^2-m^2}$} +(-0.1,0.1) -- +(0.1,-0.1) +(-0.1,-0.1) -- +(0.1,0.1);
+  \draw (-1.75,0) node[below=15pt]{$-\sqrt{\vec{p}^2-m^2}$} +(-0.1,0.1) -- +(0.1,-0.1) +(-0.1,-0.1) -- +(0.1,0.1);
+\end{tikzpicture}}\hfill{}\subfloat[äquivalent: Pole verschieben]{{\begin{tikzpicture}
+  \draw[thick,->] (-3,0) -- (3,0) node[right]{Re$(p^\mu)$};
+  \draw[thick,->] (0,-3) -- (0,3) node[above]{Im$(p^\mu)$};
+  \draw[fill, orange] (-1.75,0.25) circle (2pt) (1.75,0.25) circle (2pt);
+  \draw[fill, green] (-1.75,-0.5) circle (2pt) (1.75,0.5) circle (2pt);
+  \draw[fill, red] (-1.75,0.5) circle (2pt) (1.75,-0.5) circle (2pt);
+  \draw[fill, blue] (-1.75,-0.25) circle (2pt) (1.75,-0.25) circle (2pt);
+  \draw (1.75,0) node[below=15pt]{$\sqrt{\vec{p}^2-m^2}$} +(-0.1,0.1) -- +(0.1,-0.1) +(-0.1,-0.1) -- +(0.1,0.1);
+  \draw (-1.75,0) node[below=15pt]{$-\sqrt{\vec{p}^2-m^2}$} +(-0.1,0.1) -- +(0.1,-0.1) +(-0.1,-0.1) -- +(0.1,0.1);
+\end{tikzpicture}}}\hspace*{\fill}
+\par\end{centering}
+
+\noindent \centering{}\caption{Die Pole müssen umgangen werden.}
+\end{figure}
+
+
+Mit $\varepsilon,\eta\in\mathbb{R}_{>0}$ lassen sich die vier Möglichkeiten
+schreiben als:
+\begin{enumerate}
+\item ${\displaystyle \frac{1}{p^{2}-m^{2}-\ii\varepsilon\text{sgn}\left(p^{0}\right)}}$:
+Pole bei $p^{0}=\pm\sqrt{\vec{p}^{2}+m^{2}}+\ii\eta$
+\item ${\displaystyle \frac{1}{p^{2}-m^{2}-\ii\varepsilon}}$: Pole bei
+$p^{0}=\pm\sqrt{\vec{p}^{2}+m^{2}}\pm\ii\eta$
+\item ${\displaystyle \frac{1}{p^{2}-m^{2}+\ii\varepsilon}}$: Pole bei
+$p^{0}=\pm\sqrt{\vec{p}^{2}+m^{2}}\mp\ii\eta$
+\item ${\displaystyle \frac{1}{p^{2}-m^{2}+\ii\varepsilon\text{sgn}\left(p^{0}\right)}}$:
+Pole bei $p^{0}=\pm\sqrt{\vec{p}^{2}+m^{2}}-\ii\eta$
+\end{enumerate}
+Mit Hilfe des Residuuensatzes kann man so das Integral
+
+\begin{align*}
+\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}\int_{-\infty}^{\infty}\frac{\dd p^{0}}{2\pi}e^{-\ii p^{0}\left(t-t'\right)+\ii\vec{p}\left(\vec{x}-\vec{x}'\right)}G\left(p^{0},\vec{p}\right)
+\end{align*}
+ausrechnen. Für $t'>t$ (Propagation von $t'$ nach $t$ rückwärts
+in der Zeit) kann man oben schließen, da dann der Faktor $e^{-\ii^{2}\text{Im}\left(p^{0}\right)\left(t-t'\right)}$
+exponentiell abfällt. Ebenso kann man für $t>t'$ (vorwärts in der
+Zeit) unten schließen. Bei der Propagation vorwärts in der Zeit darf
+der Pol bei $p_{0}<0$ nicht im Integrationsbereich sein und $p_{0}>0$
+darf nicht rückwärts in der Zeit propagieren. Daher bleibt nur die
+3. Lösung. Diese wird \emph{Feynman-Propagator} genannt.
+
+
+\chapter{Kanonische Quantisierung \texorpdfstring{$\hat{b}^{\dagger},\hat{d}^{\dagger},\hat{b},\hat{d}$}{}}
+
+
+\chapter{Feynman-Regeln}
+
+
+\chapter{Elektron-Myon-Streuung}
+
+
+\chapter{Pauli-Villars-Regularisierung (Renormierung)}
+
+
+\chapter{\texorpdfstring{$SU\left(N\right)$}{SU(N)} Eichgruppen}
+
+
+\chapter{Tiefinelastische Streuung}
+
+
+\chapter{Lagrangedichte der QCD, Feynman-Regeln}
+
+
+\chapter{DGLAP-Gleichung}
+
+
+\chapter{Dimensionale Regularisierung \texorpdfstring{$\overline{MS}$}{}}
+
+
+\chapter{Kopplungskonstante \texorpdfstring{$\alpha_{S}\left(Q^{2}\right)$}{}}
+
+
+
+
+\chapter{Standard-Modell\texorpdfstring{ $SU\left(2\right)\times U\left(1\right)\times SU\left(3\right)$}{},
+SSB und Higgs-Feld}
+
+
+\chapter{Weitere Themen}
+\begin{itemize}
+\item Anomalien $\to$ ganze Familien
+\begin{align*}
+\fbox{\ensuremath{{\displaystyle \left(\begin{array}{c}
+\nu_{e}\\
+e
+\end{array}\right),\left(\begin{array}{c}
+u\\
+d
+\end{array}\right)_{\text{r,b,g}}}}}
+\end{align*}
+
+\item Inflation (frühes Universum)
+\item Supersymmetrie
+\item Stringtheorie
+\item $\ldots$
+\end{itemize}
+
+\part*{Anhang\thispagestyle{empty}}
+
+\addcontentsline{toc}{part}{Anhang}
+
+\fancyhead[R]{Index}
+\fancyhead[C]{Anhang}
+
+
+\chapter*{Danksagungen}
+
+\addcontentsline{toc}{section}{\hspace*{2.7em}Danksagungen}
+
+\fancyhead[R]{Danksagungen}
+
+Mein besonderer Dank geht an Professor Schäfer, der diese Vorlesung
+hielt und es mir gestattete, diese Vorlesungsmitschrift zu veröffentlichen.
+
+Außerdem möchte ich mich ganz herzlich bei allen bedanken, die durch
+aufmerksames Lesen Fehler gefunden und mir diese mitgeteilt haben.
+
+\vspace{1cm}
+
+
+\hfill{}Andreas Völklein
+
+\label{END}
+\end{document}

@@ -1,0 +1,5703 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass scrreprt
+\begin_preamble
+\usepackage{tikz,pgfplots}
+%\usepackage{tikz-3dplot,cancel,polynom}
+\usetikzlibrary{matrix,arrows,calc,decorations.pathmorphing,decorations.markings,intersections,shapes}
+\usetikzlibrary{external}
+\tikzexternalize
+\usepackage{latexsym,stmaryrd,stackrel,braket,bbm,subfig,framed,esvect,scrhack,calc,slashed}
+\usepackage [OMLmathrm,OMLmathbf,sfdefault=fav]{isomath}
+\usepackage[explicit]{titlesec}
+\usepackage[activate]{pdfcprot}
+
+\pgfkeys{/pgf/number format/dec sep={\text{,}}}
+\pgfplotsset{compat=newest}
+
+% Inhaltsverzeichnis
+\usepackage[subfigure]{tocloft}
+
+\tocloftpagestyle{fancy}
+
+\renewcommand{\cftchapindent}{1 em}
+\renewcommand{\cftchapnumwidth}{1.5 em}
+
+\renewcommand{\cftsecindent}{2.7 em}
+\renewcommand{\cftsecnumwidth}{2.5em}
+
+\renewcommand{\cftsubsecindent}{5.2 em}
+\renewcommand{\cftsubsecnumwidth}{3.8 em}
+
+\renewcommand{\cftsubsubsecindent}{9 em}
+\renewcommand{\cftsubsubsecnumwidth}{4.5 em}
+
+% Mathe-Operatoren
+\DeclareMathOperator*{\exsop}{\exists}
+\DeclareMathOperator*{\exsgop}{\exists!}
+\DeclareMathOperator*{\fallop}{\forall}
+\DeclareMathOperator*{\bcupdop}{\dot{\bigcup}}
+\DeclareMathOperator*{\bcapdop}{\dot{\bigcap}}
+
+%Operatornorm
+\newcommand{\opnor}[1]{\abs{\hspace*{-1.1pt}\norm{#1}\hspace*{-1.1pt}}}
+
+% nicht-totales Differential
+\newcommand{\dBar}{\mathchar'26\mkern-12mu \textnormal{d}}
+
+% Angström
+\newcommand{\ang}{\textup{\AA}}
+
+% schöne Vektorpfeile
+\renewcommand{\vec}[1]{\vv{#1}}
+
+% Rotieren
+\newcommand{\Rotate}[1]{
+\tikzset{external/export next=false}
+\begin{tikzpicture}[baseline=(X.base)]
+\node[rotate=90] (X){\ensuremath{#1}};
+\end{tikzpicture}
+}
+
+% Rotieren
+\newcommand{\RotateX}[2]{
+\tikzset{external/export next=false}
+\begin{tikzpicture}[baseline=(X.base)]
+\node[rotate=#1] (X) {\ensuremath{#2}};
+\end{tikzpicture}
+}
+
+%QED-Zeichen (Box)
+\newcommand{\qed}{\ensuremath{\Box}}
+\newcommand{\qqed}[1][\arabic{chapter}.\arabic{section}\ifnum\arabic{subsection}>0{.\arabic{subsection}}\fi]{\hspace*{1mm}\hfill\qed\ensuremath{_{\text{#1}}}}
+
+% Mengen Modulo
+\newcommand{\moduloT}[2]{
+\mbox{\raisebox{0.6ex}{\ensuremath{\displaystyle #1}}
+{\hspace*{-1.5mm}\Large /}
+\raisebox{-0.6ex}{\hspace*{-1.5mm}\ensuremath{\displaystyle #2}}
+}}
+
+% Links Modulo
+\newcommand{\lmoduloT}[2]{
+\mbox{\raisebox{-0.6ex}{\ensuremath{\displaystyle #1}}
+{\hspace*{-1.5mm}\Large \ensuremath{\backslash}}
+\raisebox{0.6ex}{\hspace*{-1.5mm}\ensuremath{\displaystyle #2}}
+}}
+
+% Für Z/2Z, um nicht soviel schreiben zu müssen
+\newcommand{\modloT}[2]{\moduloT{ \mathbb{#1}}{#2\mathbb{#1}}}
+
+%Laplace-Beltrami-Operator
+\newcommand{\LBO}{
+\begin{minipage}{6mm}
+ \tikzset{external/export next=false}
+ \begin{tikzpicture}
+   \node at (0,0){$\Delta$};
+   \draw[line width=0.75] (0.25,-0.13) -- (0.1,0.15);
+ \end{tikzpicture}
+\end{minipage}
+}
+
+%Die Modulo-Kommandos in klein, für die Darstellungen unter Quantoren.
+\newcommand{\moduloScriptT}[2]{
+\mbox{\raisebox{0.4ex}{\scriptsize\ensuremath{\displaystyle #1}}
+{\hspace*{-1.5mm}\footnotesize /}
+\raisebox{-0.4ex}{\hspace*{-1.5mm}\scriptsize\ensuremath{\displaystyle #2}}
+}}
+
+\newcommand{\lmoduloScriptT}[2]{
+\mbox{\raisebox{-0.4ex}{\scriptsize\ensuremath{\displaystyle #1}}
+{\hspace*{-1.5mm}\footnotesize \ensuremath{\backslash}}
+\raisebox{0.4ex}{\hspace*{-1.5mm}\scriptsize\ensuremath{\displaystyle #2}}
+}}
+
+\newcommand{\modloScriptT}[2]{\moduloScriptT{ \mathbb{#1}}{#2\mathbb{#1}}}
+
+% stehendes Winkelzeichen
+\newcommand{\winkel}{
+\tikzset{external/export next=false}
+\begin{tikzpicture}[scale=0.25]
+\draw ({-2+3^(1/2)},0) -- (0,1) -- ({2-3^(1/2)},0);
+\draw ($(0,1) + ({cos(235)*0.7},{sin(315)*0.7})$) arc (235:315:0.7);
+\end{tikzpicture}}
+
+% Wurzel mit Häkchen
+\newcommand{\hsqrt}[2][{}]{\setbox0=\hbox{$\sqrt[#1]{\phantom{|}\!\! #2\hspace*{1pt}}$}\dimen0=\ht0
+  \advance\dimen0-0.2\ht0
+  \setbox2=\hbox{\vrule height\ht0 depth -\dimen0}
+  {\box0\lower0.4pt\box2}}
+
+% Damit nicht immer "Kapitel 1" etc. über der Kapitelüberschrift steht
+\titleformat{\chapter}
+  {\huge\bfseries}
+  {\textrm{\thechapter} }{0pt}
+  {\textrm{#1} \thispagestyle{fancy}
+  }
+
+% Neudefinition der Abschnittsmarker für die Kopfzeile
+\renewcommand\partmark[1]{\markboth{#1}{}}
+\renewcommand\chaptermark[1]{\markright{\arabic{chapter} #1}}
+\renewcommand\sectionmark[1]{}
+\renewcommand\subsectionmark[1]{}
+
+% Schriften auf Serif umstellen
+\addtokomafont{descriptionlabel}{\rmfamily}
+\addtokomafont{disposition}{\rmfamily}
+
+% Zeilenumbrüche in Gleichungen
+ \allowdisplaybreaks
+
+% Kopf- und Fußzeile
+% Höhe der Kopfzeile
+\setlength{\headheight}{14pt}
+% obere Trennlinie
+%\renewcommand{\headrulewidth}{0.4pt}
+\fancyhf{} %alle Kopf- und Fußzeilenfelder bereinigen
+\fancyhead[L]{\textbf{IK3b - Quantenfeldtheorie}} %Kopfzeile links
+%\fancyhead[C]{\leftmark} %zentrierte Kopfzeile
+\fancyhead[R]{\rightmark} %Kopfzeile rechts
+\fancyfoot[C]{\thepage\quad\!\!\!\slash\quad\!\!\!\pageref{END-front}} %Seitenzahl der Front-Matter
+\end_preamble
+\use_default_options false
+\begin_modules
+enumitem
+\end_modules
+\maintain_unincluded_children false
+\language ngerman
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing single
+\use_hyperref true
+\pdf_title "Quantenfeldtheorie"
+\pdf_author "Andreas Völklein"
+\pdf_keywords "Quantenfeldtheorie, Physik"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref page
+\pdf_pdfusetitle false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 2
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\use_refstyle 1
+\index Stichwortverzeichnis
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2.6cm
+\topmargin 2.6cm
+\rightmargin 2.6cm
+\bottommargin 3.5cm
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation skip
+\defskip smallskip
+\quotes_language german
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancy
+\bullet 0 0 0 -1
+\bullet 1 0 9 -1
+\bullet 2 0 15 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Vorlage: Kommutatives Diagramm
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[description/.style={fill=white,inner sep=2pt}]
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+matrix (m) [matrix of math nodes, row sep=3em, column sep=2.5em, text height=1.5ex
+, text depth=0.25ex] { G & & G' 
+\backslash
+
+\backslash
+  & a & 
+\backslash
+
+\backslash
+ };
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[->,font=
+\backslash
+scriptsize] (m-1-1) edge node[auto] {$ 
+\backslash
+varphi $} (m-1-3) edge node[description] {$ 
+\backslash
+Psi $} (m-2-2) (m-1-3) edge node[auto] {$ 
+\backslash
+Phi $} (m-2-2); 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Vorlage: Plot mit pgfplots
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+begin{axis}[width=13cm, axis x line=middle, axis y line=middle, xtick={0},
+ ytick={0}, xlabel=$q$,domain=-6:6,samples=300]
+\end_layout
+
+\begin_layout Plain Layout
+
+%  
+\backslash
+addplot[green,mark=none] {(8*x^3-12*x)*exp(-x^2/2)*0.5};
+\end_layout
+
+\begin_layout Plain Layout
+
+%  
+\backslash
+addlegendentry{$
+\backslash
+psi_3 (q)$}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+addplot[red,mark=none] {x^2*0.08};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+addlegendentry{$V(q)$}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+addplot[blue,mark=none] {(0.256*x^8-3.584*x^6+13.440*x^4-13.440*x^2+1.680)*exp(-x^2/2
+)};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+addlegendentry{$
+\backslash
+psi_8 (q)$}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+addplot[orange,mark=none] {((0.256*x^8-3.584*x^6+13.440*x^4-13.440*x^2+1.680)*exp(-x^
+2/2))^2*0.5};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+addlegendentry{$
+\backslash
+abs{
+\backslash
+psi_8 (q)}^2$}
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+end{axis}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Vorlage: Funktions-Plot
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[domain=0:4]
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[very thin,color=gray] (-0.1,-1.1) grid (3.9,3.9);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[->] (-0.2,0) -- (4.2,0) node[right] {$x$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[->] (0,-1.2) -- (0,4.2) node[above] {$f(x)$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[color=red] plot (
+\backslash
+x,
+\backslash
+x) node[right] {$f(x) =x$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[color=blue] plot (
+\backslash
+x,{sin(
+\backslash
+x r)}) node[right] {$f(x) = 
+\backslash
+sin x$}; 
+\backslash
+draw[color=orange] plot (
+\backslash
+x,{0.05*exp(
+\backslash
+x)}) node[right] {$f(x) = 
+\backslash
+frac{1}{20} 
+\backslash
+mathrm e^x$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Vorlage: Bezier-Kurve, Große Pfeile
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+%Kreis
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (-1,0) ..
+ controls (-1,0.555) and (-0.555,1) ..
+ (0,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+               ..
+ controls (0.555,1) and (1,0.555) ..
+ (1,0)
+\end_layout
+
+\begin_layout Plain Layout
+
+               ..
+ controls (1,-0.555) and (0.555,-1) ..
+ (0,-1)
+\end_layout
+
+\begin_layout Plain Layout
+
+               ..
+ controls (-0.555,-1) and (-1,-0.555) ..
+ (-1,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[very thick,decoration={markings,mark=at position 1 with {
+\backslash
+arrow[scale=2]{>}};},postaction={decorate}] (0.5,-3.5) -- (0.5,{-sqrt(3.75)});
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Vorlage: Krumme geschlossene Kurve
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  %Kreis
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw plot[smooth cycle,tension=1] coordinates{(0,-1) (1,0) (0,1) (-1,0)};
+\end_layout
+
+\begin_layout Plain Layout
+
+  %Krumm
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw plot[smooth cycle,tension=.7,yshift=-70] coordinates{(0,-1) (0.5,-0.3)
+ (1,0) (0.5,0.8) (0,1) (-0.3,0.3) (-1,0)};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Enumerate
+\begin_inset Argument
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+label=
+\backslash
+alph*)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+abclist-1
+\end_layout
+
+\begin_layout Enumerate
+abclist-2
+\end_layout
+
+\begin_layout Plain Layout
+Text
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Argument
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+label=
+\backslash
+roman*)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+iiilist-1
+\end_layout
+
+\begin_layout Enumerate
+iiilist-2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Flussdiagramm:
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% Define block styles
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{line} = [draw, -latex']
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{startend} = [draw, ellipse, fill=green!20, text centered, minimum
+ height=2em]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{inout} = [draw, trapezium, trapezium left angle=70, trapezium
+ right angle=-70, fill=brown!30, text centered, minimum height=2em]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{operation} = [draw, rectangle, fill=blue!20, text centered, minimum
+ height=2em]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{decision} = [draw, diamond, aspect=2, fill=red!30, inner sep=1pt,
+ text centered, minimum height=2em]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[node distance = 2cm, auto]
+\end_layout
+
+\begin_layout Plain Layout
+
+  % Nodes
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node [startend] (start) {Start};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node [inout, below of=start] (input) {$x^{(0)}$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node [operation, left of=input,node distance=3cm] (init) {$k=0$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node [operation, below of=input, text width=20em] (korrektur) {Berechne
+ Korrektur $S^{(k)}$ als Lösung von:
+\backslash
+
+\backslash
+ $f'
+\backslash
+left(x^{(k)}
+\backslash
+right)S^{(k)}=-f
+\backslash
+left(x^{(k)}
+\backslash
+right)$
+\backslash
+
+\backslash
+Initialisiere Dämpfung: $
+\backslash
+lambda:=1$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node [operation, below of=korrektur, text width=20em,node distance=3cm]
+ (damping) {Dämpfung:
+\backslash
+
+\backslash
+ 	$x:=x^{(k)} + 
+\backslash
+lambda S^{(k)}$
+\backslash
+
+\backslash
+ 	$C_
+\backslash
+lambda := 1-
+\backslash
+frac{
+\backslash
+lambda}{4}$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node [decision, below of=damping, node distance=3.5cm] (condition) {$
+\backslash
+norm{f(x)}_{(k)}
+\backslash
+stackrel{?}{
+\backslash
+le} C_
+\backslash
+lambda 
+\backslash
+norm{f
+\backslash
+left(x^{(k)}
+\backslash
+right)}_{(k)}$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node [decision, right of=condition,node distance=8cm,text width=5em] (cond2)
+ {$
+\backslash
+lambda :=
+\backslash
+frac{
+\backslash
+lambda}{2}$
+\backslash
+
+\backslash
+ $
+\backslash
+lambda
+\backslash
+stackrel{?}{
+\backslash
+ge}
+\backslash
+lambda_{
+\backslash
+textnormal{min}}$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node [decision, below of=condition,node distance=6cm,text width=18em] (cond3)
+ {$x^{(k+1)} :=x$
+\backslash
+
+\backslash
+
+\backslash
+hspace*{1mm} 
+\backslash
+
+\backslash
+ $
+\backslash
+Bigg(k
+\backslash
+ge k_{
+\backslash
+textnormal{max}}$ oder $
+\backslash
+norm{f
+\backslash
+left(x^{k+1}
+\backslash
+right)}_{(k)}
+\backslash
+le
+\backslash
+textnormal{tol}
+\backslash
+Bigg) ?$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[operation, left of=korrektur, node distance=17em] (increase) {$k=k+1$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node [startend, below of=cond3, node distance=10em] (end) {Ende};
+\end_layout
+
+\begin_layout Plain Layout
+
+  % Lines
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path [line] (start) -- (input);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path [line] (input) -- (init);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path [line] (init) -- (korrektur);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path [line] (increase) -- (korrektur);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path [line] (korrektur) -- (damping);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path [line] (damping) -- (condition);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path [line] (condition) -- node[near start] {nein} (cond2);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path [line] (condition) -- node[near start] {ja} (cond3);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path [line] (cond2) |-  node[near start] {ja} (damping);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path [line] (cond2) |-  node[near start] {nein} (end);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path [line] (cond3) --  node[near start] {ja} (end);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path [line] (cond3) -|  node[near start] {nein} (increase);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert }
+{\left\Vert #1\right\Vert }
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert }
+{\left|#1\right|}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\opnorm}[1]{\opnor{#1}}
+{\abs{\norm{#1}}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\BRA}[1]{\Bra{#1}}
+{\left<#1\right|}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\KET}[1]{\Ket{#1}}
+{\left|#1\right>}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\BraKet}[1]{\Braket{#1}}
+{\left\langle #1\right\rangle }
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\mins}{\textnormal{-}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\LB}{\LBO}
+{\Delta\backslash}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\exs}{\exsop}
+{\text{\exists}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\exsg}{\exsgop}
+{\text{\exists!}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\fall}{\fallop}
+{\text{\forall}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\bcupd}{\bcupdop}
+{\text{\dot{\bigcup}}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\bcapd}{\bcapdop}
+{\text{\dot{\bigcap}}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\sr}[3]{\underset{#3}{\overset{#2}{#1}}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\dd}{\textnormal{d}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\DD}{\textnormal{D}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\dbar}{\dBar}
+{đ}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\angs}{\ang}
+{\AA}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\TT}{\textnormal{T}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\ii}{\textbf{i}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\slashd}[1]{\slashed{#1}}
+{\not#1}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\modulo}[2]{\moduloT{#1}{#2}}
+{#1/#2}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\lmodulo}[2]{\lmoduloT{#1}{#2}}
+{#1\backslash#2}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\modlo}[2]{\modloT{#1}{#2}}
+{\mathbb{#1}/#2\mathbb{#1}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\moduloScript}[2]{\moduloScriptT{#1}{#2}}
+{{\scriptstyle #1/#2}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\lmoduloScript}[2]{\lmoduloScriptT{#1}{#2}}
+{{\scriptstyle #1\backslash#2}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\modloScript}[2]{\modloScriptT{#1}{#2}}
+{{\scriptstyle \mathbb{#1}/#2\mathbb{#1}}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\vek}[1]{\vectorsym{#1}}
+{\mathbf{#1}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\mat}[1]{\matrixsym{#1}}
+{\mathbf{#1}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\ten}[1]{\tensorsym{#1}}
+{\mathbf{#1}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\msd}[1]{\mathstrut_{#1}}
+{_{#1}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\msu}[1]{\mathstrut^{#1}}
+{^{#1}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering{roman}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace*{1mm}
+\backslash
+vspace*{-20mm}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\series bold
+\size giant
+Integrierter Kurs IIIb
+\begin_inset Newline newline
+\end_inset
+
+Quantenfeldtheorie
+\end_layout
+
+\begin_layout Author
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace*{-5mm}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\shape italic
+\size small
+Vorlesung von
+\begin_inset Newline newline
+\end_inset
+
+
+\noun on
+Prof.
+ Dr.
+ Andreas Schäfer
+\shape default
+\size default
+\noun default
+
+\begin_inset Newline newline
+\end_inset
+
+
+\shape italic
+\size small
+im Sommersemester 2013
+\begin_inset Newline newline
+\end_inset
+
+Überarbeitung und Textsatz in LyX von
+\begin_inset Newline newline
+\end_inset
+
+
+\noun on
+Andreas Völklein
+\begin_inset Newline newline
+\end_inset
+
+
+\shape default
+\size default
+\noun default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace*{5mm}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename unir.png
+	lyxscale 50
+	width 15cm
+	clip
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace*{3mm}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\size normal
+Stand: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\size default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace*{-30mm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[R]{Lizenz}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+ACHTUNG
+\end_layout
+
+\begin_layout Standard
+Diese Mitschrift ersetzt 
+\emph on
+nicht
+\emph default
+ die Vorlesung.
+\end_layout
+
+\begin_layout Standard
+Es wird daher 
+\emph on
+dringend
+\emph default
+ empfohlen, die Vorlesung zu besuchen.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace vfill
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+
+\lang english
+Copyright Notice
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Copyright © 2013 
+\noun on
+Andreas Völklein
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+Permission is granted to copy, distribute and/or modify this document under
+ the terms of the GNU Free Documentation License, Version 1.3 or any later
+ version published by the Free Software Foundation;
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+\end_layout
+
+\begin_layout Standard
+
+\lang english
+A copy of the license is included in the document entitled “GFDL”.
+\end_layout
+
+\begin_layout Subsubsection*
+
+\lang english
+Disclaimer of Warranty
+\end_layout
+
+\begin_layout Standard
+
+\noun on
+\lang english
+Unless otherwise mutually agreed to by the parties in writing and to the
+ extent not prohibited by applicable law, 
+\series bold
+the Copyright Holders and any other party, who may distribute the Document
+ as permitted above,   provide the Document “as is
+\noun default
+”,
+\noun on
+ without warranty of any kind
+\series default
+, expressed, implied, statutory or otherwise, including, but not limited
+ to, the implied warranties of merchantability, fitness for a particular
+ purpose, non-infringement, the absence of latent or other defects, accuracy,
+ or the absence of errors, whether or not discoverable.
+\end_layout
+
+\begin_layout Subsubsection*
+
+\lang english
+Limitation of Liability
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\noun on
+\lang english
+In no event
+\series default
+ unless required by applicable law or agreed to in writing 
+\series bold
+will the Copyright Holders, or any other party, who may distribute the Document
+ as permitted above, be liable to you for any damages
+\series default
+, including, but not limited to, any general, special, incidental, consequential
+, punitive or exemplary damages, however caused, regardless of the theory
+ of liability, arising out of or related to this license or any use of or
+ inability to use the Document, even if they have been advised of the possibilit
+y of such damages.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\noun on
+\lang english
+In no event will the Copyright Holders'/Distributor's liability to you
+\series default
+, whether in contract, tort (including negligence), or otherwise, 
+\series bold
+exceed the amount you paid the Copyright Holders/Distributor
+\series default
+ for the document under this agreement.
+\end_layout
+
+\begin_layout Subsubsection*
+Links
+\end_layout
+
+\begin_layout Standard
+Der Text der „
+\lang english
+GNU Free Documentation License
+\lang ngerman
+“ kann auch auf der Seite
+\end_layout
+
+\begin_layout Quote
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://www.gnu.org/licenses/fdl-1.3.de.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+nachgelesen werden.
+\end_layout
+
+\begin_layout Standard
+Eine transparente Kopie der aktuellen Version dieses Dokuments kann von
+\end_layout
+
+\begin_layout Quote
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/andiv/IK3b
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+heruntergeladen werden.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[R]{Literatur}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Literatur
+\end_layout
+
+\begin_layout Itemize
+
+\noun on
+Andreas Schäfer, Florian Rappl
+\noun default
+: 
+\emph on
+\lang english
+Quantum electrodynamics
+\emph default
+\lang ngerman
+; 2010
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://www-nw.uni-regensburg.de/~sca14496/QED/Quantenelektrodynamik.pdf
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\noun on
+Andreas Schäfer
+\noun default
+: 
+\emph on
+\lang english
+Quantum Chromodynamics
+\emph default
+\lang ngerman
+;
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://www-nw.uni-regensburg.de/~sca14496/index.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\noun on
+Elliot Leader, Enrico Predazzi
+\noun default
+: 
+\emph on
+\lang english
+An introduction to gauge theories and modern particle physics I
+\emph default
+\lang ngerman
+; 
+\lang english
+Cambridge University Press
+\lang ngerman
+, 2004; ISBN: 0-521-46840-X
+\end_layout
+
+\begin_layout Itemize
+
+\noun on
+Elliot Leader, Enrico Predazzi
+\noun default
+: 
+\emph on
+\lang english
+An introduction to gauge theories and modern particle physics
+\emph default
+ 
+\emph on
+II
+\emph default
+\lang ngerman
+; 
+\lang english
+Cambridge University Press
+\lang ngerman
+, 2004; ISBN: 0-521-499510-8
+\end_layout
+
+\begin_layout Standard
+
+\size small
+\begin_inset Newpage newpage
+\end_inset
+
+
+\size default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[R]{Inhaltsverzeichnis}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[C]{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+label{END-front}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newpage newpage
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+pagenumbering{arabic}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyfoot[C]{
+\backslash
+thepage
+\backslash
+quad
+\backslash
+!
+\backslash
+!
+\backslash
+!
+\backslash
+slash
+\backslash
+quad
+\backslash
+!
+\backslash
+!
+\backslash
+!
+\backslash
+pageref{END}} % Seitenzahl des Hauptteils
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+fancyhead[R]{
+\backslash
+rightmark}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+fancyhead[C]{
+\backslash
+leftmark}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%DATE: Mo 15.04.2013
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter*
+Motivation
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[R]{Motivation}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Zu Beginn des 20.
+ Jahrhunderts wurden zwei neue fundamentale Theorien entwickelt:
+\end_layout
+
+\begin_layout Itemize
+Quantenmechanik mit Heisenbergscher Unschärferelation
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Wir verwenden natürliche Einheiten mit 
+\begin_inset Formula $c=1$
+\end_inset
+
+ und 
+\begin_inset Formula $\hbar=1$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+: 
+\begin_inset Formula $\Delta E\cdot\Delta t\ge\frac{1}{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Spezielle Relativitätstheorie mit Energie-Impuls-Beziehung: 
+\begin_inset Formula $E=\pm\sqrt{\vec{p}^{2}+m^{2}}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Die Lösungen mit negativer Energie führen zu Antiteilchen:
+\begin_inset Formula 
+\begin{align*}
+e^{-\ii\left(-\abs Et\right)} & =e^{-\ii\abs E\left(-t\right)}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[decoration={markings,mark=at position 1 with {
+\backslash
+arrow[scale=2]{>}};},postaction={decorate}] (0,0) node[left]{$t_i$} -- node[righ
+t]{$e^-$} (0,2) node[left]{$t_f$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[decoration={markings,mark=at position 1 with {
+\backslash
+arrow[scale=2]{>}};},postaction={decorate}] (2,2)  -- node[right]{$e^-
+\backslash
+hspace*{5mm}
+\backslash
+hat{=}$} (2,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[decoration={markings,mark=at position 1 with {
+\backslash
+arrow[scale=2]{>}};},postaction={decorate}] (4,0)  -- node[right]{$e^+$}
+ (4,2);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Antiteilchen
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Das Problem ist, dass im Vakuum virtuelle Teilchen-Antiteilchen-Paare entstehen
+ können:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[scale=2]{>}};},postaction={decorate}] (0,0) arc (180:0:1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (1,1.5) {$e^-$} ;
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[scale=2]{>}};},postaction={decorate}] (2,0) arc (0:-180:1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (1,-1.5) {$e^+$} ;
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[fill=black] (0,0) circle (0.05) (2,0) circle (0.05);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (4,0) {$
+\backslash
+Delta t 
+\backslash
+le 
+\backslash
+frac{1}{2E}$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+virtuelles Teilchen-Antiteilchen-Paar
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Das Vakuum wird dadurch ein Medium.
+\end_layout
+
+\begin_layout Itemize
+Bei Rechnungen erhält man Unendlichkeiten.
+\end_layout
+
+\begin_layout Standard
+Die Behandlung der Divergenzen führt zur 
+\begin_inset Quotes gld
+\end_inset
+
+Renormierung
+\begin_inset Quotes grd
+\end_inset
+
+, dem Kern der Quantenfeldtheorie.
+\end_layout
+
+\begin_layout Standard
+Die Idee dabei ist, dass die Quantenfeldtheorie der nieder-energetische
+ Grenzfall einer 
+\begin_inset Quotes gld
+\end_inset
+
+
+\lang english
+Theory of Everything
+\lang ngerman
+
+\begin_inset Quotes grd
+\end_inset
+
+ ist.
+ Da wir diese nicht kennen, fordern wir eine 
+\begin_inset Quotes gld
+\end_inset
+
+Entkopplung
+\begin_inset Quotes grd
+\end_inset
+
+: Die Physik bei Laborenergien darf nicht von der 
+\lang english
+Theory of Everything 
+\lang ngerman
+abhängen.
+\end_layout
+
+\begin_layout Standard
+Dies wird von Eichtheorien mit oder ohne 
+\begin_inset Quotes gld
+\end_inset
+
+spontane Symmetriebrechung
+\begin_inset Quotes grd
+\end_inset
+
+ erfüllt.
+ Auf diese Weise erhält man das 
+\emph on
+Standard-Modell
+\emph default
+ der Teilchenphysik.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[R]{
+\backslash
+rightmark}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Dirac-Gleichung, Klein-Gordon-Gleichung
+\end_layout
+
+\begin_layout Standard
+Wir verwenden natürliche Einheiten 
+\begin_inset Formula $c=1$
+\end_inset
+
+ und 
+\begin_inset Formula $\hbar=\frac{h}{2\pi}=1$
+\end_inset
+
+.
+ Nützlich für Umrechnungen in das SI-Einheitensystem sind folgende Konstanten:
+\begin_inset Formula 
+\begin{align*}
+\hbar c & =197{,}327\,\text{MeV fm} & c & =299792458\,\frac{\text{m}}{\text{s}} & 1\,\text{fm} & =10^{-15}\,\text{m}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\left[\text{Energie}\right]\,\hat{=}\,\left[\text{MeV}\right]\,\hat{=}\,\left[\frac{\text{MeV}}{c}\right] & \,\hat{=}\,\left[\text{Impuls}\right]\,\hat{=}\,\left[\frac{\text{MeV}}{\hbar c}\right]\,\hat{=}\,\left[\frac{1}{\text{fm}}\right]\,\hat{=}\,\left[\frac{c}{\text{fm}}\right]\,\hat{=}\,\left[\frac{1}{\text{s}}\right]
+\end{align*}
+
+\end_inset
+
+Sei 
+\begin_inset Formula $t$
+\end_inset
+
+ eine Zeit in der Einheit 
+\begin_inset Formula $\text{MeV}^{-1}$
+\end_inset
+
+ gegeben.
+ Die Umrechnung in Sekunden geht nun wie folgt:
+\begin_inset Formula 
+\begin{align*}
+t\left[\text{s}\right] & =\frac{t\left[\text{MeV}^{-1}\right]\cdot\hbar c}{c}
+\end{align*}
+
+\end_inset
+
+Die Quantenmechanik nutzt die klassische Energie-Impuls-Beziehung (Dispersionsre
+lation):
+\begin_inset Formula 
+\begin{align}
+E_{\text{kin}} & =\frac{\vec{p}^{2}}{2m}
+\end{align}
+
+\end_inset
+
+Die Wellenmechanik basiert auf ebenen Wellen:
+\begin_inset Formula 
+\begin{align*}
+\psi & \sim e^{-\ii\left(Et-\vec{p}\cdot\vec{x}\right)}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\ii\frac{\partial}{\partial t}e^{-\ii\left(Et-\vec{p}\cdot\vec{x}\right)} & =Ee^{-\ii\left(Et-\vec{p}\vec{x}\right)}\\
+-\ii\vec{\nabla}e^{-\ii\left(Et-\vec{p}\cdot\vec{x}\right)} & =\vec{p}e^{-\ii\left(Et-\vec{p}\vec{x}\right)}
+\end{align*}
+
+\end_inset
+
+Ersetze nun die klassische nun durch die relativistische Dispersionsrelation:
+\begin_inset Formula 
+\begin{align}
+E^{2}-\vec{p}^{2}-m^{2} & =0
+\end{align}
+
+\end_inset
+
+Damit erhält man die 
+\emph on
+Klein-Gordon-Gleichung
+\emph default
+:
+\begin_inset Formula 
+\begin{align}
+\left[-\frac{\partial^{2}}{\partial t^{2}}+\vec{\nabla}^{2}-m^{2}\right]\phi\left(\vec{x},t\right) & =0
+\end{align}
+
+\end_inset
+
+Wieso verwendet man nicht folgende Gleichung?
+\begin_inset Formula 
+\begin{align*}
+\left[\ii\frac{\partial}{\partial t}\pm\sqrt{-\vec{\nabla}^{2}+m^{2}}\,\right]\psi\left(\vec{x},t\right) & =0
+\end{align*}
+
+\end_inset
+
+Die Wurzel lässt sich nur als eine Taylor-Entwicklung mit beliebig hohen
+ Potenzen in 
+\begin_inset Formula $\vec{\nabla}^{2}$
+\end_inset
+
+ berechnen.
+\begin_inset Formula 
+\begin{align*}
+f\left(x+y\right) & =f\left(x\right)+f'\left(x\right)y+\frac{1}{2}f''\left(x\right)y^{2}+\ldots
+\end{align*}
+
+\end_inset
+
+Unendlich hohe Ableitungen können zu einer Verletzung der Kausalität führen.
+ Außerdem ist die Konvergenz nicht gesichert.
+ Die Alternative ist die Linearisierung, also die Zerlegung der Klein-Gordon-Gle
+ichung als Differentialgleichung zweiter Ordnung in zwei Differentialgleichungen
+ erster Ordnung.
+\end_layout
+
+\begin_layout Section
+Definition 
+\series medium
+(Dirac-Matrizen)
+\end_layout
+
+\begin_layout Standard
+Seien 
+\begin_inset Formula $\gamma_{0},\gamma_{1},\gamma_{2}$
+\end_inset
+
+ und 
+\begin_inset Formula $\gamma_{3}$
+\end_inset
+
+ Elemente einer Algebra mit folgender Eigenschaft:
+\begin_inset Formula 
+\begin{align}
+\fbox{\ensuremath{{\displaystyle \gamma_{\mu}\gamma_{\nu}+\gamma_{\nu}\gamma_{\mu}=2g_{\mu\nu}\mathbbm{1}}}}
+\end{align}
+
+\end_inset
+
+Die 
+\begin_inset Formula $\gamma_{\mu}$
+\end_inset
+
+ werden 
+\emph on
+Dirac-Matrizen
+\emph default
+ genannt, und sie erzeugen eine 
+\emph on
+Clifford-Algebra
+\emph default
+.
+ Dabei ist
+\begin_inset Formula 
+\begin{align}
+\left(g_{\mu\nu}\right) & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0\\
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & -1
+\end{array}\right)=\left(\left(g^{-1}\right)_{\mu\nu}\right)=:\left(g^{\mu\nu}\right)
+\end{align}
+
+\end_inset
+
+die Metrik des Minkowski-Raumes
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Mit der Metrik kann man die Indizes verschieben: 
+\begin_inset Formula $a^{\mu}=g^{\mu\nu}a_{\nu}$
+\end_inset
+
+, 
+\begin_inset Formula $a_{\mu}=g_{\mu\nu}a^{\nu}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ Wir verwenden die Einsteinsche Summenkonvention.
+ Die Multiplikation mit 
+\begin_inset Formula $\mathbbm{1}$
+\end_inset
+
+ schreiben wir gewöhnlich nicht aus.
+ 
+\begin_inset Formula 
+\begin{align*}
+\left(\hat{p}^{\mu}\gamma_{\mu}-m\right)\left(\hat{p}^{\mu}\gamma_{\mu}+m\right) & =\underbrace{\hat{p}^{\mu}\hat{p}^{\nu}}_{\text{symmetrisch}}\gamma_{\mu}\gamma_{\nu}-m^{2}=\\
+ & =\frac{1}{2}\left(\hat{p}^{\mu}\hat{p}^{\nu}\gamma_{\mu}\gamma_{\nu}+\hat{p}^{\nu}\hat{p}^{\mu}\gamma_{\mu}\gamma_{\nu}\right)-m^{2}=\\
+ & =\frac{1}{2}\hat{p}^{\mu}\hat{p}^{\nu}\left(\gamma_{\mu}\gamma_{\nu}+\gamma_{\nu}\gamma_{\mu}\right)-m^{2}=\\
+ & =\hat{p}^{\mu}\hat{p}^{\nu}g_{\mu\nu}-m^{2}=\hat{p}^{2}-m^{2}
+\end{align*}
+
+\end_inset
+
+Wenn 
+\begin_inset Formula $\psi$
+\end_inset
+
+ die Gleichung
+\begin_inset Formula 
+\begin{align}
+\fbox{\ensuremath{{\displaystyle \left(\hat{p}^{\mu}\gamma_{\mu}+m\right)\psi=0}}}
+\end{align}
+
+\end_inset
+
+erfüllt, so erfüllt 
+\begin_inset Formula $\psi$
+\end_inset
+
+ auch die Klein-Gordon-Gleichung, ist also eine Lösung, die der relativistischen
+ Energie-Impuls-Beziehung genügt.
+ Analoges gilt für:
+\begin_inset Formula 
+\begin{align}
+\fbox{\ensuremath{{\displaystyle \left(\hat{p}^{\mu}\gamma_{\mu}-m\right)\psi=0}}}
+\end{align}
+
+\end_inset
+
+Dies sind die zwei Formen der 
+\emph on
+Dirac-Gleichung
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%DATE: Di 16.4.13
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Wir verwenden die 
+\emph on
+Feynman-Slash-Notation
+\emph default
+:
+\begin_inset Formula 
+\begin{align}
+\slashd p & :=p^{\mu}\gamma_{\mu}
+\end{align}
+
+\end_inset
+
+Die Dirac-Darstellung der Gamma-Matrizen lautet:
+\begin_inset Formula 
+\begin{align}
+\gamma^{0} & =\gamma_{0}=\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & -1
+\end{array}\right) & \gamma^{1} & =-\gamma_{1}=\left(\begin{array}{cccc}
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0\\
+0 & -1 & 0 & 0\\
+-1 & 0 & 0 & 0
+\end{array}\right)\nonumber \\
+\gamma^{2} & =-\gamma_{2}=\left(\begin{array}{cccc}
+0 & 0 & 0 & -\ii\\
+0 & 0 & \ii & 0\\
+0 & \ii & 0 & 0\\
+-\ii & 0 & 0 & 0
+\end{array}\right) & \gamma^{3} & =-\gamma_{3}=\left(\begin{array}{cccc}
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & -1\\
+-1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0
+\end{array}\right)
+\end{align}
+
+\end_inset
+
+Beispiel:
+\begin_inset Formula 
+\begin{align*}
+\gamma_{1}\gamma_{2}+\gamma_{2}\gamma_{1} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0\\
+0 & -1 & 0 & 0\\
+-1 & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & -\ii\\
+0 & 0 & \ii & 0\\
+0 & \ii & 0 & 0\\
+-\ii & 0 & 0 & 0
+\end{array}\right)+\\
+ & \quad+\left(\begin{array}{cccc}
+0 & 0 & 0 & -\ii\\
+0 & 0 & \ii & 0\\
+0 & \ii & 0 & 0\\
+-\ii & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0\\
+0 & -1 & 0 & 0\\
+-1 & 0 & 0 & 0
+\end{array}\right)=\\
+ & =\left(\begin{array}{cccc}
+-\ii & 0 & 0 & 0\\
+0 & \ii & 0 & 0\\
+0 & 0 & -\ii & 0\\
+0 & 0 & 0 & \ii
+\end{array}\right)+\left(\begin{array}{cccc}
+\ii & 0 & 0 & 0\\
+0 & -\ii & 0 & 0\\
+0 & 0 & \ii & 0\\
+0 & 0 & 0 & -\ii
+\end{array}\right)=0
+\end{align*}
+
+\end_inset
+
+Die Dirac-Darstellung ermöglicht die intuitive Interpretation, dass die
+ ersten beiden Indizes eines 
+\emph on
+Spinors
+\emph default
+ 
+\begin_inset Formula $\psi$
+\end_inset
+
+ einer Teilchenlösung entsprechen und die letzten beiden einer Antiteilchenlösun
+g.
+\end_layout
+
+\begin_layout Section
+Die freien Lösungen im Ruhesystem
+\end_layout
+
+\begin_layout Standard
+Wir wollen eine Lösung 
+\begin_inset Formula $\psi\left(x^{0},\vec{x}\right)$
+\end_inset
+
+ der Diracgleichung im Ruhesystem finden, das heißt für 
+\begin_inset Formula $\vec{p}=0$
+\end_inset
+
+ und 
+\begin_inset Formula $E=m$
+\end_inset
+
+.
+ Wir machen einen Wellenansatz:
+\begin_inset Formula 
+\begin{align*}
+\psi\left(x^{0},\vec{x}\right) & =u\left(E,\vec{p}\right)e^{-\ii\left(Et-\vec{p}\cdot\vec{x}\right)}=u\left(m,\vec{0}\right)e^{-\ii mt}
+\end{align*}
+
+\end_inset
+
+Die Dirac-Gleichung für Teilchen ist:
+\begin_inset Formula 
+\begin{align*}
+\left(m\gamma^{0}-m\right)\psi=\left(\slashd{\hat{p}}-m\right)\psi & =0\\
+\left(\begin{array}{cccc}
+m-m &  &  & 0\\
+ & m-m\\
+ &  & -m-m\\
+0 &  &  & -m-m
+\end{array}\right)\psi & =\left(\begin{array}{c}
+0\\
+0\\
+0\\
+0
+\end{array}\right)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+u\left(\vec{p}=\vec{0},+\right) & =a\left(\begin{array}{c}
+1\\
+0\\
+0\\
+0
+\end{array}\right) & u\left(\vec{p}=\vec{0},-\right) & =b\left(\begin{array}{c}
+0\\
+1\\
+0\\
+0
+\end{array}\right)
+\end{align}
+
+\end_inset
+
+Analog lässt die Dirac-Gleichung für Antiteilchen
+\begin_inset Formula 
+\begin{align*}
+\left(\slashd{\hat{p}}+m\right)\psi & =0
+\end{align*}
+
+\end_inset
+
+folgende Lösungen zu:
+\begin_inset Formula 
+\begin{align}
+v\left(\vec{p}=\vec{0},-\right) & =c\left(\begin{array}{c}
+0\\
+0\\
+1\\
+0
+\end{array}\right) & u\left(\vec{p}=\vec{0},+\right) & =d\left(\begin{array}{c}
+0\\
+0\\
+0\\
+1
+\end{array}\right)
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Lorentz-Transformationen der Dirac-Gleichung
+\end_layout
+
+\begin_layout Standard
+Fordere nun die Invarianz der Dirac-Gleichung unter einer Lorentz-Transformation
+en
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Beachte, dass 
+\begin_inset Formula $\Lambda_{\nu}^{\mu}$
+\end_inset
+
+ sich unter Lorentz-Transformationen nicht ändert, also kein Tensor ist.
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $\Lambda_{\nu}^{\mu}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+0 & =\left(\ii\frac{\partial}{\partial x_{\mu}}\gamma_{\mu}-m\right)\psi\left(x\right)=\left(\ii\frac{\partial}{\partial x_{\nu}'}\Lambda_{\nu}^{\mu}\gamma_{\mu}-m\right)\underbrace{S^{-1}\left(\Lambda\right)\psi'\left(x'\right)}_{=\psi\left(x\right)}\qquad/S\cdot\nonumber \\
+0 & =\bigg(\ii\frac{\partial}{\partial x_{\nu}'}\underbrace{\Lambda_{\nu}^{\mu}S\gamma_{\mu}S^{-1}}_{\stackrel{!}{=}\gamma_{\nu}}-m\bigg)\psi'\left(x'\right)
+\end{align}
+
+\end_inset
+
+Es genügt, eine infinitesimale Lorentz-Transformation zu betrachten, da
+ man eine endliche Transformation als Hintereinanderausführung von 
+\begin_inset Formula $N$
+\end_inset
+
+ infinitesimalen darstellen kann.
+\begin_inset Formula 
+\begin{align*}
+g^{\nu\nu'}\Lambda_{\nu'}^{\mu}\big|_{\text{inf.}} & =g^{\nu\mu}+\frac{\omega^{\nu\mu}}{N}+\mathcal{O}\left(\frac{1}{N^{2}}\right)
+\end{align*}
+
+\end_inset
+
+Wir benutzen dann:
+\begin_inset Formula 
+\begin{align*}
+\lim_{N\to\infty}\left(1-\ii\frac{a}{N}\right)^{N} & =e^{-\ii a}
+\end{align*}
+
+\end_inset
+
+Zur Erinnerung: Die Lorentz-Transformation lässt die Metrik invariant:
+\begin_inset Formula 
+\begin{align*}
+\Lambda_{\mu'}^{\mu}\Lambda_{\nu'}^{\nu}g_{\mu\nu} & =g_{\mu'\nu'}
+\end{align*}
+
+\end_inset
+
+Es folgt:
+\begin_inset Formula 
+\begin{align*}
+g^{\mu''\mu'}\Lambda_{\mu'}^{\mu}g^{\nu''\nu'}\Lambda_{\nu'}^{\nu}g_{\mu\nu} & =g^{\mu''\nu''}\\
+g^{\mu''\mu}g^{\nu''\nu}g_{\mu\nu}+\frac{\omega^{\mu''\mu}}{N}g^{\nu''\nu}g_{\mu\nu}+g^{\mu''\mu}\frac{\omega^{\nu''\nu}}{N}g_{\mu\nu} & =g^{\mu''\nu''}\\
+\frac{\omega^{\mu''\mu}}{N}g_{\mu\nu''} & =-\frac{\omega^{\nu''\nu}}{N}g_{\mu''\nu}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+\Rightarrow\qquad\fbox{\ensuremath{{\displaystyle \omega^{\mu''\nu''}=-\omega^{\nu''\mu''}}}}
+\end{align}
+
+\end_inset
+
+Für 
+\begin_inset Formula $S$
+\end_inset
+
+ machen wir den Ansatz:
+\begin_inset Formula 
+\begin{align}
+S & =\mathbbm{1}-\frac{\ii}{4}\cdot\frac{\omega^{\mu\nu}}{N}\sigma_{\mu\nu}\label{eq:S-Transformation-Definition}
+\end{align}
+
+\end_inset
+
+Dabei sind die 
+\begin_inset Formula $\sigma_{\mu\nu}$
+\end_inset
+
+ beliebige 
+\begin_inset Formula $\mathbb{C}^{4\times4}$
+\end_inset
+
+-Matrizen, ohne Einschränkung mit 
+\begin_inset Formula $\sigma_{\mu\nu}=-\sigma_{\nu\mu}$
+\end_inset
+
+, da der symmetrische Anteil wegfällt, weil 
+\begin_inset Formula $\omega^{\mu\nu}$
+\end_inset
+
+ antisymmetrisch ist.
+ Einsetzen liefert:
+\begin_inset Formula 
+\begin{align*}
+\gamma_{\nu}+\mathcal{O}\left(\frac{1}{N^{2}}\right) & \stackrel{!}{=}\left(\mathbbm{1}-\frac{\ii}{4}\sigma_{\mu'\nu'}\frac{\omega^{\mu'\nu'}}{N}\right)\left(\gamma_{\nu}+\frac{\omega_{\nu\mu}}{N}\gamma^{\mu}\right)\left(\mathbbm{1}+\frac{\ii}{4}\sigma_{\mu''\nu''}\frac{\omega^{\mu''\nu''}}{N}\right)=\\
+\Rightarrow\qquad0 & =-\frac{\ii}{4}\sigma_{\mu'\nu'}\frac{\omega^{\mu'\nu'}}{N}\gamma_{\nu}+\frac{\omega_{\nu}\msu{\mu}}{N}\gamma_{\mu}+\frac{\ii}{4}\gamma_{\nu}\sigma_{\mu''\nu''}\frac{\omega^{\mu''\nu''}}{N}\\
+0 & =-\frac{\ii}{4}\sigma_{\mu'\nu'}\gamma_{\nu}\frac{\omega^{\mu'\nu'}}{N}+g_{\nu\nu'}\gamma_{\mu'}\frac{\omega^{\nu'\mu'}}{N}+\frac{\ii}{4}\gamma_{\nu}\sigma_{\mu'\nu'}\frac{\omega^{\mu'\nu'}}{N}\\
+0 & =\frac{\omega^{\mu'\nu'}}{N}\left(-\frac{\ii}{4}\sigma_{\mu'\nu'}\gamma_{\nu}-g_{\nu\nu'}\gamma_{\mu'}+\frac{\ii}{4}\gamma_{\nu}\sigma_{\mu'\nu'}\right)
+\end{align*}
+
+\end_inset
+
+Es gilt, da 
+\begin_inset Formula $\omega^{\mu'\nu'}$
+\end_inset
+
+ antisymmetrisch ist:
+\begin_inset Formula 
+\begin{align*}
+-\omega^{\mu'\nu'}g_{\nu\nu'}\gamma_{\mu'} & =\left(-\frac{1}{2}g_{\nu\nu'}\gamma_{\mu'}+\frac{1}{2}g_{\nu\mu'}\gamma_{\nu'}\right)\omega^{\mu'\nu'}
+\end{align*}
+
+\end_inset
+
+Somit folgt:
+\begin_inset Formula 
+\begin{align}
+\frac{\ii}{4}\left(\sigma_{\mu'\nu'}\gamma_{\nu}-\gamma_{\nu}\sigma_{\mu'\nu'}\right)\frac{\omega^{\mu'\nu'}}{N} & =\frac{1}{2}\left(-g_{\nu\nu'}\gamma_{\mu'}+g_{\nu\mu'}\gamma_{\nu'}\right)\frac{\omega^{\mu'\nu'}}{N}\nonumber \\
+\frac{\ii}{2}\left(\sigma_{\mu'\nu'}\gamma_{\nu}-\gamma_{\nu}\sigma_{\mu'\nu'}\right) & =g_{\mu'\nu}\gamma_{\nu'}-g_{\nu'\nu}\gamma_{\mu'}\label{eq:isigma}
+\end{align}
+
+\end_inset
+
+Die 
+\begin_inset Formula $\sigma_{\mu'\nu'}$
+\end_inset
+
+ sind antisymmetrische Tensoren der Stufe 2, die nur von den 
+\begin_inset Formula $\gamma$
+\end_inset
+
+-Matrizen abhängen, das heißt mit 
+\begin_inset Formula $A\in\mathbb{C}$
+\end_inset
+
+ gilt:
+\begin_inset Formula 
+\begin{align*}
+\sigma_{\mu'\nu'} & =A\cdot\left[\gamma_{\mu'},\gamma_{\nu'}\right]
+\end{align*}
+
+\end_inset
+
+Die linke Seite von 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:isigma"
+
+\end_inset
+
+ ist damit:
+\begin_inset Formula 
+\begin{align*}
+ & \frac{\ii}{2}A\Big(\gamma_{\mu'}\underbrace{\gamma_{\nu'}\gamma_{\nu}}_{\text{kommutieren}}-\gamma_{\nu'}\underbrace{\gamma_{\mu'}\gamma_{\nu}}_{\text{kommutieren}}-\underbrace{\gamma_{\nu}\gamma_{\mu'}}_{\text{kommutieren}}\gamma_{\nu'}+\underbrace{\gamma_{\nu}\gamma_{\nu'}}_{\text{kommutieren}}\gamma_{\mu'}\Big)=\\
+ & \qquad\qquad\qquad=\frac{\ii}{2}A\Big(2g_{\nu'\nu}\gamma_{\mu'}-\underline{\gamma_{\mu'}\gamma_{\nu}\gamma_{\nu'}}-2g_{\mu'\nu}\gamma_{\nu'}+\underleftarrow{\gamma_{\nu'}\gamma_{\nu}\gamma_{\mu'}}-\\
+ & \qquad\qquad\qquad\qquad\;-2g_{\nu\mu'}\gamma_{\nu'}+\underline{\gamma_{\mu'}\gamma_{\nu}\gamma_{\nu'}}+2g_{\nu\nu'}\gamma_{\mu'}-\underleftarrow{\gamma_{\nu'}\gamma_{\nu}\gamma_{\mu'}}\Big)\\
+ & \qquad\qquad\qquad=2\ii A\left(g_{\nu'\nu}\gamma_{\mu'}-g_{\mu'\nu}\gamma_{\nu'}\right)
+\end{align*}
+
+\end_inset
+
+Aus 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:isigma"
+
+\end_inset
+
+ folgt daher:
+\begin_inset Formula 
+\begin{align}
+A & =\frac{\ii}{2} & \fbox{\ensuremath{{\displaystyle \sigma_{\mu\nu}=\frac{\ii}{2}\left[\gamma_{\mu},\gamma_{\nu}\right]}}}
+\end{align}
+
+\end_inset
+
+Damit haben wir 
+\begin_inset Formula $S$
+\end_inset
+
+ bestimmt.
+\end_layout
+
+\begin_layout Standard
+Erinnerung: Kugelflächenfunktionen und Drehimpulsoperator
+\begin_inset Formula 
+\begin{align*}
+Y_{lm} & =\sqrt{\frac{2l+1}{4\pi}\cdot\frac{\left(l-m\right)!}{\left(l+m\right)!}}P_{l}^{m}\left(\cos\left(\vartheta\right)\right)e^{\ii m\varphi}\\
+\hat{L}_{z} & =\frac{\hbar}{\ii}\left(x\frac{\partial}{\partial y}-y\frac{\partial}{\partial x}\right)=\frac{\hbar}{\ii}\frac{\partial}{\partial\varphi}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Erster Spezialfall: Rotation
+\end_layout
+
+\begin_layout Standard
+Betrachte die infinitesimale Transformation für Drehungen um die 
+\begin_inset Formula $z$
+\end_inset
+
+-Achse:
+\begin_inset Formula 
+\begin{align}
+\left(\Lambda_{\nu}^{\mu}\right)_{\text{inf. Rot.}} & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 1 & -\frac{\varphi}{N} & 0\\
+0 & \frac{\varphi}{N} & 1 & 0\\
+0 & 0 & 0 & 1
+\end{array}\right) & \frac{\omega^{12}}{N} & =-\frac{\omega^{21}}{N}=-\frac{\varphi}{N}
+\end{align}
+
+\end_inset
+
+Alle anderen 
+\begin_inset Formula $\omega^{\mu\nu}$
+\end_inset
+
+ verschwinden.
+ Außerdem gilt:
+\begin_inset Formula 
+\begin{align*}
+\sigma_{12} & =-\sigma_{21}=\frac{\ii}{2}\left(\gamma_{1}\gamma_{2}-\gamma_{2}\gamma_{1}\right)=\ii\gamma_{1}\gamma_{2}=\\
+ & =\ii\left(\begin{array}{cccc}
+0 & 0 & 0 & -1\\
+0 & 0 & -1 & 0\\
+0 & 1 & 0 & 0\\
+1 & 0 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & 0 & \ii\\
+0 & 0 & -\ii & 0\\
+0 & -\ii & 0 & 0\\
+\ii & 0 & 0 & 0
+\end{array}\right)=\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & -1
+\end{array}\right)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+S & =\exp\left(-\frac{\ii}{4}N\cdot2\frac{\omega^{12}}{N}\sigma_{12}\right)=\exp\left(\frac{\ii}{2}\varphi\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & -1
+\end{array}\right)\right)=\nonumber \\
+ & =\left(\begin{array}{cccc}
+1 &  &  & 0\\
+ & 1\\
+ &  & 1\\
+0 &  &  & 1
+\end{array}\right)\cos\left(\frac{\varphi}{2}\right)+\left(\begin{array}{cccc}
+1 &  &  & 0\\
+ & -1\\
+ &  & 1\\
+0 &  &  & -1
+\end{array}\right)\ii\sin\left(\frac{\varphi}{2}\right)=\nonumber \\
+ & =\left(\begin{array}{cccc}
+e^{\ii\frac{\varphi}{2}} &  &  & 0\\
+ & e^{-\ii\frac{\varphi}{2}}\\
+ &  & e^{\ii\frac{\varphi}{2}}\\
+0 &  &  & e^{-\ii\frac{\varphi}{2}}
+\end{array}\right)
+\end{align}
+
+\end_inset
+
+Also haben die erste und dritte Komponenten Spin 
+\begin_inset Formula $\frac{1}{2}$
+\end_inset
+
+ und die anderen beiden Spin 
+\begin_inset Formula $-\frac{1}{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Zweiter Spezialfall: Lorentz-Boost
+\end_layout
+
+\begin_layout Standard
+Für den Lorentz-Boost gilt:
+\begin_inset Formula 
+\begin{align*}
+\left(x^{0}\right)' & =\gamma\left(x^{0}+\vec{\beta}\vec{x}\right)\\
+\left(\vec{x}\right)' & =\gamma\left(\vec{\beta}x^{0}+\vec{x}\right)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\vec{\beta} & =\frac{\vec{v}}{c} & \gamma^{-1} & =\sqrt{1-\beta^{2}}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\frac{\omega^{0}\msd k}{N} & =\frac{\omega^{k}\msd 0}{N}=:\frac{\omega^{k}}{N} & \omega & :=\sqrt{\left(\omega^{1}\right)^{2}+\left(\omega^{2}\right)^{2}+\left(\omega^{3}\right)^{2}}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+\left(\Lambda\right)_{\text{inf. Boost}} & =\left(\begin{array}{cccc}
+1 & \frac{\omega^{1}}{N} & \frac{\omega^{2}}{N} & \frac{\omega^{3}}{N}\\
+\frac{\omega^{1}}{N} & 1 & 0 & 0\\
+\frac{\omega^{2}}{N} & 0 & 1 & 0\\
+\frac{\omega^{3}}{N} & 0 & 0 & 1
+\end{array}\right)
+\end{align}
+
+\end_inset
+
+Man erhält:
+\begin_inset Formula 
+\begin{align*}
+\sigma_{10} & =\ii\left(\begin{array}{cccc}
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0\\
+0 & 1 & 0 & 0\\
+1 & 0 & 0 & 0
+\end{array}\right) & \sigma_{20} & =\ii\left(\begin{array}{cccc}
+0 & 0 & 0 & -\ii\\
+0 & 0 & \ii & 0\\
+0 & -\ii & 0 & 0\\
+\ii & 0 & 0 & 0
+\end{array}\right) & \sigma_{30} & =\ii\left(\begin{array}{cccc}
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & -1\\
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0
+\end{array}\right)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+S & =\lim_{N\to\infty}\left(\mathbbm{1}+\frac{1}{2}\cdot\frac{\omega}{N}\underbrace{\left(\begin{array}{cccc}
+0 & 0 & p^{3} & p^{1}-\ii p^{2}\\
+0 & 0 & p^{1}+\ii p^{2} & -p^{3}\\
+p^{3} & p^{1}-\ii p^{2} & 0 & 0\\
+p^{1}+\ii p^{2} & -p^{3} & 0 & 0
+\end{array}\right)\frac{1}{\norm{\vec{p}}}}_{=:M}\right)^{N}=e^{\frac{\omega}{2}M}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+M^{2} & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1
+\end{array}\right)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\Rightarrow\qquad M^{2n} & =\mathbbm{1} & M^{2n+1} & =M
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+\Rightarrow\qquad S & =\cosh\left(\frac{\omega}{2}\right)\mathbbm{1}+\sinh\left(\frac{\omega}{2}\right)M
+\end{align}
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%DATE: Do 18.4.13
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Wir betrachten jetzt die 
+\begin_inset Formula $\Lambda_{\alpha}^{\beta}$
+\end_inset
+
+-Matrix, die sich aus 
+\begin_inset Formula $N$
+\end_inset
+
+ infinitesimalen Transformationen ergibt.
+\begin_inset Formula 
+\begin{align}
+\left(\Lambda_{\alpha}^{\beta}\right) & =\lim_{N\to\infty}\left(1+\frac{\omega}{N}\underbrace{\left(\begin{array}{cccc}
+0 & \omega^{1} & \omega^{2} & \omega^{3}\\
+\omega^{1} & 0 & 0 & 0\\
+\omega^{2} & 0 & 0 & 0\\
+\omega^{3} & 0 & 0 & 0
+\end{array}\right)\frac{1}{\omega}}_{=:\tilde{M}}\right)^{N}=e^{\omega\tilde{M}}
+\end{align}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\tilde{M}^{2} & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & \frac{\left(\omega^{1}\right)^{2}}{\omega^{2}} & 0 & 0\\
+0 & 0 & \frac{\left(\omega^{2}\right)^{2}}{\omega^{2}} & 0\\
+0 & 0 & 0 & \frac{\left(\omega^{3}\right)^{2}}{\omega^{2}}
+\end{array}\right)
+\end{align*}
+
+\end_inset
+
+Damit folgt:
+\begin_inset Formula 
+\begin{align*}
+\left(\tilde{M}^{2}\right)_{0}^{0} & =1=\left(\tilde{M}^{2n}\right)_{0}^{0} & \left(\tilde{M}^{2n+1}\right)_{0}^{0} & =0
+\end{align*}
+
+\end_inset
+
+Somit ergibt sich:
+\begin_inset Formula 
+\begin{align}
+\cosh\left(\omega\right) & =\left(\Lambda\right)_{0}^{0}\stackrel{!}{=}\gamma=\frac{E}{m}=\sqrt{\frac{\norm{\vec{p}}^{2}+m^{2}}{m^{2}}}\nonumber \\
+\cosh\left(\frac{\omega}{2}\right) & =\sqrt{\frac{\cosh\left(\omega\right)+1}{2}}=\sqrt{\frac{E+m}{2m}}\nonumber \\
+\frac{1}{\norm{\vec{p}}}\sinh\left(\frac{\omega}{2}\right) & =\frac{1}{\norm{\vec{p}}}\sqrt{\frac{\cosh\left(\omega\right)-1}{2}}=\frac{1}{\sqrt{E^{2}-m^{2}}}\sqrt{\frac{E-m}{2m}}=\nonumber \\
+ & =\frac{1}{\sqrt{2m\left(E+m\right)}}=\frac{1}{E+m}\sqrt{\frac{E+m}{2m}}\nonumber \\
+S & =\sqrt{\frac{E+m}{2m}}\left(\begin{array}{cccc}
+1 & 0 & \frac{p^{3}}{E+m} & \frac{p^{1}-\ii p^{2}}{E+m}\\
+0 & 1 & \frac{p^{1}+\ii p^{2}}{E+m} & \frac{-p^{3}}{E+m}\\
+\frac{p^{3}}{E+m} & \frac{p^{1}-\ii p^{2}}{E+m} & 1 & 0\\
+\frac{p^{1}+\ii p^{2}}{E+m} & \frac{-p^{3}}{E+m} & 0 & 1
+\end{array}\right)
+\end{align}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\Rightarrow\qquad u\left(\vec{p},+\right) & =\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+1\\
+0\\
+\frac{p^{3}}{E+m}\\
+\frac{p^{1}+\ii p^{2}}{E+m}
+\end{array}\right)
+\end{align*}
+
+\end_inset
+
+Die Lösungen sind also:
+\begin_inset Formula 
+\begin{align*}
+\psi_{1} & =e^{-\ii\left(Et-\vec{p}\vec{x}\right)}u\left(\vec{p},+\right)=e^{-\ii px}u\left(\vec{p},+\right) & \psi_{2} & =e^{-\ii\left(Et-\vec{p}\vec{x}\right)}u\left(\vec{p},-\right)=e^{-\ii px}u\left(\vec{p},-\right)\\
+\psi_{3} & =e^{\ii\left(Et-\vec{p}\vec{x}\right)}v\left(\vec{p},+\right)=e^{\ii px}v\left(\vec{p},+\right) & \psi_{4} & =e^{\ii\left(Et-\vec{p}\vec{x}\right)}v\left(\vec{p},-\right)=e^{\ii px}v\left(\vec{p},-\right)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+\psi_{1}\left(\vec{x},t\right) & =e^{-\ii px}\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+1\\
+0\\
+\frac{p^{3}}{E+m}\\
+\frac{p^{1}+\ii p^{2}}{E+m}
+\end{array}\right) & \psi_{2}\left(\vec{x},t\right) & =e^{-\ii px}\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+0\\
+1\\
+\frac{p^{1}-\ii p^{2}}{E+m}\\
+\frac{-p^{3}}{E+m}
+\end{array}\right)\nonumber \\
+\psi_{3}\left(\vec{x},t\right) & =e^{\ii px}\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+\frac{p^{3}}{E+m}\\
+\frac{p^{1}+\ii p^{2}}{E+m}\\
+1\\
+0
+\end{array}\right) & \psi_{4}\left(\vec{x},t\right) & =e^{\ii px}\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+\frac{p^{1}-\ii p^{2}}{E+m}\\
+\frac{-p^{3}}{E+m}\\
+0\\
+1
+\end{array}\right)
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Der 4-Spinvektor
+\end_layout
+
+\begin_layout Standard
+Wir suchen nun die relativistische Verallgemeinerung des Spinvektors 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+, den 4-Spinvektor 
+\begin_inset Formula $s^{\mu}$
+\end_inset
+
+.
+ Im Ruhesystem soll gelten:
+\begin_inset Formula 
+\begin{align}
+s^{\mu} & =\left(0,\vec{s}\right) & p^{\mu} & =\left(E,\vec{0}\right)=\left(m,\vec{0}\right)
+\end{align}
+
+\end_inset
+
+Wir verwenden, dass 4-Skalarprodukte invariant unter Lorentz-Transformationen
+ sind.
+\begin_inset Formula 
+\begin{align}
+s^{2} & =s_{\mu}s^{\mu}=-\norm{\vec{s}}^{2}\stackrel{\norm{\vec{s}}:=1}{=}-1 & s\cdot p & =s_{\mu}p^{\mu}=0
+\end{align}
+
+\end_inset
+
+Wir machen folgenden Ansatz für 
+\begin_inset Formula $s^{\mu}$
+\end_inset
+
+, da die einzige ausgezeichnete Raumrichtung 
+\begin_inset Formula $\vec{p}$
+\end_inset
+
+ ist:
+\begin_inset Formula 
+\begin{align*}
+s^{\mu} & =\left(s^{0},\alpha\vec{p}\right)
+\end{align*}
+
+\end_inset
+
+Dabei ist 
+\begin_inset Formula $\alpha\in\mathbb{R}$
+\end_inset
+
+ ein beliebiger Proportionalitätsfaktor.
+ Einsetzen liefert:
+\begin_inset Formula 
+\begin{align*}
+s^{0}E-\alpha\vec{p}^{2} & =0\\
+\Rightarrow\qquad s^{0} & =\frac{\alpha\vec{p}^{2}}{E}
+\end{align*}
+
+\end_inset
+
+Damit ergibt die andere Gleichung:
+\begin_inset Formula 
+\begin{align*}
+-1 & =\left(s^{0}\right)^{2}-\alpha^{2}\vec{p}^{2}=\left(\frac{\alpha\vec{p}^{2}}{E}\right)^{2}-\alpha^{2}\vec{p}^{2}=\\
+ & =\alpha^{2}\left(\frac{\vec{p}^{4}}{E^{2}}-\vec{p}^{2}\right)=\alpha^{2}\left(\frac{\vec{p}^{4}}{E^{2}}-\vec{p}^{2}\right)=\\
+ & =-\alpha^{2}\cdot\frac{\vec{p}^{2}m^{2}}{E^{2}}\\
+\Rightarrow\qquad\alpha & =\pm\frac{E}{m\norm{\vec{p}}}
+\end{align*}
+
+\end_inset
+
+Somit ist der Spin 4-Vektor:
+\begin_inset Formula 
+\begin{align}
+\fbox{\ensuremath{{\displaystyle s^{\mu}=\pm\frac{E}{m}\left(\frac{\norm{\vec{p}}}{E},\frac{\vec{p}}{\norm{\vec{p}}}\right)}}}
+\end{align}
+
+\end_inset
+
+Eine wichtige Eigenschaft von 
+\begin_inset Formula $s^{\mu}$
+\end_inset
+
+ ist:
+\begin_inset Formula 
+\begin{align}
+\lim_{\frac{\norm{\vec{p}}}{m}\to\infty}s^{\mu} & =\pm\frac{1}{m}\left(E,\vec{p}\right)=\pm\frac{p^{\mu}}{m}
+\end{align}
+
+\end_inset
+
+Was ist das Lorentz-invariante Skalarprodukt (und damit die Norm) für Spinoren?
+ Wir machen folgenden Ansatz:
+\begin_inset Formula 
+\begin{align*}
+\int\dd^{3}x\left(\psi^{*}\right)^{\TT}\left(t,\vec{x}\right)\Gamma\psi\left(t,\vec{x}\right) & =1
+\end{align*}
+
+\end_inset
+
+Dabei ist 
+\begin_inset Formula $\Gamma\in\mathbb{C}^{4\times4}$
+\end_inset
+
+ eine Matrix.
+ Die Lorentz-Invarianz bedeutet:
+\begin_inset Formula 
+\begin{align*}
+S^{\dagger}\Gamma S & \stackrel{!}{=}\Gamma
+\end{align*}
+
+\end_inset
+
+Nebenrechnung:
+\begin_inset Formula 
+\begin{align*}
+-\frac{\omega^{\mu\nu}}{4}\left(\ii\sigma_{\mu\nu}\right)^{\dagger} & =\frac{\omega^{\mu\nu}}{8}\left(\gamma_{\mu}\gamma_{\nu}-\gamma_{\nu}\gamma_{\mu}\right)^{\dagger}=\frac{\omega^{\mu\nu}}{8}\left(\gamma_{\nu}^{\dagger}\gamma_{\mu}^{\dagger}-\gamma_{\mu}^{\dagger}\gamma_{\nu}^{\dagger}\right)
+\end{align*}
+
+\end_inset
+
+In der Dirac-Darstellung gilt:
+\begin_inset Formula 
+\begin{align*}
+\gamma_{0} & =\gamma_{0}^{\dagger} & \gamma_{i} & =-\gamma_{i}^{\dagger}
+\end{align*}
+
+\end_inset
+
+Dies kann man aufgrund der Antikommutator-Relationen kurz schreiben als:
+\begin_inset Formula 
+\begin{align*}
+\gamma_{\mu}^{\dagger} & =\gamma_{0}\gamma_{\mu}\gamma_{0}
+\end{align*}
+
+\end_inset
+
+Es folgt:
+\begin_inset Formula 
+\begin{align*}
+-\frac{\omega^{\mu\nu}}{4}\left(\ii\sigma_{\mu\nu}\right)^{\dagger} & =\gamma_{0}\frac{\omega^{\mu\nu}}{8}\left(\gamma_{\nu}\gamma_{\mu}-\gamma_{\mu}\gamma_{\nu}\right)\gamma_{0}=\gamma_{0}\frac{\ii}{4}\omega^{\mu\nu}\sigma_{\mu\nu}\gamma_{0}
+\end{align*}
+
+\end_inset
+
+Aus 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:S-Transformation-Definition"
+
+\end_inset
+
+ folgt für eine infinitesimale Transformation:
+\begin_inset Formula 
+\begin{align*}
+S^{\dagger} & =\gamma_{0}S^{-1}\gamma_{0}
+\end{align*}
+
+\end_inset
+
+Bei einer endlichen Transformation ergibt sich dies ebenfalls:
+\begin_inset Formula 
+\begin{align*}
+\left(S^{N}\right)^{\dagger} & =\left(S^{\dagger}\right)^{N}=\gamma_{0}\left(S^{-1}\right)^{N}\gamma_{0}=\gamma_{0}\left(S^{N}\right)^{-1}\gamma_{0}
+\end{align*}
+
+\end_inset
+
+Damit erhält man für alle 
+\begin_inset Formula $\omega^{\mu\nu}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\gamma_{0}S^{-1}\gamma_{0}\Gamma S & \stackrel{!}{=}0\\
+\Rightarrow\qquad\Gamma & =\gamma_{0}=\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & -1
+\end{array}\right)
+\end{align*}
+
+\end_inset
+
+Die Norm ist also:
+\begin_inset Formula 
+\begin{align}
+\norm{\psi}^{2} & =\int\dd^{3}x\psi^{\dagger}\left(t,\vec{x}\right)\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & -1
+\end{array}\right)\psi\left(t,\vec{x}\right)
+\end{align}
+
+\end_inset
+
+Im Folgenden verwenden wir die Notation:
+\begin_inset Formula 
+\begin{align*}
+\overline{\psi} & =\psi^{\dagger}\gamma_{0}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Projektions-Operatoren
+\end_layout
+
+\begin_layout Standard
+Wir wollen die Lösungen der Dirac-Gleichung jetzt mit Hilfe von Projektions-Oper
+atoren schreiben.
+ Im euklidischen Raum gilt:
+\begin_inset Formula 
+\begin{align*}
+\vec{v} & =\sum_{i}\vec{e}_{i}\left(\vec{e}_{i}^{\TT}\cdot\vec{v}\right)=\sum_{i}\underbrace{\left(\vec{e}_{i}\vec{e}_{i}^{\TT}\right)}_{=:P}\cdot\vec{v}
+\end{align*}
+
+\end_inset
+
+Die Projektions-Operatoren im Ruhesystem sind einfach:
+\begin_inset Formula 
+\begin{align}
+\hat{P}_{1} & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0
+\end{array}\right) & \hat{P}_{2} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0
+\end{array}\right)\nonumber \\
+\hat{P}_{3} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 0
+\end{array}\right) & \hat{P}_{4} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 1
+\end{array}\right)
+\end{align}
+
+\end_inset
+
+Weiter gilt im Ruhesystem:
+\begin_inset Formula 
+\begin{align*}
+\frac{\slashd p+m}{2m} & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0
+\end{array}\right) & \frac{\slashd p-m}{2m} & =\left(\begin{array}{cccc}
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1
+\end{array}\right)
+\end{align*}
+
+\end_inset
+
+Wir definieren:
+\begin_inset Formula 
+\begin{align*}
+\gamma_{5} & =\gamma^{5}:=\ii\gamma^{0}\gamma^{1}\gamma^{2}\gamma^{3}=-\ii\gamma_{0}\gamma_{1}\gamma_{2}\gamma_{3}=\left(\begin{array}{cccc}
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0
+\end{array}\right)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\gamma_{5}\gamma_{\mu}s^{\mu}\bigg|_{\vec{s}=\left(0,0,1\right)} & =\gamma_{5}\gamma_{3}=\left(\begin{array}{cccc}
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1\\
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0
+\end{array}\right)\left(\begin{array}{cccc}
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & 1\\
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0
+\end{array}\right)=\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0\\
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & 1
+\end{array}\right)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+\frac{1+\gamma_{5}\slashd s}{2} & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 1
+\end{array}\right)\nonumber \\
+\Rightarrow\qquad\hat{P}_{1} & =\frac{\slashd p+m}{2m}\cdot\frac{1+\gamma_{5}\slashd s}{2}=u\left(\vec{p},+\right)\overline{u}\left(\vec{p},+\right)
+\end{align}
+
+\end_inset
+
+Analog ergibt sich:
+\begin_inset Formula 
+\begin{align}
+\hat{P}_{2} & =\frac{\slashd p+m}{2m}\cdot\frac{1-\gamma_{5}\slashd s}{2}\\
+\hat{P}_{3} & =\frac{-\slashd p+m}{2m}\cdot\frac{1-\gamma_{5}\slashd s}{2}\\
+\hat{P}_{4} & =\frac{-\slashd p+m}{2m}\cdot\frac{1+\gamma_{5}\slashd s}{2}
+\end{align}
+
+\end_inset
+
+Für 
+\begin_inset Formula $\norm{\vec{p}}\gg m$
+\end_inset
+
+ ist 
+\begin_inset Formula $\slashd s\approx\slashd p$
+\end_inset
+
+ und es gilt:
+\begin_inset Formula 
+\begin{align*}
+\left(\slashd p+m\right)\frac{\slashd p}{m} & =\frac{\slashd p^{2}+\slashd pm}{m}=\frac{p^{2}+m\slashd p}{m}=\frac{m^{2}+m\slashd p}{m}=m+\slashd p
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+ & \text{Helizität (engl. helicity):} &  & \frac{1\pm\gamma_{5}\slashd s}{2}\\
+ & \text{Chiralität (engl. chirality):} &  & \frac{1\pm\gamma_{5}}{2}
+\end{align}
+
+\end_inset
+
+Für 
+\begin_inset Formula $\frac{\norm{\vec{p}}}{m}\to\infty$
+\end_inset
+
+ stimmt beides überein.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%DATE: Mo 22.4.13
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Diskrete Lorentz-Transformationen
+\end_layout
+
+\begin_layout Standard
+Zur Lorentz-Gruppe gehören die diskreten Transformationen 
+\begin_inset Formula $\hat{P}$
+\end_inset
+
+ (Parität) und 
+\begin_inset Formula $\hat{T}$
+\end_inset
+
+ (Zeitumkehr).
+\begin_inset Formula 
+\begin{align}
+\hat{P} & =\left(\begin{array}{cccc}
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0\\
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & -1
+\end{array}\right) & \hat{T} & =\left(\begin{array}{cccc}
+-1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1
+\end{array}\right)
+\end{align}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+\Lambda_{\mu'}^{\mu}\Lambda_{\nu'}^{\nu}g_{\mu\nu} & =g_{\mu'\nu'}\nonumber \\
+\Rightarrow\qquad\left(\det\left(\Lambda\right)\right)^{2} & =1\nonumber \\
+\det\left(\Lambda\right) & =\pm1
+\end{align}
+
+\end_inset
+
+Für 
+\begin_inset Formula $\mu'=0=\nu'$
+\end_inset
+
+ gilt:
+\begin_inset Formula 
+\begin{align*}
+\Lambda_{0}^{0}\Lambda_{0}^{0}-\sum_{i=1}^{3}\Lambda_{0}^{i}\Lambda_{0}^{i} & =1\\
+\Rightarrow\qquad\left(\Lambda_{0}^{0}\right)^{2} & =1+\sum_{i=1}^{3}\left(\Lambda_{0}^{i}\right)^{2}\ge1
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+\Lambda_{0}^{0} & \ge1\qquad\text{oder}\qquad\Lambda_{0}^{0}\le1
+\end{align}
+
+\end_inset
+
+Es gibt vier nicht zusammenhängende Teilmengen der Lorentzgruppe:
+\begin_inset Formula 
+\begin{align}
+L_{+}^{\uparrow}:\  & \det\left(\Lambda\right)=+1,\quad\Lambda_{0}^{0}>1 & \stackrel{\hat{T}}{\Rightarrow}\qquad L_{-}^{\downarrow}:\  & \det\left(\Lambda\right)=-1,\quad\Lambda_{0}^{0}<1\nonumber \\
+ & \hat{P}\Downarrow & \hat{P}\hat{T}\RotateX{-45}{\Rightarrow}\qquad\qquad & \hat{P}\Downarrow\nonumber \\
+L_{-}^{\uparrow}:\  & \det\left(\Lambda\right)=-1,\quad\Lambda_{0}^{0}>1 & \stackrel{\hat{T}}{\Rightarrow}\qquad L_{+}^{\downarrow}:\  & \det\left(\Lambda\right)=+1,\quad\Lambda_{0}^{0}<1
+\end{align}
+
+\end_inset
+
+Die schwache Wechselwirkung verletzt die 
+\begin_inset Formula $\hat{P}$
+\end_inset
+
+- und die 
+\begin_inset Formula $\hat{T}$
+\end_inset
+
+-Symmetrie.
+\end_layout
+
+\begin_layout Standard
+Stetige Transformationen führen nicht aus 
+\begin_inset Formula $L_{+}^{\uparrow}$
+\end_inset
+
+ hinaus.
+ Daher muss man sich zusätzlich das Verhalten unter 
+\begin_inset Formula $\hat{P}$
+\end_inset
+
+ und 
+\begin_inset Formula $\hat{T}$
+\end_inset
+
+ ansehen.
+\end_layout
+
+\begin_layout Description
+Nebenbemerkung: 
+\begin_inset Formula $\hat{C}\hat{P}\hat{T}$
+\end_inset
+
+ ist für jede 
+\begin_inset Quotes gld
+\end_inset
+
+vernünftige
+\begin_inset Quotes grd
+\end_inset
+
+ Theorie eine Symmetrietransformation, wobei 
+\begin_inset Formula $\hat{C}$
+\end_inset
+
+ die Ladungskonjugation ist, die Teilchen und Antiteilchen vertauscht.
+ Daher ist 
+\begin_inset Formula $\hat{C}=\hat{P}\hat{T}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Das Eichprinzip
+\end_layout
+
+\begin_layout Standard
+Die Quantenmechanik ist invariant unter globalen Eichtransformationen 
+\begin_inset Formula $\psi\left(x\right)\to e^{\ii q\Theta}\psi\left(x\right)$
+\end_inset
+
+.
+ In der Quantenelektrodynamik fordert man nun die Invarianz unter den allgemeine
+ren 
+\emph on
+lokalen
+\emph default
+ Eichtransformationen 
+\begin_inset Formula $\psi\left(x\right)\to e^{\ii q\Theta\left(x\right)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Als heuristische Motivation hierfür betrachte zum Beispiel das Aharonov-Bohm-Exp
+eriment:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (0,-1) -- (0,1) (0,1.3) -- (0,2.5) (0,-1.3) -- (0,-2.5);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (4,-2.5) -- (4,2.5);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (-4,0) node[above]{$e^-$} -- (0,1.15) -- (4,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (-4,0) -- (0,-1.15) -- (4,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (-1,0) node{$
+\backslash
+vec{B}$} circle (0.7);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw plot[smooth,tension=.7] coordinates{(4.5,2.5) (5,2) (4.5,1.5) (5,1) (4.5,0.5)
+ (5,0) (4.5,-0.5) (5,-1) (4.5,-1.5) (5,-2) (4.5,-2.5)};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[orange, thick,<->] (5.5,1) -- node[right]{abhängig von $
+\backslash
+vec{B}$} (5.5,-1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Aharonov-Bohm-Experiment: aufgesammelte Phase 
+\begin_inset Formula $e^{\ii\int_{s}qA_{\mu}\dd x^{\mu}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Das Vektorpotential 
+\begin_inset Formula $A^{\mu}$
+\end_inset
+
+ ist nur bis auf eine Eichtransformation bestimmt.
+ Die Eichphasen dürfen also keine Rolle spielen.
+\end_layout
+
+\begin_layout Standard
+Die freie Dirac-Gleichung
+\begin_inset Formula 
+\begin{align*}
+\left(\ii\gamma^{\mu}\partial_{\mu}-m\right)\psi\left(x\right) & =0
+\end{align*}
+
+\end_inset
+
+ist nicht invariant unter lokalen Eichtransformationen:
+\begin_inset Formula 
+\begin{align*}
+\left(\ii\gamma^{\mu}\partial_{\mu}-m\right)e^{\ii q\Theta\left(x\right)}\psi\left(x\right) & =e^{\ii q\Theta\left(x\right)}\left(-q\gamma^{\mu}\left(\partial_{\mu}\Theta\right)+\ii\gamma^{\mu}\partial_{\mu}-m\right)
+\end{align*}
+
+\end_inset
+
+Aus der Forderung nach Invarianz folgt, dass es etwas geben muss, was sich
+ so transformiert, dass die Dirac-Gleichung invariant wird.
+ Da 
+\begin_inset Formula $\partial_{\mu}\Theta\left(x\right)$
+\end_inset
+
+ ein Vektorfeld ist, muss das neue Objekt ebenfalls ein Vektorfeld sein,
+ und zwar 
+\begin_inset Formula $A_{\mu}$
+\end_inset
+
+ mit:
+\begin_inset Formula 
+\begin{align}
+\left(\ii\gamma^{\mu}\partial_{\mu}-q\gamma^{\mu}A_{\mu}\left(x\right)-m\right)\psi\left(x\right) & =0
+\end{align}
+
+\end_inset
+
+Unter einer Eichtransformation transformiert 
+\begin_inset Formula $A_{\mu}$
+\end_inset
+
+ wie folgt:
+\begin_inset Formula 
+\begin{align}
+A_{\mu}\left(x\right) & \to A_{\mu}\left(x\right)-\partial_{\mu}\Theta\left(x\right)
+\end{align}
+
+\end_inset
+
+Aus der Forderung nach Eichinvarianz folgt die Existenz des Photons.
+\end_layout
+
+\begin_layout Subsection
+Lagrangedichte der Quantenelektrodynamik
+\end_layout
+
+\begin_layout Standard
+Um zum Beispiel die Zeitentwicklung eines Elektronfeldes beschreiben zu
+ können, muss man wissen, wie sich 
+\begin_inset Formula $A_{\mu}\left(x\right)$
+\end_inset
+
+ dynamisch entwickelt, das heißt wir brauchen die Lagrangedichte des Photons
+ 
+\begin_inset Formula $\mathcal{L}_{A}\left(x\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Wir wissen, dass 
+\begin_inset Formula $\DD_{\mu}=\partial_{\mu}+\ii qA_{\mu}$
+\end_inset
+
+ ein eichinvarianter Ableitungsoperator ist, der 
+\emph on
+kovariante Ableitung
+\emph default
+ genannt wird.
+\end_layout
+
+\begin_layout Itemize
+Für die Dimension von 
+\begin_inset Formula $\mathcal{L}$
+\end_inset
+
+ gilt:
+\begin_inset Formula 
+\begin{align}
+S & =\int\dd^{4}x\mathcal{L}\left(x\right)\\
+1\stackrel{\hbar=1}{=}\left[S\right] & =\left[x\right]^{4}\cdot\left[\mathcal{L}\right]\nonumber \\
+\Rightarrow\qquad\left[\mathcal{L}\right] & =\left[x\right]^{-4}\stackrel{\hbar c=1}{=}\left[E\right]^{4}\nonumber 
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathcal{L}\left(x\right)$
+\end_inset
+
+ ist eine Lorentz-Skalardichte.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathcal{L}\left(x\right)$
+\end_inset
+
+ ist kein Ableitungsoperator, sondern eine Funktion (ein Multiplikationsoperator
+).
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\mathcal{L}\left(x\right)$
+\end_inset
+
+ muss eichinvariant sein, dass heißt sie muss aus 
+\begin_inset Formula $\DD_{\mu}$
+\end_inset
+
+-Operatoren aufgebaut sein.
+\end_layout
+
+\begin_layout Standard
+Man beobachtet, dass 
+\begin_inset Formula $\left[\hat{D}_{\mu},\hat{D}_{\nu}\right]$
+\end_inset
+
+ ein Multiplikations- und kein Ableitungsoperator ist.
+\begin_inset Formula 
+\begin{align*}
+\left(\partial_{\mu}+\ii qA_{\mu}\right)\left(\partial_{\nu}+\ii qA_{\nu}\right) & =\partial_{\mu}\partial_{\nu}+\ii q\left(\partial_{\mu}A_{\nu}\right)+\ii qA_{\nu}\partial_{\mu}+\ii qA_{\mu}\partial_{\nu}-q^{2}A_{\mu}A_{\nu}\\
+\left(\partial_{\nu}+\ii qA_{\nu}\right)\left(\partial_{\mu}+\ii qA_{\mu}\right) & =\partial_{\nu}\partial_{\mu}+\ii q\left(\partial_{\nu}A_{\mu}\right)+\ii qA_{\mu}\partial_{\nu}+\ii qA_{\nu}\partial_{\mu}-q^{2}A_{\nu}A_{\mu}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\Rightarrow\qquad\left[\hat{D}_{\mu},\hat{D}_{\nu}\right] & =\ii q\left(\partial_{\mu}A_{\nu}-\partial_{\nu}A_{\mu}\right)=:\ii qF_{\mu\nu}
+\end{align*}
+
+\end_inset
+
+Wählt man 
+\begin_inset Formula $q$
+\end_inset
+
+ dimensionslos, so hat 
+\begin_inset Formula $A_{\mu}$
+\end_inset
+
+ die Dimension einer Energie und somit folgt 
+\begin_inset Formula $\left[F_{\mu\nu}\right]=\left[E\right]^{2}$
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{align}
+\stackrel{F^{\mu}\msd{\mu}=0}{\Rightarrow}\qquad\fbox{\ensuremath{{\displaystyle \mathcal{L}\left(x\right)\sim F_{\mu\nu}F^{\mu\nu}}}}
+\end{align}
+
+\end_inset
+
+Die Wahl der Konstanten ist willkürlich.
+ Damit die Gleichungen möglichst einfach werden, wählt man folgende Lagrangedich
+te: 
+\begin_inset Formula 
+\begin{align}
+\mathcal{L}\left(x\right) & :=-\frac{1}{4}F_{\mu\nu}F^{\mu\nu}
+\end{align}
+
+\end_inset
+
+Die freie Euler-Lagrange-Gleichung ist also:
+\begin_inset Formula 
+\begin{align}
+\frac{\partial\mathcal{L}}{\partial A_{\sigma}}-\partial^{\lambda}\frac{\partial\mathcal{L}}{\partial\left(\partial^{\lambda}A_{\sigma}\right)} & =0\nonumber \\
+\Rightarrow\qquad\partial^{\lambda}F_{\lambda\sigma} & =0
+\end{align}
+
+\end_inset
+
+Die Lagrange-Dichte der Quantenelektrodynamik ist somit:
+\begin_inset Formula 
+\begin{align}
+\mathcal{L}_{\text{QED}}\left(x\right) & =\sum_{\text{Fermionen }j}\overline{\psi}_{j}\left(x\right)\left(\slashd{\hat{p}}-eQ_{j}\slashd A\left(x\right)-m\right)\psi_{j}\left(x\right)-\frac{1}{4}F_{\mu\nu}\left(x\right)F^{\mu\nu}\left(x\right)
+\end{align}
+
+\end_inset
+
+Bei der Variation sind 
+\begin_inset Formula $\overline{\psi}$
+\end_inset
+
+ und 
+\begin_inset Formula $\psi$
+\end_inset
+
+ als unabhängige Variablen aufzufassen, weil eine komplexe Größe zwei reelle
+ Freiheitsgrade hat.
+ Die Euler-Lagrange-Gleichungen für 
+\begin_inset Formula $A_{\sigma}$
+\end_inset
+
+ sind:
+\begin_inset Formula 
+\begin{align}
+0 & =\frac{\partial\mathcal{L}_{\text{QED}}}{\partial A_{\sigma}}-\partial_{\lambda}\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\left(\partial_{\lambda}A_{\sigma}\right)}=\nonumber \\
+ & =\sum_{\text{Fermionen }j}\overline{\psi}_{j}\left(x\right)\left(-eQ_{j}\gamma^{\sigma}\right)\psi_{j}\left(x\right)-\left(\frac{-1}{4}\cdot4\right)\partial_{\lambda}F^{\lambda\sigma}\nonumber \\
+\partial_{\lambda}F^{\lambda\sigma} & =eQ_{j}\underbrace{\sum_{\text{Fermionen }j}\overline{\psi}_{j}\left(x\right)\gamma^{\sigma}\psi_{j}\left(x\right)}_{=j^{\sigma}\left(x\right)}
+\end{align}
+
+\end_inset
+
+Die Dirac-Gleichung erhält man als Euler-Lagrange-Gleichung für 
+\begin_inset Formula $\overline{\psi}_{j}$
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{align*}
+0 & =\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\overline{\psi}_{j}}-\partial_{\lambda}\underbrace{\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\left(\partial_{\lambda}\overline{\psi}_{j}\right)}}_{=0}=\left(\slashd{\hat{p}}-eQ_{j}\slashd A\left(x\right)-m\right)\psi_{j}\left(x\right)
+\end{align*}
+
+\end_inset
+
+Die Euler-Lagrange-Gleichung für 
+\begin_inset Formula $\psi_{j}$
+\end_inset
+
+ ist die konjugierte Dirac-Gleichung:
+\begin_inset Formula 
+\begin{align*}
+0 & =\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\psi_{j}}-\partial_{\lambda}\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\left(\partial_{\lambda}\psi_{j}\right)}=\overline{\psi}_{j}\left(-eQ_{j}A^{\lambda}\left(x\right)-m\right)-\partial_{\lambda}\left(\overline{\psi}_{j}\cdot\ii\gamma^{\lambda}\right)=\\
+ & =\overline{\psi}_{j}\left(-\overleftarrow{\slashd p}-eQ_{j}\slashd A\left(x\right)-m\right)
+\end{align*}
+
+\end_inset
+
+Dabei bedeutet 
+\begin_inset Formula $\overleftarrow{\slashd p}$
+\end_inset
+
+, dass der Ableitungsoperator nach links wirkt, also auf 
+\begin_inset Formula $\overline{\psi}_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Bilinearformen des Dirac-Feldes
+\end_layout
+
+\begin_layout Standard
+Man nennt 
+\begin_inset Formula $\overline{\psi}\left(x\right)\gamma^{\sigma}\psi\left(x\right)$
+\end_inset
+
+ eine 
+\emph on
+Bilinearform
+\emph default
+.
+ Physikalische Größen entsprechen Bilinearformen.
+ Wir kennen bereits die Vektordichte:
+\begin_inset Formula 
+\begin{align*}
+V^{\sigma}\left(x\right) & =\overline{\psi}\left(x\right)\gamma^{\sigma}\psi\left(x\right)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula $V^{\sigma}\left(x\right)$
+\end_inset
+
+ ist hermitesch:
+\begin_inset Formula 
+\begin{align*}
+\left[V^{\sigma}\left(x\right)\right]^{\dagger} & =\psi^{\dagger}\left(x\right)\left(\gamma^{\sigma}\right)^{\dagger}\left(\gamma_{0}\right)^{\dagger}\psi\left(x\right)=\psi^{\dagger}\left(x\right)\left(\gamma_{0}\right)^{2}\left(\gamma^{\sigma}\right)^{\dagger}\left(\gamma_{0}\right)^{\dagger}\psi\left(x\right)=\\
+ & =\overline{\psi}\left(x\right)\gamma_{0}\left(\gamma^{\sigma}\right)^{\dagger}\gamma_{0}\psi\left(x\right)=\overline{\psi}\left(x\right)\gamma^{\sigma}\psi\left(x\right)
+\end{align*}
+
+\end_inset
+
+Es muss 16 unabhängige hermitesche Bilinearformen geben.
+ Wir wählen als Basis solche Bilinearformen, die sich aus den 
+\begin_inset Formula $\gamma$
+\end_inset
+
+-Matrizen berechnen lassen:
+\begin_inset Formula 
+\begin{align}
+S\left(x\right) & =\overline{\psi}\left(x\right)\psi\left(x\right) &  & \text{Skalardichte (1 Komponenten)}\\
+V^{\sigma}\left(x\right) & =\overline{\psi}\left(x\right)\gamma^{\sigma}\psi\left(x\right) &  & \text{Vektordichte (4 Komponenten)}\\
+T^{\mu\nu}\left(x\right) & =\overline{\psi}\left(x\right)\sigma^{\mu\nu}\psi\left(x\right)=\psi^{\dagger}\gamma_{0}\frac{\ii}{2}\left(\gamma^{\mu}\gamma^{\nu}-\gamma^{\nu}\gamma^{\mu}\right)\psi &  & \text{Tensordichte (6 Komponenten)}\\
+A^{\sigma}\left(x\right) & =\overline{\psi}\left(x\right)\gamma^{\sigma}\gamma_{5}\psi\left(x\right) &  & \text{Axialvektordichte (4 Komponenten)}\\
+P\left(x\right) & =\overline{\psi}\left(x\right)\ii\gamma_{5}\psi\left(x\right) &  & \text{Pseudoskalardichte (1 Komponenten)}
+\end{align}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+P^{\dagger} & =\psi^{\dagger}\left(-\ii\right)\gamma_{5}\gamma_{0}\psi\left(x\right)=\ii\overline{\psi}\gamma_{5}\psi
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\left(T^{\mu\nu}\left(x\right)\right)^{\dagger} & =\psi^{\dagger}\left(\gamma^{\nu\dagger}\gamma^{\mu\dagger}-\gamma^{\nu\dagger}\gamma^{\mu\dagger}\right)\left(-\frac{\ii}{2}\right)\gamma_{0}\psi=\\
+ & =\psi^{\dagger}\left(\left(\gamma_{0}\right)^{2}\gamma^{\nu\dagger}\left(\gamma_{0}\right)^{2}\gamma^{\mu\dagger}-\left(\gamma_{0}\right)^{2}\gamma^{\nu\dagger}\left(\gamma_{0}\right)^{2}\gamma^{\mu\dagger}\right)\left(-\frac{\ii}{2}\right)\gamma_{0}\psi=\\
+ & =-\overline{\psi}\frac{\ii}{2}\left(\gamma^{\nu}\gamma^{\mu}-\gamma^{\mu}\gamma^{\nu}\right)\psi=\overline{\psi}\sigma^{\mu\nu}\psi
+\end{align*}
+
+\end_inset
+
+Die Axialvektordichte und die Pseudoskalardichte transformieren sich unter
+ stetigen Lorentz-Transformationen wie ein Vektor beziehungsweise wie ein
+ Skalar.
+ Allerdings ändern sie unter der Paritätstransformation ihr Vorzeichen.
+\end_layout
+
+\begin_layout Standard
+Es gibt unter diesen 16 keine Bilinearform, die ein symmetrischer Tensor
+ 2.
+ Stufe ist.
+ Daher kann man so nicht an das Gravitationsfeld, dass durch den symmetrischen
+ Metrik-Tensor 
+\begin_inset Formula $g_{\mu\nu}$
+\end_inset
+
+ beschrieben wird koppeln.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%DATE: Di 23.4.13
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Die Transformationen 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texorpdfstring{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\hat{C},\hat{P},\hat{T}$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}{C, P, T}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Ladungskonjugation 
+\begin_inset Formula $\hat{C}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Die Ladungskonjugation vertauscht Teilchen und Antiteilchen.
+\begin_inset Formula 
+\begin{align}
+ & \text{Elektron-Dirac-Gleichung:} & \left(\ii\gamma_{\mu}\partial^{\mu}-eA^{\mu}\gamma_{\mu}-m\right)\psi & =0\\
+ & \text{Positron-Dirac-Gleichung:} & \left(\ii\gamma_{\mu}\partial^{\mu}+eA^{\mu}\gamma_{\mu}-m\right)\psi & =0
+\end{align}
+
+\end_inset
+
+Überlegung: Ein Elektron, das mit Energie 
+\begin_inset Formula $E>0$
+\end_inset
+
+ und Impuls 
+\begin_inset Formula $\vec{p}$
+\end_inset
+
+ vorwärts in der Zeit läuft entspricht einem Positron, dass mit Energie
+ 
+\begin_inset Formula $-E<0$
+\end_inset
+
+ und Impuls 
+\begin_inset Formula $-\vec{p}$
+\end_inset
+
+ rückwärts in der Zeit läuft.
+\begin_inset Formula 
+\begin{align*}
+e^{\ii\left(-Et-\vec{p}\cdot\vec{x}\right)} & =e^{-\ii\left(\left(-E\right)\left(-t\right)+\vec{p}\cdot\vec{x}\right)}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[scale=0.5]
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw plot[smooth,tension=.7] coordinates{(-2,-3) (-0.5,-2) (0.5,2) (2,3)};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (-2,-3) [left] {$t_1$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (2,3) [right] {$t_2$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,->] (-0.9,-1) -- node[left]{$e^-$} (-0.5,1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,<-] (0.5,-1) -- node[right]{$e^+$} (0.9,1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+In der Zeit vorwärts laufendes Elektron entspricht in der Zeit rückwärts
+ laufendem Positron.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Hieraus motivieren wir den Ansatz:
+\begin_inset Formula 
+\begin{align}
+\psi_{C}\left(x\right) & =C\psi^{*}\left(x\right)
+\end{align}
+
+\end_inset
+
+Dabei ist 
+\begin_inset Formula $C\in\text{GL}_{4}\left(\mathbb{C}\right)$
+\end_inset
+
+ eine beliebige invertierbare Matrix.
+ Komplexe Konjugation der Elektron-Dirac-Gleichung und Einfügen von 
+\begin_inset Formula $C$
+\end_inset
+
+ liefert:
+\begin_inset Formula 
+\begin{align*}
+C\left(-\ii\gamma_{\mu}^{*}\partial^{\mu}-eA^{\mu}\gamma_{\mu}^{*}-m\right)C^{-1}C\psi^{*} & =0\\
+\left(-\ii C\gamma_{\mu}^{*}C^{-1}\partial^{\mu}-eA^{\mu}C\gamma_{\mu}^{*}C^{-1}-m\right)\psi_{C} & =0
+\end{align*}
+
+\end_inset
+
+Damit dies in die Positron-Dirac-Gleichung übergeht, muss
+\begin_inset Formula 
+\begin{align*}
+C\gamma_{\mu}^{*}C^{-1} & =-\gamma_{\mu}
+\end{align*}
+
+\end_inset
+
+gelten.
+ Die Lösung davon ist:
+\begin_inset Formula 
+\begin{align*}
+C & =\gamma_{2}e^{\ii\varphi} & C^{-1} & =-\gamma_{2}e^{-\ii\varphi}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+C\gamma_{2}^{*}C^{-1} & =\gamma_{2}e^{\ii\varphi}\left(-\gamma_{2}\right)\left(-\gamma_{2}\right)e^{-\ii\varphi}=\gamma_{2}^{3}=-\gamma_{2}
+\end{align*}
+
+\end_inset
+
+Für 
+\begin_inset Formula $\mu\not=2$
+\end_inset
+
+ gilt:
+\begin_inset Formula 
+\begin{align*}
+C\gamma_{\mu}^{*}C^{-1} & =\gamma_{2}e^{\ii\varphi}\gamma_{\mu}\left(-\gamma_{2}\right)e^{-\ii\varphi}=-\gamma_{2}\gamma_{\mu}\gamma_{2}=\gamma_{\mu}\gamma_{2}\gamma_{2}=-\gamma_{\mu}
+\end{align*}
+
+\end_inset
+
+Damit folgt:
+\begin_inset Formula 
+\begin{align}
+\psi_{C} & =e^{\ii\varphi}\left(\begin{array}{cccc}
+0 & 0 & 0 & \ii\\
+0 & 0 & -\ii & 0\\
+0 & -\ii & 0 & 0\\
+\ii & 0 & 0 & 0
+\end{array}\right)\psi^{*}
+\end{align}
+
+\end_inset
+
+Beispiel:
+\begin_inset Formula 
+\begin{align*}
+\psi_{4} & =v\left(p,+\right)e^{\ii p\cdot x}=\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+\frac{p_{1}-\ii p_{2}}{E+m}\\
+\frac{-p_{3}}{E+m}\\
+0\\
+1
+\end{array}\right)e^{\ii px}\\
+\psi_{1} & =u\left(p,+\right)e^{-\ii p\cdot x}=\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+1\\
+0\\
+\frac{p_{3}}{E+m}\\
+\frac{p_{1}+\ii p_{2}}{E+m}
+\end{array}\right)e^{-\ii px}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\left(\psi_{1}\right)_{C} & =e^{\ii\varphi}\left(\begin{array}{cccc}
+0 & 0 & 0 & \ii\\
+0 & 0 & -\ii & 0\\
+0 & -\ii & 0 & 0\\
+\ii & 0 & 0 & 0
+\end{array}\right)\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+1\\
+0\\
+\frac{p_{3}}{E+m}\\
+\frac{p_{1}-\ii p_{2}}{E+m}
+\end{array}\right)e^{\ii px}=\\
+ & =\ii e^{\ii\varphi}\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+\frac{p_{1}-\ii p_{2}}{E+m}\\
+\frac{-p_{3}}{E+m}\\
+0\\
+1
+\end{array}\right)e^{-\ii px}=\ii e^{\ii\varphi}\psi_{4}
+\end{align*}
+
+\end_inset
+
+Ein physikalisches Positron 
+\begin_inset Formula $\psi_{C}$
+\end_inset
+
+ mit positiver Energie ist äquivalent zu einer Lösung 
+\begin_inset Formula $\psi$
+\end_inset
+
+ mit negativer Energie.
+\end_layout
+
+\begin_layout Subsubsection*
+Paritätstransformation 
+\begin_inset Formula $\hat{P}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Die Paritätstransformation ist eine räumliche Spiegelung am Ursprung:
+\begin_inset Formula 
+\begin{align}
+x^{\mu} & \to\left(x'\right)^{\mu}=\left(x^{0},-\vec{x}\right)
+\end{align}
+
+\end_inset
+
+Wir machen den Ansatz:
+\begin_inset Formula 
+\begin{align}
+\psi_{P}\left(x'\right) & =\psi\left(x^{0},-\vec{x}\right)=P\psi\left(x\right)
+\end{align}
+
+\end_inset
+
+Die Dirac-Gleichung für 
+\begin_inset Formula $x'$
+\end_inset
+
+ ist:
+\begin_inset Formula 
+\begin{align*}
+\left(\ii\gamma_{\mu}\frac{\partial}{\partial\left(x'\right)^{\mu}}-e\gamma^{\mu}A_{\mu}\left(x'\right)-m\right)\psi_{P}\left(x'\right) & =0
+\end{align*}
+
+\end_inset
+
+Die soll äquivalent sein zu:
+\begin_inset Formula 
+\begin{align*}
+\left(\ii\gamma^{\mu}\frac{\partial}{\partial x^{\mu}}-e\gamma^{\mu}A_{\mu}\left(x\right)-m\right)\psi\left(x\right) & =0
+\end{align*}
+
+\end_inset
+
+Wegen 
+\begin_inset Formula $\vec{E}\stackrel{P}{\to}-\vec{E}$
+\end_inset
+
+ und 
+\begin_inset Formula $\vec{B}\stackrel{P}{\to}\vec{B}$
+\end_inset
+
+ sowie 
+\begin_inset Formula $\nabla\stackrel{P}{\to}-\nabla$
+\end_inset
+
+ und 
+\begin_inset Formula $\partial_{t}\stackrel{P}{\to}\partial_{t}$
+\end_inset
+
+ folgt 
+\begin_inset Formula $A^{0}\stackrel{P}{\to}A^{0}$
+\end_inset
+
+ und 
+\begin_inset Formula $A^{j}\stackrel{P}{\to}-A^{j}$
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{align*}
+\Rightarrow\qquad P^{-1}\left(\ii\gamma^{0}\frac{\partial}{\partial x^{0}}-\ii\gamma^{j}\frac{\partial}{\partial x^{j}}-e\gamma^{0}A_{0}+e\gamma^{j}A_{j}-m\right)P\psi & =0
+\end{align*}
+
+\end_inset
+
+Es muss also gelten:
+\begin_inset Formula 
+\begin{align*}
+P^{-1}\gamma^{0}P & =\gamma^{0} & P^{-1}\gamma^{j}P & =-\gamma^{j}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align}
+\Rightarrow\qquad P & =e^{\ii\chi}\gamma_{0} & P^{-1} & =e^{-\ii\chi}\gamma_{0}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Zeitumkehrinvarianz 
+\begin_inset Formula $\hat{T}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Wegen 
+\begin_inset Formula $\vec{E}\stackrel{T}{\to}\vec{E}$
+\end_inset
+
+ und 
+\begin_inset Formula $\vec{B}\stackrel{T}{\to}-\vec{B}$
+\end_inset
+
+ sowie 
+\begin_inset Formula $\nabla\stackrel{T}{\to}\nabla$
+\end_inset
+
+ und 
+\begin_inset Formula $\partial_{t}\stackrel{T}{\to}-\partial_{t}$
+\end_inset
+
+ folgt 
+\begin_inset Formula $A^{0}\stackrel{T}{\to}A^{0}$
+\end_inset
+
+ und 
+\begin_inset Formula $A^{j}\stackrel{T}{\to}-A^{j}$
+\end_inset
+
+.
+ Wir machen den Ansatz:
+\begin_inset Formula 
+\begin{align}
+\psi_{T}\left(x'\right) & =T\psi^{*}\left(x\right)
+\end{align}
+
+\end_inset
+
+Die Dirac-Gleichung für 
+\begin_inset Formula $\psi_{T}$
+\end_inset
+
+ ist:
+\begin_inset Formula 
+\begin{align*}
+\left(-\ii\gamma^{0}\frac{\partial}{\partial x^{0}}+\ii\gamma^{j}\frac{\partial}{\partial x^{j}}-e\gamma^{0}A_{0}\left(x\right)+e\gamma^{j}A_{j}\left(x\right)-m\right)T\psi^{*}\left(x\right) & =0\qquad/^{*}\\
+\left(T^{*}\right)^{-1}\left(\ii\gamma^{0}\frac{\partial}{\partial x^{0}}-\ii\left(\gamma^{j}\right)^{*}\frac{\partial}{\partial x^{j}}-e\gamma^{0}A_{0}\left(x\right)+e\left(\gamma^{j}\right)^{*}A_{j}\left(x\right)-m\right)T^{*}\psi\left(x\right) & =0
+\end{align*}
+
+\end_inset
+
+Nun muss gelten:
+\begin_inset Formula 
+\begin{align*}
+\left(T^{*}\right)^{-1}\gamma^{0}T^{*} & =\gamma^{0} & \left(T^{*}\right)^{-1}\left(\gamma^{j}\right)^{*}T^{*} & =-\gamma^{j}
+\end{align*}
+
+\end_inset
+
+Das bedeutet:
+\begin_inset Formula 
+\begin{align*}
+\left(T^{*}\right)^{-1}\gamma^{0}T^{*} & =\gamma^{0} & \left(T^{*}\right)^{-1}\gamma^{1}T^{*} & =-\gamma^{1}\\
+\left(T^{*}\right)^{-1}\gamma^{2}T^{*} & =\gamma^{2} & \left(T^{*}\right)^{-1}\gamma^{3}T^{*} & =-\gamma^{3}
+\end{align*}
+
+\end_inset
+
+Die Lösung ist:
+\begin_inset Formula 
+\begin{align}
+T & =\gamma^{1}\gamma^{3}e^{\ii\xi} & T^{-1} & =\gamma^{3}\gamma^{1}e^{-\ii\xi}=T^{*}
+\end{align}
+
+\end_inset
+
+Probe:
+\begin_inset Formula 
+\begin{align*}
+T^{-1}T & =\gamma^{3}\gamma^{1}\gamma^{1}\gamma^{3}=-\gamma^{3}\gamma^{3}=\mathbbm{1}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\gamma^{1}\gamma^{3}\gamma^{0}\gamma^{3}\gamma^{1} & =\left(-1\right)^{2}\gamma^{0}\gamma^{1}\gamma^{3}\gamma^{3}\gamma^{1}=\gamma^{0}\\
+\gamma^{1}\gamma^{3}\gamma^{1}\gamma^{3}\gamma^{1} & =-\gamma^{1}\gamma^{1}\gamma^{3}\gamma^{3}\gamma^{1}=-\gamma^{1}\\
+\gamma^{1}\gamma^{3}\gamma^{2}\gamma^{3}\gamma^{1} & =\left(-1\right)^{2}\gamma^{2}\gamma^{1}\gamma^{3}\gamma^{3}\gamma^{1}=\gamma^{2}\\
+\gamma^{1}\gamma^{3}\gamma^{3}\gamma^{3}\gamma^{1} & =-\gamma^{1}\gamma^{3}\gamma^{1}=\gamma^{1}\gamma^{1}\gamma^{3}=-\gamma^{3}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Greensche Funktion (Feynman-Propagator)
+\end_layout
+
+\begin_layout Standard
+Erinnerung: Das elektrische Potential 
+\begin_inset Formula $\phi$
+\end_inset
+
+ erfüllt in der Elektrostatik die Differentialgleichung:
+\begin_inset Formula 
+\begin{align}
+\upDelta\phi & =4\pi\rho
+\end{align}
+
+\end_inset
+
+Dabei ist 
+\begin_inset Formula $\rho$
+\end_inset
+
+ die Ladungsdichte.
+ Die Greensche Funktion 
+\begin_inset Formula $G\left(x,x'\right)$
+\end_inset
+
+ ist definiert durch:
+\begin_inset Formula 
+\begin{align}
+\upDelta_{x}G\left(x,x'\right) & =\delta^{\left(3\right)}\left(x-x'\right)
+\end{align}
+
+\end_inset
+
+Damit ergibt sich die Lösung obiger Differentialgleichung zu:
+\begin_inset Formula 
+\begin{align}
+\phi\left(x\right) & =4\pi\int\dd^{3}x'G\left(x,x'\right)\rho\left(x'\right)
+\end{align}
+
+\end_inset
+
+Probe:
+\begin_inset Formula 
+\begin{align*}
+\upDelta_{x}\phi\left(x\right) & =4\pi\int\dd^{3}x'\delta\left(x-x'\right)\rho\left(x'\right)=4\pi\rho\left(x\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Greensche Funktion der Klein-Gordon-Gleichung
+\end_layout
+
+\begin_layout Standard
+Die definierende Gleichung ist:
+\begin_inset Formula 
+\begin{align}
+\left(\square_{x}+m^{2}\right)G\left(x-x'\right) & =-\delta^{\left(4\right)}\left(x-x'\right)
+\end{align}
+
+\end_inset
+
+Das Minus auf der rechten Seite ist Konvention und wird wegen 
+\begin_inset Formula $\square_{x}=-\hat{p}^{2}$
+\end_inset
+
+ eingefügt.
+\begin_inset Newline newline
+\end_inset
+
+Die Dirac-Greensche Funktion ist einfach:
+\begin_inset Formula 
+\begin{align}
+S\left(x-x'\right) & =\left(\ii\gamma^{\mu}\partial_{x,\mu}+m\right)G\left(x-x'\right)
+\end{align}
+
+\end_inset
+
+Es gilt nämlich:
+\begin_inset Formula 
+\begin{align*}
+\left(\ii\gamma^{\nu}\partial_{x,\nu}-m\right)S\left(x-x'\right) & =\left(-\square_{x}-m^{2}\right)G\left(x-x'\right)=\delta^{\left(4\right)}\left(x-x'\right)
+\end{align*}
+
+\end_inset
+
+Am einfachsten ist die Bestimmung von 
+\begin_inset Formula $G$
+\end_inset
+
+ im Impulsraum.
+ Wir führen also eine Fourier-Transformation durch:
+\begin_inset Formula 
+\begin{align}
+G\left(x-x'\right) & =\int\frac{\dd^{4}p}{\left(2\pi\right)^{4}}G\left(p\right)e^{-\ii p\left(x-x'\right)}\label{eq:Fouriertrafo-Green}
+\end{align}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\left(\square_{x}+m^{2}\right)G\left(x-x'\right) & =\int\frac{\dd^{4}p}{\left(2\pi\right)^{4}}\left(-p^{\mu}p_{\mu}+m^{2}\right)G\left(p\right)e^{-\ii p\left(x-x'\right)}\stackrel{!}{=}-\int\frac{\dd^{4}p}{\left(2\pi\right)^{4}}e^{-\ii p\left(x-x'\right)}
+\end{align*}
+
+\end_inset
+
+Daher muss gelten:
+\begin_inset Formula 
+\begin{align}
+\left(p^{2}-m^{2}\right)G\left(p\right) & =1
+\end{align}
+
+\end_inset
+
+Ist 
+\begin_inset Formula $p^{2}-m^{2}\not=0$
+\end_inset
+
+, so folgt:
+\begin_inset Formula 
+\begin{align*}
+G\left(p\right) & =\frac{1}{p^{2}-m^{2}}
+\end{align*}
+
+\end_inset
+
+Was passiert für 
+\begin_inset Formula $p^{2}=\left(p^{0}\right)^{2}-\vec{p}^{2}=m^{2}$
+\end_inset
+
+?
+\begin_inset Formula 
+\begin{align}
+p^{0} & =\pm\sqrt{\vec{p}^{2}+m^{2}}
+\end{align}
+
+\end_inset
+
+Da für 
+\begin_inset Formula $p^{2}=m^{2}$
+\end_inset
+
+ Divergenzen auftreten, muss man 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:Fouriertrafo-Green"
+
+\end_inset
+
+ um eine Zusatzvorschrift ergänzen, wie man diese umschiffen soll.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+subfloat[Integrationswege um die Pole herum]{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,->] (-3,0) -- (3,0) node[right]{Re$(p^
+\backslash
+mu)$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,->] (0,-3) -- (0,3) node[above]{Im$(p^
+\backslash
+mu)$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[very thick, orange] (-3,0) -- (-2,0) arc (-180:0:0.25) -- (1.5,0) arc(-180:0:
+0.25) node[below=7pt]{1} -- (3,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[very thick, green] (-3,0) -- (-2.1,0) arc (180:0:0.35) -- (1.4,0) node[below
+ =3pt]{2} arc(-180:0:0.35) -- (3,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[very thick, red] (-3,0) -- (-2.1,0) arc (-180:0:0.35) -- (1.4,0) node[above
+ =3pt]{3} arc(180:0:0.35) -- (3,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[very thick, blue] (-3,0) -- (-2,0) arc (180:0:0.25) -- (1.5,0) arc(180:0:0.25)
+ node[above=7pt]{4} -- (3,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (1.75,0) node[below=15pt]{$
+\backslash
+sqrt{
+\backslash
+vec{p}^2-m^2}$} +(-0.1,0.1) -- +(0.1,-0.1) +(-0.1,-0.1) -- +(0.1,0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (-1.75,0) node[below=15pt]{$-
+\backslash
+sqrt{
+\backslash
+vec{p}^2-m^2}$} +(-0.1,0.1) -- +(0.1,-0.1) +(-0.1,-0.1) -- +(0.1,0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+subfloat[äquivalent: Pole verschieben]{
+\end_layout
+
+\end_inset
+
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,->] (-3,0) -- (3,0) node[right]{Re$(p^
+\backslash
+mu)$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,->] (0,-3) -- (0,3) node[above]{Im$(p^
+\backslash
+mu)$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[fill, orange] (-1.75,0.25) circle (2pt) (1.75,0.25) circle (2pt);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[fill, green] (-1.75,-0.5) circle (2pt) (1.75,0.5) circle (2pt);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[fill, red] (-1.75,0.5) circle (2pt) (1.75,-0.5) circle (2pt);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[fill, blue] (-1.75,-0.25) circle (2pt) (1.75,-0.25) circle (2pt);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (1.75,0) node[below=15pt]{$
+\backslash
+sqrt{
+\backslash
+vec{p}^2-m^2}$} +(-0.1,0.1) -- +(0.1,-0.1) +(-0.1,-0.1) -- +(0.1,0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (-1.75,0) node[below=15pt]{$-
+\backslash
+sqrt{
+\backslash
+vec{p}^2-m^2}$} +(-0.1,0.1) -- +(0.1,-0.1) +(-0.1,-0.1) -- +(0.1,0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\lang ngerman
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hspace*{\fill}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Die Pole müssen umgangen werden.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Mit 
+\begin_inset Formula $\varepsilon,\eta\in\mathbb{R}_{>0}$
+\end_inset
+
+ lassen sich die vier Möglichkeiten schreiben als:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula ${\displaystyle \frac{1}{p^{2}-m^{2}-\ii\varepsilon\text{sgn}\left(p^{0}\right)}}$
+\end_inset
+
+: Pole bei 
+\begin_inset Formula $p^{0}=\pm\sqrt{\vec{p}^{2}+m^{2}}+\ii\eta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula ${\displaystyle \frac{1}{p^{2}-m^{2}-\ii\varepsilon}}$
+\end_inset
+
+: Pole bei 
+\begin_inset Formula $p^{0}=\pm\sqrt{\vec{p}^{2}+m^{2}}\pm\ii\eta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula ${\displaystyle \frac{1}{p^{2}-m^{2}+\ii\varepsilon}}$
+\end_inset
+
+: Pole bei 
+\begin_inset Formula $p^{0}=\pm\sqrt{\vec{p}^{2}+m^{2}}\mp\ii\eta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula ${\displaystyle \frac{1}{p^{2}-m^{2}+\ii\varepsilon\text{sgn}\left(p^{0}\right)}}$
+\end_inset
+
+: Pole bei 
+\begin_inset Formula $p^{0}=\pm\sqrt{\vec{p}^{2}+m^{2}}-\ii\eta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Mit Hilfe des Residuuensatzes kann man so das Integral
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}\int_{-\infty}^{\infty}\frac{\dd p^{0}}{2\pi}e^{-\ii p^{0}\left(t-t'\right)+\ii\vec{p}\left(\vec{x}-\vec{x}'\right)}G\left(p^{0},\vec{p}\right)
+\end{align*}
+
+\end_inset
+
+ausrechnen.
+ Für 
+\begin_inset Formula $t'>t$
+\end_inset
+
+ (Propagation von 
+\begin_inset Formula $t'$
+\end_inset
+
+ nach 
+\begin_inset Formula $t$
+\end_inset
+
+ rückwärts in der Zeit) kann man oben schließen, da dann der Faktor 
+\begin_inset Formula $e^{-\ii^{2}\text{Im}\left(p^{0}\right)\left(t-t'\right)}$
+\end_inset
+
+ exponentiell abfällt.
+ Ebenso kann man für 
+\begin_inset Formula $t>t'$
+\end_inset
+
+ (vorwärts in der Zeit) unten schließen.
+ Bei der Propagation vorwärts in der Zeit darf der Pol bei 
+\begin_inset Formula $p_{0}<0$
+\end_inset
+
+ nicht im Integrationsbereich sein und 
+\begin_inset Formula $p_{0}>0$
+\end_inset
+
+ darf nicht rückwärts in der Zeit propagieren.
+ Daher bleibt nur die 3.
+ Lösung.
+ Diese wird 
+\emph on
+Feynman-Propagator
+\emph default
+ genannt.
+\end_layout
+
+\begin_layout Chapter
+Kanonische Quantisierung 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+texorpdfstring{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\hat{b}^{\dagger},\hat{d}^{\dagger},\hat{b},\hat{d}$
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Feynman-Regeln
+\end_layout
+
+\begin_layout Chapter
+Elektron-Myon-Streuung
+\end_layout
+
+\begin_layout Chapter
+Pauli-Villars-Regularisierung (Renormierung)
+\end_layout
+
+\begin_layout Chapter
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+texorpdfstring{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $SU\left(N\right)$
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}{SU(N)}
+\end_layout
+
+\end_inset
+
+ Eichgruppen
+\end_layout
+
+\begin_layout Chapter
+Tiefinelastische Streuung
+\end_layout
+
+\begin_layout Chapter
+Lagrangedichte der QCD, Feynman-Regeln
+\end_layout
+
+\begin_layout Chapter
+DGLAP-Gleichung
+\end_layout
+
+\begin_layout Chapter
+Dimensionale Regularisierung 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+texorpdfstring{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\overline{MS}$
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Kopplungskonstante 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+texorpdfstring{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\alpha_{S}\left(Q^{2}\right)$
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula $Q^{2}=E^{2}-\vec{p}^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\vec{v}=\frac{\vec{p}}{E}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Standard-Modell
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texorpdfstring{
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $SU\left(2\right)\times U\left(1\right)\times SU\left(3\right)$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}{}
+\end_layout
+
+\end_inset
+
+, SSB und Higgs-Feld
+\end_layout
+
+\begin_layout Chapter
+Weitere Themen
+\end_layout
+
+\begin_layout Itemize
+Anomalien 
+\begin_inset Formula $\to$
+\end_inset
+
+ ganze Familien
+\begin_inset Formula 
+\begin{align*}
+\fbox{\ensuremath{{\displaystyle \left(\begin{array}{c}
+\nu_{e}\\
+e
+\end{array}\right),\left(\begin{array}{c}
+u\\
+d
+\end{array}\right)_{\text{r,b,g}}}}}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Inflation (frühes Universum)
+\end_layout
+
+\begin_layout Itemize
+Supersymmetrie
+\end_layout
+
+\begin_layout Itemize
+Stringtheorie
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\ldots$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part*
+Anhang
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+thispagestyle{empty}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addcontentsline{toc}{part}{Anhang}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[R]{Index}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[C]{Anhang}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter*
+Danksagungen
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addcontentsline{toc}{section}{
+\backslash
+hspace*{2.7em}Danksagungen}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[R]{Danksagungen}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Mein besonderer Dank geht an Professor Schäfer, der diese Vorlesung hielt
+ und es mir gestattete, diese Vorlesungsmitschrift zu veröffentlichen.
+\end_layout
+
+\begin_layout Standard
+Außerdem möchte ich mich ganz herzlich bei allen bedanken, die durch aufmerksame
+s Lesen Fehler gefunden und mir diese mitgeteilt haben.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace 1cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space \hfill{}
+\end_inset
+
+Andreas Völklein
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "END"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
