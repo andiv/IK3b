@@ -5088,7 +5088,6 @@ subfloat[äquivalent: Pole verschieben]{
 \end_inset
 
 
-
 \begin_inset ERT
 status open
 
@@ -5176,8 +5175,6 @@ end{tikzpicture}
 
 \end_inset
 
-
-\lang ngerman
 
 \begin_inset ERT
 status open
@@ -5268,10 +5265,7 @@ Mit
 \end_layout
 
 \begin_layout Standard
-Mit Hilfe des Residuuensatzes kann man so das Integral
-\end_layout
-
-\begin_layout Standard
+Mit Hilfe des Residuensatzes kann man so das Integral
 \begin_inset Formula 
 \begin{align*}
 \int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}\int_{-\infty}^{\infty}\frac{\dd p^{0}}{2\pi}e^{-\ii p^{0}\left(t-t'\right)+\ii\vec{p}\left(\vec{x}-\vec{x}'\right)}G\left(p^{0},\vec{p}\right)
@@ -5317,7 +5311,366 @@ ausrechnen.
 \emph on
 Feynman-Propagator
 \emph default
- genannt.
+ genannt und Berechnungen ergeben:
+\begin_inset Formula 
+\begin{align}
+G\left(x\right) & =-\frac{1}{4\pi}\delta\left(x^{2}\right)+\frac{m}{8\pi\sqrt{x^{2}}}\Theta\left(x^{2}\right)\left(J_{1}\left(m\sqrt{x^{2}}\right)-\ii Y_{1}\left(m\sqrt{x^{2}}\right)\right)-\nonumber \\
+ & \qquad-\frac{\ii m}{4\pi^{2}\sqrt{-x^{2}}}\Theta\left(-x^{2}\right)K_{1}\left(m\sqrt{-x^{2}}\right)
+\end{align}
+
+\end_inset
+
+Dabei ist 
+\begin_inset Formula $\delta$
+\end_inset
+
+ die Delta-Distribution, 
+\begin_inset Formula $\Theta$
+\end_inset
+
+ die Heaviside-Sprungfunktion, 
+\begin_inset Formula $J_{1}$
+\end_inset
+
+ die Bessel-Funktion erster Ordnung erster Gattung und 
+\begin_inset Formula $Y_{1}$
+\end_inset
+
+ die Bessel-Funktion erster Ordnung zweiter Gattung, sowie 
+\begin_inset Formula $K_{1}$
+\end_inset
+
+ die modifizierte Bessel-Funktion erster Ordnung zweiter Gattung.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+begin{axis}[width=13cm, axis x line=middle, axis y line=middle, xlabel=$x$,
+ x label style={ yshift=6pt}, ylabel=$
+\backslash
+hspace*{2mm}y$, xmin=0, ymin=-5.2, ymax=5.2, xmax=9.8, samples=300]
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+addplot[mark=none] file {besj1.txt};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+addlegendentry{$J_1(x)$}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+addplot[mark=none, dashed, blue] file {besy1.txt};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+addlegendentry{$Y_1(x)$}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+addplot[mark=none, thick, red] file {besk1.txt};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+addlegendentry{$K_1(x)$}
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\backslash
+end{axis}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Bessel-Funktionen
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Dieses Ergebnis lässt sich direkt physikalisch interpretieren.
+ Da 
+\begin_inset Formula $x^{2}=0$
+\end_inset
+
+ den Lichtkegel beschreibt, entspricht der Term mit 
+\begin_inset Formula $\delta\left(x^{2}\right)$
+\end_inset
+
+ der Ausbreitung mit Lichtgeschwindigkeit.
+ 
+\begin_inset Formula $J_{1}$
+\end_inset
+
+ und 
+\begin_inset Formula $Y_{1}$
+\end_inset
+
+ sind oszillierende Funktionen, die die kausale Ausbreitung massiver Teilchen
+ beschreiben.
+ Die modifizierte Bessel-Funktion 
+\begin_inset Formula $K_{1}\left(x\right)\stackrel{x\to\infty}{\sim}x^{-\frac{1}{2}}e^{-x}$
+\end_inset
+
+ fällt exponentiell ab und erscheint wie eine nicht-kausale Ausbreitung.
+ Dies kann man physikalisch dadurch erklären, dass aufgrund der Unschärferelatio
+n der Ort des Teilchens schon zu Beginn nicht genauer als die Compton-Wellenläng
+e festgelegt war, und somit sich ein exponentiell kleiner Teil der Wellenfunktio
+n von einem anderen Ort her ausgebreitet hat.
+ Dies ist keine Ausbreitung mit Überlichtgeschwindigkeit!
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%DATE: Mo 29.4.13 --> Anhang A
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%DATE: Di 30.4.13
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Normierung der Wellenfunktionen
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+u\left(\vec{p},+\right) & =\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+1\\
+0\\
+\frac{p^{3}}{E+m}\\
+\frac{p^{1}+\ii p^{2}}{E+m}
+\end{array}\right)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\overline{u}u & =\frac{E+m}{2m}\cdot\frac{\left(E+m\right)^{2}-\vec{p}^{2}}{\left(E+m\right)^{2}}=\frac{E+m}{2m}\cdot\frac{E^{2}+2mE+m^{2}-\vec{p}^{2}}{\left(E+m\right)^{2}}=\\
+ & =\frac{E+m}{2m}\cdot\frac{2mE+2m^{2}}{\left(E+m\right)^{2}}=\frac{E+m}{E+m}=1
+\end{align*}
+
+\end_inset
+
+Führe nun einen möglichen Normierungsfaktor 
+\begin_inset Formula $\mathcal{N}$
+\end_inset
+
+ für die Wellenfunktion 
+\begin_inset Formula $\psi$
+\end_inset
+
+ ein:
+\begin_inset Formula 
+\begin{align}
+\psi_{1}\left(\vec{p},x\right) & =\mathcal{N}u\left(\vec{p},+\right)e^{-\ii px}
+\end{align}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\int_{\mathbb{R}^{3}}\dd^{3}x\overline{\psi_{1}}\left(\vec{p},x\right)\psi_{1}\left(\vec{p},x\right) & \stackrel{?}{=}\infty
+\end{align*}
+
+\end_inset
+
+Man müsste also für die Normierung 
+\begin_inset Formula $\mathcal{N}=0$
+\end_inset
+
+ wählen, was keinen Sinn ergibt.
+ In einem endlichen Volumen 
+\begin_inset Formula $V$
+\end_inset
+
+ wäre dieses Integral proportional zu 
+\begin_inset Formula $V$
+\end_inset
+
+.
+ Beachte nun die Analogie:
+\begin_inset Formula 
+\begin{align}
+\int_{\mathbb{R}^{3}}\frac{\dd^{3}}{\left(2\pi\right)^{3}}e^{\ii\vec{p}\vec{x}} & =\delta^{\left(3\right)}\left(\vec{p}\right)\nonumber \\
+\int_{V}\frac{\dd^{3}}{\left(2\pi\right)^{3}}e^{0} & =\frac{V}{\left(2\pi\right)^{3}}\:\widehat{=}\:\delta^{\left(3\right)}\left(0\right)
+\end{align}
+
+\end_inset
+
+Wir machen daher folgenden Ansatz für die Normierung:
+\begin_inset Formula 
+\begin{align}
+\int_{\mathbb{R}^{3}}\dd^{3}x\overline{\psi}_{1}\left(\vec{p},x\right)\psi\left(\vec{p}',x\right) & =\abs{\mathcal{N}}^{2}\int_{\mathbb{R}^{3}}\dd^{3}xe^{-\ii\left(p'-p\right)x}=\abs{\mathcal{N}}^{2}\left(2\pi\right)^{3}\delta^{\left(3\right)}\left(\vec{p}'-\vec{p}\right)=:I
+\end{align}
+
+\end_inset
+
+Wie muss man 
+\begin_inset Formula $\abs{\mathcal{N}}^{2}$
+\end_inset
+
+ wählen, sodass 
+\begin_inset Formula $I$
+\end_inset
+
+ eine Lorentz-Invariante ist? Das Integral
+\begin_inset Formula 
+\begin{align*}
+\int\frac{\dd^{4}p}{\left(2\pi\right)^{3}}\delta\left(p^{2}-m^{2}\right)
+\end{align*}
+
+\end_inset
+
+ist wegen 
+\begin_inset Formula $\abs{\det\left(\Lambda\right)}=1$
+\end_inset
+
+ Lorentz-invariant und es gilt:
+\begin_inset Formula 
+\begin{align*}
+\int\frac{\dd^{4}p}{\left(2\pi\right)^{3}}\delta\left(p^{2}-m^{2}\right) & =\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}\int\dd E\delta\left(E^{2}-\vec{p}^{2}-m^{2}\right)=\\
+ & =\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}\int\dd E\delta\left(\left(E-\sqrt{\vec{p}^{2}+m^{2}}\right)\left(E+\sqrt{\vec{p}^{2}+m^{2}}\right)\right)=\\
+ & =\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}\int\dd E\frac{1}{2\abs E}\left(\delta\left(E-\sqrt{\vec{p}^{2}+m^{2}}\right)+\delta\left(E+\sqrt{\vec{p}^{2}+m^{2}}\right)\right)
+\end{align*}
+
+\end_inset
+
+Nun sind
+\begin_inset Formula 
+\begin{align*}
+\int\frac{\dd^{3}p}{2\abs E}\cdot2\abs E\delta^{\left(3\right)}\left(p\right)=\int\dd^{3}p\delta^{\left(3\right)}\left(p\right) & =1\qquad\text{und}\qquad\frac{\dd^{3}p}{2\abs E}
+\end{align*}
+
+\end_inset
+
+Lorentz-Invarianten und somit auch 
+\begin_inset Formula $2\abs E\delta^{\left(3\right)}\left(p\right)$
+\end_inset
+
+.
+ Man kann 
+\begin_inset Formula $I$
+\end_inset
+
+ explizit Lorentz-invariant machen, indem man wählt:
+\begin_inset Formula 
+\begin{align}
+\mathcal{N} & =\sqrt{\frac{\abs E}{m}}
+\end{align}
+
+\end_inset
+
+Diese Wahl sorgt dafür, dass im Ruhesystem die 
+\begin_inset Formula $u\left(\vec{p},+\right)$
+\end_inset
+
+ etc.
+ nach wie vor Einheitsspinoren sind.
+ Wir ersetzen also:
+\begin_inset Formula 
+\begin{align}
+\psi\left(\vec{p},m\right) & \to\sqrt{\frac{\abs E}{m}}\tilde{\psi}\left(\vec{p},m\right)\nonumber \\
+\Rightarrow\qquad\sum_{s}\tilde{u}\left(\vec{p},s\right)\overline{\tilde{u}}\left(\vec{p},s\right) & =\frac{m}{\abs E}\cdot\frac{\slashd p+m}{2m}=\frac{\slashd p+m}{2\abs E}
+\end{align}
+
+\end_inset
+
+Dies ist eine sehr vorteilhafte Normierung für Hochenergiephysik, da man
+ jetzt bereits von Anfang an den Limes 
+\begin_inset Formula $m\to0$
+\end_inset
+
+ bilden kann und nicht erst ganz am Ende.
 \end_layout
 
 \begin_layout Chapter
@@ -5345,6 +5698,314 @@ status collapsed
 \begin_layout Plain Layout
 
 }{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Quantisierung
+\emph default
+ ist ein Satz von Regeln, der die korrekten Greenschen Funktionen liefert.
+ Der Feynman-Propagator ist:
+\begin_inset Formula 
+\begin{align}
+S_{F}\left(x-y\right) & =\int\frac{\dd^{4}p}{\left(2\pi\right)^{4}}e^{-\ii p\left(x-y\right)}\frac{\slashd p+m}{p^{2}-m^{2}+\ii\varepsilon}\left(\Theta\left(x^{0}-y^{0}\right)+\Theta\left(y^{0}-x^{0}\right)\right)
+\end{align}
+
+\end_inset
+
+Der erste Summand gibt bei der 
+\begin_inset Formula $p^{0}$
+\end_inset
+
+-Integration:
+\begin_inset Formula 
+\begin{align*}
+ & \int_{-\infty}^{\infty}\frac{\dd E}{\left(E-\sqrt{p^{2}-m^{2}+\ii\varepsilon}\right)\left(E+\sqrt{p^{2}-m^{2}+\ii\varepsilon}\right)}e^{-\ii E\left(x^{0}-y^{0}\right)}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[decoration={markings,mark=at position 1 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (-3,0) -- (3,0) node[right]{$x$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[decoration={markings,mark=at position 1 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (0,-3) -- (0,3) node[above]{$y$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[fill] (1.5,-0.2) circle (2pt);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[fill] (-1.5,0.2) circle (2pt);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,decoration={markings,mark=at position 0.7 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (2,0) arc (0:-180:2);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,decoration={markings,mark=at position 0.7 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (-1,0) -- (-0.98,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[orange, thick,decoration={markings,mark=at position 0.7 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (2,0) arc (0:180:2);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[orange, thick,decoration={markings,mark=at position 0.7 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (0.98,0) -- (1,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Pole bei der Integration
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Mit dem Residuensatz folgt:
+\begin_inset Formula 
+\begin{align*}
+\left(x^{0}-y^{0}\right)>0 & \quad\Rightarrow\quad\frac{-2\pi\ii}{2\sqrt{\vec{p}^{2}+m^{2}}}\\
+\left(x^{0}-y^{0}\right)>0 & \quad\Rightarrow\quad\frac{2\pi\ii}{-2\sqrt{\vec{p}^{2}+m^{2}}}
+\end{align*}
+
+\end_inset
+
+Mit 
+\begin_inset Formula $E_{p}:=\sqrt{\vec{p}^{2}+m^{2}}$
+\end_inset
+
+ gibt dies:
+\begin_inset Formula 
+\begin{align*}
+S_{F}\left(x-y\right) & =-\ii\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{-\ii E_{p}\left(x^{0}-y^{0}\right)+\ii\vec{p}\left(\vec{x}-\vec{y}\right)}\frac{E_{p}\gamma_{0}-\vec{p}\cdot\vec{\gamma}+m}{2E_{p}}\Theta\left(x^{0}-y^{0}\right)-\\
+ & \quad-\ii\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{\ii E_{p}\left(x^{0}-y^{0}\right)+\ii\vec{p}\left(\vec{x}-\vec{y}\right)}\frac{-E_{p}\gamma_{0}-\vec{p}\cdot\vec{\gamma}+m}{2E_{p}}\Theta\left(x^{0}-y^{0}\right)
+\end{align*}
+
+\end_inset
+
+Im zweiten Integral gehe nun von 
+\begin_inset Formula $\vec{p}$
+\end_inset
+
+ nach 
+\begin_inset Formula $-\vec{p}$
+\end_inset
+
+ über und erhalte:
+\begin_inset Formula 
+\begin{align*}
+S_{F}\left(x-y\right) & =-\ii\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{-\ii E_{p}\left(x^{0}-y^{0}\right)+\ii\vec{p}\left(\vec{x}-\vec{y}\right)}\frac{\overbrace{E_{p}\gamma_{0}-\vec{p}\cdot\vec{\gamma}}^{\slashd p}+m}{2E_{p}}\Theta\left(x^{0}-y^{0}\right)-\\
+ & \quad-\ii\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{\ii E_{p}\left(x^{0}-y^{0}\right)-\ii\vec{p}\left(\vec{x}-\vec{y}\right)}\frac{\overbrace{-E_{p}\gamma_{0}+\vec{p}\cdot\vec{\gamma}}^{-\slashd p}+m}{2E_{p}}\Theta\left(x^{0}-y^{0}\right)=\\
+ & =-\ii\int\frac{\dd^{3}p}{2E_{p}\left(2\pi\right)^{3}}\left(\left(\slashd p+m\right)e^{-\ii p\left(x-y\right)}\Theta\left(x^{0}-y^{0}\right)-\left(\slashd p-m\right)e^{\ii p\left(x-y\right)}\Theta\left(y^{0}-x^{0}\right)\right)=\\
+ & =-\ii\int\frac{\dd^{3}p}{2E_{p}\left(2\pi\right)^{3}}\Bigg(\sum_{r\in\left\{ 1,2\right\} }\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)\Theta\left(x^{0}-y^{0}\right)-\\
+ & \qquad\qquad\qquad\qquad-\sum_{r\in\left\{ 3,4\right\} }\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)\Theta\left(y^{0}-x^{0}\right)\Bigg)
+\end{align*}
+
+\end_inset
+
+Produkte der Form 
+\begin_inset Formula $\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)$
+\end_inset
+
+ sind Projektionen, ähnlich wie das Tensorprodukt 
+\begin_inset Formula $\vec{e}_{i}\otimes\vec{e}_{i}:=\vec{e}_{i}\vec{e}_{i}^{\TT}$
+\end_inset
+
+ im euklidischen Raum:
+\begin_inset Formula 
+\begin{align*}
+\vec{v} & =\sum_{i}\vec{e}_{i}\left(\vec{e}_{i}\cdot\vec{v}\right)=\sum_{i}\left(\vec{e}_{i}\vec{e}_{i}^{\TT}\right)\vec{v}
+\end{align*}
+
+\end_inset
+
+Die 
+\emph on
+kanonische Quantisierung
+\emph default
+ definieren wir wie folgt:
+\begin_inset Formula 
+\begin{align*}
+\hat{\psi}\left(x\right) & :=\sum_{s\in\left\{ \pm\right\} }\int_{\mathbb{R}^{3}}\frac{\dd^{3}p}{\left(2\pi\right)^{3}\cdot2E_{p}}\left(\hat{b}\left(\vec{p},s\right)u\left(\vec{p},s\right)e^{-\ii px}+\hat{d}^{\dagger}\left(\vec{p},s\right)v\left(\vec{p},s\right)e^{\ii px}\right)\\
+\hat{\psi}^{\dagger}\left(x\right)\gamma_{0} & :=\sum_{s\in\left\{ \pm\right\} }\int_{\mathbb{R}^{3}}\frac{\dd^{3}p}{\left(2\pi\right)^{3}\cdot2E_{p}}\left(\hat{b}^{\dagger}\left(\vec{p},s\right)\overline{u}\left(\vec{p},s\right)e^{\ii px}+\hat{d}\left(\vec{p},s\right)\overline{v}\left(\vec{p},s\right)e^{-\ii px}\right)
+\end{align*}
+
+\end_inset
+
+Definiere noch ein zeitgeordnetes Produkt (
+\begin_inset Formula $j,l$
+\end_inset
+
+: Spinorindizes).
+\begin_inset Formula 
+\begin{align*}
+\TT\left\{ \hat{\psi}_{j}\left(x\right),\hat{\overline{\psi}}_{l}\left(y\right)\right\}  & :=\Theta\left(x^{0}-y^{0}\right)\hat{\psi}_{j}\left(x\right)\hat{\overline{\psi}}_{l}\left(y\right)-\Theta\left(y^{0}x^{0}\right)\hat{\overline{\psi}}_{l}\left(y\right)\hat{\psi}_{j}\left(x\right)
+\end{align*}
+
+\end_inset
+
+Die Anti-Kommutatoren der Erzeugunsoperatoren 
+\begin_inset Formula $\hat{b}^{\dagger}$
+\end_inset
+
+, 
+\begin_inset Formula $\hat{d}^{\dagger}$
+\end_inset
+
+ und der Vernichtungsoperatoren 
+\begin_inset Formula $\hat{b},\hat{d}$
+\end_inset
+
+ sollen alle verschwinden, außer:
+\begin_inset Formula 
+\begin{align*}
+\left\{ \hat{b}\left(\vec{p},s\right),\hat{b}^{\dagger}\left(\vec{p}',s'\right)\right\}  & =\left\{ \hat{d}\left(\vec{p},s\right),\hat{d}^{\dagger}\left(\vec{p}',s'\right)\right\} =\delta_{ss'}\delta^{\left(3\right)}\left(\vec{p}-\vec{p}'\right)\left(2\pi\right)^{3}\cdot2p^{0}
+\end{align*}
+
+\end_inset
+
+Zudem fordern wir für den normierten Vakuumzustand 
+\begin_inset Formula $\KET 0$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\hat{b}\KET 0 & =0 & \hat{d}\KET 0 & =0\\
+\BRA 0\hat{b}^{\dagger} & =0 & \BRA 0\hat{d}^{\dagger} & =0
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Behauptung: Für die kanonische Quantisierung gilt:
+\begin_inset Formula 
+\begin{align*}
+\BraKet{0|\TT\left\{ \hat{\psi}_{j}\left(x\right),\hat{\overline{\psi}}_{l}\left(y\right)\right\} |0} & =\left(\ii S_{F}\left(x-y\right)\right)_{jl}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Beweis: Wir rechnen nach:
+\begin_inset Formula 
+\begin{align*}
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \BraKet{0|\TT\left\{ \hat{\psi}_{j}\left(x\right),\hat{\overline{\psi}}_{l}\left(y\right)\right\} |0}=\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & =\Theta\left(x^{0}-y^{0}\right)\sum_{s,s'}\int\frac{\dd^{3}p\dd^{3}p'}{\left(2\pi\right)^{6}\cdot2E\cdot2E'}\underbrace{\BraKet{0|\hat{b}\left(\vec{p},s\right)\hat{b}^{\dagger}\left(\vec{p}',s'\right)|0}}_{=\BraKet{0|\delta_{ss'}\delta^{\left(3\right)}\left(\vec{p}-\vec{p}'\right)\left(2\pi\right)^{3}\cdot2E|0}}u_{j}\left(\vec{p},s\right)\overline{u}_{l}\left(\vec{p}',s'\right)e^{-\ii px}e^{\ii p'y}-\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \ -\Theta\left(y^{0}-x^{0}\right)\sum_{s,s'}\int\frac{\dd^{3}p\dd^{3}p'}{\left(2\pi\right)^{6}\cdot2E\cdot2E'}\underbrace{\BraKet{0|\hat{d}\left(\vec{p},s\right)\hat{d}^{\dagger}\left(\vec{p}',s'\right)|0}}_{=\BraKet{0|\delta_{ss'}\delta^{\left(3\right)}\left(\vec{p}-\vec{p}'\right)\left(2\pi\right)^{3}\cdot2E|0}}\overline{v}_{l}\left(\vec{p},s\right)v_{j}\left(\vec{p}',s'\right)e^{\ii px}e^{-\ii p'y}=\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & =\Theta\left(x^{0}-y^{0}\right)\sum_{s}\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}\cdot2E}\left(u\left(\vec{p},s\right)\overline{u}\left(\vec{p}',s'\right)\right)_{jl}e^{-\ii p\left(x-y\right)}-\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \ -\Theta\left(y^{0}-x^{0}\right)\sum_{s}\int\frac{\dd^{3}p}{\left(2\pi\right)\cdot2E}\left(v\left(\vec{p}',s'\right)\overline{v}_{l}\left(\vec{p},s\right)\right)_{jl}e^{\ii p\left(x-y\right)}=\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & =\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}\cdot2E}\Bigg(\sum_{r\in\left\{ 1,2\right\} }\left(\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)\right)_{jl}\Theta\left(x^{0}-y^{0}\right)-\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \qquad\qquad\qquad\quad-\sum_{r\in\left\{ 3,4\right\} }\left(\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)\right)_{jl}\Theta\left(y^{0}-x^{0}\right)\Bigg)=\left(\ii S_{F}\left(x-y\right)\right)_{jl}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+qqed[Behauptung]
 \end_layout
 
 \end_inset
@@ -5572,6 +6233,7 @@ Stringtheorie
 \end_layout
 
 \begin_layout Part*
+\start_of_appendix
 Anhang
 \begin_inset ERT
 status open
@@ -5612,14 +6274,1638 @@ status open
 
 
 \backslash
-fancyhead[R]{Index}
+fancyhead[C]{Anhang}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%DATE: Mo 29.4.13
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter
+Analysis komplexer Zahlen
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+fancyhead[R]{A Analysis komplexer Zahlen}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Komplexe Stetigkeit und Differenzierbarkeit
+\end_layout
+
+\begin_layout Standard
+Eine komplexe Zahl 
+\begin_inset Formula $z$
+\end_inset
+
+ lässt sich in Realteil 
+\begin_inset Formula $x$
+\end_inset
+
+ und Imaginärteil 
+\begin_inset Formula $y$
+\end_inset
+
+ zerlegen:
+\begin_inset Formula 
+\begin{align*}
+z & =x+\ii y
+\end{align*}
+
+\end_inset
+
+Betrachte nun eine Abbildung:
+\begin_inset Formula 
+\begin{align*}
+f:\mathbb{C} & \to\mathbb{C}\\
+z=x+\ii y & \mapsto w=u\left(x,y\right)+\ii v\left(x,y\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Definition 
+\series medium
+(Stetigkeit)
+\end_layout
+
+\begin_layout Standard
+Eine Funktion 
+\begin_inset Formula $f\left(z\right)$
+\end_inset
+
+ ist in einem abgeschlossenen und beschränkten (also kompakten) Gebiet 
+\begin_inset Formula $\overline{G}$
+\end_inset
+
+ 
+\emph on
+gleichmäßig stetig
+\emph default
+ bezüglich der Norm 
+\begin_inset Formula $\sqrt{zz^{*}}$
+\end_inset
+
+, wenn gilt:
+\begin_inset Formula 
+\begin{align}
+\fall_{\varepsilon\in\mathbb{R}_{>0}}\,\exs_{\delta\left(\varepsilon\right)\in\mathbb{R}_{>0}}\,\fall_{\sr{}{z'',z'\in\overline{G}}{\abs{z''-z'}<\delta}}:\abs{f\left(z''\right)-f\left(z'\right)} & <\varepsilon
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Definition 
+\series medium
+(Differenzierbarkeit)
+\end_layout
+
+\begin_layout Standard
+Sei 
+\begin_inset Formula $\left(z_{i}\right)_{i\in\mathbb{N}}\subseteq G$
+\end_inset
+
+ eine Zahlenfolge mit 
+\begin_inset Formula $z_{i}\not=\zeta$
+\end_inset
+
+ und 
+\begin_inset Formula $\lim_{i\to\infty}z_{i}=\zeta$
+\end_inset
+
+, so ist die Funktion 
+\begin_inset Formula $f\left(z\right)$
+\end_inset
+
+ im Punkt 
+\begin_inset Formula $\zeta$
+\end_inset
+
+ differenzierbar, wenn die Folge
+\begin_inset Formula 
+\begin{align*}
+g_{n} & =\frac{f\left(z_{n}\right)-f\left(\zeta\right)}{z_{n}-\zeta}
+\end{align*}
+
+\end_inset
+
+für 
+\begin_inset Formula $n\to\infty$
+\end_inset
+
+ konvergiert und der Grenzwert für jede solche Folge 
+\begin_inset Formula $\left(z_{i}\right)_{i\in\mathbb{N}}$
+\end_inset
+
+ gleich ist.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[postaction={decorate},decoration={markings, mark=at position 1 with
+ {
+\backslash
+arrow[scale=1.75]{>}}}] (-2,0) -- (2,0) node[right]{$
+\backslash
+text{Re}(z)$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[postaction={decorate},decoration={markings, mark=at position 1 with
+ {
+\backslash
+arrow[scale=1.75]{>}}}] (0,-2) -- (0,2) node[above]{$
+\backslash
+text{Im}(z)$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (1,1.5) +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[postaction={decorate},decoration={markings, mark=at position 0.5 with
+ {
+\backslash
+arrow[scale=1.75]{<}}}, dashed] (1,1.5) -- (1,0) node[below]{$x_0$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[postaction={decorate},decoration={markings, mark=at position 0.5 with
+ {
+\backslash
+arrow[scale=1.75]{<}}}, dashed] (1,1.5) -- (0,1.5) node[left]{$y_0$};
 \end_layout
 
 \begin_layout Plain Layout
 
 
 \backslash
-fancyhead[C]{Anhang}
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Der Limes muss entlang 
+\begin_inset Formula $x=x_{0}$
+\end_inset
+
+ und 
+\begin_inset Formula $y=y_{0}$
+\end_inset
+
+ denselben Wert ergeben.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Argument
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+label=
+\backslash
+roman*)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Für 
+\begin_inset Formula $x=x_{0}$
+\end_inset
+
+ ist der Grenzwert:
+\begin_inset Formula 
+\begin{align*}
+ & \lim_{\Delta y\to0}\frac{u\left(x_{0},y_{0}+\Delta y\right)-u\left(x_{0},y_{0}\right)+\ii v\left(x_{0},y_{0}+\Delta y\right)-\ii v\left(x_{0},y_{0}\right)}{\ii\Delta y}=\\
+ & \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad=-\ii\partial_{2}u\left(x_{0},y_{0}\right)+\partial_{2}v\left(x_{0},y_{0}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Für 
+\begin_inset Formula $y=y_{0}$
+\end_inset
+
+ ist der Grenzwert:
+\begin_inset Formula 
+\begin{align*}
+ & \lim_{\Delta x\to0}\frac{u\left(x_{0}+\Delta x,y_{0}\right)-u\left(x_{0},y_{0}\right)+\ii v\left(x_{0}+\Delta x,y_{0}\right)-\ii v\left(x_{0},y_{0}\right)}{\Delta x}=\\
+ & \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad=\partial_{1}u\left(x_{0},y_{0}\right)+\ii\partial_{1}v\left(x_{0},y_{0}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Da der Grenzwert unabhängig von der Folge sein muss, folgen die 
+\emph on
+Cauchy-Riemannschen Differentialgleichungen
+\emph default
+:
+\begin_inset Formula 
+\begin{align}
+\partial_{2}v\left(x_{0},y_{0}\right) & =\partial_{1}u\left(x_{0},y_{0}\right)\\
+-\partial_{2}u\left(x_{0},y_{0}\right) & =\partial_{1}v\left(x_{0},y_{0}\right)
+\end{align}
+
+\end_inset
+
+Wenn 
+\begin_inset Formula $u$
+\end_inset
+
+ und 
+\begin_inset Formula $v$
+\end_inset
+
+ zweimal stetig differenzierbar sind, ergeben sich Laplace-Gleichungen:
+\begin_inset Formula 
+\begin{align*}
+\partial_{1}^{2}u & =\partial_{1}\partial_{2}v=\partial_{2}\partial_{1}v=-\partial_{2}^{2}u & \Rightarrow\qquad\upDelta u & =0\\
+\partial_{1}^{2}v & =-\partial_{1}\partial_{2}u=-\partial_{2}\partial_{1}u=-\partial_{2}^{2}v & \Rightarrow\qquad\upDelta v & =0
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Komplexe Integration
+\end_layout
+
+\begin_layout Subsection
+Definition 
+\series medium
+(Rektifizierbare Kurve, Integral)
+\end_layout
+
+\begin_layout Standard
+Eine Kurve 
+\begin_inset Formula $J$
+\end_inset
+
+ ist 
+\emph on
+rektifizierbar
+\emph default
+, wenn für jedes Sehnenpolygon gilt:
+\begin_inset Formula 
+\begin{align*}
+\sum_{i=1}^{n}L_{i} & \le L<\infty
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw plot[smooth,tension=.7] coordinates{(0,-1) (1,0) (0,1) (0,1.8) (1,2)};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (0,-1) +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (1,0) +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (0,1) +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (0,1.8) +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (1,2) +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[blue] (0,-1) -- (1,0) node[right]{$z_i$} -- node[below left]{$L_i$}
+ (0,1) node[right]{$z_{i+1}$} -- (0,1.8) -- (1,2);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[fill,blue] ($ (1,0)!0.5!(0,1) $) circle (2pt) node[right=5pt]{$
+\backslash
+zeta_i$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Sehnenpolygon
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nun charakterisiere 
+\begin_inset Formula $l$
+\end_inset
+
+ ein Polygon mit 
+\begin_inset Formula $m\left(l\right)$
+\end_inset
+
+ Kanten und 
+\begin_inset Formula $\zeta_{i}^{\left(l\right)}$
+\end_inset
+
+ einen Zwischenpunkt auf dem 
+\begin_inset Formula $i$
+\end_inset
+
+-ten Teilstück.
+ 
+\begin_inset Formula $\mathfrak{Z}^{l}$
+\end_inset
+
+ sei eine Polygonfolge mit 
+\begin_inset Formula $L_{i}^{\left(l\right)}\xrightarrow{l\to\infty}0$
+\end_inset
+
+.
+ Wenn der Grenzwert
+\begin_inset Formula 
+\begin{align*}
+S_{J} & =\lim_{l\to\infty}\left(\sum_{i=1}^{m\left(l\right)}f\left(\zeta_{i}^{\left(l\right)}\right)\cdot\left(z_{i+1}^{\left(l\right)}-z_{i}^{\left(l\right)}\right)\right)
+\end{align*}
+
+\end_inset
+
+existiert, dann definiert dieser das 
+\emph on
+Integral
+\emph default
+:
+\begin_inset Formula 
+\begin{align}
+\int_{J}f\left(z\right)\dd z & =-\int_{-J}f\left(z\right)\dd z:=S_{J}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Hauptsatz der Funktionentheorie
+\end_layout
+
+\begin_layout Standard
+Die Funktion 
+\begin_inset Formula $f\left(z\right)$
+\end_inset
+
+ sei in dem einfach zusammenhängenden Gebiet 
+\begin_inset Formula $G$
+\end_inset
+
+ 
+\emph on
+regulär
+\emph default
+ (auch 
+\emph on
+holomorph
+\emph default
+ genannt) und sei 
+\begin_inset Formula $C$
+\end_inset
+
+ eine geschlossene Kurve in 
+\begin_inset Formula $G$
+\end_inset
+
+, dann gilt:
+\begin_inset Formula 
+\begin{align}
+\int_{C}f\left(z\right)\dd z & =0
+\end{align}
+
+\end_inset
+
+Äquivalent dazu ist, dass das Integral 
+\begin_inset Formula $\int_{z_{1}}^{z_{2}}f\left(z\right)\dd z$
+\end_inset
+
+ wegunabhängig ist:
+\begin_inset Formula 
+\begin{align*}
+\int_{C_{1}}f\left(z\right)\dd z-\int_{C_{2}}f\left(z\right)\dd z & =\int_{C}f\left(z\right)\dd z=0
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw plot[smooth cycle,tension=.7] coordinates{(0,-1) (1,0) (0,1) (-0.7,1.2)
+ (-1.2,0) (-1,-1)};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (0,-1) node[below=2pt]{$z_1$} +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1)
+;
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (-0.7,1.2) node[above=2pt]{$z_2$} +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) --
+ +(-0.1,0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,decoration={markings,mark=at position 1 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (1,-0.025) -- node[right]{$C_2$}
+ (1,0.025);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (1.2,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (-1.3,0) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,decoration={markings,mark=at position 1 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (-1.2,-0.025) -- node[left]{$C_1$}
+ (-1.195,0.025);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[blue,thick,decoration={markings,mark=at position 1 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (-0.7,-1.135) -- node[below=3pt]{$C$
+} (-0.725,-1.13);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[blue,thick,decoration={markings,mark=at position 1 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (-0.98,0.75) -- (-0.96,0.81);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[blue,thick,decoration={markings,mark=at position 1 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (0,1) -- (0.05,0.96);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[blue,thick,decoration={markings,mark=at position 1 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (0.5,-0.69) -- (0.45,-0.725);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Wegunabhängigkeit
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Beweis
+\end_layout
+
+\begin_layout Standard
+Wir gehen wie folgt vor:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\int_{C}\dd z=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\int_{C}z\dd z=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Triangulation
+\end_layout
+
+\begin_layout Standard
+Fangen wir an:
+\end_layout
+
+\begin_layout Enumerate
+Es gilt:
+\begin_inset Formula 
+\begin{align*}
+S_{C} & =\lim_{l\to\infty}\sum_{i=1}^{m\left(l\right)}\left(z_{i+1}^{\left(l\right)}-z_{i}^{\left(l\right)}\right)\cdot1=\lim_{l\to\infty}\left(z_{m\left(l\right)+1}^{\left(l\right)}-z_{1}^{\left(l\right)}\right)\sr ={\text{geschlossener}}{\text{Weg}}0
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Hierfür folgt:
+\begin_inset Formula 
+\begin{align*}
+S_{C} & =\lim_{l\to\infty}\sum_{i=1}^{m\left(l\right)}\left(z_{i+1}^{\left(l\right)}-z_{i}^{\left(l\right)}\right)\zeta_{i}^{\left(l\right)}=\\
+ & \sr ={\zeta_{i}^{\left(l\right)}:=\frac{z_{i+1}^{\left(l\right)}+z_{i}^{\left(l\right)}}{2}}{}\frac{1}{2}\left(\lim_{l\to\infty}\sum_{i=1}^{m\left(l\right)}\left(z_{i+1}^{\left(l\right)}-z_{i}^{\left(l\right)}\right)z_{i+1}^{\left(l\right)}+\lim_{l\to\infty}\sum_{i=1}^{m\left(l\right)}\left(z_{i+1}^{\left(l\right)}-z_{i}^{\left(l\right)}\right)z_{i}^{\left(l\right)}\right)=\\
+ & =\frac{1}{2}\lim_{l\to\infty}\sum_{i=1}^{m\left(l\right)}\left(\left(z_{i+1}^{\left(l\right)}\right)^{2}-\left(z_{i}^{\left(l\right)}\right)^{2}\right)=\frac{1}{2}\lim_{l\to\infty}\left(\left(z_{m\left(l\right)+1}^{\left(l\right)}\right)^{2}-\left(z_{1}^{\left(l\right)}\right)^{2}\right)=0
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Sei 
+\begin_inset Formula $D$
+\end_inset
+
+ ein Dreieck mit Rand 
+\begin_inset Formula $\partial D$
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[scale=2.5]
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (-1,0) -- (1,0) -- (0,1.732) -- cycle;
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[orange,scale=1.75]{>}};},postaction={decorate}] (-1,0) -- (0,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[orange,scale=1.75]{>}};},postaction={decorate}] (0,0) -- (1,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[orange,scale=1.75]{>}};},postaction={decorate}] (1,0) -- (0.5,0.866);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[orange,scale=1.75]{>}};},postaction={decorate}] (0.5,0.866) -- (0,1.732);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[orange,scale=1.75]{>}};},postaction={decorate}] (0,1.732) -- (-0.5,0.866);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[orange,scale=1.75]{>}};},postaction={decorate}] (-0.5,0.866) -- (-1,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,red] (0,0) -- (0.5,0.866) -- (-0.5,0.866) -- cycle;
+\end_layout
+
+\begin_layout Plain Layout
+
+  % Innere orange Pfeile
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[thick,decoration={markings,mark=at position 0.45 with {
+\backslash
+arrow[orange,scale=1.75]{>}};},postaction={decorate}] (0,0) -- (-0.5,0.866);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[thick,decoration={markings,mark=at position 0.45 with {
+\backslash
+arrow[orange,scale=1.75]{>}};},postaction={decorate}] (0.5,0.866) -- (0,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[thick,decoration={markings,mark=at position 0.45 with {
+\backslash
+arrow[orange,scale=1.75]{>}};},postaction={decorate}] (-0.5,0.866) -- (0.5,0.866);
+\end_layout
+
+\begin_layout Plain Layout
+
+  % rote Pfeile
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[thick,decoration={markings,mark=at position 0.55 with {
+\backslash
+arrow[red,scale=1.75]{<}};},postaction={decorate}] (0,0) -- (-0.5,0.866);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[thick,decoration={markings,mark=at position 0.55 with {
+\backslash
+arrow[red,scale=1.75]{<}};},postaction={decorate}] (0.5,0.866) -- (0,0);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[thick,decoration={markings,mark=at position 0.55 with {
+\backslash
+arrow[red,scale=1.75]{<}};},postaction={decorate}] (-0.5,0.866) -- (0.5,0.866);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (-0.5,0.3) {$D^{(1)}$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (0.5,0.3) {$D^{(4)}$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (0,0.6) {$D^{(2)}$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (0,1.15) {$D^{(3)}$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (0,-0.1) {};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Zerlegung des Dreiecks
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\int_{\partial D}f\left(z\right)\dd z & =\int_{\partial D^{\left(1\right)}}f\left(z\right)\dd z+\int_{\partial D^{\left(2\right)}}f\left(z\right)\dd z+\int_{\partial D^{\left(3\right)}}f\left(z\right)\dd z+\int_{\partial D^{\left(4\right)}}f\left(z\right)\dd z
+\end{align*}
+
+\end_inset
+
+Daher gibt es unter den 
+\begin_inset Formula $D^{\left(i\right)}$
+\end_inset
+
+ ein 
+\begin_inset Formula $D_{1}$
+\end_inset
+
+, das folgende Bedingung erfüllt.
+ Iterativ wählt man so 
+\begin_inset Formula $D_{n}$
+\end_inset
+
+ für 
+\begin_inset Formula $n\in\mathbb{N}$
+\end_inset
+
+.
+ 
+\begin_inset Formula 
+\begin{align*}
+\abs{\int_{\partial D}f\left(z\right)\dd z} & \le4\abs{\int_{\partial D_{1}}f\left(z\right)\dd z}\le16\abs{\int_{\partial D_{2}}f\left(z\right)\dd z}\le4^{n}\abs{\int_{\partial D_{n}}f\left(z\right)\dd z}
+\end{align*}
+
+\end_inset
+
+Sei nun 
+\begin_inset Formula $n\in\mathbb{N}$
+\end_inset
+
+ so groß, dass für 
+\begin_inset Formula $z_{0}\in\bigcap_{k\in\mathbb{N}}D_{k}$
+\end_inset
+
+ und alle 
+\begin_inset Formula $z\in D_{n}$
+\end_inset
+
+ schon 
+\begin_inset Formula $\abs{z-z_{0}}<\delta$
+\end_inset
+
+ gilt.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (0,0) node[right]{$z_0$} +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (0.3,-0.5) node[right]{$z$} +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (0,0) circle(2);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[orange,thick] (-1,-0.7) -- (1,-0.7) --  node[right]{$D_n$} (0,1.032) --
+ cycle;
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (0,0) -- node[right]{$
+\backslash
+delta$} (0,-2);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset Formula $D_{n}$
+\end_inset
+
+ wird für große 
+\begin_inset Formula $n$
+\end_inset
+
+ sehr klein.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Da 
+\begin_inset Formula $f$
+\end_inset
+
+ holomorph ist und 
+\begin_inset Formula $D_{n}$
+\end_inset
+
+ beliebig klein wird, kann man für ein beliebiges 
+\begin_inset Formula $\varepsilon\in\mathbb{R}_{>0}$
+\end_inset
+
+ ein so großes 
+\begin_inset Formula $n\in\mathbb{N}$
+\end_inset
+
+ wählen, dass gilt:
+\begin_inset Formula 
+\begin{align*}
+\abs{f\left(z\right)-f\left(z_{0}\right)-\left(z-z_{0}\right)f'\left(z_{0}\right)} & <\varepsilon\abs{z-z_{0}}
+\end{align*}
+
+\end_inset
+
+Daher gibt es eine Funktion 
+\begin_inset Formula $\eta:D_{n}\to\mathbb{R}$
+\end_inset
+
+ mit:
+\begin_inset Formula 
+\begin{align*}
+f\left(z\right) & =f\left(z_{0}\right)+\left(z-z_{0}\right)f'\left(z_{0}\right)+\eta\left(z\right)
+\end{align*}
+
+\end_inset
+
+Damit folgt: 
+\begin_inset Formula 
+\begin{align*}
+\int_{\partial D_{n}}f\left(z\right)\dd z & =\int_{\partial D_{n}}f\left(z_{0}\right)\dd z+\int_{\partial D_{n}}f'\left(z_{0}\right)z\dd z-\int_{\partial D_{n}}f'\left(z_{0}\right)z_{0}\dd z+\int_{\partial D_{n}}\eta\left(z\right)\dd z=\\
+ & =0+0+0+\int_{\partial D_{n}}\eta\left(z\right)\dd z
+\end{align*}
+
+\end_inset
+
+Mit dem Umfang 
+\begin_inset Formula $s_{n}$
+\end_inset
+
+ des Dreiecks 
+\begin_inset Formula $D_{n}$
+\end_inset
+
+ folgt:
+\begin_inset Formula 
+\begin{align*}
+\abs{\int_{\partial D_{n}}f\left(z\right)\dd z} & =\abs{\int_{\partial D_{n}}\eta\left(z\right)\dd z}\stackrel{\abs{\eta\left(z\right)}<\varepsilon\abs{z-z_{0}}}{<}\varepsilon\frac{s_{n}}{2}\cdot s_{n}
+\end{align*}
+
+\end_inset
+
+Nun erhält man:
+\begin_inset Formula 
+\begin{align*}
+\abs{\int_{\partial D}f\left(z\right)\dd z} & \le4^{n}\abs{\int_{\partial D_{n}}f\left(z\right)\dd z}<4^{n}\frac{\varepsilon}{2}s_{n}^{2}=4^{n}\frac{\varepsilon}{2}\left(\frac{s}{2^{n}}\right)^{2}=\frac{\varepsilon}{2}s^{2}
+\end{align*}
+
+\end_inset
+
+Da dies für alle 
+\begin_inset Formula $\varepsilon\in\mathbb{R}_{>0}$
+\end_inset
+
+ gilt, folgt:
+\begin_inset Formula 
+\begin{align*}
+\int_{D}f\left(z\right)\dd z & =0
+\end{align*}
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+qqed[A.2.2.]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Folgerungen
+\end_layout
+
+\begin_layout Standard
+Sei 
+\begin_inset Formula $f\left(z\right)$
+\end_inset
+
+ in 
+\begin_inset Formula $G$
+\end_inset
+
+ regulär bis auf den Punkt 
+\begin_inset Formula $z_{0}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw plot[smooth cycle,tension=.7] coordinates{(-2,-2) (0,-1.9) (1,-1.8) (2,0.4)
+ (1,0.8) (0.5,1.7) (-1,1)};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw (0,0) node[right]{$z_0$} +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[thick,decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (2,0.4) -- node[right]{$C$}
+ (2,0.45);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[orange, dashed, line width=2pt] plot[smooth cycle,tension=.7] coordinates{(-
+2,-2) (0,-1.9) (1,-1.8) (2,0.4) (1,0.8) (0.5,1.7) (-1,1)};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[orange,thick,decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (1,-1.8) -- node[below right]{$C_1$
+} (1.05,-1.75);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[orange,thick,decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (-1,1) -- (-1.05,0.95);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[green] (0,0) circle (0.5);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node[green] at (0,-0.3) {$C_2$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[green,thick,decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (-0.5,0.05) -- (-0.5,-0.05);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[orange] (-0.05,1.7) -- (-0.07,0.75) arc (97:443:0.75) -- (0.12,1.7);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[orange,thick,decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (-0.05,1.15) -- (-0.05,1.2);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[orange,thick,decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (0.12,1.25) -- (0.12,1.2);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[orange,thick,decoration={markings,mark=at position 0.5 with {
+\backslash
+arrow[scale=1.75]{>}};},postaction={decorate}] (0.75,0.025) -- (0.75,-0.025);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Zurückführung auf Integration in kleiner Umgebung der Singularität
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Dann gilt:
+\begin_inset Formula 
+\begin{align*}
+\int_{C}f\left(z\right)\dd z & =\underbrace{\int_{C_{1}}f\left(z\right)\dd z}_{=0}+\int_{C_{2}}f\left(z\right)\dd z
+\end{align*}
+
+\end_inset
+
+Wir betrachten jetzt für 
+\begin_inset Formula $m\in\mathbb{Z}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+I & :=\int_{C_{2}}\left(z-z_{0}\right)^{m}\dd z
+\end{align*}
+
+\end_inset
+
+Wir parametrisieren den Weg 
+\begin_inset Formula $C_{2}$
+\end_inset
+
+ mit 
+\begin_inset Formula $t\in\left[-\pi,\pi\right]$
+\end_inset
+
+ wie folgt:
+\begin_inset Formula 
+\begin{align*}
+z & =z_{0}+r\left(\cos\left(t\right)+\ii\sin\left(t\right)\right)\\
+\dd z & =\left(-r\sin\left(t\right)+\ii r\cos\left(t\right)\right)\dd t=\ii r\left(\cos\left(t\right)+\ii\sin\left(t\right)\right)\dd t=\ii re^{\ii t}\dd t
+\end{align*}
+
+\end_inset
+
+Es folgt:
+\begin_inset Formula 
+\begin{align*}
+I & =\int_{-\pi}^{\pi}\ii re^{\ii t}r^{m}e^{\ii mt}\dd t=\ii r^{m+1}\int_{-\pi}^{\pi}\cos\left(\left(m+1\right)t\right)+\ii\sin\left(\left(m+1\right)t\right)\dd t=2\pi\ii\delta_{m,-1}
+\end{align*}
+
+\end_inset
+
+Damit folgt die 
+\emph on
+Cauchysche Integralformel
+\emph default
+: Sei 
+\begin_inset Formula $f\left(z\right)$
+\end_inset
+
+ im einfach zusammenhängenden Gebiet 
+\begin_inset Formula $G$
+\end_inset
+
+ regulär, so gilt für jeden geschlossenen doppelpunktfreien positiv orientierten
+ Weg 
+\begin_inset Formula $C$
+\end_inset
+
+ in 
+\begin_inset Formula $G$
+\end_inset
+
+ und für jeden Punkt 
+\begin_inset Formula $z$
+\end_inset
+
+ im Innengebiet von 
+\begin_inset Formula $C$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align}
+\frac{1}{2\pi\ii}\int_{C}\frac{f\left(\zeta\right)}{\zeta-z}\dd\zeta & =f\left(z\right)
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Behauptung: Es gilt:
+\begin_inset Formula 
+\begin{align}
+\lim_{\varepsilon\searrow0}\int_{-\infty}^{\infty}\dd x\frac{f\left(x\right)}{x\pm\ii\varepsilon} & =\int_{-\infty}^{\infty}\dd xf\left(x\right)\left(\mathcal{P}\left(\frac{1}{x}\right)\mp\ii\pi\delta\left(x\right)\right)
+\end{align}
+
+\end_inset
+
+Dabei ist 
+\begin_inset Formula $\delta\left(x\right)$
+\end_inset
+
+ die Delta-Distribution und 
+\begin_inset Formula $\mathcal{P}\left(\frac{1}{x}\right)$
+\end_inset
+
+ die Hauptwertdistribution von 
+\begin_inset Formula $\frac{1}{x}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\mathcal{P}\left(\frac{1}{x}\right):\mathcal{S}\left(\mathbb{R}\right) & \to\mathbb{R}\\
+f & \mapsto\lim_{\varepsilon\searrow0}\int_{\mathbb{R}\setminus\left[-\varepsilon,\varepsilon\right]}\frac{f\left(x\right)}{x}\dd x=\int_{0}^{\infty}\frac{f\left(x\right)-f\left(-x\right)}{x}\dd x
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Beweis: Zeige zunächst:
+\begin_inset Formula 
+\begin{align*}
+\int_{-\infty}^{\infty}\delta\left(x\right)f\left(x\right)\dd x & \stackrel{!}{=}\lim_{\varepsilon\to0}\frac{1}{\pi}\int_{-\infty}^{\infty}f\left(x\right)\frac{\varepsilon}{x^{2}+\varepsilon^{2}}\dd x
+\end{align*}
+
+\end_inset
+
+Wähle dazu 
+\begin_inset Formula $\varepsilon=\delta\cdot\eta$
+\end_inset
+
+ und schreibe:
+\begin_inset Formula 
+\begin{align*}
+\lim_{\varepsilon\to0}\frac{1}{\pi}\int_{-\infty}^{\infty}f\left(x\right)\frac{\varepsilon}{x^{2}+\varepsilon^{2}}\dd x & =\frac{1}{\pi}\lim_{\delta\to0}\lim_{\eta\to0}\int_{-\delta}^{\delta}f\left(x\right)\frac{\delta\eta}{x^{2}+\delta^{2}\eta^{2}}\dd x=\\
+ & =\frac{f\left(0\right)}{\pi}\lim_{\delta\to0}\lim_{\eta\to0}\int_{-\infty}^{\infty}\frac{\delta\eta}{x^{2}+\delta^{2}\eta^{2}}\dd x=\\
+ & =\frac{f\left(0\right)}{\pi}\lim_{\varepsilon\to0}\int_{-1}^{1}\frac{\varepsilon}{x^{2}+\varepsilon^{2}}\dd x=\lim_{\varepsilon\to0}\frac{f\left(0\right)}{\pi}\arctan\left(\frac{x}{\varepsilon}\right)\big|_{-1}^{1}=\\
+ & =\frac{f\left(0\right)}{\pi}\left(\frac{\pi}{2}+\frac{\pi}{2}\right)=f\left(0\right)
+\end{align*}
+
+\end_inset
+
+Nun zeigen für den Hauptwert:
+\begin_inset Formula 
+\begin{align*}
+\int_{-\infty}^{\infty}f\left(x\right)\mathcal{P}\left(\frac{1}{x}\right)\dd x & :=\lim_{\varepsilon\to0}\left(\int_{\varepsilon}^{\infty}\frac{f\left(x\right)}{x}\dd x+\int_{-\infty}^{-\varepsilon}\frac{f\left(x\right)}{x}\dd x\right)\stackrel{!}{=}\lim_{\varepsilon\to0}\int_{-\infty}^{\infty}f\left(x\right)\frac{x}{x^{2}+\varepsilon^{2}}\dd x
+\end{align*}
+
+\end_inset
+
+Sei dazu 
+\begin_inset Formula $\varepsilon=\delta\eta$
+\end_inset
+
+ und betrachte:
+\begin_inset Formula 
+\begin{align*}
+\text{r.S.}-\text{l.S.} & =\lim_{\delta\to0}\lim_{\eta\to0}\left(\int_{\delta\eta}^{\infty}\dd x+\int_{-\infty}^{-\delta\eta}\dd x\right)f\left(x\right)\left(\frac{x}{x^{2}+\delta^{2}\eta^{2}}-\frac{1}{x}\right)+\\
+ & \qquad+\underbrace{\int_{-\delta\eta}^{\delta\eta}f\left(x\right)\frac{x}{x^{2}+\varepsilon^{2}}\dd x}_{\to0}=\\
+ & \sr ={x=\delta y}{\dd x=\delta\dd y}\lim_{\delta\to0}\lim_{\eta\to0}\left(\int_{\eta}^{\infty}\dd y+\int_{-\infty}^{-\eta}\dd y\right)f\left(\delta y\right)\left(\frac{y}{y^{2}+\eta^{2}}-\frac{1}{y}\right)=\\
+ & =f\left(0\right)\lim_{\eta\to0}\left(\int_{\eta}^{\infty}\dd y+\int_{-\infty}^{-\eta}\dd y\right)\left(\frac{y}{y^{2}+\eta^{2}}-\frac{1}{y}\right)=0
+\end{align*}
+
+\end_inset
+
+Es folgt:
+\begin_inset Formula 
+\begin{align*}
+\lim_{\varepsilon\to0}\int_{-\infty}^{\infty}\dd x\frac{f\left(x\right)}{x\pm\ii\varepsilon} & =\lim_{\varepsilon\to0}\int_{-\infty}^{\infty}\dd xf\left(x\right)\frac{x\mp\ii\varepsilon}{x^{2}+\varepsilon^{2}}=\int_{-\infty}^{\infty}f\left(x\right)\left(\mathcal{P}\left(\frac{1}{x}\right)\mp\ii\pi\delta\left(x\right)\right)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+qqed[Behauptung]
 \end_layout
 
 \end_inset
@@ -5639,9 +7925,9 @@ status open
 
 
 \backslash
-addcontentsline{toc}{section}{
+addcontentsline{toc}{chapter}{
 \backslash
-hspace*{2.7em}Danksagungen}
+hspace*{1.5em}Danksagungen}
 \end_layout
 
 \end_inset

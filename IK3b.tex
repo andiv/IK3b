@@ -1677,7 +1677,7 @@ um eine Zusatzvorschrift ergänzen, wie man diese umschiffen soll.
   \draw[very thick, blue] (-3,0) -- (-2,0) arc (180:0:0.25) -- (1.5,0) arc(180:0:0.25) node[above=7pt]{4} -- (3,0);
   \draw (1.75,0) node[below=15pt]{$\sqrt{\vec{p}^2-m^2}$} +(-0.1,0.1) -- +(0.1,-0.1) +(-0.1,-0.1) -- +(0.1,0.1);
   \draw (-1.75,0) node[below=15pt]{$-\sqrt{\vec{p}^2-m^2}$} +(-0.1,0.1) -- +(0.1,-0.1) +(-0.1,-0.1) -- +(0.1,0.1);
-\end{tikzpicture}}\hfill{}\subfloat[äquivalent: Pole verschieben]{{\begin{tikzpicture}
+\end{tikzpicture}}\hfill{}\subfloat[äquivalent: Pole verschieben]{\begin{tikzpicture}
   \draw[thick,->] (-3,0) -- (3,0) node[right]{Re$(p^\mu)$};
   \draw[thick,->] (0,-3) -- (0,3) node[above]{Im$(p^\mu)$};
   \draw[fill, orange] (-1.75,0.25) circle (2pt) (1.75,0.25) circle (2pt);
@@ -1686,7 +1686,7 @@ um eine Zusatzvorschrift ergänzen, wie man diese umschiffen soll.
   \draw[fill, blue] (-1.75,-0.25) circle (2pt) (1.75,-0.25) circle (2pt);
   \draw (1.75,0) node[below=15pt]{$\sqrt{\vec{p}^2-m^2}$} +(-0.1,0.1) -- +(0.1,-0.1) +(-0.1,-0.1) -- +(0.1,0.1);
   \draw (-1.75,0) node[below=15pt]{$-\sqrt{\vec{p}^2-m^2}$} +(-0.1,0.1) -- +(0.1,-0.1) +(-0.1,-0.1) -- +(0.1,0.1);
-\end{tikzpicture}}}\hspace*{\fill}
+\end{tikzpicture}}\hspace*{\fill}
 \par\end{centering}
 
 \noindent \centering{}\caption{Die Pole müssen umgangen werden.}
@@ -1705,8 +1705,7 @@ $p^{0}=\pm\sqrt{\vec{p}^{2}+m^{2}}\mp\ii\eta$
 \item ${\displaystyle \frac{1}{p^{2}-m^{2}+\ii\varepsilon\text{sgn}\left(p^{0}\right)}}$:
 Pole bei $p^{0}=\pm\sqrt{\vec{p}^{2}+m^{2}}-\ii\eta$
 \end{enumerate}
-Mit Hilfe des Residuuensatzes kann man so das Integral
-
+Mit Hilfe des Residuensatzes kann man so das Integral
 \begin{align*}
 \int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}\int_{-\infty}^{\infty}\frac{\dd p^{0}}{2\pi}e^{-\ii p^{0}\left(t-t'\right)+\ii\vec{p}\left(\vec{x}-\vec{x}'\right)}G\left(p^{0},\vec{p}\right)
 \end{align*}
@@ -1716,11 +1715,210 @@ exponentiell abfällt. Ebenso kann man für $t>t'$ (vorwärts in der
 Zeit) unten schließen. Bei der Propagation vorwärts in der Zeit darf
 der Pol bei $p_{0}<0$ nicht im Integrationsbereich sein und $p_{0}>0$
 darf nicht rückwärts in der Zeit propagieren. Daher bleibt nur die
-3. Lösung. Diese wird \emph{Feynman-Propagator} genannt.
+3. Lösung. Diese wird \emph{Feynman-Propagator} genannt und Berechnungen
+ergeben:
+\begin{align}
+G\left(x\right) & =-\frac{1}{4\pi}\delta\left(x^{2}\right)+\frac{m}{8\pi\sqrt{x^{2}}}\Theta\left(x^{2}\right)\left(J_{1}\left(m\sqrt{x^{2}}\right)-\ii Y_{1}\left(m\sqrt{x^{2}}\right)\right)-\nonumber \\
+ & \qquad-\frac{\ii m}{4\pi^{2}\sqrt{-x^{2}}}\Theta\left(-x^{2}\right)K_{1}\left(m\sqrt{-x^{2}}\right)
+\end{align}
+Dabei ist $\delta$ die Delta-Distribution, $\Theta$ die Heaviside-Sprungfunktion,
+$J_{1}$ die Bessel-Funktion erster Ordnung erster Gattung und $Y_{1}$
+die Bessel-Funktion erster Ordnung zweiter Gattung, sowie $K_{1}$
+die modifizierte Bessel-Funktion erster Ordnung zweiter Gattung.
+
+\begin{figure}[H]
+\noindent \begin{centering}
+\begin{tikzpicture}
+ \begin{axis}[width=13cm, axis x line=middle, axis y line=middle, xlabel=$x$, x label style={ yshift=6pt}, ylabel=$\hspace*{2mm}y$, xmin=0, ymin=-5.2, ymax=5.2, xmax=9.8, samples=300]
+  \addplot[mark=none] file {besj1.txt};
+  \addlegendentry{$J_1(x)$}
+  \addplot[mark=none, dashed, blue] file {besy1.txt};
+  \addlegendentry{$Y_1(x)$}
+  \addplot[mark=none, thick, red] file {besk1.txt};
+  \addlegendentry{$K_1(x)$}
+ \end{axis}
+\end{tikzpicture}
+\par\end{centering}
+
+\noindent \centering{}\caption{Bessel-Funktionen}
+\end{figure}
+
+
+Dieses Ergebnis lässt sich direkt physikalisch interpretieren. Da
+$x^{2}=0$ den Lichtkegel beschreibt, entspricht der Term mit $\delta\left(x^{2}\right)$
+der Ausbreitung mit Lichtgeschwindigkeit. $J_{1}$ und $Y_{1}$ sind
+oszillierende Funktionen, die die kausale Ausbreitung massiver Teilchen
+beschreiben. Die modifizierte Bessel-Funktion $K_{1}\left(x\right)\stackrel{x\to\infty}{\sim}x^{-\frac{1}{2}}e^{-x}$
+fällt exponentiell ab und erscheint wie eine nicht-kausale Ausbreitung.
+Dies kann man physikalisch dadurch erklären, dass aufgrund der Unschärferelation
+der Ort des Teilchens schon zu Beginn nicht genauer als die Compton-Wellenlänge
+festgelegt war, und somit sich ein exponentiell kleiner Teil der Wellenfunktion
+von einem anderen Ort her ausgebreitet hat. Dies ist keine Ausbreitung
+mit Überlichtgeschwindigkeit!
+
+%DATE: Mo 29.4.13 --> Anhang A
+
+%DATE: Di 30.4.13
+
+
+\section{Normierung der Wellenfunktionen}
+
+\begin{align*}
+u\left(\vec{p},+\right) & =\sqrt{\frac{E+m}{2m}}\left(\begin{array}{c}
+1\\
+0\\
+\frac{p^{3}}{E+m}\\
+\frac{p^{1}+\ii p^{2}}{E+m}
+\end{array}\right)
+\end{align*}
+\begin{align*}
+\overline{u}u & =\frac{E+m}{2m}\cdot\frac{\left(E+m\right)^{2}-\vec{p}^{2}}{\left(E+m\right)^{2}}=\frac{E+m}{2m}\cdot\frac{E^{2}+2mE+m^{2}-\vec{p}^{2}}{\left(E+m\right)^{2}}=\\
+ & =\frac{E+m}{2m}\cdot\frac{2mE+2m^{2}}{\left(E+m\right)^{2}}=\frac{E+m}{E+m}=1
+\end{align*}
+Führe nun einen möglichen Normierungsfaktor $\mathcal{N}$ für die
+Wellenfunktion $\psi$ ein:
+\begin{align}
+\psi_{1}\left(\vec{p},x\right) & =\mathcal{N}u\left(\vec{p},+\right)e^{-\ii px}
+\end{align}
+\begin{align*}
+\int_{\mathbb{R}^{3}}\dd^{3}x\overline{\psi_{1}}\left(\vec{p},x\right)\psi_{1}\left(\vec{p},x\right) & \stackrel{?}{=}\infty
+\end{align*}
+Man müsste also für die Normierung $\mathcal{N}=0$ wählen, was keinen
+Sinn ergibt. In einem endlichen Volumen $V$ wäre dieses Integral
+proportional zu $V$. Beachte nun die Analogie:
+\begin{align}
+\int_{\mathbb{R}^{3}}\frac{\dd^{3}}{\left(2\pi\right)^{3}}e^{\ii\vec{p}\vec{x}} & =\delta^{\left(3\right)}\left(\vec{p}\right)\nonumber \\
+\int_{V}\frac{\dd^{3}}{\left(2\pi\right)^{3}}e^{0} & =\frac{V}{\left(2\pi\right)^{3}}\:\widehat{=}\:\delta^{\left(3\right)}\left(0\right)
+\end{align}
+Wir machen daher folgenden Ansatz für die Normierung:
+\begin{align}
+\int_{\mathbb{R}^{3}}\dd^{3}x\overline{\psi}_{1}\left(\vec{p},x\right)\psi\left(\vec{p}',x\right) & =\abs{\mathcal{N}}^{2}\int_{\mathbb{R}^{3}}\dd^{3}xe^{-\ii\left(p'-p\right)x}=\abs{\mathcal{N}}^{2}\left(2\pi\right)^{3}\delta^{\left(3\right)}\left(\vec{p}'-\vec{p}\right)=:I
+\end{align}
+Wie muss man $\abs{\mathcal{N}}^{2}$ wählen, sodass $I$ eine Lorentz-Invariante
+ist? Das Integral
+\begin{align*}
+\int\frac{\dd^{4}p}{\left(2\pi\right)^{3}}\delta\left(p^{2}-m^{2}\right)
+\end{align*}
+ist wegen $\abs{\det\left(\Lambda\right)}=1$ Lorentz-invariant und
+es gilt:
+\begin{align*}
+\int\frac{\dd^{4}p}{\left(2\pi\right)^{3}}\delta\left(p^{2}-m^{2}\right) & =\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}\int\dd E\delta\left(E^{2}-\vec{p}^{2}-m^{2}\right)=\\
+ & =\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}\int\dd E\delta\left(\left(E-\sqrt{\vec{p}^{2}+m^{2}}\right)\left(E+\sqrt{\vec{p}^{2}+m^{2}}\right)\right)=\\
+ & =\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}\int\dd E\frac{1}{2\abs E}\left(\delta\left(E-\sqrt{\vec{p}^{2}+m^{2}}\right)+\delta\left(E+\sqrt{\vec{p}^{2}+m^{2}}\right)\right)
+\end{align*}
+Nun sind
+\begin{align*}
+\int\frac{\dd^{3}p}{2\abs E}\cdot2\abs E\delta^{\left(3\right)}\left(p\right)=\int\dd^{3}p\delta^{\left(3\right)}\left(p\right) & =1\qquad\text{und}\qquad\frac{\dd^{3}p}{2\abs E}
+\end{align*}
+Lorentz-Invarianten und somit auch $2\abs E\delta^{\left(3\right)}\left(p\right)$.
+Man kann $I$ explizit Lorentz-invariant machen, indem man wählt:
+\begin{align}
+\mathcal{N} & =\sqrt{\frac{\abs E}{m}}
+\end{align}
+Diese Wahl sorgt dafür, dass im Ruhesystem die $u\left(\vec{p},+\right)$
+etc. nach wie vor Einheitsspinoren sind. Wir ersetzen also:
+\begin{align}
+\psi\left(\vec{p},m\right) & \to\sqrt{\frac{\abs E}{m}}\tilde{\psi}\left(\vec{p},m\right)\nonumber \\
+\Rightarrow\qquad\sum_{s}\tilde{u}\left(\vec{p},s\right)\overline{\tilde{u}}\left(\vec{p},s\right) & =\frac{m}{\abs E}\cdot\frac{\slashd p+m}{2m}=\frac{\slashd p+m}{2\abs E}
+\end{align}
+Dies ist eine sehr vorteilhafte Normierung für Hochenergiephysik,
+da man jetzt bereits von Anfang an den Limes $m\to0$ bilden kann
+und nicht erst ganz am Ende.
 
 
 \chapter{Kanonische Quantisierung \texorpdfstring{$\hat{b}^{\dagger},\hat{d}^{\dagger},\hat{b},\hat{d}$}{}}
 
+\emph{Quantisierung} ist ein Satz von Regeln, der die korrekten Greenschen
+Funktionen liefert. Der Feynman-Propagator ist:
+\begin{align}
+S_{F}\left(x-y\right) & =\int\frac{\dd^{4}p}{\left(2\pi\right)^{4}}e^{-\ii p\left(x-y\right)}\frac{\slashd p+m}{p^{2}-m^{2}+\ii\varepsilon}\left(\Theta\left(x^{0}-y^{0}\right)+\Theta\left(y^{0}-x^{0}\right)\right)
+\end{align}
+Der erste Summand gibt bei der $p^{0}$-Integration:
+\begin{align*}
+ & \int_{-\infty}^{\infty}\frac{\dd E}{\left(E-\sqrt{p^{2}-m^{2}+\ii\varepsilon}\right)\left(E+\sqrt{p^{2}-m^{2}+\ii\varepsilon}\right)}e^{-\ii E\left(x^{0}-y^{0}\right)}
+\end{align*}
+\begin{figure}[H]
+\noindent \begin{centering}
+\begin{tikzpicture}
+  \draw[decoration={markings,mark=at position 1 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (-3,0) -- (3,0) node[right]{$x$};
+  \draw[decoration={markings,mark=at position 1 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (0,-3) -- (0,3) node[above]{$y$};
+  \draw[fill] (1.5,-0.2) circle (2pt);
+  \draw[fill] (-1.5,0.2) circle (2pt);
+  \draw[thick,decoration={markings,mark=at position 0.7 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (2,0) arc (0:-180:2);
+  \draw[thick,decoration={markings,mark=at position 0.7 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (-1,0) -- (-0.98,0);
+  \draw[orange, thick,decoration={markings,mark=at position 0.7 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (2,0) arc (0:180:2);
+  \draw[orange, thick,decoration={markings,mark=at position 0.7 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (0.98,0) -- (1,0);
+\end{tikzpicture}
+\par\end{centering}
+
+\noindent \centering{}\caption{Pole bei der Integration}
+\end{figure}
+
+
+Mit dem Residuensatz folgt:
+\begin{align*}
+\left(x^{0}-y^{0}\right)>0 & \quad\Rightarrow\quad\frac{-2\pi\ii}{2\sqrt{\vec{p}^{2}+m^{2}}}\\
+\left(x^{0}-y^{0}\right)>0 & \quad\Rightarrow\quad\frac{2\pi\ii}{-2\sqrt{\vec{p}^{2}+m^{2}}}
+\end{align*}
+Mit $E_{p}:=\sqrt{\vec{p}^{2}+m^{2}}$ gibt dies:
+\begin{align*}
+S_{F}\left(x-y\right) & =-\ii\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{-\ii E_{p}\left(x^{0}-y^{0}\right)+\ii\vec{p}\left(\vec{x}-\vec{y}\right)}\frac{E_{p}\gamma_{0}-\vec{p}\cdot\vec{\gamma}+m}{2E_{p}}\Theta\left(x^{0}-y^{0}\right)-\\
+ & \quad-\ii\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{\ii E_{p}\left(x^{0}-y^{0}\right)+\ii\vec{p}\left(\vec{x}-\vec{y}\right)}\frac{-E_{p}\gamma_{0}-\vec{p}\cdot\vec{\gamma}+m}{2E_{p}}\Theta\left(x^{0}-y^{0}\right)
+\end{align*}
+Im zweiten Integral gehe nun von $\vec{p}$ nach $-\vec{p}$ über
+und erhalte:
+\begin{align*}
+S_{F}\left(x-y\right) & =-\ii\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{-\ii E_{p}\left(x^{0}-y^{0}\right)+\ii\vec{p}\left(\vec{x}-\vec{y}\right)}\frac{\overbrace{E_{p}\gamma_{0}-\vec{p}\cdot\vec{\gamma}}^{\slashd p}+m}{2E_{p}}\Theta\left(x^{0}-y^{0}\right)-\\
+ & \quad-\ii\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{\ii E_{p}\left(x^{0}-y^{0}\right)-\ii\vec{p}\left(\vec{x}-\vec{y}\right)}\frac{\overbrace{-E_{p}\gamma_{0}+\vec{p}\cdot\vec{\gamma}}^{-\slashd p}+m}{2E_{p}}\Theta\left(x^{0}-y^{0}\right)=\\
+ & =-\ii\int\frac{\dd^{3}p}{2E_{p}\left(2\pi\right)^{3}}\left(\left(\slashd p+m\right)e^{-\ii p\left(x-y\right)}\Theta\left(x^{0}-y^{0}\right)-\left(\slashd p-m\right)e^{\ii p\left(x-y\right)}\Theta\left(y^{0}-x^{0}\right)\right)=\\
+ & =-\ii\int\frac{\dd^{3}p}{2E_{p}\left(2\pi\right)^{3}}\Bigg(\sum_{r\in\left\{ 1,2\right\} }\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)\Theta\left(x^{0}-y^{0}\right)-\\
+ & \qquad\qquad\qquad\qquad-\sum_{r\in\left\{ 3,4\right\} }\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)\Theta\left(y^{0}-x^{0}\right)\Bigg)
+\end{align*}
+Produkte der Form $\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)$
+sind Projektionen, ähnlich wie das Tensorprodukt $\vec{e}_{i}\otimes\vec{e}_{i}:=\vec{e}_{i}\vec{e}_{i}^{\TT}$
+im euklidischen Raum:
+\begin{align*}
+\vec{v} & =\sum_{i}\vec{e}_{i}\left(\vec{e}_{i}\cdot\vec{v}\right)=\sum_{i}\left(\vec{e}_{i}\vec{e}_{i}^{\TT}\right)\vec{v}
+\end{align*}
+Die \emph{kanonische Quantisierung} definieren wir wie folgt:
+\begin{align*}
+\hat{\psi}\left(x\right) & :=\sum_{s\in\left\{ \pm\right\} }\int_{\mathbb{R}^{3}}\frac{\dd^{3}p}{\left(2\pi\right)^{3}\cdot2E_{p}}\left(\hat{b}\left(\vec{p},s\right)u\left(\vec{p},s\right)e^{-\ii px}+\hat{d}^{\dagger}\left(\vec{p},s\right)v\left(\vec{p},s\right)e^{\ii px}\right)\\
+\hat{\psi}^{\dagger}\left(x\right)\gamma_{0} & :=\sum_{s\in\left\{ \pm\right\} }\int_{\mathbb{R}^{3}}\frac{\dd^{3}p}{\left(2\pi\right)^{3}\cdot2E_{p}}\left(\hat{b}^{\dagger}\left(\vec{p},s\right)\overline{u}\left(\vec{p},s\right)e^{\ii px}+\hat{d}\left(\vec{p},s\right)\overline{v}\left(\vec{p},s\right)e^{-\ii px}\right)
+\end{align*}
+Definiere noch ein zeitgeordnetes Produkt ($j,l$: Spinorindizes).
+\begin{align*}
+\TT\left\{ \hat{\psi}_{j}\left(x\right),\hat{\overline{\psi}}_{l}\left(y\right)\right\}  & :=\Theta\left(x^{0}-y^{0}\right)\hat{\psi}_{j}\left(x\right)\hat{\overline{\psi}}_{l}\left(y\right)-\Theta\left(y^{0}x^{0}\right)\hat{\overline{\psi}}_{l}\left(y\right)\hat{\psi}_{j}\left(x\right)
+\end{align*}
+Die Anti-Kommutatoren der Erzeugunsoperatoren $\hat{b}^{\dagger}$,
+$\hat{d}^{\dagger}$ und der Vernichtungsoperatoren $\hat{b},\hat{d}$
+sollen alle verschwinden, außer:
+\begin{align*}
+\left\{ \hat{b}\left(\vec{p},s\right),\hat{b}^{\dagger}\left(\vec{p}',s'\right)\right\}  & =\left\{ \hat{d}\left(\vec{p},s\right),\hat{d}^{\dagger}\left(\vec{p}',s'\right)\right\} =\delta_{ss'}\delta^{\left(3\right)}\left(\vec{p}-\vec{p}'\right)\left(2\pi\right)^{3}\cdot2p^{0}
+\end{align*}
+Zudem fordern wir für den normierten Vakuumzustand $\KET 0$:
+\begin{align*}
+\hat{b}\KET 0 & =0 & \hat{d}\KET 0 & =0\\
+\BRA 0\hat{b}^{\dagger} & =0 & \BRA 0\hat{d}^{\dagger} & =0
+\end{align*}
+
+\begin{description}
+\item [{Behauptung:}] Für die kanonische Quantisierung gilt:
+\begin{align*}
+\BraKet{0|\TT\left\{ \hat{\psi}_{j}\left(x\right),\hat{\overline{\psi}}_{l}\left(y\right)\right\} |0} & =\left(\ii S_{F}\left(x-y\right)\right)_{jl}
+\end{align*}
+
+\item [{Beweis:}] Wir rechnen nach:
+\begin{align*}
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \BraKet{0|\TT\left\{ \hat{\psi}_{j}\left(x\right),\hat{\overline{\psi}}_{l}\left(y\right)\right\} |0}=\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & =\Theta\left(x^{0}-y^{0}\right)\sum_{s,s'}\int\frac{\dd^{3}p\dd^{3}p'}{\left(2\pi\right)^{6}\cdot2E\cdot2E'}\underbrace{\BraKet{0|\hat{b}\left(\vec{p},s\right)\hat{b}^{\dagger}\left(\vec{p}',s'\right)|0}}_{=\BraKet{0|\delta_{ss'}\delta^{\left(3\right)}\left(\vec{p}-\vec{p}'\right)\left(2\pi\right)^{3}\cdot2E|0}}u_{j}\left(\vec{p},s\right)\overline{u}_{l}\left(\vec{p}',s'\right)e^{-\ii px}e^{\ii p'y}-\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \ -\Theta\left(y^{0}-x^{0}\right)\sum_{s,s'}\int\frac{\dd^{3}p\dd^{3}p'}{\left(2\pi\right)^{6}\cdot2E\cdot2E'}\underbrace{\BraKet{0|\hat{d}\left(\vec{p},s\right)\hat{d}^{\dagger}\left(\vec{p}',s'\right)|0}}_{=\BraKet{0|\delta_{ss'}\delta^{\left(3\right)}\left(\vec{p}-\vec{p}'\right)\left(2\pi\right)^{3}\cdot2E|0}}\overline{v}_{l}\left(\vec{p},s\right)v_{j}\left(\vec{p}',s'\right)e^{\ii px}e^{-\ii p'y}=\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & =\Theta\left(x^{0}-y^{0}\right)\sum_{s}\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}\cdot2E}\left(u\left(\vec{p},s\right)\overline{u}\left(\vec{p}',s'\right)\right)_{jl}e^{-\ii p\left(x-y\right)}-\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \ -\Theta\left(y^{0}-x^{0}\right)\sum_{s}\int\frac{\dd^{3}p}{\left(2\pi\right)\cdot2E}\left(v\left(\vec{p}',s'\right)\overline{v}_{l}\left(\vec{p},s\right)\right)_{jl}e^{\ii p\left(x-y\right)}=\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & =\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}\cdot2E}\Bigg(\sum_{r\in\left\{ 1,2\right\} }\left(\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)\right)_{jl}\Theta\left(x^{0}-y^{0}\right)-\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \qquad\qquad\qquad\quad-\sum_{r\in\left\{ 3,4\right\} }\left(\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)\right)_{jl}\Theta\left(y^{0}-x^{0}\right)\Bigg)=\left(\ii S_{F}\left(x-y\right)\right)_{jl}
+\end{align*}
+\qqed[Behauptung]
+\end{description}
 
 \chapter{Feynman-Regeln}
 
@@ -1773,18 +1971,382 @@ d
 \item Stringtheorie
 \item $\ldots$
 \end{itemize}
+\appendix
 
 \part*{Anhang\thispagestyle{empty}}
 
 \addcontentsline{toc}{part}{Anhang}
 
-\fancyhead[R]{Index}
 \fancyhead[C]{Anhang}
 
+%DATE: Mo 29.4.13
+
+
+\chapter{Analysis komplexer Zahlen}
+
+\fancyhead[R]{A Analysis komplexer Zahlen}
+
+
+\section{Komplexe Stetigkeit und Differenzierbarkeit}
+
+Eine komplexe Zahl $z$ lässt sich in Realteil $x$ und Imaginärteil
+$y$ zerlegen:
+\begin{align*}
+z & =x+\ii y
+\end{align*}
+Betrachte nun eine Abbildung:
+\begin{align*}
+f:\mathbb{C} & \to\mathbb{C}\\
+z=x+\ii y & \mapsto w=u\left(x,y\right)+\ii v\left(x,y\right)
+\end{align*}
+
+
+
+\subsection{Definition \textmd{(Stetigkeit)}}
+
+Eine Funktion $f\left(z\right)$ ist in einem abgeschlossenen und
+beschränkten (also kompakten) Gebiet $\overline{G}$ \emph{gleichmäßig
+stetig} bezüglich der Norm $\sqrt{zz^{*}}$, wenn gilt:
+\begin{align}
+\fall_{\varepsilon\in\mathbb{R}_{>0}}\,\exs_{\delta\left(\varepsilon\right)\in\mathbb{R}_{>0}}\,\fall_{\sr{}{z'',z'\in\overline{G}}{\abs{z''-z'}<\delta}}:\abs{f\left(z''\right)-f\left(z'\right)} & <\varepsilon
+\end{align}
+
+
+
+\subsection{Definition \textmd{(Differenzierbarkeit)}}
+
+Sei $\left(z_{i}\right)_{i\in\mathbb{N}}\subseteq G$ eine Zahlenfolge
+mit $z_{i}\not=\zeta$ und $\lim_{i\to\infty}z_{i}=\zeta$, so ist
+die Funktion $f\left(z\right)$ im Punkt $\zeta$ differenzierbar,
+wenn die Folge
+\begin{align*}
+g_{n} & =\frac{f\left(z_{n}\right)-f\left(\zeta\right)}{z_{n}-\zeta}
+\end{align*}
+für $n\to\infty$ konvergiert und der Grenzwert für jede solche Folge
+$\left(z_{i}\right)_{i\in\mathbb{N}}$ gleich ist.
+
+\begin{figure}[H]
+\noindent \begin{centering}
+\begin{tikzpicture}
+  \draw[postaction={decorate},decoration={markings, mark=at position 1 with {\arrow[scale=1.75]{>}}}] (-2,0) -- (2,0) node[right]{$\text{Re}(z)$};
+  \draw[postaction={decorate},decoration={markings, mark=at position 1 with {\arrow[scale=1.75]{>}}}] (0,-2) -- (0,2) node[above]{$\text{Im}(z)$};
+  \draw (1,1.5) +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+  \draw[postaction={decorate},decoration={markings, mark=at position 0.5 with {\arrow[scale=1.75]{<}}}, dashed] (1,1.5) -- (1,0) node[below]{$x_0$};
+  \draw[postaction={decorate},decoration={markings, mark=at position 0.5 with {\arrow[scale=1.75]{<}}}, dashed] (1,1.5) -- (0,1.5) node[left]{$y_0$};
+\end{tikzpicture}
+\par\end{centering}
+
+\noindent \centering{}\caption{Der Limes muss entlang $x=x_{0}$ und $y=y_{0}$ denselben Wert ergeben.}
+\end{figure}
+
+\begin{enumerate}[label=\roman*)]
+\item Für $x=x_{0}$ ist der Grenzwert:
+\begin{align*}
+ & \lim_{\Delta y\to0}\frac{u\left(x_{0},y_{0}+\Delta y\right)-u\left(x_{0},y_{0}\right)+\ii v\left(x_{0},y_{0}+\Delta y\right)-\ii v\left(x_{0},y_{0}\right)}{\ii\Delta y}=\\
+ & \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad=-\ii\partial_{2}u\left(x_{0},y_{0}\right)+\partial_{2}v\left(x_{0},y_{0}\right)
+\end{align*}
+
+\item Für $y=y_{0}$ ist der Grenzwert:
+\begin{align*}
+ & \lim_{\Delta x\to0}\frac{u\left(x_{0}+\Delta x,y_{0}\right)-u\left(x_{0},y_{0}\right)+\ii v\left(x_{0}+\Delta x,y_{0}\right)-\ii v\left(x_{0},y_{0}\right)}{\Delta x}=\\
+ & \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad=\partial_{1}u\left(x_{0},y_{0}\right)+\ii\partial_{1}v\left(x_{0},y_{0}\right)
+\end{align*}
+
+\end{enumerate}
+Da der Grenzwert unabhängig von der Folge sein muss, folgen die \emph{Cauchy-Riemannschen
+Differentialgleichungen}:
+\begin{align}
+\partial_{2}v\left(x_{0},y_{0}\right) & =\partial_{1}u\left(x_{0},y_{0}\right)\\
+-\partial_{2}u\left(x_{0},y_{0}\right) & =\partial_{1}v\left(x_{0},y_{0}\right)
+\end{align}
+Wenn $u$ und $v$ zweimal stetig differenzierbar sind, ergeben sich
+Laplace-Gleichungen:
+\begin{align*}
+\partial_{1}^{2}u & =\partial_{1}\partial_{2}v=\partial_{2}\partial_{1}v=-\partial_{2}^{2}u & \Rightarrow\qquad\upDelta u & =0\\
+\partial_{1}^{2}v & =-\partial_{1}\partial_{2}u=-\partial_{2}\partial_{1}u=-\partial_{2}^{2}v & \Rightarrow\qquad\upDelta v & =0
+\end{align*}
+
+
+
+\section{Komplexe Integration}
+
+
+\subsection{Definition \textmd{(Rektifizierbare Kurve, Integral)}}
+
+Eine Kurve $J$ ist \emph{rektifizierbar}, wenn für jedes Sehnenpolygon
+gilt:
+\begin{align*}
+\sum_{i=1}^{n}L_{i} & \le L<\infty
+\end{align*}
+
+
+\begin{figure}[H]
+\noindent \begin{centering}
+\begin{tikzpicture}
+  \draw plot[smooth,tension=.7] coordinates{(0,-1) (1,0) (0,1) (0,1.8) (1,2)};
+  \draw (0,-1) +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+  \draw (1,0) +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+  \draw (0,1) +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+  \draw (0,1.8) +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+  \draw (1,2) +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+  \draw[blue] (0,-1) -- (1,0) node[right]{$z_i$} -- node[below left]{$L_i$} (0,1) node[right]{$z_{i+1}$} -- (0,1.8) -- (1,2);
+  \draw[fill,blue] ($ (1,0)!0.5!(0,1) $) circle (2pt) node[right=5pt]{$\zeta_i$};
+\end{tikzpicture}
+\par\end{centering}
+
+\noindent \centering{}\caption{Sehnenpolygon}
+\end{figure}
+
+
+Nun charakterisiere $l$ ein Polygon mit $m\left(l\right)$ Kanten
+und $\zeta_{i}^{\left(l\right)}$ einen Zwischenpunkt auf dem $i$-ten
+Teilstück. $\mathfrak{Z}^{l}$ sei eine Polygonfolge mit $L_{i}^{\left(l\right)}\xrightarrow{l\to\infty}0$.
+Wenn der Grenzwert
+\begin{align*}
+S_{J} & =\lim_{l\to\infty}\left(\sum_{i=1}^{m\left(l\right)}f\left(\zeta_{i}^{\left(l\right)}\right)\cdot\left(z_{i+1}^{\left(l\right)}-z_{i}^{\left(l\right)}\right)\right)
+\end{align*}
+existiert, dann definiert dieser das \emph{Integral}:
+\begin{align}
+\int_{J}f\left(z\right)\dd z & =-\int_{-J}f\left(z\right)\dd z:=S_{J}
+\end{align}
+
+
+
+\subsection{Hauptsatz der Funktionentheorie}
+
+Die Funktion $f\left(z\right)$ sei in dem einfach zusammenhängenden
+Gebiet $G$ \emph{regulär} (auch \emph{holomorph} genannt) und sei
+$C$ eine geschlossene Kurve in $G$, dann gilt:
+\begin{align}
+\int_{C}f\left(z\right)\dd z & =0
+\end{align}
+Äquivalent dazu ist, dass das Integral $\int_{z_{1}}^{z_{2}}f\left(z\right)\dd z$
+wegunabhängig ist:
+\begin{align*}
+\int_{C_{1}}f\left(z\right)\dd z-\int_{C_{2}}f\left(z\right)\dd z & =\int_{C}f\left(z\right)\dd z=0
+\end{align*}
+\begin{figure}[H]
+\noindent \begin{centering}
+\begin{tikzpicture}
+  \draw plot[smooth cycle,tension=.7] coordinates{(0,-1) (1,0) (0,1) (-0.7,1.2) (-1.2,0) (-1,-1)};
+  \draw (0,-1) node[below=2pt]{$z_1$} +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+  \draw (-0.7,1.2) node[above=2pt]{$z_2$} +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+  \draw[thick,decoration={markings,mark=at position 1 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (1,-0.025) -- node[right]{$C_2$} (1,0.025);
+  \node at (1.2,0) {};
+  \node at (-1.3,0) {};
+  \draw[thick,decoration={markings,mark=at position 1 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (-1.2,-0.025) -- node[left]{$C_1$} (-1.195,0.025);
+  \draw[blue,thick,decoration={markings,mark=at position 1 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (-0.7,-1.135) -- node[below=3pt]{$C$} (-0.725,-1.13);
+  \draw[blue,thick,decoration={markings,mark=at position 1 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (-0.98,0.75) -- (-0.96,0.81);
+  \draw[blue,thick,decoration={markings,mark=at position 1 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (0,1) -- (0.05,0.96);
+  \draw[blue,thick,decoration={markings,mark=at position 1 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (0.5,-0.69) -- (0.45,-0.725);
+\end{tikzpicture}
+\par\end{centering}
+
+\noindent \centering{}\caption{Wegunabhängigkeit}
+\end{figure}
+
+
+
+\subsubsection*{Beweis}
+
+Wir gehen wie folgt vor:
+\begin{enumerate}
+\item $\int_{C}\dd z=0$
+\item $\int_{C}z\dd z=0$
+\item Triangulation
+\end{enumerate}
+Fangen wir an:
+\begin{enumerate}
+\item Es gilt:
+\begin{align*}
+S_{C} & =\lim_{l\to\infty}\sum_{i=1}^{m\left(l\right)}\left(z_{i+1}^{\left(l\right)}-z_{i}^{\left(l\right)}\right)\cdot1=\lim_{l\to\infty}\left(z_{m\left(l\right)+1}^{\left(l\right)}-z_{1}^{\left(l\right)}\right)\sr ={\text{geschlossener}}{\text{Weg}}0
+\end{align*}
+
+\item Hierfür folgt:
+\begin{align*}
+S_{C} & =\lim_{l\to\infty}\sum_{i=1}^{m\left(l\right)}\left(z_{i+1}^{\left(l\right)}-z_{i}^{\left(l\right)}\right)\zeta_{i}^{\left(l\right)}=\\
+ & \sr ={\zeta_{i}^{\left(l\right)}:=\frac{z_{i+1}^{\left(l\right)}+z_{i}^{\left(l\right)}}{2}}{}\frac{1}{2}\left(\lim_{l\to\infty}\sum_{i=1}^{m\left(l\right)}\left(z_{i+1}^{\left(l\right)}-z_{i}^{\left(l\right)}\right)z_{i+1}^{\left(l\right)}+\lim_{l\to\infty}\sum_{i=1}^{m\left(l\right)}\left(z_{i+1}^{\left(l\right)}-z_{i}^{\left(l\right)}\right)z_{i}^{\left(l\right)}\right)=\\
+ & =\frac{1}{2}\lim_{l\to\infty}\sum_{i=1}^{m\left(l\right)}\left(\left(z_{i+1}^{\left(l\right)}\right)^{2}-\left(z_{i}^{\left(l\right)}\right)^{2}\right)=\frac{1}{2}\lim_{l\to\infty}\left(\left(z_{m\left(l\right)+1}^{\left(l\right)}\right)^{2}-\left(z_{1}^{\left(l\right)}\right)^{2}\right)=0
+\end{align*}
+
+\item Sei $D$ ein Dreieck mit Rand $\partial D$.\\
+\begin{figure}[H]
+\noindent \begin{centering}
+\begin{tikzpicture}[scale=2.5]
+  \draw (-1,0) -- (1,0) -- (0,1.732) -- cycle;
+  \draw[thick,decoration={markings,mark=at position 0.5 with {\arrow[orange,scale=1.75]{>}};},postaction={decorate}] (-1,0) -- (0,0);
+  \draw[thick,decoration={markings,mark=at position 0.5 with {\arrow[orange,scale=1.75]{>}};},postaction={decorate}] (0,0) -- (1,0);
+  \draw[thick,decoration={markings,mark=at position 0.5 with {\arrow[orange,scale=1.75]{>}};},postaction={decorate}] (1,0) -- (0.5,0.866);
+  \draw[thick,decoration={markings,mark=at position 0.5 with {\arrow[orange,scale=1.75]{>}};},postaction={decorate}] (0.5,0.866) -- (0,1.732);
+  \draw[thick,decoration={markings,mark=at position 0.5 with {\arrow[orange,scale=1.75]{>}};},postaction={decorate}] (0,1.732) -- (-0.5,0.866);
+  \draw[thick,decoration={markings,mark=at position 0.5 with {\arrow[orange,scale=1.75]{>}};},postaction={decorate}] (-0.5,0.866) -- (-1,0);
+  \draw[thick,red] (0,0) -- (0.5,0.866) -- (-0.5,0.866) -- cycle;
+  % Innere orange Pfeile
+  \path[thick,decoration={markings,mark=at position 0.45 with {\arrow[orange,scale=1.75]{>}};},postaction={decorate}] (0,0) -- (-0.5,0.866);
+  \path[thick,decoration={markings,mark=at position 0.45 with {\arrow[orange,scale=1.75]{>}};},postaction={decorate}] (0.5,0.866) -- (0,0);
+  \path[thick,decoration={markings,mark=at position 0.45 with {\arrow[orange,scale=1.75]{>}};},postaction={decorate}] (-0.5,0.866) -- (0.5,0.866);
+  % rote Pfeile
+  \path[thick,decoration={markings,mark=at position 0.55 with {\arrow[red,scale=1.75]{<}};},postaction={decorate}] (0,0) -- (-0.5,0.866);
+  \path[thick,decoration={markings,mark=at position 0.55 with {\arrow[red,scale=1.75]{<}};},postaction={decorate}] (0.5,0.866) -- (0,0);
+  \path[thick,decoration={markings,mark=at position 0.55 with {\arrow[red,scale=1.75]{<}};},postaction={decorate}] (-0.5,0.866) -- (0.5,0.866);
+  \node at (-0.5,0.3) {$D^{(1)}$};
+  \node at (0.5,0.3) {$D^{(4)}$};
+  \node at (0,0.6) {$D^{(2)}$};
+  \node at (0,1.15) {$D^{(3)}$};
+  \node at (0,-0.1) {};
+\end{tikzpicture}
+\par\end{centering}
+
+\noindent \centering{}\caption{Zerlegung des Dreiecks}
+\end{figure}
+\begin{align*}
+\int_{\partial D}f\left(z\right)\dd z & =\int_{\partial D^{\left(1\right)}}f\left(z\right)\dd z+\int_{\partial D^{\left(2\right)}}f\left(z\right)\dd z+\int_{\partial D^{\left(3\right)}}f\left(z\right)\dd z+\int_{\partial D^{\left(4\right)}}f\left(z\right)\dd z
+\end{align*}
+Daher gibt es unter den $D^{\left(i\right)}$ ein $D_{1}$, das folgende
+Bedingung erfüllt. Iterativ wählt man so $D_{n}$ für $n\in\mathbb{N}$.
+\begin{align*}
+\abs{\int_{\partial D}f\left(z\right)\dd z} & \le4\abs{\int_{\partial D_{1}}f\left(z\right)\dd z}\le16\abs{\int_{\partial D_{2}}f\left(z\right)\dd z}\le4^{n}\abs{\int_{\partial D_{n}}f\left(z\right)\dd z}
+\end{align*}
+Sei nun $n\in\mathbb{N}$ so groß, dass für $z_{0}\in\bigcap_{k\in\mathbb{N}}D_{k}$
+und alle $z\in D_{n}$ schon $\abs{z-z_{0}}<\delta$ gilt.\\
+\begin{figure}[H]
+\noindent \begin{centering}
+\begin{tikzpicture}
+  \draw (0,0) node[right]{$z_0$} +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+  \draw (0.3,-0.5) node[right]{$z$} +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+  \draw (0,0) circle(2);
+  \draw[orange,thick] (-1,-0.7) -- (1,-0.7) --  node[right]{$D_n$} (0,1.032) -- cycle;
+  \draw[thick,decoration={markings,mark=at position 0.5 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (0,0) -- node[right]{$\delta$} (0,-2);
+\end{tikzpicture}
+\par\end{centering}
+
+\noindent \centering{}\caption{$D_{n}$ wird für große $n$ sehr klein.}
+\end{figure}
+Da $f$ holomorph ist und $D_{n}$ beliebig klein wird, kann man für
+ein beliebiges $\varepsilon\in\mathbb{R}_{>0}$ ein so großes $n\in\mathbb{N}$
+wählen, dass gilt:
+\begin{align*}
+\abs{f\left(z\right)-f\left(z_{0}\right)-\left(z-z_{0}\right)f'\left(z_{0}\right)} & <\varepsilon\abs{z-z_{0}}
+\end{align*}
+Daher gibt es eine Funktion $\eta:D_{n}\to\mathbb{R}$ mit:
+\begin{align*}
+f\left(z\right) & =f\left(z_{0}\right)+\left(z-z_{0}\right)f'\left(z_{0}\right)+\eta\left(z\right)
+\end{align*}
+Damit folgt: 
+\begin{align*}
+\int_{\partial D_{n}}f\left(z\right)\dd z & =\int_{\partial D_{n}}f\left(z_{0}\right)\dd z+\int_{\partial D_{n}}f'\left(z_{0}\right)z\dd z-\int_{\partial D_{n}}f'\left(z_{0}\right)z_{0}\dd z+\int_{\partial D_{n}}\eta\left(z\right)\dd z=\\
+ & =0+0+0+\int_{\partial D_{n}}\eta\left(z\right)\dd z
+\end{align*}
+Mit dem Umfang $s_{n}$ des Dreiecks $D_{n}$ folgt:
+\begin{align*}
+\abs{\int_{\partial D_{n}}f\left(z\right)\dd z} & =\abs{\int_{\partial D_{n}}\eta\left(z\right)\dd z}\stackrel{\abs{\eta\left(z\right)}<\varepsilon\abs{z-z_{0}}}{<}\varepsilon\frac{s_{n}}{2}\cdot s_{n}
+\end{align*}
+Nun erhält man:
+\begin{align*}
+\abs{\int_{\partial D}f\left(z\right)\dd z} & \le4^{n}\abs{\int_{\partial D_{n}}f\left(z\right)\dd z}<4^{n}\frac{\varepsilon}{2}s_{n}^{2}=4^{n}\frac{\varepsilon}{2}\left(\frac{s}{2^{n}}\right)^{2}=\frac{\varepsilon}{2}s^{2}
+\end{align*}
+Da dies für alle $\varepsilon\in\mathbb{R}_{>0}$ gilt, folgt:
+\begin{align*}
+\int_{D}f\left(z\right)\dd z & =0
+\end{align*}
+\qqed[A.2.2.]
+\end{enumerate}
+
+\subsection{Folgerungen}
+
+Sei $f\left(z\right)$ in $G$ regulär bis auf den Punkt $z_{0}$.
+
+\begin{figure}[H]
+\noindent \begin{centering}
+\begin{tikzpicture}
+  \draw plot[smooth cycle,tension=.7] coordinates{(-2,-2) (0,-1.9) (1,-1.8) (2,0.4) (1,0.8) (0.5,1.7) (-1,1)};
+  \draw (0,0) node[right]{$z_0$} +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+  \draw[thick,decoration={markings,mark=at position 0.5 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (2,0.4) -- node[right]{$C$} (2,0.45);
+  \draw[orange, dashed, line width=2pt] plot[smooth cycle,tension=.7] coordinates{(-2,-2) (0,-1.9) (1,-1.8) (2,0.4) (1,0.8) (0.5,1.7) (-1,1)};
+  \draw[orange,thick,decoration={markings,mark=at position 0.5 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (1,-1.8) -- node[below right]{$C_1$} (1.05,-1.75);
+  \draw[orange,thick,decoration={markings,mark=at position 0.5 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (-1,1) -- (-1.05,0.95);
+  \draw[green] (0,0) circle (0.5);
+  \node[green] at (0,-0.3) {$C_2$};
+  \draw[green,thick,decoration={markings,mark=at position 0.5 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (-0.5,0.05) -- (-0.5,-0.05);
+  \draw[orange] (-0.05,1.7) -- (-0.07,0.75) arc (97:443:0.75) -- (0.12,1.7);
+  \draw[orange,thick,decoration={markings,mark=at position 0.5 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (-0.05,1.15) -- (-0.05,1.2);
+  \draw[orange,thick,decoration={markings,mark=at position 0.5 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (0.12,1.25) -- (0.12,1.2);
+  \draw[orange,thick,decoration={markings,mark=at position 0.5 with {\arrow[scale=1.75]{>}};},postaction={decorate}] (0.75,0.025) -- (0.75,-0.025);
+\end{tikzpicture}
+\par\end{centering}
+
+\noindent \centering{}\caption{Zurückführung auf Integration in kleiner Umgebung der Singularität}
+\end{figure}
+Dann gilt:
+\begin{align*}
+\int_{C}f\left(z\right)\dd z & =\underbrace{\int_{C_{1}}f\left(z\right)\dd z}_{=0}+\int_{C_{2}}f\left(z\right)\dd z
+\end{align*}
+Wir betrachten jetzt für $m\in\mathbb{Z}$:
+\begin{align*}
+I & :=\int_{C_{2}}\left(z-z_{0}\right)^{m}\dd z
+\end{align*}
+Wir parametrisieren den Weg $C_{2}$ mit $t\in\left[-\pi,\pi\right]$
+wie folgt:
+\begin{align*}
+z & =z_{0}+r\left(\cos\left(t\right)+\ii\sin\left(t\right)\right)\\
+\dd z & =\left(-r\sin\left(t\right)+\ii r\cos\left(t\right)\right)\dd t=\ii r\left(\cos\left(t\right)+\ii\sin\left(t\right)\right)\dd t=\ii re^{\ii t}\dd t
+\end{align*}
+Es folgt:
+\begin{align*}
+I & =\int_{-\pi}^{\pi}\ii re^{\ii t}r^{m}e^{\ii mt}\dd t=\ii r^{m+1}\int_{-\pi}^{\pi}\cos\left(\left(m+1\right)t\right)+\ii\sin\left(\left(m+1\right)t\right)\dd t=2\pi\ii\delta_{m,-1}
+\end{align*}
+Damit folgt die \emph{Cauchysche Integralformel}: Sei $f\left(z\right)$
+im einfach zusammenhängenden Gebiet $G$ regulär, so gilt für jeden
+geschlossenen doppelpunktfreien positiv orientierten Weg $C$ in $G$
+und für jeden Punkt $z$ im Innengebiet von $C$:
+\begin{align}
+\frac{1}{2\pi\ii}\int_{C}\frac{f\left(\zeta\right)}{\zeta-z}\dd\zeta & =f\left(z\right)
+\end{align}
+
+\begin{description}
+\item [{Behauptung:}] Es gilt:
+\begin{align}
+\lim_{\varepsilon\searrow0}\int_{-\infty}^{\infty}\dd x\frac{f\left(x\right)}{x\pm\ii\varepsilon} & =\int_{-\infty}^{\infty}\dd xf\left(x\right)\left(\mathcal{P}\left(\frac{1}{x}\right)\mp\ii\pi\delta\left(x\right)\right)
+\end{align}
+Dabei ist $\delta\left(x\right)$ die Delta-Distribution und $\mathcal{P}\left(\frac{1}{x}\right)$
+die Hauptwertdistribution von $\frac{1}{x}$:
+\begin{align*}
+\mathcal{P}\left(\frac{1}{x}\right):\mathcal{S}\left(\mathbb{R}\right) & \to\mathbb{R}\\
+f & \mapsto\lim_{\varepsilon\searrow0}\int_{\mathbb{R}\setminus\left[-\varepsilon,\varepsilon\right]}\frac{f\left(x\right)}{x}\dd x=\int_{0}^{\infty}\frac{f\left(x\right)-f\left(-x\right)}{x}\dd x
+\end{align*}
+
+\item [{Beweis:}] Zeige zunächst:
+\begin{align*}
+\int_{-\infty}^{\infty}\delta\left(x\right)f\left(x\right)\dd x & \stackrel{!}{=}\lim_{\varepsilon\to0}\frac{1}{\pi}\int_{-\infty}^{\infty}f\left(x\right)\frac{\varepsilon}{x^{2}+\varepsilon^{2}}\dd x
+\end{align*}
+Wähle dazu $\varepsilon=\delta\cdot\eta$ und schreibe:
+\begin{align*}
+\lim_{\varepsilon\to0}\frac{1}{\pi}\int_{-\infty}^{\infty}f\left(x\right)\frac{\varepsilon}{x^{2}+\varepsilon^{2}}\dd x & =\frac{1}{\pi}\lim_{\delta\to0}\lim_{\eta\to0}\int_{-\delta}^{\delta}f\left(x\right)\frac{\delta\eta}{x^{2}+\delta^{2}\eta^{2}}\dd x=\\
+ & =\frac{f\left(0\right)}{\pi}\lim_{\delta\to0}\lim_{\eta\to0}\int_{-\infty}^{\infty}\frac{\delta\eta}{x^{2}+\delta^{2}\eta^{2}}\dd x=\\
+ & =\frac{f\left(0\right)}{\pi}\lim_{\varepsilon\to0}\int_{-1}^{1}\frac{\varepsilon}{x^{2}+\varepsilon^{2}}\dd x=\lim_{\varepsilon\to0}\frac{f\left(0\right)}{\pi}\arctan\left(\frac{x}{\varepsilon}\right)\big|_{-1}^{1}=\\
+ & =\frac{f\left(0\right)}{\pi}\left(\frac{\pi}{2}+\frac{\pi}{2}\right)=f\left(0\right)
+\end{align*}
+Nun zeigen für den Hauptwert:
+\begin{align*}
+\int_{-\infty}^{\infty}f\left(x\right)\mathcal{P}\left(\frac{1}{x}\right)\dd x & :=\lim_{\varepsilon\to0}\left(\int_{\varepsilon}^{\infty}\frac{f\left(x\right)}{x}\dd x+\int_{-\infty}^{-\varepsilon}\frac{f\left(x\right)}{x}\dd x\right)\stackrel{!}{=}\lim_{\varepsilon\to0}\int_{-\infty}^{\infty}f\left(x\right)\frac{x}{x^{2}+\varepsilon^{2}}\dd x
+\end{align*}
+Sei dazu $\varepsilon=\delta\eta$ und betrachte:
+\begin{align*}
+\text{r.S.}-\text{l.S.} & =\lim_{\delta\to0}\lim_{\eta\to0}\left(\int_{\delta\eta}^{\infty}\dd x+\int_{-\infty}^{-\delta\eta}\dd x\right)f\left(x\right)\left(\frac{x}{x^{2}+\delta^{2}\eta^{2}}-\frac{1}{x}\right)+\\
+ & \qquad+\underbrace{\int_{-\delta\eta}^{\delta\eta}f\left(x\right)\frac{x}{x^{2}+\varepsilon^{2}}\dd x}_{\to0}=\\
+ & \sr ={x=\delta y}{\dd x=\delta\dd y}\lim_{\delta\to0}\lim_{\eta\to0}\left(\int_{\eta}^{\infty}\dd y+\int_{-\infty}^{-\eta}\dd y\right)f\left(\delta y\right)\left(\frac{y}{y^{2}+\eta^{2}}-\frac{1}{y}\right)=\\
+ & =f\left(0\right)\lim_{\eta\to0}\left(\int_{\eta}^{\infty}\dd y+\int_{-\infty}^{-\eta}\dd y\right)\left(\frac{y}{y^{2}+\eta^{2}}-\frac{1}{y}\right)=0
+\end{align*}
+Es folgt:
+\begin{align*}
+\lim_{\varepsilon\to0}\int_{-\infty}^{\infty}\dd x\frac{f\left(x\right)}{x\pm\ii\varepsilon} & =\lim_{\varepsilon\to0}\int_{-\infty}^{\infty}\dd xf\left(x\right)\frac{x\mp\ii\varepsilon}{x^{2}+\varepsilon^{2}}=\int_{-\infty}^{\infty}f\left(x\right)\left(\mathcal{P}\left(\frac{1}{x}\right)\mp\ii\pi\delta\left(x\right)\right)
+\end{align*}
+\qqed[Behauptung]
+\end{description}
 
 \chapter*{Danksagungen}
 
-\addcontentsline{toc}{section}{\hspace*{2.7em}Danksagungen}
+\addcontentsline{toc}{chapter}{\hspace*{1.5em}Danksagungen}
 
 \fancyhead[R]{Danksagungen}
 
