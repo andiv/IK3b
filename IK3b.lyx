@@ -6,10 +6,10 @@
 \begin_preamble
 \usepackage{tikz,pgfplots}
 %\usepackage{tikz-3dplot,cancel,polynom}
-\usetikzlibrary{matrix,arrows,calc,decorations.pathmorphing,decorations.markings,intersections,shapes}
+\usetikzlibrary{matrix,arrows,calc,decorations.pathmorphing,decorations.markings,intersections,shapes,trees}
 \usetikzlibrary{external}
 \tikzexternalize
-\usepackage{latexsym,stmaryrd,stackrel,braket,bbm,subfig,framed,esvect,scrhack,calc,slashed}
+\usepackage{latexsym,stmaryrd,stackrel,braket,bbm,subfig,framed,esvect,scrhack,calc,slashed,leftidx}
 \usepackage [OMLmathrm,OMLmathbf,sfdefault=fav]{isomath}
 \usepackage[explicit]{titlesec}
 \usepackage[activate]{pdfcprot}
@@ -149,6 +149,17 @@
 
 % Zeilenumbrüche in Gleichungen
  \allowdisplaybreaks
+
+% Für Feynman-Diagramme
+\tikzset{
+  position/.style={thick, fill=black,circle,inner sep=1.5pt},
+  photon/.style={thick, decorate, decoration={snake}, draw=orange},
+  electron/.style={thick, draw=blue, postaction={decorate}, decoration={markings,mark=at position 0.65 with {\arrow[scale=2]{>}} }},
+  positron/.style={thick, draw=blue, postaction={decorate}, decoration={markings,mark=at position 0.65 with {\arrow[scale=2]{<}} }},
+  scalar/.style={thick, draw=black},
+  gluon/.style={thick, decorate, draw=cyan, decoration={coil,amplitude=4pt, segment length=5pt}} 
+}
+
 
 % Kopf- und Fußzeile
 % Höhe der Kopfzeile
@@ -5711,7 +5722,14 @@ status collapsed
 Quantisierung
 \emph default
  ist ein Satz von Regeln, der die korrekten Greenschen Funktionen liefert.
- Der Feynman-Propagator ist:
+\end_layout
+
+\begin_layout Section
+Umformung des Feynman-Propagators
+\end_layout
+
+\begin_layout Standard
+Der Feynman-Propagator ist:
 \begin_inset Formula 
 \begin{align}
 S_{F}\left(x-y\right) & =\int\frac{\dd^{4}p}{\left(2\pi\right)^{4}}e^{-\ii p\left(x-y\right)}\frac{\slashd p+m}{p^{2}-m^{2}+\ii\varepsilon}\left(\Theta\left(x^{0}-y^{0}\right)+\Theta\left(y^{0}-x^{0}\right)\right)
@@ -5883,13 +5901,13 @@ Im zweiten Integral gehe nun von
 
  über und erhalte:
 \begin_inset Formula 
-\begin{align*}
-S_{F}\left(x-y\right) & =-\ii\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{-\ii E_{p}\left(x^{0}-y^{0}\right)+\ii\vec{p}\left(\vec{x}-\vec{y}\right)}\frac{\overbrace{E_{p}\gamma_{0}-\vec{p}\cdot\vec{\gamma}}^{\slashd p}+m}{2E_{p}}\Theta\left(x^{0}-y^{0}\right)-\\
- & \quad-\ii\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{\ii E_{p}\left(x^{0}-y^{0}\right)-\ii\vec{p}\left(\vec{x}-\vec{y}\right)}\frac{\overbrace{-E_{p}\gamma_{0}+\vec{p}\cdot\vec{\gamma}}^{-\slashd p}+m}{2E_{p}}\Theta\left(x^{0}-y^{0}\right)=\\
- & =-\ii\int\frac{\dd^{3}p}{2E_{p}\left(2\pi\right)^{3}}\left(\left(\slashd p+m\right)e^{-\ii p\left(x-y\right)}\Theta\left(x^{0}-y^{0}\right)-\left(\slashd p-m\right)e^{\ii p\left(x-y\right)}\Theta\left(y^{0}-x^{0}\right)\right)=\\
- & =-\ii\int\frac{\dd^{3}p}{2E_{p}\left(2\pi\right)^{3}}\Bigg(\sum_{r\in\left\{ 1,2\right\} }\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)\Theta\left(x^{0}-y^{0}\right)-\\
+\begin{align}
+S_{F}\left(x-y\right) & =-\ii\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{-\ii E_{p}\left(x^{0}-y^{0}\right)+\ii\vec{p}\left(\vec{x}-\vec{y}\right)}\frac{\overbrace{E_{p}\gamma_{0}-\vec{p}\cdot\vec{\gamma}}^{\slashd p}+m}{2E_{p}}\Theta\left(x^{0}-y^{0}\right)-\nonumber \\
+ & \quad-\ii\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{\ii E_{p}\left(x^{0}-y^{0}\right)-\ii\vec{p}\left(\vec{x}-\vec{y}\right)}\frac{\overbrace{-E_{p}\gamma_{0}+\vec{p}\cdot\vec{\gamma}}^{-\slashd p}+m}{2E_{p}}\Theta\left(x^{0}-y^{0}\right)=\nonumber \\
+ & =-\ii\int\frac{\dd^{3}p}{2E_{p}\left(2\pi\right)^{3}}\left(\left(\slashd p+m\right)e^{-\ii p\left(x-y\right)}\Theta\left(x^{0}-y^{0}\right)-\left(\slashd p-m\right)e^{\ii p\left(x-y\right)}\Theta\left(y^{0}-x^{0}\right)\right)=\nonumber \\
+ & =-\ii\int\frac{\dd^{3}p}{2E_{p}\left(2\pi\right)^{3}}\Bigg(\sum_{r\in\left\{ 1,2\right\} }\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)\Theta\left(x^{0}-y^{0}\right)-\nonumber \\
  & \qquad\qquad\qquad\qquad-\sum_{r\in\left\{ 3,4\right\} }\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)\Theta\left(y^{0}-x^{0}\right)\Bigg)
-\end{align*}
+\end{align}
 
 \end_inset
 
@@ -5897,11 +5915,15 @@ Produkte der Form
 \begin_inset Formula $\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)$
 \end_inset
 
- sind Projektionen, ähnlich wie das Tensorprodukt 
-\begin_inset Formula $\vec{e}_{i}\otimes\vec{e}_{i}:=\vec{e}_{i}\vec{e}_{i}^{\TT}$
+ sind Projektionen, ähnlich wie das Tensorprodukt
+\begin_inset Formula 
+\begin{align*}
+\vec{e}_{i}\otimes\vec{e}_{i} & :=\vec{e}_{i}\vec{e}_{i}^{\TT}
+\end{align*}
+
 \end_inset
 
- im euklidischen Raum:
+im euklidischen Raum:
 \begin_inset Formula 
 \begin{align*}
 \vec{v} & =\sum_{i}\vec{e}_{i}\left(\vec{e}_{i}\cdot\vec{v}\right)=\sum_{i}\left(\vec{e}_{i}\vec{e}_{i}^{\TT}\right)\vec{v}
@@ -5909,16 +5931,24 @@ Produkte der Form
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Section
+Definition der Kanonischen Quantisierung
+\end_layout
+
+\begin_layout Standard
 Die 
 \emph on
 kanonische Quantisierung
 \emph default
  definieren wir wie folgt:
 \begin_inset Formula 
-\begin{align*}
+\begin{align}
 \hat{\psi}\left(x\right) & :=\sum_{s\in\left\{ \pm\right\} }\int_{\mathbb{R}^{3}}\frac{\dd^{3}p}{\left(2\pi\right)^{3}\cdot2E_{p}}\left(\hat{b}\left(\vec{p},s\right)u\left(\vec{p},s\right)e^{-\ii px}+\hat{d}^{\dagger}\left(\vec{p},s\right)v\left(\vec{p},s\right)e^{\ii px}\right)\\
 \hat{\psi}^{\dagger}\left(x\right)\gamma_{0} & :=\sum_{s\in\left\{ \pm\right\} }\int_{\mathbb{R}^{3}}\frac{\dd^{3}p}{\left(2\pi\right)^{3}\cdot2E_{p}}\left(\hat{b}^{\dagger}\left(\vec{p},s\right)\overline{u}\left(\vec{p},s\right)e^{\ii px}+\hat{d}\left(\vec{p},s\right)\overline{v}\left(\vec{p},s\right)e^{-\ii px}\right)
-\end{align*}
+\end{align}
 
 \end_inset
 
@@ -5928,9 +5958,9 @@ Definiere noch ein zeitgeordnetes Produkt (
 
 : Spinorindizes).
 \begin_inset Formula 
-\begin{align*}
-\TT\left\{ \hat{\psi}_{j}\left(x\right),\hat{\overline{\psi}}_{l}\left(y\right)\right\}  & :=\Theta\left(x^{0}-y^{0}\right)\hat{\psi}_{j}\left(x\right)\hat{\overline{\psi}}_{l}\left(y\right)-\Theta\left(y^{0}x^{0}\right)\hat{\overline{\psi}}_{l}\left(y\right)\hat{\psi}_{j}\left(x\right)
-\end{align*}
+\begin{align}
+\TT\left\{ \hat{\psi}_{j}\left(x\right)\hat{\overline{\psi}}_{l}\left(y\right)\right\}  & :=\Theta\left(x^{0}-y^{0}\right)\hat{\psi}_{j}\left(x\right)\hat{\overline{\psi}}_{l}\left(y\right)-\Theta\left(y^{0}x^{0}\right)\hat{\overline{\psi}}_{l}\left(y\right)\hat{\psi}_{j}\left(x\right)
+\end{align}
 
 \end_inset
 
@@ -5948,9 +5978,9 @@ Die Anti-Kommutatoren der Erzeugunsoperatoren
 
  sollen alle verschwinden, außer:
 \begin_inset Formula 
-\begin{align*}
+\begin{align}
 \left\{ \hat{b}\left(\vec{p},s\right),\hat{b}^{\dagger}\left(\vec{p}',s'\right)\right\}  & =\left\{ \hat{d}\left(\vec{p},s\right),\hat{d}^{\dagger}\left(\vec{p}',s'\right)\right\} =\delta_{ss'}\delta^{\left(3\right)}\left(\vec{p}-\vec{p}'\right)\left(2\pi\right)^{3}\cdot2p^{0}
-\end{align*}
+\end{align}
 
 \end_inset
 
@@ -5960,10 +5990,10 @@ Zudem fordern wir für den normierten Vakuumzustand
 
 :
 \begin_inset Formula 
-\begin{align*}
+\begin{align}
 \hat{b}\KET 0 & =0 & \hat{d}\KET 0 & =0\\
 \BRA 0\hat{b}^{\dagger} & =0 & \BRA 0\hat{d}^{\dagger} & =0
-\end{align*}
+\end{align}
 
 \end_inset
 
@@ -5973,9 +6003,9 @@ Zudem fordern wir für den normierten Vakuumzustand
 \begin_layout Description
 Behauptung: Für die kanonische Quantisierung gilt:
 \begin_inset Formula 
-\begin{align*}
-\BraKet{0|\TT\left\{ \hat{\psi}_{j}\left(x\right),\hat{\overline{\psi}}_{l}\left(y\right)\right\} |0} & =\left(\ii S_{F}\left(x-y\right)\right)_{jl}
-\end{align*}
+\begin{align}
+\BraKet{0|\TT\left\{ \hat{\psi}_{j}\left(x\right)\hat{\overline{\psi}}_{l}\left(y\right)\right\} |0} & =\left(\ii S_{F}\left(x-y\right)\right)_{jl}
+\end{align}
 
 \end_inset
 
@@ -5986,7 +6016,7 @@ Behauptung: Für die kanonische Quantisierung gilt:
 Beweis: Wir rechnen nach:
 \begin_inset Formula 
 \begin{align*}
-\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \BraKet{0|\TT\left\{ \hat{\psi}_{j}\left(x\right),\hat{\overline{\psi}}_{l}\left(y\right)\right\} |0}=\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \BraKet{0|\TT\left\{ \hat{\psi}_{j}\left(x\right)\hat{\overline{\psi}}_{l}\left(y\right)\right\} |0}=\\
 \negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & =\Theta\left(x^{0}-y^{0}\right)\sum_{s,s'}\int\frac{\dd^{3}p\dd^{3}p'}{\left(2\pi\right)^{6}\cdot2E\cdot2E'}\underbrace{\BraKet{0|\hat{b}\left(\vec{p},s\right)\hat{b}^{\dagger}\left(\vec{p}',s'\right)|0}}_{=\BraKet{0|\delta_{ss'}\delta^{\left(3\right)}\left(\vec{p}-\vec{p}'\right)\left(2\pi\right)^{3}\cdot2E|0}}u_{j}\left(\vec{p},s\right)\overline{u}_{l}\left(\vec{p}',s'\right)e^{-\ii px}e^{\ii p'y}-\\
 \negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \ -\Theta\left(y^{0}-x^{0}\right)\sum_{s,s'}\int\frac{\dd^{3}p\dd^{3}p'}{\left(2\pi\right)^{6}\cdot2E\cdot2E'}\underbrace{\BraKet{0|\hat{d}\left(\vec{p},s\right)\hat{d}^{\dagger}\left(\vec{p}',s'\right)|0}}_{=\BraKet{0|\delta_{ss'}\delta^{\left(3\right)}\left(\vec{p}-\vec{p}'\right)\left(2\pi\right)^{3}\cdot2E|0}}\overline{v}_{l}\left(\vec{p},s\right)v_{j}\left(\vec{p}',s'\right)e^{\ii px}e^{-\ii p'y}=\\
 \negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & =\Theta\left(x^{0}-y^{0}\right)\sum_{s}\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}\cdot2E}\left(u\left(\vec{p},s\right)\overline{u}\left(\vec{p}',s'\right)\right)_{jl}e^{-\ii p\left(x-y\right)}-\\
@@ -6013,16 +6043,2900 @@ qqed[Behauptung]
 
 \end_layout
 
+\begin_layout Standard
+Außerdem gilt die 
+\emph on
+Mikrokausalität
+\emph default
+:
+\begin_inset Formula 
+\begin{align}
+\left\{ \hat{\psi}_{j}\left(\vec{x},t\right),\hat{\psi}_{l}^{\dagger}\left(\vec{y},t\right)\right\}  & =\delta_{jl}\delta^{\left(3\right)}\left(\vec{x}-\vec{y}\right)
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%DATE: Mo 6.5.13
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Übergang von der Kanonische Quantisierung zur Quantenfeldtheorie
+\end_layout
+
+\begin_layout Standard
+Nun wollen wir auch kompliziertere Prozesse mit mehr als zwei Feldoperatoren
+ berechnen.
+ Aus der Quantenmechanik ist bekannt, dass die Wahrscheinlichkeiten proportional
+ zum Betragsquadrat der Summe der Amplituden ist.
+ Die Amplitude berechnen wir mit Störungstheorie.
+ Die verschiedenen Ordnungen kann man durch Feynman-Diagramme wie in Abbildung
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "abb:Feynman-Diagramm"
+
+\end_inset
+
+ beschreiben.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[thick, level/.style={level distance=1.7cm}]
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path (0,0) node [left]{$x_1$} node[position] {}
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=right] {node[position]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+      child [grow=down] {node[position]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+        child [grow=right] {node[position]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+          child [grow=north east, level distance=4.7cm,edge from parent path={(
+\backslash
+tikzparentnode.north) ..
+ controls +(0,2)  and +(-2,0) ..
+ (
+\backslash
+tikzchildnode.west)}] {node[position]{} node [right]{$x_3$} edge from parent
+ [electron] node[above] {$e^-$}}
+\end_layout
+
+\begin_layout Plain Layout
+
+          child [grow=south east, level distance=4.7cm,edge from parent path={(
+\backslash
+tikzparentnode.south) ..
+ controls  +(0,-2) and +(-2,0) ..
+ (
+\backslash
+tikzchildnode.west)}] {node[position] {} node [right]{$x_6$}
+\end_layout
+
+\begin_layout Plain Layout
+
+            edge from parent [positron] node (a){} node[below left]{$e^+$}}
+\end_layout
+
+\begin_layout Plain Layout
+
+            edge from parent [photon]}
+\end_layout
+
+\begin_layout Plain Layout
+
+        child [grow=left] {node[left]{$x_2$} node[position]{} edge from
+ parent [electron] node[below]{$e^+$}}
+\end_layout
+
+\begin_layout Plain Layout
+
+        edge from parent [electron]}
+\end_layout
+
+\begin_layout Plain Layout
+
+      child [grow=right, level distance=5cm] {node[position]{} node [right]{$x_7
+$}
+\end_layout
+
+\begin_layout Plain Layout
+
+        edge from parent [photon]}
+\end_layout
+
+\begin_layout Plain Layout
+
+      edge from parent [electron] node[above]{$e^-$}};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path (a) node[position]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=north east,level distance=1.3cm] {node[position]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+      child [grow=25, level distance=1.6cm,edge from parent path={(
+\backslash
+tikzparentnode.north east) ..
+ controls +(0.3,0.6)  and +(-0.8,-0.1) ..
+ (
+\backslash
+tikzchildnode.west)}] {node[position]{} node [right]{$x_4$} edge from parent
+ [electron]  node[position] (b){} node[above right=2pt]{$e^-$}}
+\end_layout
+
+\begin_layout Plain Layout
+
+      child [grow=-25, level distance=1.6cm,edge from parent path={(
+\backslash
+tikzparentnode.south east) ..
+ controls +(0.3,-0.6)  and +(-0.8,0.1) ..
+ (
+\backslash
+tikzchildnode.west)}] {node[position]{} node [right]{$x_5$} edge from parent
+ [positron] node[position] (c){} node[below right]{$e^+$}}
+\end_layout
+
+\begin_layout Plain Layout
+
+      edge from parent [photon]};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path (b) edge[photon] (c);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[thick, level/.style={level distance=1.7cm}]
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path (0,0) node [left]{$x_1$} node[position] {}
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=right] {node[position] {}
+\end_layout
+
+\begin_layout Plain Layout
+
+      child [grow=down] {node[position] {}
+\end_layout
+
+\begin_layout Plain Layout
+
+        child [grow=right] {node[position] (u){}
+\end_layout
+
+\begin_layout Plain Layout
+
+          child [grow=south east, level distance=3.7cm] {node[position] {}
+ node [right]{$x_6$}
+\end_layout
+
+\begin_layout Plain Layout
+
+            edge from parent [positron] node[below left]{$e^+$}}
+\end_layout
+
+\begin_layout Plain Layout
+
+            edge from parent [photon]}
+\end_layout
+
+\begin_layout Plain Layout
+
+        child [grow=left] {node[left]{$x_2$} node[position]{} edge from
+ parent [electron] node[below]{$e^+$}}
+\end_layout
+
+\begin_layout Plain Layout
+
+        edge from parent [electron]}
+\end_layout
+
+\begin_layout Plain Layout
+
+      child [grow=right] {node[position] (o){}
+\end_layout
+
+\begin_layout Plain Layout
+
+          child [grow=north east, level distance=3.7cm] {node[position] {}
+ node [right]{$x_3$}
+\end_layout
+
+\begin_layout Plain Layout
+
+            edge from parent [electron] node[above left]{$e^-$}}
+\end_layout
+
+\begin_layout Plain Layout
+
+        edge from parent [photon]} 
+\end_layout
+
+\begin_layout Plain Layout
+
+      edge from parent [electron] node[above]{$e^-$} };
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path (u) edge[electron] node (m) {} (o);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path (m) node[position]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=east,level distance=1.1cm] {node[position]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+      child [grow=25, level distance=1.6cm,edge from parent path={(
+\backslash
+tikzparentnode.north east) ..
+ controls +(0.3,0.6)  and +(-0.8,-0.1) ..
+ (
+\backslash
+tikzchildnode.west)}] {node[position]{} node [right]{$x_4$} edge from parent
+ [electron] node[position,pos=0.15] (b){} node[above right]{$e^-$}}
+\end_layout
+
+\begin_layout Plain Layout
+
+      child [grow=-25, level distance=1.6cm,edge from parent path={(
+\backslash
+tikzparentnode.south east) ..
+ controls +(0.3,-0.6) and +(-0.8,0.1) ..
+ (
+\backslash
+tikzchildnode.west)}] {node[position]{} node [right]{$x_5$} edge from parent
+ [positron] node[below right]{$e^+$}}
+\end_layout
+
+\begin_layout Plain Layout
+
+      edge from parent [photon]};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path (b) node[inner sep=0]{} child[grow=right,level distance=1.25cm] {node[positi
+on]{} node[right]{$x_7$} edge from parent [photon]};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+hspace*{1mm}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Zwei verschiedene Feynman-Diagramme für einen Prozess
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "abb:Feynman-Diagramm"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Rechts und links befinden sich asymptotische Zustände, also ebene Wellen.
+ Die Wechselwirkungsamplitude ist:
+\begin_inset Formula 
+\begin{align*}
+\leftidx{_{H}}{\BraKet{0|\TT\left\{ \hat{\overline{\psi}}_{H}\left(x_{1}\right)\hat{\psi}_{H}\left(x_{2}\right)\hat{\psi}_{H}\left(x_{3}\right)\hat{\psi}_{H}\left(x_{4}\right)\hat{\overline{\psi}}_{H}\left(x_{5}\right)\hat{\overline{\psi}}_{H}\left(x_{6}\right)\hat{A}_{H,\mu}\left(x_{7}\right)\right\} |0}}{_{H}}
+\end{align*}
+
+\end_inset
+
+Die Zeitordnung ist nötig, damit man die Propagatoren bekommt.
+ Also ist die Reihenfolge im zeitgeordneten Produkt willkürlich bis auf
+ ein totales Vorzeichen 
+\begin_inset Formula $\left(-1\right)^{n}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Wegen der Forderung, dass der Vakuumzustand zeitunabhängig sein soll, ist
+ dieser Erwartungswert nur im Heisenberg-Bild zu verstehen.
+ Im Wechselwirkungsbild (
+\lang english
+interaction picture
+\lang ngerman
+) mit 
+\begin_inset Formula $H=H_{0}+H_{I}$
+\end_inset
+
+ erhält man:
+\begin_inset Formula 
+\begin{align*}
+ & \leftidx{_{H}}{\BraKet{0|\TT\left\{ \hat{\overline{\psi}}_{H}\left(x_{1}\right)\hat{\psi}_{H}\left(x_{2}\right)\hat{\psi}_{H}\left(x_{3}\right)\hat{\psi}_{H}\left(x_{4}\right)\hat{\overline{\psi}}_{H}\left(x_{5}\right)\hat{\overline{\psi}}_{H}\left(x_{6}\right)\hat{A}_{H,\mu}\left(x_{7}\right)\right\} |0}}{_{H}}=\\
+ & \qquad=\BraKet{0|\TT\left\{ \hat{\overline{\psi}}_{I}\left(x_{1}\right)\hat{\psi}_{I}\left(x_{2}\right)\hat{\psi}_{I}\left(x_{3}\right)\hat{\psi}_{I}\left(x_{4}\right)\hat{\overline{\psi}}_{I}\left(x_{5}\right)\hat{\overline{\psi}}_{I}\left(x_{6}\right)\hat{A}_{H,\mu}\left(x_{7}\right)e^{-\ii\int_{-\infty}^{\infty}\hat{H}_{I}\left(x\right)\dd^{4}x}\right\} |0}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Schrödinger-, Heisenberg- und Wechselwirkungsbild in der Quantenmechanik
+\end_layout
+
+\begin_layout Standard
+Nur Matrixelemente sind physikalisch relevant:
+\begin_inset Formula 
+\begin{align*}
+O_{\phi'\phi} & =\BraKet{\phi'|\hat{O}|\phi}
+\end{align*}
+
+\end_inset
+
+Diese hängen im Allgemeinen von der Zeit ab:
+\begin_inset Formula 
+\begin{align*}
+\frac{\dd}{\dd t}O_{\phi'\phi} & =\left(\frac{\dd}{\dd t}\BRA{\phi'}\right)\hat{O}\KET{\phi}+\BraKet{\phi'|\left(\frac{\dd}{\dd t}\hat{O}\right)|\phi}+\BRA{\phi'}\hat{O}\left(\frac{\dd}{\dd t}\KET{\phi}\right)
+\end{align*}
+
+\end_inset
+
+Im Schrödingerbild sind die Operatoren nicht zeitabhängig:
+\begin_inset Formula 
+\begin{align*}
+\frac{\dd}{\dd t}\hat{O}_{S} & =0
+\end{align*}
+
+\end_inset
+
+Die Zeitabhängigkeit der Zustände wird durch den Hamilton-Operator beschrieben:
+\begin_inset Formula 
+\begin{align*}
+\ii\frac{\dd}{\dd t}\KET{\phi_{S}\left(t\right)} & =:\hat{H}\KET{\phi_{S}\left(t\right)} & -\ii\frac{\dd}{\dd t}\BRA{\phi_{S}'\left(t\right)} & =:\BRA{\phi_{S}'\left(t\right)}\hat{H}
+\end{align*}
+
+\end_inset
+
+Es folgt:
+\begin_inset Formula 
+\begin{align*}
+\frac{\dd}{\dd t}O_{\phi'\phi} & =\ii\BraKet{\phi'|\hat{H}\hat{O}|\phi}-\ii\BraKet{\phi'|\hat{O}\hat{H}|\phi}=\ii\BraKet{\phi_{S}'|\left[\hat{H},\hat{O}\right]|\phi_{S}}
+\end{align*}
+
+\end_inset
+
+Im Heisenbergbild sind die Zustände zeitunabhängig:
+\begin_inset Formula 
+\begin{align*}
+\frac{\dd}{\dd t}\KET{\phi} & =\frac{\dd}{\dd t}\BRA{\phi'}=0 & \frac{\dd}{\dd t}\hat{O}_{H} & =\ii\left[\hat{H},\hat{O}_{H}\right]
+\end{align*}
+
+\end_inset
+
+Im Wechselwirkungsbild zerlegt man 
+\begin_inset Formula $\hat{H}=\hat{H}_{0}+\hat{H}_{I}$
+\end_inset
+
+.
+ Dabei sei 
+\begin_inset Formula $\hat{H}_{0}$
+\end_inset
+
+ nicht explizit zeitabhängig.
+\begin_inset Formula 
+\begin{align*}
+-\ii\frac{\dd}{\dd t}\BRA{\phi_{I}'} & =\BRA{\phi_{I}'}\hat{H}_{I} & -\ii\frac{\dd}{\dd t}\hat{O}_{I} & =\left[\hat{H}_{0},\hat{O}_{I}\right]\\
+\ii\frac{\dd}{\dd t}\KET{\phi_{I}} & =-\hat{H}_{I}\KET{\phi_{I}}
+\end{align*}
+
+\end_inset
+
+Mache den Ansatz:
+\begin_inset Formula 
+\begin{align}
+\fbox{\ensuremath{{\displaystyle \hat{O}_{I}\left(t\right)=e^{\ii\hat{H}_{0}\left(t-t_{0}\right)}\hat{O}_{S}e^{-\ii\hat{H}_{0}\left(t-t_{0}\right)}}}}
+\end{align}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+-\ii\frac{\dd}{\dd t}\hat{O}_{I}\left(t\right) & =e^{\ii\hat{H}_{0}\left(t-t_{0}\right)}\left(\hat{H}_{0}\hat{O}_{S}-\hat{O}_{S}\hat{H}_{0}\right)e^{-\ii\hat{H}_{0}\left(t-t_{0}\right)}=\left[\hat{H}_{0},\hat{O}_{I}\right]
+\end{align*}
+
+\end_inset
+
+Für den Zusammenhang zum Heisenbergbild machen wir folgenden Ansatz:
+\begin_inset Formula 
+\begin{align}
+\fbox{\ensuremath{{\displaystyle \hat{O}_{H}\left(t\right)=\left(\TT\exp\left(-\ii\int_{-\infty}^{t}\hat{H}_{I}\left(\tau\right)\dd\tau\right)\right)^{\dagger}\hat{O}_{I}\left(t\right)\TT\exp\left(-\ii\int_{-\infty}^{t}\hat{H}_{I}\left(\tau'\right)\dd\tau'\right)}}}
+\end{align}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+-\ii\frac{\dd}{\dd t}\hat{O}_{H} & =-\ii\left(-\ii H_{I}\left(t\right)\TT\exp\left(-\ii\int_{-\infty}^{t}\hat{H}_{I}\left(\tau\right)\dd\tau\right)\right)^{\dagger}\hat{O}_{I}\left(t\right)\TT\exp\left(-\ii\int_{-\infty}^{t}\hat{H}_{I}\left(\tau'\right)\dd\tau'\right)+\\
+ & \qquad+\left(\TT\exp\left(-\ii\int_{-\infty}^{t}\hat{H}_{I}\left(\tau\right)\dd\tau\right)\right)^{\dagger}\left[\hat{H}_{0},\hat{O}_{I}\left(t\right)\right]\TT\exp\left(-\ii\int_{-\infty}^{t}\hat{H}_{I}\left(\tau'\right)\dd\tau'\right)+\\
+ & \qquad+\left(\TT\exp\left(-\ii\int_{-\infty}^{t}\hat{H}_{I}\left(\tau\right)\dd\tau\right)\right)^{\dagger}\hat{O}_{I}\left(t\right)\left(-H_{I}\left(t\right)\right)\TT\exp\left(-\ii\int_{-\infty}^{t}\hat{H}_{I}\left(\tau'\right)\dd\tau'\right)=\\
+ & =\left(\TT\exp\left(-\ii\int_{-\infty}^{t}\hat{H}_{I}\left(\tau\right)\dd\tau\right)\right)^{\dagger}\left[\hat{H},\hat{O}_{I}\left(t\right)\right]\TT\exp\left(-\ii\int_{-\infty}^{t}\hat{H}_{I}\left(\tau'\right)\dd\tau'\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Beispiel: QED
+\end_layout
+
+\begin_layout Standard
+Die Lagrangedichte ist:
+\begin_inset Formula 
+\begin{align*}
+\mathcal{L}\left(x\right) & =\underbrace{\overline{\psi}\left(x\right)\left(\hat{\slashd p}-m\right)\psi\left(x\right)-\frac{1}{4}F_{\mu\nu}\left(x\right)F^{\mu\nu}\left(x\right)}_{=:\mathcal{L}_{0}}\underbrace{-e\overline{\psi}\left(x\right)\hat{Q}\slashd A\left(x\right)\psi\left(x\right)}_{=:\mathcal{L}_{I}}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+L\left(t\right) & =\int\dd^{3}x\mathcal{L}\left(x\right)=\underbrace{L_{0}}_{\widehat{=}\, T}+\underbrace{L_{I}}_{\widehat{=}\,-V}\\
+H\left(t\right) & =\int\dd^{3}x\mathcal{H}\left(x\right)=H_{0}+\underbrace{H_{I}}_{=-L_{I}}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\mathcal{H}_{0}\left(x\right) & =\overline{\psi}\left(x\right)\left(\hat{\slashd p}-m\right)\psi\left(x\right)-\frac{1}{4}F_{\mu\nu}\left(x\right)F^{\mu\nu}\left(x\right)\\
+\mathcal{H}_{I}\left(x\right) & =e\overline{\psi}\left(x\right)\hat{Q}\slashd A\left(x\right)\psi\left(x\right)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\hat{H}_{I} & \to\int\dd^{3}x\hat{\mathcal{H}}_{I}\left(x\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Zusammenfassung der Exponentialfaktoren am Beispiel einer Skalaren Feldtheorie
+\end_layout
+
+\begin_layout Standard
+Zu berechnen ist:
+\begin_inset Formula 
+\begin{align*}
+\leftidx{_{H}}{\BraKet{0|\TT\left\{ \hat{\phi}_{H}\left(x_{1}\right)\ldots\hat{\phi}_{H}\left(x_{n}\right)\right\} |0}}{_{H}}
+\end{align*}
+
+\end_inset
+
+Im Wechselwirkungsbild haben wir:
+\begin_inset Formula 
+\begin{align*}
+\hat{\phi}_{H}\left(x_{1}\right) & \to\left(\TT\exp\left(-\ii\int_{-\infty}^{t}\dd^{3}x\dd\tau\mathcal{H}_{I}\left(x\right)\right)\right)^{\dagger}\hat{\phi}_{I}\left(x_{1}\right)\TT\exp\left(-\ii\int_{-\infty}^{t}\dd^{3}x\dd\tau\mathcal{H}_{I}\left(x\right)\right)
+\end{align*}
+
+\end_inset
+
+Wegen 
+\begin_inset Formula $\KET{\psi}_{H}=\KET{\psi}_{I,t_{-\infty}}$
+\end_inset
+
+ folgt:
+\begin_inset Formula 
+\begin{align*}
+\KET{\phi}_{I} & =\TT\exp\left(-\ii\int_{-\infty}^{t}\dd^{3}x\dd\tau\mathcal{H}_{I}\left(x\right)\right)\KET{\phi}_{H}
+\end{align*}
+
+\end_inset
+
+Insbesondere gilt für das Vakuum:
+\begin_inset Formula 
+\begin{align*}
+\KET 0_{I} & =\TT\exp\left(-\ii\int_{-\infty}^{t}\dd^{3}x\dd\tau\mathcal{H}_{I}\left(x\right)\right)\KET 0_{H}\\
+\KET 0_{H} & =\left(\TT\exp\left(-\ii\int_{-\infty}^{t}\dd^{3}x\dd\tau\mathcal{H}_{I}\left(x\right)\right)\right)^{\dagger}\KET 0_{I}\\
+\Rightarrow\qquad\KET 0_{I,t_{\infty}} & =\TT\exp\left(-\ii\int_{-\infty}^{\infty}\dd^{3}x\dd\tau\mathcal{H}_{I}\left(x\right)\right)\KET 0_{H}
+\end{align*}
+
+\end_inset
+
+Damit folgt:
+\begin_inset Formula 
+\begin{align*}
+_{H}\BraKet{0|\TT\left\{ \hat{\phi}_{H}\left(x_{1}\right)\ldots\hat{\phi}_{H}\left(x_{n}\right)\right\} |0}_{H} & =\leftidx{_{I,t_{\infty}}}{\bigg\langle0\bigg|\TT\exp\left(-\ii\int_{-\infty}^{\infty}\dd\tau H_{I}\left(\tau\right)\right)\cdot}\\
+ & \qquad\cdot\TT\left\{ \left(\TT\exp\left(-\ii\int_{-\infty}^{t_{1}}\dd\tau H_{I}\left(\tau\right)\right)\right)^{\dagger}\hat{\phi}_{I}\left(x_{1}\right)\ldots\right\} \cdot\\
+ & \qquad\cdot\underbrace{\left(\TT\exp\left(\int_{-\infty}^{-\infty}\dd\tau H_{I}\left(t\right)\right)\right)^{\dagger}}_{=\mathbbm{1}}\bigg|0\bigg\rangle_{I,t_{-\infty}}
+\end{align*}
+
+\end_inset
+
+Ohne Beschränkung der Allgemeinheit sei 
+\begin_inset Formula $y_{i}^{0}\ge y_{i+1}^{0}$
+\end_inset
+
+ für 
+\begin_inset Formula $i\in\mathbb{N}_{\ge1}$
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{align*}
+ & \TT\exp\left(-\ii\int_{-\infty}^{\infty}\dd\tau H_{I}\left(\tau\right)\right)\left(\TT\exp\left(-\ii\int_{-\infty}^{y_{1}^{0}}\dd\tau H_{I}\left(\tau\right)\right)\right)^{\dagger}\\
+ & \qquad=\TT\exp\left(-\ii\int_{y_{1}^{0}}^{\infty}\dd\tau H_{I}\left(\tau\right)\right)\underbrace{\TT\exp\left(-\ii\int_{-\infty}^{y_{1}^{0}}\dd\tau H_{I}\left(\tau\right)\right)\left(\TT\exp\left(-\ii\int_{-\infty}^{y_{1}^{0}}\dd\tau H_{I}\left(\tau\right)\right)\right)^{\dagger}}_{=\mathbbm{1}}=\\
+ & \qquad=\TT\exp\left(-\ii\int_{y_{1}^{0}}^{\infty}\dd\tau H_{I}\left(\tau\right)\right)
+\end{align*}
+
+\end_inset
+
+Man erhält also:
+\begin_inset Formula 
+\begin{align*}
+ & \BraKet{0|\TT\left\{ \hat{\phi}_{H}\left(x_{1}\right)\ldots\hat{\phi}_{H}\left(x_{n}\right)\right\} |0}={}_{H}\BraKet{0|\TT\left\{ \hat{\phi}_{H}\left(y_{1}\right)\ldots\hat{\phi}_{H}\left(y_{n}\right)\right\} |0}_{H}=\\
+ & \quad=\leftidx{_{I,t_{\infty}\negthickspace\negthickspace}}{\BraKet{0|\TT\exp\left(\frac{1}{\ii}\int_{y_{1}^{0}}^{\infty}\dd\tau H_{I}\left(\tau\right)\right)\hat{\phi}_{I}\left(y_{1}\right)\TT\exp\left(\frac{1}{\ii}\int_{y_{2}^{0}}^{y_{1}^{0}}\dd\tau H_{I}\left(\tau\right)\right)\hat{\phi}_{I}\left(y_{2}\right)\ldots|0}}{_{\negthickspace I,t_{-\infty}}}=\\
+ & \quad=\BraKet{0|\TT\left\{ \hat{\phi}_{I}\left(y_{1}\right)\hat{\phi}_{I}\left(y_{2}\right)\ldots\hat{\phi}_{I}\left(y_{n}\right)e^{-\ii\int_{-\infty}^{\infty}\dd\tau\hat{H}_{I}\left(\tau\right)}\right\} |0}=\\
+ & \quad=\BraKet{0|\TT\left\{ \hat{\phi}_{I}\left(x_{1}\right)\hat{\phi}_{I}\left(x_{2}\right)\ldots\hat{\phi}_{I}\left(x_{n}\right)e^{-\ii\int_{-\infty}^{\infty}\dd\tau\hat{H}_{I}\left(\tau\right)}\right\} |0}
+\end{align*}
+
+\end_inset
+
+Dies ist eine zentrale Gleichung:
+\begin_inset Formula 
+\begin{align}
+\fbox{\ensuremath{{\displaystyle \BraKet{0|\TT\left\{ \hat{\phi}_{H}\left(x_{1}\right)\ldots\hat{\phi}_{H}\left(x_{n}\right)\right\} |0}=\BraKet{0|\TT\left\{ \hat{\phi}_{I}\left(x_{1}\right)\ldots\hat{\phi}_{I}\left(x_{n}\right)e^{-\ii\int_{-\infty}^{\infty}\dd\tau\hat{H}_{I}\left(\tau\right)}\right\} |0}}}}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Das Wicksche Theorem
+\end_layout
+
+\begin_layout Subsection
+Definition 
+\series medium
+(Normalgeordnetes Produkt)
+\end_layout
+
+\begin_layout Standard
+Das 
+\emph on
+normalgeordnete Produkt
+\emph default
+ ist dadurch definiert, dass alle Vernichtungsoperatoren rechts von allen
+ Erzeugungsoperatoren stehen.
+ Insbesondere gilt:
+\begin_inset Formula 
+\begin{align}
+:\ldots:\KET 0 & =0 & \BRA 0:\ldots: & =0
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Das Wicksche Theorem
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+ & \TT\left\{ \hat{\phi}\left(x_{1}\right)\ldots\hat{\phi}\left(x_{N}\right)\right\} =:\hat{\phi}\left(x_{1}\right)\ldots\hat{\phi}\left(x_{N}\right):+\BraKet{0|\TT\left\{ \hat{\phi}\left(x_{1}\right)\hat{\phi}\left(x_{2}\right)\right\} |0}:\hat{\phi}\left(x_{3}\right)\ldots\hat{\phi}\left(x_{N}\right):+\nonumber \\
+ & \qquad\qquad\qquad\qquad+\text{ Permutationen }+\nonumber \\
+ & \qquad\qquad\qquad\qquad+\BraKet{0|\TT\left\{ \hat{\phi}\left(x_{1}\right)\hat{\phi}\left(x_{2}\right)\right\} |0}\BraKet{0|\TT\left\{ \hat{\phi}\left(x_{3}\right)\hat{\phi}\left(x_{4}\right)\right\} |0}:\hat{\phi}\left(x_{5}\right)\ldots\hat{\phi}\left(x_{N}\right):+\nonumber \\
+ & \qquad\qquad\qquad\qquad+\text{ Permutationen }+\ldots
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%DATE: Di 7.5.13
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Beweis
+\end_layout
+
+\begin_layout Standard
+Führe eine vollständige Induktion über 
+\begin_inset Formula $N$
+\end_inset
+
+ durch.
+\end_layout
+
+\begin_layout Itemize
+Induktionsanfang bei 
+\begin_inset Formula $N=1$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\TT\left\{ \hat{\phi}\left(x_{1}\right)\right\}  & =\hat{\phi}\left(x_{1}\right)=:\hat{\phi}\left(x_{1}\right):
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Veranschaulichung der Beweisidee am Fall 
+\begin_inset Formula $N=2$
+\end_inset
+
+: Für Bosonen ist das zeitgeordnete Produkt mit Plus, damit sich für 
+\begin_inset Formula $x_{1}=x_{2}$
+\end_inset
+
+ das einfache Produkt ergibt:
+\begin_inset Formula 
+\begin{align*}
+\TT\left\{ \hat{\phi}\left(x_{1}\right)\hat{\phi}\left(x_{2}\right)\right\}  & =\Theta\left(x_{1}^{0}-x_{2}^{0}\right)\hat{\phi}\left(x_{1}\right)\hat{\phi}\left(x_{2}\right)+\Theta\left(x_{2}^{0}-x_{1}^{0}\right)\hat{\phi}\left(x_{2}\right)\hat{\phi}\left(x_{1}\right)
+\end{align*}
+
+\end_inset
+
+Hier sind die Feldoperatoren:
+\begin_inset Formula 
+\begin{align*}
+\hat{\phi}\left(\vec{x},t\right) & =\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}2p^{0}}\left(\hat{a}\left(p\right)e^{-\ii px}+\hat{b}^{\dagger}\left(p\right)e^{\ii px}\right)\\
+\hat{\phi}^{*}\left(\vec{x},t\right) & =\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}2p^{0}}\left(\hat{a}^{\dagger}\left(p\right)e^{\ii px}+\hat{b}\left(p\right)e^{-\ii px}\right)
+\end{align*}
+
+\end_inset
+
+Für eine skalares Feld gilt 
+\begin_inset Formula $\hat{a}=\hat{b}$
+\end_inset
+
+, da es nur einen Freiheitsgrad gibt, weil es ein reelles Feld ist, sodass
+ das Teilchen sein eigenes Antiteilchen ist.
+ Weiter muss gelten:
+\begin_inset Formula 
+\begin{align*}
+\left[\hat{a}\left(p\right),\hat{a}^{\dagger}\left(p'\right)\right] & =\delta^{\left(3\right)}\left(\vec{p}-\vec{p}'\right)\left(2\pi\right)^{3}2p^{0}=\left[\hat{b}\left(p\right),\hat{b}^{\dagger}\left(p'\right)\right]
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\BraKet{0|\TT\left\{ \phi\left(x\right)\phi^{*}\left(y\right)\right\} |0} & =\ii D_{F}\left(x-y\right)
+\end{align*}
+
+\end_inset
+
+Andere Bezeichnungen für den Klein-Gordon-Propagator sind 
+\begin_inset Formula $G\left(x-y\right)$
+\end_inset
+
+ oder 
+\begin_inset Formula $\Delta_{F}\left(x-y\right)$
+\end_inset
+
+.
+ Das normalgeordnete Produkt unterscheidet sich in diesem Fall nur um eine
+ Distribution 
+\begin_inset Formula $f\left(x\right)$
+\end_inset
+
+, da bei der Vertauschung der Erzeugungs- und Vernichtunsoperatoren der
+ Kommutator hinzukommt, der eine Distribution ist.
+\begin_inset Formula 
+\begin{align*}
+\TT\left\{ \hat{\phi}\left(x_{1}\right)\hat{\phi}\left(x_{2}\right)\right\}  & =:\hat{\phi}\left(x_{1}\right)\hat{\phi}\left(x_{2}\right):+f\left(x_{1},x_{2}\right)\\
+\Rightarrow\qquad\BraKet{0|\TT\left\{ \hat{\phi}\left(x_{1}\right)\hat{\phi}\left(x_{2}\right)\right\} |0} & =0+f\left(x_{1},x_{2}\right)\underbrace{\BraKet{0|0}}_{=1}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Induktionsschritt 
+\begin_inset Formula $N\leadsto N+1$
+\end_inset
+
+: Ohne Beschränkung der Allgemeinheit sei 
+\begin_inset Formula $x_{N+1}^{0}\le x_{i}^{0}$
+\end_inset
+
+ für 
+\begin_inset Formula $i\in\left\{ 1,\ldots,N\right\} $
+\end_inset
+
+.
+ Mit
+\begin_inset Formula 
+\begin{align*}
+\hat{\phi}^{v}\left(x_{N+1}\right) & :=\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}2p^{0}}\hat{a}\left(p\right)e^{-\ii px}\\
+\hat{\phi}^{e}\left(x_{N+1}\right) & :=\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}2p^{0}}\hat{a}^{\dagger}\left(p\right)e^{\ii px}
+\end{align*}
+
+\end_inset
+
+folgt:
+\begin_inset Formula 
+\begin{align*}
+ & \TT\left\{ \hat{\phi}\left(x_{1}\right)\ldots\hat{\phi}\left(x_{N+1}\right)\right\} =\TT\left\{ \hat{\phi}\left(x_{1}\right)\ldots\hat{\phi}\left(x_{N}\right)\right\} \underbrace{\hat{\phi}\left(x_{N+1}\right)}_{=\hat{\phi}^{v}\left(x_{N+1}\right)+\hat{\phi}^{e}\left(x_{N+1}\right)}=\\
+ & \quad=\bigg(:\hat{\phi}\left(x_{1}\right)\ldots\hat{\phi}\left(x_{N}\right):+\BraKet{0|\TT\left\{ \hat{\phi}\left(x_{1}\right)\hat{\phi}\left(x_{2}\right)\right\} |0}:\hat{\phi}\left(x_{3}\right)\ldots\hat{\phi}\left(x_{N}\right):+\\
+ & \quad\qquad+\text{ Permutationen }+\\
+ & \quad\qquad\BraKet{0|\TT\left\{ \hat{\phi}\left(x_{1}\right)\hat{\phi}\left(x_{2}\right)\right\} |0}\BraKet{0|\TT\left\{ \hat{\phi}\left(x_{3}\right)\hat{\phi}\left(x_{4}\right)\right\} |0}:\hat{\phi}\left(x_{5}\right)\ldots\hat{\phi}\left(x_{N}\right):+\\
+ & \quad\qquad+\text{Permutationen}+\ldots\bigg)\cdot\left(\hat{\phi}^{v}\left(x_{N+1}\right)+\hat{\phi}^{e}\left(x_{N+1}\right)\right)
+\end{align*}
+
+\end_inset
+
+Was wir brauchen ist:
+\begin_inset Formula 
+\begin{align*}
+:\hat{\phi}\left(x_{1}\right)\ldots\hat{\phi}\left(x_{M}\right):\hat{\phi}^{e}\left(x_{N+1}\right)
+\end{align*}
+
+\end_inset
+
+Die Indexmenge 
+\begin_inset Formula $E$
+\end_inset
+
+ sei eine Teilmenge von 
+\begin_inset Formula $\left\{ 1,2,\ldots,M\right\} $
+\end_inset
+
+; 
+\begin_inset Formula $V=\left\{ 1,2,\ldots,M\right\} \setminus E$
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{align*}
+:\hat{\phi}\left(x_{1}\right)\ldots\hat{\phi}\left(x_{M}\right):\hat{\phi}^{e}\left(x_{N+1}\right) & =\sum_{E,V}\left(\prod_{i\in E}\phi^{e}\left(x_{i}\right)\right)\left(\prod_{j\in V}\phi^{v}\left(x_{j}\right)\right)\hat{\phi}^{e}\left(x_{N+1}\right)
+\end{align*}
+
+\end_inset
+
+Da der Kommutator 
+\begin_inset Formula $\left[\hat{\phi}^{v}\left(x_{k}\right),\hat{\phi}^{e}\left(x_{N+1}\right)\right]$
+\end_inset
+
+ eine Distribution ist, erhält man:
+\begin_inset Formula 
+\begin{align*}
+\left[\hat{\phi}^{v}\left(x_{k}\right),\hat{\phi}^{e}\left(x_{N+1}\right)\right] & =\BraKet{0|\left[\hat{\phi}^{v}\left(x_{k}\right),\hat{\phi}^{e}\left(x_{N+1}\right)\right]|0}=\BraKet{0|\hat{\phi}^{v}\left(x_{k}\right)\hat{\phi}^{e}\left(x_{N+1}\right)|0}=\\
+ & =\BraKet{0|\hat{\phi}\left(x_{k}\right)\hat{\phi}\left(x_{N+1}\right)|0}=\BraKet{0|\TT\left\{ \hat{\phi}\left(x_{k}\right)\hat{\phi}\left(x_{N+1}\right)\right\} |0}
+\end{align*}
+
+\end_inset
+
+Dadurch erhält man zu allen Summanden noch alle möglichen Kombinationen
+\begin_inset Formula 
+\begin{align*}
+\BraKet{0|\TT\left\{ \hat{\phi}\left(x_{k}\right)\hat{\phi}\left(x_{N+1}\right)\right\} |0}
+\end{align*}
+
+\end_inset
+
+und somit den Ausdruck auf der rechten Seite für 
+\begin_inset Formula $N+1$
+\end_inset
+
+.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+qqed
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Wir wissen:
+\begin_inset Formula 
+\begin{align*}
+\BraKet{0|\TT\left\{ \hat{\phi}_{H}\left(x_{1}\right)\ldots\hat{\phi}_{H}\left(x_{N}\right)\right\} |0} & =\BraKet{0|\TT\left\{ \hat{\phi}_{I}\left(x_{1}\right)\ldots\hat{\phi}_{I}\left(x_{N}\right)e^{-\ii\int_{-\infty}^{\infty}H_{I}\left(\tau\right)\dd\tau}\right\} |0}
+\end{align*}
+
+\end_inset
+
+Nun kann man die Exponentialfunktion zu einer beliebigen Ordnung nähern
+ und den Erwartungswert des zeitgeordneten Produktes können wir mit dem
+ Wickschen Theorem auf bekannten Vakuumerwartungswerte, die Propagatoren
+ freier Teilchen, reduzieren:
+\begin_inset Formula 
+\begin{align*}
+\BraKet{0|\TT\left\{ \hat{\phi}_{I}\left(x_{1}\right)\hat{\phi}_{I}\left(x_{2}\right)\right\} |0} & =\ii D_{F}\left(x_{1}-x_{2}\right)
+\end{align*}
+
+\end_inset
+
+Da der Vakuumerwartungswert eines normalgeordneten Produktes verschwindet,
+ bleibt beim Bilden des Vakuumerwartungswertes nur der Term, wo nur noch
+ Distributionen stehen.
+\end_layout
+
+\begin_layout Standard
+Für eine ungerade Anzahl von 
+\begin_inset Formula $\hat{\phi}$
+\end_inset
+
+ erhält man Null, da auf der rechten Seite dann jeder Term proportional
+ zu einem normalgeordneten Produkt ist.
+\end_layout
+
+\begin_layout Subsection
+Beispiel: Skalare Feldtheorie
+\end_layout
+
+\begin_layout Standard
+Betrachte die 
+\begin_inset Formula $\phi^{4}$
+\end_inset
+
+-Theorie:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\mathcal{H}_{I} & =\frac{\lambda}{4!}\phi_{I}^{4}\left(x\right)\\
+H_{I}\left(\tau\right) & =\int\dd^{3}x\mathcal{H}_{I}\left(x\right)
+\end{align*}
+
+\end_inset
+
+Diese Theorie wird betrachtet, da ungerade Potenzen nicht möglich sind,
+ weil sonst die Hamilton-Funktion nicht nach unten beschränkt ist und 
+\begin_inset Formula $\phi^{2}$
+\end_inset
+
+ im kinetischen Anteil enthalten ist.
+ Höhere Potenzen können nicht auftreten, da diese nicht normierbar sind,
+ wie wir später sehen werden.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[thick, level/.style={level distance=1.7cm}]
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path (0,0) node[position]{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=north west] {node[position]{} node[left]{$x_1$} edge from
+ parent [scalar]}
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=south west] {node[position]{} node[left]{$x_1$} edge from
+ parent [scalar]}
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=north east] {node[position]{} node[right]{$x_3$} edge from
+ parent [scalar]}
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=south east] {node[position]{} node[right]{$x_4$} edge from
+ parent [scalar]}
+\end_layout
+
+\begin_layout Plain Layout
+
+  node[above=3pt]{$
+\backslash
+lambda$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (2.5,0) {$=$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[level/.style={level distance=1cm}] (3.5,0.5) node[position]{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=south] {node[position]{} edge from parent [scalar]};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[level/.style={level distance=1cm}] (4.5,0.5) node[position]{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=south] {node[position]{} edge from parent [scalar]};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (5.25,0) {$+$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[level/.style={level distance=1cm}] (6,0.5) node[position]{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=east] {node[position]{} edge from parent [scalar]};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[level/.style={level distance=1cm}] (6,-0.5) node[position]{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=east] {node[position]{} edge from parent [scalar]};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (7.75,0) {$+$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[level/.style={level distance=1.41cm}] (8.5,0.5) node[position]{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=south east] {node[position]{} edge from parent [scalar]};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[level/.style={level distance=0.5cm}] (8.5,-0.5) node[position]{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=north east] {
+\end_layout
+
+\begin_layout Plain Layout
+
+      child [grow=north east,edge from parent path={(
+\backslash
+tikzparentnode.45) ..
+ controls +(-0.3,0.3)  and +(-0.3,0.3) ..
+ (
+\backslash
+tikzchildnode.west)}] {
+\end_layout
+
+\begin_layout Plain Layout
+
+        child [grow=north east,edge from parent path=(
+\backslash
+tikzparentnode) -- (
+\backslash
+tikzchildnode)]{node[position]{} edge from parent [scalar]}
+\end_layout
+
+\begin_layout Plain Layout
+
+        edge from parent [scalar]}
+\end_layout
+
+\begin_layout Plain Layout
+
+      edge from parent [scalar]};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (10.5,0) {$+ 
+\backslash
+quad 
+\backslash
+ldots $};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (3,-2) {$+$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[level/.style={level distance=0.5cm}] (4,-2) node[position]{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [level distance=0, edge from parent path={(
+\backslash
+tikzparentnode.30) ..
+ controls +(0.6,0.5)  and  +(0.6,-0.5) ..
+ (
+\backslash
+tikzchildnode.-30)}] {
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [level distance=0, edge from parent path={(
+\backslash
+tikzparentnode.150) ..
+ controls +(-0.6,0.5)  and +(-0.6,-0.5) ..
+ (
+\backslash
+tikzchildnode.-150)}] {}};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (7,-2) {Vakuumfluktuation};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (3,-4) {$+$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[level/.style={level distance=1cm}] (3.5,-3.5) node[position]{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=south] {node[position]{} edge from parent [scalar]};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[level/.style={level distance=0.5cm}] (4.5,-3.5) node[position]{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=south] {node[position]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [level distance=0,edge from parent path={(
+\backslash
+tikzparentnode) ..
+ controls +(-0.4,0.7)  and +(-0.4,-0.7) ..
+ (
+\backslash
+tikzchildnode)}] {node[position]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+      child [grow=south,level distance=0.5cm,edge from parent path={(
+\backslash
+tikzparentnode) -- (
+\backslash
+tikzchildnode)}] {node[position]{}} }
+\end_layout
+
+\begin_layout Plain Layout
+
+    edge from parent [scalar]};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (5.25,-4) {$+$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[level/.style={level distance=0.5cm}] (6,-3.5) node[position]{}    child
+ [grow=east] {node[position]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [level distance=0,edge from parent path={(
+\backslash
+tikzparentnode) ..
+ controls +(-0.7,0.4)  and +(0.7,0.4) ..
+ (
+\backslash
+tikzchildnode)}] {node[position]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+      child [grow=east,level distance=0.5cm,edge from parent path={(
+\backslash
+tikzparentnode) -- (
+\backslash
+tikzchildnode)}] {node[position]{}} }
+\end_layout
+
+\begin_layout Plain Layout
+
+    edge from parent [scalar]};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[level/.style={level distance=1cm}] (6,-4.5) node[position]{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=east] {node[position]{} edge from parent [scalar]};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (7.75,-4) {$+$};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[level/.style={level distance=1cm}] (9.5,-3.5) node[position]{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=south] {node[position]{} edge from parent [scalar]};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path[level/.style={level distance=0.5cm}] (8.5,-3.5) node[position]{} 
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [grow=south] {node[position]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+    child [level distance=0,edge from parent path={(
+\backslash
+tikzparentnode) ..
+ controls +(0.4,0.7)  and +(0.4,-0.7) ..
+ (
+\backslash
+tikzchildnode)}] {node[position]{}
+\end_layout
+
+\begin_layout Plain Layout
+
+      child [grow=south,level distance=0.5cm,edge from parent path={(
+\backslash
+tikzparentnode) -- (
+\backslash
+tikzchildnode)}] {node[position]{}} }
+\end_layout
+
+\begin_layout Plain Layout
+
+    edge from parent [scalar]};
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+node at (10.5,-4) {$+ 
+\backslash
+quad 
+\backslash
+ldots $};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Verschiedene Ordnungen dargestellt durch entsprechende Feynman-Diagramme
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Die Amplitude erhält man durch Entwicklung der Exponentialfunktion:
+\begin_inset Formula 
+\begin{align*}
+ & \BraKet{0|\TT\left\{ \hat{\phi}\left(x_{1}\right)\hat{\phi}\left(x_{2}\right)\hat{\phi}\left(x_{3}\right)\hat{\phi}\left(x_{4}\right)\left(1-\ii\int\dd^{4}x\frac{\lambda}{4!}\hat{\phi}^{4}\left(x\right)\right)\right\} |0}=\\
+ & \qquad=\ii D_{F}\left(x_{1}-x_{2}\right)\ii D_{F}\left(x_{3}-x_{4}\right)+\ii D_{F}\left(x_{1}-x_{3}\right)\ii D_{F}\left(x_{2}-x_{4}\right)+\\
+ & \qquad\quad+\ii D_{F}\left(x_{1}-x_{4}\right)\ii D_{F}\left(x_{2}-x_{3}\right)-\\
+ & \qquad\quad-\ii\int\dd^{4}x\frac{\lambda}{4!}\left(\ii D_{F}\left(x_{1}-x_{2}\right)\ii D_{F}\left(x_{3}-x_{4}\right)+\ldots\right)\ii D_{F}\left(x-x\right)\ii D_{F}\left(x-x\right)\cdot3-\\
+ & \qquad\quad-\ii\int\dd^{4}x\frac{\lambda}{4!}\ii D_{F}\left(x_{1}-x_{2}\right)\ii D_{F}\left(x_{3}-x\right)\ii D_{F}\left(x_{4}-x\right)\ii D_{F}\left(x-x\right)\cdot4\cdot3+\ldots-\\
+ & \qquad\quad-\ii\int\dd^{4}x\frac{\lambda}{4!}\ii D_{F}\left(x_{1}-x\right)\ii D_{F}\left(x_{2}-x\right)\ii D_{F}\left(x_{3}-x\right)\ii D_{F}\left(x_{4}-x\right)\cdot4!+\ldots
+\end{align*}
+
+\end_inset
+
+Beachte hier, dass 
+\begin_inset Formula $D_{F}\left(0\right)\approx\delta\left(0\right)$
+\end_inset
+
+ ist, aber eine Produkt von Distributionen wie 
+\begin_inset Formula $\left(\delta\left(0\right)\right)^{2}$
+\end_inset
+
+ nicht definiert ist.
+ Der einzige Beitrag, bei dem Impuls ausgetauscht wird, der also zur Streuung
+ beiträgt ist, ist der letzte Term.
+ Die Streuamplitude ist also:
+\begin_inset Formula 
+\begin{align*}
+-\ii\lambda\int\dd^{4}xD_{F}\left(x_{1}-x\right)D_{F}\left(x_{2}-x\right)D_{F}\left(x_{3}-x\right)D_{F}\left(x_{4}-x\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Beispiel: Der Elektron-Photon-Vertex
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[level/.style={level distance=1.7cm}]
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+draw[dashed, ->] (-0.6,1) -- node[above]{Zeit} (4,1);
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+path (0,0) node [position] {}     child [grow=east] {node [position] {}
+       child [grow=south] {node [position] {} node[below]{$x_3$} edge from
+ parent[photon] node[right]{$A_
+\backslash
+nu$}}       child [grow=east] {node [position] {} node[right]{$x_1$} edge
+ from parent[electron] node[above]{$e^-$}}       node[above]{$y$} edge from
+ parent[electron] node[above]{$e^-$}}     node[left]{$x_2$};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Feynman-Diagramm des Elektron-Photon-Vertex
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO: Rest überarbeiten
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+I & :=\BraKet{0|\TT\left\{ \psi_{j_{1}}\left(x_{1}\right)\overline{\psi}_{j_{2}}\left(x_{2}\right)\hat{A}_{\nu}\left(x_{3}\right)e^{-\ii\int\dd^{4}y\hat{\overline{\psi}}\left(y\right)q_{e}\hat{\slashd A}\left(y\right)\psi\left(y\right)}\right\} |0}\approx\\
+ & \stackrel{1\text{ trägt nicht bei}}{\approx}\int\dd^{4}y\BraKet{0|\TT\left\{ \psi_{j_{1}}\left(x_{1}\right)\overline{\psi}_{j_{2}}\left(x_{2}\right)\hat{A}_{\nu}\left(x_{3}\right)\overline{\psi}_{k_{2}}\left(y\right)\left(-\ii e\gamma^{\mu}\right)_{k_{2}k_{1}}\hat{\psi}_{k_{1}}\hat{A}_{\mu}\left(y\right)\right\} |0}=\\
+ & =\left(-\ii e\gamma^{\mu}\right)_{k_{2}k_{1}}\int\dd^{4}y\BraKet{0|\TT\left\{ \hat{A}_{\nu}\left(x_{3}\right)\hat{A}_{\mu}\left(y\right)\right\} |0}\left(-1\right)\cdot\\
+ & \qquad\cdot\BraKet{0|\TT\left\{ \psi_{j_{1}}\left(x_{1}\right)\overline{\psi}_{k_{2}}\left(x\right)\right\} |0}\left(-1\right)\BraKet{0|\TT\left\{ \psi_{k_{1}}\left(y\right)\overline{\psi}_{j_{2}}\left(x_{2}\right)\right\} |0}=\\
+ & =\left(-\ii e\gamma^{\mu}\right)_{k_{2}k_{1}}\int\ii D_{F\mu\nu}\left(x_{3}-y\right)\ii\left(S_{F}\left(x_{1}-y\right)\right)_{j_{1}k_{2}}\ii\left(S_{F}\left(y-x_{2}\right)\right)_{k_{1}j_{2}}\dd^{4}y
+\end{align*}
+
+\end_inset
+
+Das Tri-Level ist nicht divergent.
+\end_layout
+
+\begin_layout Standard
+TODO: Abb17
+\begin_inset Formula 
+\begin{align*}
+S_{F}\left(x_{1}-y\right) & =\int\frac{\dd^{4}p_{1}}{\left(2\pi\right)^{4}}e^{-\ii p_{1}\left(x_{1}-y\right)}\frac{\slashd p_{1}+m}{p_{1}^{2}-m^{2}+\ii\varepsilon}\\
+S_{F}\left(y-x_{2}\right) & =\int\frac{\dd^{4}p_{2}}{\left(2\pi\right)^{4}}e^{-\ii p_{2}\left(y-x_{2}\right)}\frac{\slashd p_{2}+m}{p_{2}^{2}-m^{2}+\ii\varepsilon}\\
+D_{F\mu\nu}\left(x_{3}-y\right) & =-\int\frac{\dd^{4}p_{3}}{\left(2\pi\right)^{4}}e^{-\ii p_{3}\left(x_{3}-y\right)}\frac{g_{\mu\nu}}{p_{3}^{2}+\ii\varepsilon}
+\end{align*}
+
+\end_inset
+
+Es folgt:
+\begin_inset Formula 
+\begin{align*}
+I & =\left(-\ii e\gamma^{\mu}\right)_{k_{2}k_{1}}\int\frac{\dd^{4}p_{1}\dd^{4}p_{2}\dd^{4}p_{3}}{\left(2\pi\right)^{12}}\underbrace{\int\dd^{4}ye^{-\ii y\left(-p_{1}+p_{2}-p_{3}\right)}}_{=\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{2}-p_{1}-p_{3}\right);\text{E-p-Erhaltung}}e^{-\ii p_{1}x_{2}}e^{-\ii p_{3}x_{3}}e^{\ii p_{2}x_{2}}\cdot\\
+ & \qquad\cdot\frac{g_{\mu\nu}}{p_{3}^{2}+\ii\varepsilon}\left(\frac{\slashd p_{1}+m}{p_{1}^{2}-m^{2}+\ii\varepsilon}\right)_{j_{1}k_{2}}\left(\frac{\slashd p_{2}+m}{p_{2}^{2}-m^{2}+\ii\varepsilon}\right)_{k_{1}j_{2}}=\\
+ & =\left(-\ii e\gamma^{\mu}\right)_{k_{2}k_{1}}\int\frac{\dd^{4}p_{2}\dd^{4}p_{3}}{\left(2\pi\right)^{8}}e^{-\ii\left(p_{2}-p_{3}\right)x_{2}}e^{-\ii p_{3}x_{3}}e^{\ii p_{2}x_{2}}\cdot\\
+ & \qquad\cdot\frac{g_{\mu\nu}}{p_{3}^{2}+\ii\varepsilon}\left(\frac{\slashd p_{2}-\slashd{p_{3}}+m}{\left(p_{2}-p_{3}\right)^{2}-m^{2}+\ii\varepsilon}\right)_{j_{1}k_{2}}\left(\frac{\slashd p_{2}+m}{p_{2}^{2}-m^{2}+\ii\varepsilon}\right)_{k_{1}j_{2}}
+\end{align*}
+
+\end_inset
+
+Der essentielle Teil ist also:
+\begin_inset Formula 
+\begin{align*}
+\frac{g_{\mu\nu}}{p_{3}^{2}+\ii\varepsilon}\left(\frac{\slashd p_{2}-\slashd{p_{3}}+m}{\left(p_{2}-p_{3}\right)^{2}-m^{2}+\ii\varepsilon}\left(-\ii e\gamma^{\mu}\right)\left(\frac{\slashd p_{2}+m}{p_{2}^{2}-m^{2}+\ii\varepsilon}\right)\right)_{j_{1}j_{2}}
+\end{align*}
+
+\end_inset
+
+Im Impulsraum:
+\end_layout
+
+\begin_layout Standard
+TODO: Abb18
+\begin_inset Formula 
+\begin{align*}
+\frac{\slashd p_{2}-\slashd p_{3}+m}{\left(p_{2}-p_{3}\right)^{2}-m^{2}+\ii\varepsilon}\ \bigg|\ \left(-\ii e\gamma^{\mu}\right)\ \bigg|\ \left(\frac{\slashd p_{2}+m}{p_{2}^{2}-m^{2}+\ii\varepsilon}\right)\ \bigg|\ \frac{g_{\mu\nu}}{p_{3}^{2}+\ii\varepsilon}
+\end{align*}
+
+\end_inset
+
+Diese Regeln im Impulsraum heißen 
+\emph on
+Feynman-Regeln
+\emph default
+.
+\end_layout
+
 \begin_layout Chapter
 Feynman-Regeln
+\end_layout
+
+\begin_layout Itemize
+Einlaufendes Teilchen: 
+\begin_inset Formula $u\left(\vec{p},s\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Auslaufendes Teilchen: 
+\begin_inset Formula $\overline{u}\left(\vec{p},s\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Einlaufendes Antiteilchen: 
+\begin_inset Formula $\overline{v}\left(\vec{p},s\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Auslaufendes Antiteilchen: 
+\begin_inset Formula $v\left(\vec{p},s\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Für ein einlaufendes Photon: 
+\begin_inset Formula $\epsilon^{\mu}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Für ein auslaufendes Photon: 
+\begin_inset Formula $\left(\epsilon^{\mu}\right)^{*}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Für jeden Elektron-Photon-Vertex: 
+\begin_inset Formula $-\ii e\gamma_{\mu}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Für jeden Fermion-Propagator (Linie): 
+\begin_inset Formula ${\displaystyle \ii\frac{\slashd p+m}{p^{2}-m^{2}+\ii\varepsilon}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Für jeden Photon-Propagator (Linie): 
+\begin_inset Formula ${\displaystyle -\ii\frac{g_{\mu\nu}-\frac{1-c}{c}\frac{q_{\mu}q_{\nu}}{q^{2}}}{q^{2}+\ii\varepsilon}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Fermion-Loops erhalten einen Faktor 
+\begin_inset Formula $\left(-1\right)$
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{align*}
+e^{-\ii\int\mathcal{H}_{I}\left(y\right)\dd^{4}y}\\
+ & \hat{\overline{\psi}}\left(y\right)\left(\hat{\slashd p}-e\slashd A-m\right)\left(\hat{\psi}\left(y\right)\hat{\overline{\psi}}\left(y'\right)\right)\left(\hat{\slashd p}-e\hat{\slashd A}\left(y'\right)-m\right)\hat{\psi}\left(y'\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+TODO: Abb19
+\begin_inset Formula 
+\begin{align*}
+\overline{\psi}_{j_{1}}\left(y\right)\left(e\slashd A\right)_{j_{1}j_{3}}\left(\psi_{j_{3}}\overline{\psi}_{j_{4}}\right)\left(e\slashd A\right)_{j_{4}j_{5}}\psi_{j_{5}}\left(y'\right) & \to\left(e\slashd A\right)_{j_{1}j_{3}}\left(\psi_{j_{3}}\overline{\psi}_{j_{4}}\right)\left(e\slashd A\right)_{j_{4}j_{5}}\psi_{j_{5}}\left(y'\right)\overline{\psi}_{j_{1}}\left(y\right)
+\end{align*}
+
+\end_inset
+
+Daher spielt die Reihenfolge bei komplizierten Loops keine Rolle.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%DATE: Mi 8.5.13
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Die Quantisierung des Photonenfeldes
+\end_layout
+
+\begin_layout Standard
+Wieviele Freiheitsgrade hat 
+\begin_inset Formula $A_{\mu}\left(x\right)$
+\end_inset
+
+, das heißt wie viele Erzeugungs- und Vernichtungsoperatoren muss man einführen?
+\end_layout
+
+\begin_layout Standard
+Die Plancksche Strahlungsformel ist mit der Anzahl 
+\begin_inset Formula $N$
+\end_inset
+
+ der Freiheitsgrade:
+\begin_inset Formula 
+\begin{align*}
+u\left(\omega\right) & =\frac{N}{2}\frac{\hbar}{c^{3}\pi^{2}}\frac{\omega^{3}}{e^{\frac{\hbar\omega}{k_{B}T}}-1}
+\end{align*}
+
+\end_inset
+
+Aus Messungen erhält man 
+\begin_inset Formula $N=2$
+\end_inset
+
+.
+ Ebenso weiß man aus der Optik, dass es zwei Polarisationsfreiheitsgrade
+ gibt.
+\end_layout
+
+\begin_layout Standard
+TODO: Abb20
+\end_layout
+
+\begin_layout Standard
+Naiv könnte man meinen, dass nur die transversalen Freiheitsgrade quantisiert
+ werden sollten.
+ Dafür benötigt man ein begleitendes Dreibein, was sehr unpraktisch ist.
+\end_layout
+
+\begin_layout Standard
+Wir quantisieren alle vier Freiheitsgrade und zeigen, dass die Beiträge
+ der beiden unphysikalischen Freiheitsgrade sich gegenseitig aufheben.
+ So können wir alles explizit Lorentz-invariant formulieren.
+\end_layout
+
+\begin_layout Standard
+Nebenbemerkung:
+\begin_inset Formula 
+\begin{align*}
+\frac{\partial\mathcal{L}}{\partial\left(\partial_{0}A^{0}\right)} & =0
+\end{align*}
+
+\end_inset
+
+Also verschwindet der kanonisch konjugierten Impuls, weshalb 
+\begin_inset Formula $A^{0}$
+\end_inset
+
+ keine Dynamik hat.
+\begin_inset Formula 
+\begin{align*}
+S & =\int\dd^{4}x\bigg(\underbrace{\frac{1}{2}\left(\vec{E}^{2}+\vec{B}^{2}\right)+\left(\partial^{0}\vec{A}\right)\cdot\vec{E}}_{=\sum_{i}\dot{q}_{i}p_{i}}-A^{0}\left(x\right)\left(\vec{\nabla}\cdot\vec{E}\right)\bigg)
+\end{align*}
+
+\end_inset
+
+Hier entspricht 
+\begin_inset Formula $\vec{A}\,\widehat{=}\,\vec{q}$
+\end_inset
+
+ und 
+\begin_inset Formula $\vec{E}\,\widehat{=}\,\vec{p}$
+\end_inset
+
+.
+ 
+\begin_inset Formula $A^{0}$
+\end_inset
+
+ ist analog zu einem Lagrangeparameter und 
+\begin_inset Formula $\vec{\nabla}\cdot\vec{E}$
+\end_inset
+
+ entspricht einer Zwangsbedingung.
+\end_layout
+
+\begin_layout Standard
+Zeige zunächst, dass die unphysikalischen Freiheitsgrade proportional zum
+ Impuls sind.
+ Aus der Lagrangedichte
+\begin_inset Formula 
+\begin{align*}
+\mathcal{L}\left(x\right) & =-\frac{1}{4}F_{\mu\nu}\left(x\right)F^{\mu\nu}\left(x\right)
+\end{align*}
+
+\end_inset
+
+folgt die Euler-Lagrange-Gleichung:
+\begin_inset Formula 
+\begin{align*}
+\partial_{\mu}\partial^{\mu}A^{\nu}\left(x\right)-\partial_{\mu}\partial^{\nu}A^{\mu}\left(x\right) & =0
+\end{align*}
+
+\end_inset
+
+Normalerweise wählt man hier die Lorentz-Eichung 
+\begin_inset Formula $\partial_{\mu}A^{\mu}=0$
+\end_inset
+
+ und erhält 
+\begin_inset Formula $\square A^{\nu}\left(x\right)=0$
+\end_inset
+
+.
+ Im Impulsraum heißt dies:
+\begin_inset Formula 
+\begin{align*}
+q^{0}A^{0}-\vec{q}\vec{A} & =0\\
+\Rightarrow\qquad A^{0}-\frac{\vec{q}}{q^{0}}\vec{A} & =0
+\end{align*}
+
+\end_inset
+
+Wir gehen nun ohne Eichung in den Impulsraum:
+\begin_inset Formula 
+\begin{align*}
+A^{\mu}\left(x\right) & =\int\frac{\dd^{4}q}{\left(2\pi\right)^{4}}e^{-\ii qx}A^{\mu}\left(q\right)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+q_{\mu}q^{\mu}A^{\nu}\left(q\right)-q_{\mu}q^{\nu}A^{\mu}\left(q\right) & =0
+\end{align*}
+
+\end_inset
+
+Ohne Beschränkung der Allgemeinheit sei 
+\begin_inset Formula $q^{1}=q^{2}=0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Fall: 
+\begin_inset Formula $q_{\mu}q^{\mu}=0=\left(q^{0}\right)^{2}-\left(q^{3}\right)^{2}$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+q_{\mu}q^{\nu}A^{\mu}\left(q\right) & =0
+\end{align*}
+
+\end_inset
+
+Für 
+\begin_inset Formula $\nu=0$
+\end_inset
+
+ kann man 
+\begin_inset Formula $q^{0}\not=0$
+\end_inset
+
+ heraus dividieren und erhält:
+\begin_inset Formula 
+\begin{align*}
+0 & =\left(\begin{array}{c}
+q^{0}\\
+0\\
+0\\
+q^{3}
+\end{array}\right)\left(\begin{array}{c}
+A^{0}\\
+-A^{1}\\
+-A^{2}\\
+-A^{3}
+\end{array}\right)=q^{0}A^{0}-q^{3}A^{3}
+\end{align*}
+
+\end_inset
+
+Aus 
+\begin_inset Formula $q^{0}=\pm q^{3}$
+\end_inset
+
+ folgt 
+\begin_inset Formula $A^{0}=\pm A^{3}$
+\end_inset
+
+.
+\begin_inset Formula 
+\begin{align*}
+\left(\begin{array}{c}
+A^{0}\left(q\right)\\
+0\\
+0\\
+A^{3}\left(q\right)
+\end{array}\right) & \sim\left(\begin{array}{c}
+q^{0}\\
+0\\
+0\\
+q^{3}
+\end{array}\right)\sim\left(\begin{array}{c}
+1\\
+0\\
+0\\
+\pm1
+\end{array}\right)
+\end{align*}
+
+\end_inset
+
+Der unphysikalische Anteil von 
+\begin_inset Formula $A^{\mu}$
+\end_inset
+
+ ist also proportional zu 
+\begin_inset Formula $q^{\mu}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Fall: 
+\begin_inset Formula $q_{\mu}q^{\mu}\not=0$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+A^{\nu}\left(q\right) & =q^{\nu}\underbrace{\frac{q^{\mu}A_{\mu}}{q_{\sigma}q^{\sigma}}}_{=:a\left(q\right)}=a\left(q\right)\cdot q^{\nu}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Behauptung: Die Eichinvarianz garantiert, dass alle Terme proportional zu
+ 
+\begin_inset Formula $q^{\nu}$
+\end_inset
+
+ keinen physikalischen Beitrag liefern.
+\end_layout
+
+\begin_layout Description
+Beweis: Allgemeiner Fall:
+\begin_inset Newline newline
+\end_inset
+
+TODO: Abb21
+\begin_inset Newline newline
+\end_inset
+
+Man erhält immer Terme folgender Art:
+\begin_inset Formula 
+\begin{align*}
+ & \sim\int\dd^{4}x_{1}\ldots\dd^{4}x_{n}A_{\mu_{1}}\left(x_{1}\right)A_{\mu_{2}}\left(x_{2}\right)\ldots A_{\mu_{n}}\left(x_{n}\right)W^{\mu_{1}\mu_{2}\ldots\mu_{n}}\left(x_{1},x_{2},\ldots\right)=\\
+ & \sr ={\text{Eichinvarianz}}{}\int\dd^{4}x_{1}\ldots\dd^{4}x_{n}\left(A_{\mu_{1}}\left(x_{1}\right)-\frac{\partial}{\partial x_{1}^{\mu_{1}}}\Lambda\left(x_{1}\right)\right)\cdot\ldots\cdot\\
+ & \qquad\cdot\left(A_{\mu_{n}}\left(x_{n}\right)-\frac{\partial}{\partial x_{n}^{\mu_{n}}}\Lambda\left(x_{n}\right)\right)W^{\mu_{1}\mu_{2}\ldots\mu_{n}}\left(x_{1},x_{2},\ldots,x_{n}\right)
+\end{align*}
+
+\end_inset
+
+Die Terme 
+\begin_inset Formula ${\displaystyle \frac{\partial}{\partial x_{i}^{\mu_{i}}}\Lambda\left(x_{i}\right)}$
+\end_inset
+
+ müssen Null liefern.
+ Nun führen wir eine partielle Integration nach 
+\begin_inset Formula $x_{i}^{\mu_{i}}$
+\end_inset
+
+ durch erhalten:
+\begin_inset Formula 
+\begin{align*}
+0 & =\frac{\partial}{\partial x_{1}^{\mu_{1}}}W^{\mu_{1}\ldots\mu_{n}}\left(x_{1},\ldots,x_{n}\right)=\frac{\partial}{\partial x_{2}^{\mu_{2}}}W^{\mu_{1}\ldots\mu_{n}}\left(x_{1},\ldots,x_{n}\right)=\ldots
+\end{align*}
+
+\end_inset
+
+Eine 
+\begin_inset Formula $n$
+\end_inset
+
+-fache Fouriertransformation liefert:
+\begin_inset Formula 
+\begin{align*}
+\left(q_{1}\right)_{\mu_{1}}W^{\mu_{1}\ldots\mu_{n}}\left(q_{1},\ldots,q_{n}\right) & =0
+\end{align*}
+
+\end_inset
+
+Spezialfall:
+\begin_inset Formula 
+\begin{align*}
+\partial_{\mu}j^{\mu}\left(x\right) & =0 & q_{\mu}j^{\mu}\left(q\right) & =0
+\end{align*}
+
+\end_inset
+
+TODO: Abb22
+\begin_inset Newline newline
+\end_inset
+
+Terme proportional zu 
+\begin_inset Formula $\left(q_{1}\right)_{\mu_{1}}$
+\end_inset
+
+ im Propagator tragen wegen
+\begin_inset Formula 
+\begin{align*}
+\left(q_{1}\right)_{\mu_{1}}W^{\mu_{1}\ldots\mu_{n}}\left(q_{1},\ldots,q_{n}\right) & =0
+\end{align*}
+
+\end_inset
+
+nicht bei.
+ In 
+\begin_inset Formula 
+\begin{align*}
+\BraKet{0|\TT\left\{ \hat{A}_{\mu}\left(x\right)\hat{A}_{\nu}\left(y\right)\right\} |0}
+\end{align*}
+
+\end_inset
+
+tragen Terme, die proportional zu 
+\begin_inset Formula $q^{\mu}$
+\end_inset
+
+ oder 
+\begin_inset Formula $q^{\nu}$
+\end_inset
+
+ sind, nicht bei.
+ Also ist in
+\begin_inset Formula 
+\begin{align*}
+\left(A^{\mu}\left(q\right)\right) & =\left(\begin{array}{c}
+0\\
+A^{1}\left(q\right)\\
+A^{2}\left(q\right)\\
+0
+\end{array}\right)+a\left(q\right)q^{\mu}
+\end{align*}
+
+\end_inset
+
+die Wahl von 
+\begin_inset Formula $a\left(q\right)$
+\end_inset
+
+ beliebig.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+qqed
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Für die ein- beziehungsweise auslaufenden Photonen bekommt man:
+\begin_inset Formula 
+\begin{align*}
+\sum_{\lambda}\epsilon^{\mu}\left(\vec{q},\lambda\right)\cdot\epsilon_{\mu}^{*}\left(\vec{q},\lambda\right)
+\end{align*}
+
+\end_inset
+
+Dabei sind:
+\begin_inset Formula 
+\begin{align*}
+\epsilon^{\mu}\left(\vec{q},1\right) & =\left(\begin{array}{c}
+0\\
+1\\
+0\\
+0
+\end{array}\right) & \epsilon^{\mu}\left(\vec{q},2\right) & =\left(\begin{array}{c}
+0\\
+0\\
+1\\
+0
+\end{array}\right) &  & \text{physikalisch}\\
+\epsilon^{\mu}\left(\vec{q},0\right) & =\left(\begin{array}{c}
+1\\
+0\\
+0\\
+0
+\end{array}\right) & \epsilon^{\mu}\left(\vec{q},3\right) & =\left(\begin{array}{c}
+0\\
+0\\
+0\\
+1
+\end{array}\right) &  & \text{unphysikalisch}
+\end{align*}
+
+\end_inset
+
+Nun gilt:
+\begin_inset Formula 
+\begin{align*}
+\sum_{\lambda}\epsilon^{\mu}\left(\vec{q},\lambda\right)\cdot\epsilon_{\mu}^{*}\left(\vec{q},\lambda\right) & =\sum_{\lambda}\epsilon^{\mu}\left(\vec{q},\lambda\right)\cdot\epsilon^{\mu'}\left(\vec{q},\lambda\right)g_{\mu\mu'}=\underbrace{+1-1}_{=0}-1-1
+\end{align*}
+
+\end_inset
+
+Auch hier kann man alle Polarisationsfreiheitsgrade mitnehmen.
+\begin_inset Formula 
+\begin{align*}
+\Rightarrow\qquad\sum_{\lambda}\frac{\epsilon^{\mu}\left(\vec{q},\lambda\right)\left(\epsilon^{\nu}\right)^{*}\left(\vec{q},\lambda\right)}{\epsilon^{\alpha}\left(\vec{q},\lambda\right)\epsilon_{\alpha}^{*}\left(\vec{q},\lambda\right)} & =g^{\mu\nu}
+\end{align*}
+
+\end_inset
+
+Damit wird das Rechnen viel einfacher!
+\end_layout
+
+\begin_layout Section
+Der Photon-Propagator
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\left(q_{\mu}q^{\mu}g^{\nu}\msd{\lambda}-q_{\lambda}q^{\nu}\right)A^{\lambda}\left(q\right) & =0\\
+\Rightarrow\qquad\left(q_{\mu}q^{\mu}g^{\nu}\msd{\lambda}-q_{\lambda}q^{\nu}\right)\left(D_{F}\left(q\right)\right)^{\lambda}\msd{\sigma} & =-g^{\nu}\msd{\sigma}+b\frac{q^{\nu}q_{\sigma}}{q_{\mu}q^{\mu}}
+\end{align*}
+
+\end_inset
+
+Der Term mit 
+\begin_inset Formula $b$
+\end_inset
+
+ kann hinzugefügt werden, da der Term proportional zu 
+\begin_inset Formula $q_{\sigma}$
+\end_inset
+
+ nichts beiträgt.
+ Nun müssen wir den Tensors auf der linken Seite invertieren.
+ Da 
+\begin_inset Formula $D_{F}\left(q\right)$
+\end_inset
+
+ nur vom 4-Vektor 
+\begin_inset Formula $q^{\lambda}$
+\end_inset
+
+ abhängt, ist aufgrund der Lorentz-Symmetrie der allgemeinste Ansatz, da
+ 
+\begin_inset Formula $\epsilon^{\lambda}\msd{\sigma\alpha\beta}q^{\alpha}q^{\beta}=0$
+\end_inset
+
+ ist:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align*}
+\left[D_{F}\left(q\right)\right]_{\sigma}^{\lambda} & =B\left(q^{2}\right)g^{\lambda}\msd{\sigma}+A\left(q^{2}\right)\frac{q^{\lambda}q_{\sigma}}{q^{2}}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\left(q^{2}g^{\nu}\msd{\lambda}-q_{\lambda}q^{\nu}\right)q^{\lambda}A\left(q^{2}\right)\frac{q_{\sigma}}{q^{2}} & =\left(q^{2}q^{\nu}-q^{2}q^{\nu}\right)A\left(q^{2}\right)\frac{q_{\sigma}}{q^{2}}=0
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\left(q^{2}g^{\nu}\msd{\lambda}-q_{\lambda}q^{\nu}\right)B\left(q^{2}\right)g^{\lambda}\msd{\sigma} & =\left(q^{2}g^{\nu}\msd{\sigma}-q_{\sigma}q^{\nu}\right)B\left(q^{2}\right)\stackrel{!}{=}-g^{\nu}\msd{\sigma}+b\frac{q^{\nu}q_{\sigma}}{q_{\mu}q^{\mu}}
+\end{align*}
+
+\end_inset
+
+Daher folgt 
+\begin_inset Formula $B\left(q^{2}\right)=-\frac{1}{q^{2}}$
+\end_inset
+
+ und 
+\begin_inset Formula $b=1$
+\end_inset
+
+.
+ Wählt man nun 
+\begin_inset Formula $A\left(q^{2}\right)=\frac{1-c}{c}$
+\end_inset
+
+ mit 
+\begin_inset Formula $c\in\mathbb{R}\setminus\left\{ 0\right\} $
+\end_inset
+
+ erhält man:
+\begin_inset Formula 
+\begin{align*}
+\left(D_{F}\left(q\right)\right)^{\lambda}\msd{\sigma} & =-\frac{g^{\lambda}\msd{\sigma}-\frac{1-c}{c}\frac{q^{\lambda}q_{\sigma}}{q^{2}}}{q^{2}+\ii\varepsilon}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%DATE: 8.5.13 (2.
+ Vorlesung)
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Chapter
 Elektron-Myon-Streuung
 \end_layout
 
+\begin_layout Standard
+TODO: Abb23
+\end_layout
+
+\begin_layout Standard
+Das Matrixelement ist nach den Feynmanregeln:
+\begin_inset Formula 
+\begin{align*}
+M & =\left(-\ii\right)^{2}\left(-q_{e}\right)\left(Q_{q}q_{e}\right)\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)\gamma_{\varrho}u_{e}\left(\vec{p}_{e},s_{e}\right)\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)\gamma_{\nu}u_{q}\left(\vec{p}_{q},s_{q}\right)\cdot\\
+ & \qquad\cdot\left(-\ii\right)\frac{g^{\rho\nu}}{\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon}\cdot\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)\frac{1}{\sqrt{2E_{e}2E_{e}'2E_{q}2E_{q}'}}=\\
+ & =\underbrace{\left(-\ii\right)q_{e}^{2}Q_{q}\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)\gamma_{\varrho}u_{e}\left(\vec{p}_{e},s_{e}\right)\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)\gamma_{\nu}u_{q}\left(\vec{p}_{q},s_{q}\right)\cdot\frac{g^{\rho\nu}}{\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon}\cdot}_{=:\mathcal{M}}\\
+ & \qquad\cdot\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)\frac{1}{\sqrt{2E_{e}2E_{e}'2E_{q}2E_{q}'}}=
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+1.
+ Schritt:
+\begin_inset Formula 
+\begin{align*}
+\abs M^{2} & =\abs{\mathcal{M}}^{2}\cdot\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)\frac{1}{2E_{e}2E_{e}'2E_{q}2E_{q}'}\left(2\pi\right)^{4}\underbrace{\delta^{\left(4\right)}\left(0\right)}_{=\text{n.def.}}
+\end{align*}
+
+\end_inset
+
+Das Problem ist, dass das Produkt von Distributionen nicht definiert ist.
+ Man interpretiert dieses 
+\begin_inset Quotes gld
+\end_inset
+
+
+\begin_inset Formula $\delta^{\left(4\right)}\left(0\right)$
+\end_inset
+
+
+\begin_inset Quotes grd
+\end_inset
+
+ wie folgt:
+\begin_inset Formula 
+\begin{align*}
+\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(q\right) & =\int_{-\infty}^{\infty}\dd^{4}xe^{-\ii xq}=\lim_{V,T\to\infty}\int_{V,T}\dd^{4}xe^{-\ii xq}\\
+\Rightarrow\qquad\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(0\right) & \,\widehat{=}\, VT
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\abs{\mathcal{M}}^{2} & =\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)\gamma_{\rho}u_{e}\left(\vec{p}_{e},s_{e}\right)\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)\gamma_{\rho'}u_{e}\left(\vec{p}_{e},s_{e}\right)\cdot\\
+ & \qquad\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)\gamma_{\nu}u_{q}\left(\vec{p}_{q},s_{q}\right)\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)\gamma_{\nu'}u_{q}\left(\vec{p}_{q},s_{q}\right)\cdot\\
+ & \qquad\cdot g^{\varrho\nu}g^{\varrho'\nu'}\cdot\frac{1}{\left(\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon\right)}q_{e}^{4}Q_{q}^{2}=\\
+ & =\text{tr}\left(\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)\gamma_{\rho}u_{e}\left(\vec{p}_{e},s_{e}\right)\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)\gamma_{\rho'}u_{e}\left(\vec{p}_{e},s_{e}\right)\right)\cdot\\
+ & \qquad\text{tr}\left(\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)\gamma_{\nu}u_{q}\left(\vec{p}_{q},s_{q}\right)\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)\gamma_{\nu'}u_{q}\left(\vec{p}_{q},s_{q}\right)\right)\cdot\\
+ & \qquad\cdot g^{\varrho\nu}g^{\varrho'\nu'}\cdot\frac{1}{\left(\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon\right)}q_{e}^{4}Q_{q}^{2}=\\
+ & =\text{tr}\left(\gamma_{\rho}u_{e}\left(\vec{p}_{e},s_{e}\right)\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)\gamma_{\rho'}u_{e}\left(\vec{p}_{e},s_{e}\right)\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)\right)\cdot\\
+ & \qquad\text{tr}\left(\gamma_{\nu}u_{q}\left(\vec{p}_{q},s_{q}\right)\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)\gamma_{\nu'}u_{q}\left(\vec{p}_{q},s_{q}\right)\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)\right)\cdot\\
+ & \qquad\cdot g^{\varrho\nu}g^{\varrho'\nu'}\cdot\frac{1}{\left(\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon\right)}q_{e}^{4}Q_{q}^{2}=\\
+ & =\text{tr}\left(\gamma_{\rho}\left(\slashd p_{e}+m_{e}\right)\frac{1+\gamma_{5}\slashd s_{e}}{2}\gamma_{\rho'}\left(\slashd p_{e}'+m_{e}\right)\frac{1+\gamma_{5}\slashd s_{e}'}{2}\right)\cdot\\
+ & \qquad\text{tr}\left(\gamma^{\rho}\left(\slashd p_{q}+m_{q}\right)\frac{1+\gamma_{5}\slashd s_{q}}{2}\gamma^{\rho'}\left(\slashd p_{q}'+m_{q}\right)\frac{1+\gamma_{5}\slashd s_{q}'}{2}\right)\cdot\\
+ & \qquad\cdot\frac{1}{\left(\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon\right)}q_{e}^{4}Q_{q}^{2}
+\end{align*}
+
+\end_inset
+
+Unpolarisiert (Summiere über Endkanäle und mittle über Anfangskanäle):
+\begin_inset Formula 
+\begin{align*}
+I_{1}:=\frac{1}{4}\sum_{s_{e},s_{q}}\sum_{s_{q}',s_{e}'}\abs{\mathcal{M}}^{2} & =\text{tr}\left(\gamma_{\rho}\left(\slashd p_{e}+m_{e}\right)\underbrace{\left(\sum_{s_{e}\in\left\{ \pm\right\} }\frac{1+\gamma_{5}\slashd s_{e}}{2}\right)}_{=\mathbbm{1}}\gamma_{\rho'}\left(\slashd p_{e}'+m_{e}\right)\sum_{s_{e}'}\frac{1+\gamma_{5}\slashd s_{e}'}{2}\right)\cdot\\
+ & \qquad\text{tr}\left(\gamma^{\rho}\left(\slashd p_{q}+m_{q}\right)\sum_{s_{q}}\frac{1+\gamma_{5}\slashd s_{q}}{2}\gamma^{\rho'}\left(\slashd p_{q}'+m_{q}\right)\sum_{s_{q}'}\frac{1+\gamma_{5}\slashd s_{q}'}{2}\right)\cdot\\
+ & \qquad\cdot\frac{q_{e}^{4}Q_{q}^{2}}{4\left(\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon\right)}=\\
+ & =\frac{q_{e}^{4}Q_{q}^{2}}{4\left(\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon\right)}\text{tr}\left(\gamma_{\rho}\left(\slashd p_{e}+m_{e}\right)\gamma_{\rho'}\left(\slashd p_{e}'+m_{e}\right)\right)\cdot\\
+ & \qquad\cdot\text{tr}\left(\gamma_{\rho}\left(\slashd p_{q}+m_{q}\right)\gamma_{\rho'}\left(\slashd p_{q}'+m_{q}\right)\right)
+\end{align*}
+
+\end_inset
+
+Nun nähern wir 
+\begin_inset Formula $m_{e}\approx0\approx m_{q}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\text{tr}\left(\gamma_{\rho}\slashd p_{e}\gamma_{\rho'}\slashd p_{e}'\right) & =4\left(p_{e,\rho}p_{e,\rho'}'-g_{\rho\rho'}p_{e}\cdot p_{e}'+p_{e,\rho}'p_{e,\rho'}\right)
+\end{align*}
+
+\end_inset
+
+Also folgt:
+\begin_inset Formula 
+\begin{align*}
+I_{1} & =\frac{q_{e}^{4}Q_{q}^{2}}{4\left(\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon\right)}\cdot16\left(p_{e,\rho}p_{e,\rho'}'-g_{\rho\rho'}p_{e}\cdot p_{e}'+p_{e,\rho}'p_{e,\rho'}\right)\left(p_{q}^{\rho}p_{q}^{\rho'}{}'-g^{\rho\rho'}p_{q}\cdot p_{q}'+p_{q}^{\rho}p_{q}^{\rho'}\right)=\\
+ & =\frac{4q_{e}^{4}Q_{q}^{2}}{\left(\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon\right)}\left(2p_{e}p_{q}p_{e}'p_{q}'-2p_{e}\cdot p_{e}'p_{q}p_{q}'+2p_{e}p_{q}'p_{e}'p_{q}-2p_{q}p_{q}'p_{e}p_{e}'+4p_{e}p_{e}'p_{q}p_{q}'\right)=\\
+ & =\frac{4q_{e}^{4}Q_{q}^{2}}{\left(\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon\right)}\left(2p_{e}p_{q}p_{e}'p_{q}'+2p_{e}p_{q}'p_{e}'p_{q}\right)
+\end{align*}
+
+\end_inset
+
+Führe nun die 
+\emph on
+Mandelstamm-Variablen
+\emph default
+ ein:
+\begin_inset Newline newline
+\end_inset
+
+TODO: Abb24
+\begin_inset Formula 
+\begin{align*}
+s & =\left(p_{e}+p_{q}\right)^{2}\sr ={m\approx0}{}2p_{e}p_{q}=\left(p_{e}'+p_{q}'\right)^{2}=2p_{e}'p_{q}'\\
+t & =\left(p_{e}-p_{e}'\right)^{2}\sr ={m\approx0}{}-2p_{e}p_{e}'=\left(p_{q}-p_{q}'\right)^{2}=-2p_{q}p_{q}'\\
+u & =\left(p_{e}-p_{q}'\right)^{2}\sr ={m\approx0}{}-2p_{e}p_{q}'=\left(p_{q}'-p_{e}\right)^{2}=-2p_{e}'p_{q}
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+s+t+u & =0
+\end{align*}
+
+\end_inset
+
+Damit folgt:
+\begin_inset Formula 
+\begin{align*}
+I_{1} & =\frac{2q_{e}^{4}Q_{q}^{2}}{t^{2}}\left(s^{2}+u^{2}\right)
+\end{align*}
+
+\end_inset
+
+Das heißt:
+\begin_inset Formula 
+\begin{align*}
+\frac{1}{4}\sum_{\sr{}{s_{e},s_{q}}{s_{q}',s_{e}'}}\abs M^{2} & =2q_{e}^{4}Q_{q}^{2}\cdot\frac{s^{2}+u^{2}}{t^{2}}\frac{1}{2E_{e}2E_{e'}2E_{q}2E_{q'}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)VT
+\end{align*}
+
+\end_inset
+
+Das Quark sei auf einer Fläche 
+\begin_inset Formula $A$
+\end_inset
+
+ lokalisiert.
+\end_layout
+
+\begin_layout Standard
+TODO: Abb25
+\end_layout
+
+\begin_layout Standard
+Wir betrachten zunächst die Wahrscheinlichkeit, dass ein Elektron in der
+ Beobachtungszeit 
+\begin_inset Formula $T$
+\end_inset
+
+ die Fläche 
+\begin_inset Formula $A$
+\end_inset
+
+ trifft, ist:
+\begin_inset Formula 
+\begin{align*}
+{\displaystyle \frac{TvA}{V}}
+\end{align*}
+
+\end_inset
+
+Die Wahrscheinlichkeit, dass, wenn das Elektron die Fläche 
+\begin_inset Formula $A$
+\end_inset
+
+ trifft, die gewünschte Reaktion erfolgt, ist mit dem Wirkungsquerschnitt
+ 
+\begin_inset Formula $\sigma$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\frac{\sigma}{A}
+\end{align*}
+
+\end_inset
+
+Die Gesamtwahrscheinlichkeit ist somit:
+\begin_inset Formula 
+\begin{align*}
+\frac{TvA}{V}\cdot\frac{\sigma}{A} & =\frac{Tv\sigma}{V}\stackrel{!}{=}\underbrace{V^{2}\int\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}}}_{\text{Diskterisierung der Impulsintegrale}}\frac{1}{4}\sum_{\sr{}{s_{e},s_{q}}{s_{q}',s_{e}'}}\abs M^{2}\cdot\underbrace{\frac{1}{V^{4}}}_{\text{andere Normierung von }\psi}
+\end{align*}
+
+\end_inset
+
+Die Normierung ist:
+\begin_inset Formula 
+\begin{align*}
+\int_{V}\dd^{3}x\overline{\psi}\psi & =1
+\end{align*}
+
+\end_inset
+
+Gehe nun von 
+\begin_inset Formula $\psi$
+\end_inset
+
+ über zu 
+\begin_inset Formula $\frac{1}{\sqrt{V}}\psi$
+\end_inset
+
+.
+ Aus der Diskretisierung der Impulsintegrale folgt:
+\begin_inset Formula 
+\begin{align*}
+V\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}} & \leftrightarrow\sum_{\vec{p}}
+\end{align*}
+
+\end_inset
+
+Es folgt:
+\begin_inset Formula 
+\begin{align*}
+\sigma & =\frac{1}{vTV}\int\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}}\frac{1}{4}\sum_{\sr{}{s_{e},s_{q}}{s_{q}',s_{e}'}}\abs M^{2}=\\
+ & =\frac{1}{v}\int\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}16E_{e}E_{e}'E_{q}E_{q}'}q_{e}^{4}Q_{q}^{2}2\frac{s^{2}+u^{2}}{t^{2}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)=\\
+ & =\frac{1}{v}\int\frac{\dd^{3}p_{e}'}{\left(4\pi\right)^{2}}4q_{e}^{4}Q_{q}^{2}2\frac{s^{2}+u^{2}}{t^{2}}\frac{1}{16E_{e}E_{e}'E_{q}E_{q}'}\delta\left(E_{e}+E_{q}-\sqrt{\left(\vec{p}_{e}'\right)^{2}}-\sqrt{\left(\vec{p}_{e}+\vec{p}_{q}-\vec{p}_{e}'\right)^{2}}\right)
+\end{align*}
+
+\end_inset
+
+Dies sollte Lorentz-invariant sein.
+\begin_inset Formula 
+\begin{align*}
+v\cdot2E_{e}E_{q} & \sr ={v_{q}=0}{}\left(v_{e}+v_{q}\right)2E_{e}E_{q}=2\left(p_{e}E_{q}+p_{q}E_{e}\right)
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\left(p_{e}\cdot p_{q}\right)^{2}-m_{e}^{2}m_{q}^{2} & =\left(E_{e}E_{q}+\norm{\vec{p}_{e}}\norm{\vec{p}_{q}}\right)^{2}-\left(E_{e}^{2}-\norm{\vec{p}_{e}}^{2}\right)\left(E_{q}^{2}-\norm{\vec{p}_{q}}^{2}\right)=\\
+ & =2\norm{\vec{p}_{e}}\norm{\vec{p}_{q}}E_{e}E_{q}+\norm{\vec{p}_{e}}^{2}E_{q}^{2}+\norm{\vec{p}_{q}}^{2}E_{e}^{2}=\\
+ & =\left(\norm{\vec{p}_{e}}E_{q}+\norm{\vec{p}_{q}}E_{e}\right)^{2}
+\end{align*}
+
+\end_inset
+
+Also gilt:
+\begin_inset Formula 
+\begin{align*}
+v\cdot2E_{e}E_{q} & =2\sqrt{\left(p_{e}\cdot p_{q}\right)^{2}-m_{e}^{2}m_{q}^{2}}
+\end{align*}
+
+\end_inset
+
+Damit folgt:
+\begin_inset Formula 
+\begin{align*}
+\sigma & =\frac{q_{e}^{4}Q_{q}^{2}}{2\sqrt{\left(p_{e}\cdot p_{q}\right)^{2}}}\int\frac{\dd^{3}p_{e}'}{\left(4\pi\right)^{2}}\frac{s^{2}+u^{2}}{t^{2}}\frac{1}{E_{e}'E_{q}'}\delta\left(E_{e}+E_{q}-\sqrt{\left(\vec{p}_{e}'\right)^{2}}-\sqrt{\left(\vec{p}_{e}+\vec{p}_{q}-\vec{p}_{e}'\right)^{2}}\right)\\
+\dd\sigma & \sr ={\alpha=\frac{e^{2}}{4\pi}}{}4\alpha^{2}Q_{q}^{2}\frac{\dd^{3}p_{e}'}{2E_{e}'}\frac{s^{2}+u^{2}}{st^{2}}\frac{1}{2E_{q}'}\delta\left(E_{e}+E_{q}-E_{e}'-E_{q}'\right)
+\end{align*}
+
+\end_inset
+
+Daher ist 
+\begin_inset Formula $\dd\sigma$
+\end_inset
+
+ Lorenzt-invariant, weil 
+\begin_inset Formula $\frac{1}{E'}\delta\left(E\right)$
+\end_inset
+
+ Lorentz-invariant ist.
+ Dann kann man in das Schwerpunkt-Bezugssystem mit 
+\begin_inset Formula $E_{q}=E_{e}=E_{q}'=E_{e}'$
+\end_inset
+
+ übergehen.
+ Dort kann man es explizit Lorentz-invariant schreiben.
+ Das Endergebnis ist:
+\begin_inset Formula 
+\begin{align*}
+\dd\sigma & =\frac{\left(2\pi\right)^{4}\abs{\mathcal{M}}^{2}}{4\sqrt{\left(p_{1}p_{2}\right)^{2}-m_{1}^{2}m_{2}^{2}}}\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{4}2E_{e}'2E_{q}'}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)
+\end{align*}
+
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%DATE: Mo 13.5.13
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Allgemeine Formel für 
+\begin_inset Formula $2\to n$
+\end_inset
+
+ Prozesse:
+\begin_inset Formula 
+\begin{align*}
+\dd\sigma & =\frac{1}{4\sqrt{\left(p_{1}\cdot p_{2}\right)^{2}-m_{1}^{2}m_{2}^{2}}}\abs{\mathcal{M}}^{2}\underbrace{\left(2\pi\right)^{4}\delta^{4}\left(p_{1}+p_{2}-p_{3}-\ldots-p_{n}\right)\prod_{j=3}^{n+2}\frac{\dd^{3}p_{j}}{\left(2\pi\right)^{3}\cdot2E_{j}}}_{\text{Lorentz-invariantes Phasenraumelement}}
+\end{align*}
+
+\end_inset
+
+Zur Berechnung von 
+\begin_inset Formula $\abs{\mathcal{M}}$
+\end_inset
+
+ verwendet man die Feynman-Diagramme.
+\end_layout
+
+\begin_layout Standard
+TODO: Abb26
+\end_layout
+
+\begin_layout Standard
+Beispiel:
+\end_layout
+
+\begin_layout Standard
+TODO: Abb27, Abb28
+\end_layout
+
+\begin_layout Standard
+Compton-Streuung:
+\end_layout
+
+\begin_layout Standard
+TODO: Abb29
+\end_layout
+
+\begin_layout Standard
+Dieses 
+\begin_inset Formula $\abs{\mathcal{M}}^{2}$
+\end_inset
+
+ kann man durch Crossing für folgenden Prozess verwenden:
+\end_layout
+
+\begin_layout Standard
+TODO: Abb30
+\end_layout
+
+\begin_layout Standard
+Wir hatten für die Elektron-Quark-Streuung:
+\begin_inset Formula 
+\begin{align*}
+\sigma & =4\alpha^{2}Q_{q}^{2}\int\frac{\dd^{3}p_{e}'\delta\left(E_{e}+E_{q}-\sqrt{\left(\vec{p}_{e}'\right)^{2}}-\sqrt{\left(\vec{p}_{e}+\vec{p}_{q}-\vec{p}_{e}'\right)^{2}}\right)}{2\underbrace{\sqrt{\left(\vec{p}_{e}'\right)^{2}}}_{=E_{e}'}2\underbrace{\sqrt{\left(\vec{p}_{e}+\vec{p}_{q}-\vec{p}_{e}'\right)^{2}}}_{=E_{q}'}}\cdot\frac{s^{2}+u^{2}}{st^{2}}
+\end{align*}
+
+\end_inset
+
+Zur Vereinfachung kann man wegen der Lorentz-Invarianz diesen Ausdruck in
+ einem besonders günstigen Bezugssystem den Ausdruck weiter vereinfachen
+ und dann wieder Lorentz-invariant schreiben.
+ Wir wählen das Schwerpunktsystem (engl.
+ 
+\lang english
+center of mass system, cms
+\lang ngerman
+).
+\begin_inset Formula 
+\begin{align*}
+\vec{p}_{e}+\vec{p}_{q} & =0=\vec{p}_{e}'+\vec{p}_{q}'
+\end{align*}
+
+\end_inset
+
+TODO: Abb31
+\begin_inset Formula 
+\begin{align*}
+\sigma & =4\alpha^{2}Q_{q}^{2}\int\frac{\dd\varphi\dd\left(\cos\left(\vartheta\right)\right)\dd\norm{\vec{p}_{e}'}\cdot\norm{\vec{p}_{e}'}^{2}}{4E^{2}}\delta\left(2E-2\sqrt{\left(\vec{p}_{e}'\right)^{2}}\right)\cdot\frac{s^{2}+u^{2}}{st^{2}}=\\
+ & =4\alpha^{2}Q_{q}^{2}\frac{1}{8}\cdot2\pi\int\dd\left(\cos\left(\vartheta\right)\right)\frac{s^{2}+u^{2}}{st^{2}}=\pi\alpha^{2}Q_{q}^{2}\int\dd\left(\cos\left(\vartheta\right)\right)\frac{s^{2}+u^{2}}{st^{2}}
+\end{align*}
+
+\end_inset
+
+Mit (Masse wird vernachlässigt)
+\begin_inset Formula 
+\begin{align*}
+t & =\left(p_{e}-p_{e}'\right)^{2}=-2p_{e}p_{e}'=-2E^{2}\left(1-\cos\left(\vartheta\right)\right)\\
+s & =\left(p_{e}+p_{q}\right)^{2}=\left(2E\right)^{2}=4E^{2}\\
+\Rightarrow\qquad t & =-\frac{s}{2}\left(1-\cos\left(\vartheta\right)\right)\\
+\dd t & =\frac{s}{2}\dd\cos\left(\vartheta\right)
+\end{align*}
+
+\end_inset
+
+folgt:
+\begin_inset Formula 
+\begin{align}
+\fbox{\ensuremath{{\displaystyle \frac{\dd\sigma}{\dd t}=2\pi\alpha^{2}Q_{q}^{2}\frac{s^{2}+u^{2}}{s^{2}t^{2}}}}}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Chapter
-Pauli-Villars-Regularisierung (Renormierung)
+Renormierung, Regularisierung und die Vakuumpolarisation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Chapter
+Pauli-Villars-Regularisierun
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+TODO: Abb32
+\end_layout
+
+\begin_layout Standard
+Das Wicksche Theorem liefert in zweiter Ordnung:
+\begin_inset Formula 
+\begin{align*}
+M & =\int\dd^{4}y\dd^{4}ze^{\ii qy}e^{-\ii\tilde{q}z}\cdot\frac{1}{2}q_{e}^{2}\int\dd^{4}x_{1}\dd^{4}x_{2}\left(-\ii\right)^{2}\cdot\\
+ & \qquad\cdot\BraKet{0|\TT\left\{ \hat{A}_{\mu}\left(y\right)\hat{A}_{\nu}\left(z\right)\hat{A}^{\rho}\left(x_{1}\right)\hat{\overline{\psi}_{j}}\left(x_{1}\right)\left(\gamma_{\rho}\right)_{jk}\hat{\psi}_{k}\left(x_{1}\right)\hat{A}^{\lambda}\left(x_{2}\right)\hat{\overline{\psi}_{j}}\left(x_{2}\right)\left(\gamma_{\lambda}\right)_{lm}\hat{\psi}_{m}\left(x_{2}\right)\right\} |0}=\\
+ & =\int\dd^{4}y\dd^{4}ze^{\ii qy}e^{-\ii\tilde{q}z}\cdot\frac{-1}{2}q_{e}^{2}\int\dd^{4}x_{1}\dd^{4}x_{2}\cdot\bigg\langle0\bigg|\TT\bigg\{\hat{A}_{\mu}\left(y\right)\hat{A}_{\nu}\left(z\right)\hat{A}^{\rho}\left(x_{1}\right)\left(-1\right)\\
+ & \qquad\cdot\text{tr}\left(\left(\gamma_{\rho}\right)_{jk}\hat{\psi}_{k}\left(x_{1}\right)\hat{A}^{\lambda}\left(x_{2}\right)\hat{\overline{\psi}_{j}}\left(x_{2}\right)\left(\gamma_{\lambda}\right)_{lm}\hat{\psi}_{m}\left(x_{2}\right)\hat{\overline{\psi}_{j}}\left(x_{1}\right)\right)\bigg\}\bigg|0\bigg\rangle=\\
+ & =q_{e}^{2}\int\dd^{4}y\dd^{4}z\dd^{4}x_{1}\dd^{4}x_{2}\cdot\ii D_{F\mu}\msu{\rho}\left(y-x_{1}\right)\ii D_{F\nu}\msu{\lambda}\left(z-x_{2}\right)\ii\left(S_{F}\left(x_{2}-x_{1}\right)\right)_{mj}\left(\gamma_{\rho}\right)_{jk}\cdot\\
+ & \qquad\cdot\ii\left(S_{F}\left(x_{1}-x_{2}\right)\right)_{kl}\left(\gamma_{\lambda}\right)_{lm}e^{-\ii\tilde{q}z+\ii qy}+\text{irrelevante Terme}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Beispiel für irrelevanten Term:
+\end_layout
+
+\begin_layout Standard
+TODO: Abb33
+\end_layout
+
+\begin_layout Standard
+Ersetze die Größen durch ihre Fourier-Transformierten:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{align*}
+M & =q_{e}^{2}\int\dd^{4}y\dd^{4}z\dd^{4}x_{1}\dd^{4}x_{2}\cdot\int\frac{\dd^{4}q'}{\left(2\pi\right)^{4}}\int\frac{\dd^{4}q''}{\left(2\pi\right)^{4}}D_{F\mu}\msu{\rho}\left(q'\right)D_{F\nu}\msu{\lambda}\left(q''\right)e^{-\ii z\left(\tilde{q}+q''\right)}e^{-\ii\left(q'-q\right)y}\cdot\\
+ & \qquad\cdot\int\frac{\dd^{4}k'}{\left(2\pi\right)^{4}}\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\text{tr}\left(S_{F}\left(k'\right)\gamma_{\rho}S_{F}\left(k\right)\gamma_{\lambda}\right)e^{-\ii x_{1}\left(k-q'-k'\right)}e^{-\ii x_{2}\left(k'-k-q''\right)}=\\
+ & =q_{e}^{2}\int\dd^{4}x_{2}D_{F\mu}\msu{\rho}\left(q\right)D_{F\nu}\msu{\lambda}\left(\tilde{q}\right)\cdot\\
+ & \qquad\cdot\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\text{tr}\left(S_{F}\left(k'\right)\gamma_{\rho}S_{F}\left(k\right)\gamma_{\lambda}\right)\left(2\pi\right)^{4}\delta\left(k-q'-k'\right)e^{-\ii x_{2}\left(-q+\tilde{q}\right)}=
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Betrachte nun den inneren Teil:
+\begin_inset Formula 
+\begin{align*}
+\tilde{M} & =q_{e}^{2}\int\dd^{4}x_{1}\dd^{4}x_{2}e^{-\ii\tilde{q}x_{1}+\ii qx_{2}}\ii\left(S_{F}\left(x_{2}-x_{1}\right)\right)_{jm}\left(\gamma_{\rho}\right)_{jk}\ii\left(S_{F}\left(x_{1}-x_{2}\right)\right)_{kl}\left(\gamma_{\lambda}\right)_{lm}=\\
+ & =-q_{e}^{2}\int\dd^{4}x_{1}\dd^{4}x_{2}\int\frac{\dd^{4}k'}{\left(2\pi\right)^{4}}\frac{\dd^{4}k}{\left(2\pi\right)^{4}}e^{-\ii\tilde{q}x_{1}+\ii qx_{2}}\text{tr}\left(S_{F}\left(k'\right)\gamma_{\rho}S_{F}\left(k\right)\gamma_{\lambda}\right)e^{-\ii\left(x_{2}-x_{1}\right)k}e^{-\ii\left(x_{1}-x_{2}\right)k'}=\\
+ & =-q_{e}^{2}\int\frac{\dd^{4}k'}{\left(2\pi\right)^{4}}\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(k-k'-\tilde{q}\right)\left(2\pi\right)^{4}\delta^{\left(4\right)}\big(q+\underbrace{k-k'}_{=-\tilde{q}}\big)\text{tr}\left(S_{F}\left(k'\right)\gamma_{\rho}S_{F}\left(k\right)\gamma_{\lambda}\right)=\\
+ & =-q_{e}^{2}\delta^{\left(4\right)}\left(q-\tilde{q}\right)\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\text{tr}\left(S_{F}\left(k-q\right)\gamma_{\rho}S_{F}\left(k\right)\gamma_{\lambda}\right)
+\end{align*}
+
+\end_inset
+
+Ein Integral ist übrig geblieben, das heißt der im Kreis laufende Impuls
+ 
+\begin_inset Formula $k$
+\end_inset
+
+ kann beliebige Werte annehmen.
+ Es folgt:
+\begin_inset Formula 
+\begin{align*}
+\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\text{tr}\left(\frac{\slashd k-\slashd q+m}{\left(k-q\right)^{2}-m^{2}+\ii\varepsilon}\gamma_{\rho}\frac{\slashd k+m}{k^{2}-m^{2}+\ii\varepsilon}\gamma_{\lambda}\right) & \sim\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\cdot\frac{g_{\varrho\lambda}k^{2}}{\left(\left(k-q\right)^{2}-m^{2}+\ii\varepsilon\right)\left(k^{2}-m^{2}+\ii\varepsilon\right)}
+\end{align*}
+
+\end_inset
+
+Dies ist quadratisch divergent! Selbst der Term
+\begin_inset Formula 
+\begin{align*}
+\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\frac{m^{2}}{\left(\left(k-q\right)^{2}-m^{2}+\ii\varepsilon\right)\left(k^{2}-m^{2}+\ii\varepsilon\right)}
+\end{align*}
+
+\end_inset
+
+ist logarithmisch divergent.
+\end_layout
+
+\begin_layout Standard
+Typen von Diergenzen:
+\end_layout
+
+\begin_layout Enumerate
+quadratisch divergent: TODO: Abb34
+\begin_inset Newline newline
+\end_inset
+
+Wird als Null definiert, da sie sonst die Eichinvarianz verletzen.
+\end_layout
+
+\begin_layout Enumerate
+linear divergent: TODO: Abb35
+\begin_inset Formula 
+\begin{align*}
+\sim\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\frac{\left(\slashd k\right)^{3}}{\left(k^{2}\right)^{3}}
+\end{align*}
+
+\end_inset
+
+Ist 0 in der QED und führt zu einer Anomalie in der Schwachen Wechselwirkung.
+\end_layout
+
+\begin_layout Enumerate
+logarithmisch divergent: TODO: Abb36
+\end_layout
+
+\begin_layout Enumerate
+TODO: Abb37;
+\begin_inset Formula 
+\begin{align*}
+\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\frac{1}{k^{2}-M^{2}+\ii\varepsilon}\frac{1}{\left(k-q\right)^{2}-M^{2}+\ii\varepsilon}
+\end{align*}
+
+\end_inset
+
+logarithmisch divergent
+\end_layout
+
+\begin_layout Enumerate
+TODO: Abb38
+\begin_inset Formula 
+\begin{align*}
+\int\frac{\dd^{4}k}{\left(2\pi\right)^{k}}\frac{\slashd k+m}{k^{2}-m^{2}+\ii\varepsilon}\frac{1}{\left(k-q\right)^{2}-M^{2}+\ii\varepsilon}
+\end{align*}
+
+\end_inset
+
+Terme mit ungerader 
+\begin_inset Formula $k$
+\end_inset
+
+-Potenz verschwinden, da über einen symmetrischen Bereich integriert wird.
+ Es bleibt eine logarithmische Divergenz.
+\end_layout
+
+\begin_layout Standard
+Die logarithmischen Divergenzen kann man renormieren.
 \end_layout
 
 \begin_layout Chapter
