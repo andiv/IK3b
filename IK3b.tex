@@ -393,7 +393,7 @@ out of or related to this license or any use of or inability to use
 the Document, even if they have been advised of the possibility of
 such damages.}
 
-\textbf{\noun{In no event will the Copyright Holders'/Distributor's
+\textbf{\noun{In no event will the Copyright Holders'/Distributors'
 liability to you}}\noun{, whether in contract, tort (including negligence),
 or otherwise, }\textbf{\noun{exceed the amount you paid the Copyright
 Holders/Distributor}}\noun{ for the document under this agreement.}
@@ -423,6 +423,9 @@ heruntergeladen werden.
 
 \subsection*{Literatur}
 \begin{itemize}
+\item \noun{Michael E. Peskin, Daniel V. Schroeder}: \foreignlanguage{english}{\emph{An
+Introduction to Quantum Field Theory}}; Westview Press, 1995; ISBN:
+978-0-201-50397-5
 \item \noun{Andreas Schäfer, Florian Rappl}: \foreignlanguage{english}{\emph{Quantum
 electrodynamics}}; 2010\\
 \url{http://www-nw.uni-regensburg.de/~sca14496/QED/Quantenelektrodynamik.pdf}
@@ -1841,7 +1844,7 @@ da man jetzt bereits von Anfang an den Limes $m\to0$ bilden kann
 und nicht erst ganz am Ende.
 
 
-\chapter{Kanonische Quantisierung \texorpdfstring{$\hat{b}^{\dagger},\hat{d}^{\dagger},\hat{b},\hat{d}$}{}}
+\chapter{Kanonische Quantisierung}
 
 \emph{Quantisierung} ist ein Satz von Regeln, der die korrekten Greenschen
 Funktionen liefert.
@@ -1916,6 +1919,42 @@ Die \emph{kanonische Quantisierung} definieren wir wie folgt:
 \hat{\psi}\left(x\right) & :=\sum_{s\in\left\{ \pm\right\} }\int_{\mathbb{R}^{3}}\frac{\dd^{3}p}{\left(2\pi\right)^{3}\cdot2E_{p}}\left(\hat{b}\left(\vec{p},s\right)u\left(\vec{p},s\right)e^{-\ii px}+\hat{d}^{\dagger}\left(\vec{p},s\right)v\left(\vec{p},s\right)e^{\ii px}\right)\\
 \hat{\psi}^{\dagger}\left(x\right)\gamma_{0} & :=\sum_{s\in\left\{ \pm\right\} }\int_{\mathbb{R}^{3}}\frac{\dd^{3}p}{\left(2\pi\right)^{3}\cdot2E_{p}}\left(\hat{b}^{\dagger}\left(\vec{p},s\right)\overline{u}\left(\vec{p},s\right)e^{\ii px}+\hat{d}\left(\vec{p},s\right)\overline{v}\left(\vec{p},s\right)e^{-\ii px}\right)
 \end{align}
+Hierbei sind die $u$ und $v$ anders normiert als in (\ref{eq:freie_Loesung}):
+\begin{align*}
+u\left(\vec{p},+\right) & =\sqrt{E+m}\left(\begin{array}{c}
+1\\
+0\\
+\frac{p^{3}}{E+m}\\
+\frac{p^{1}+\ii p^{2}}{E+m}
+\end{array}\right) & u\left(\vec{p},-\right) & =\sqrt{E+m}\left(\begin{array}{c}
+0\\
+1\\
+\frac{p^{1}-\ii p^{2}}{E+m}\\
+\frac{-p^{3}}{E+m}
+\end{array}\right)\\
+v\left(\vec{p},+\right) & =\sqrt{E+m}\left(\begin{array}{c}
+\frac{p^{3}}{E+m}\\
+\frac{p^{1}+\ii p^{2}}{E+m}\\
+1\\
+0
+\end{array}\right) & v\left(\vec{p},-\right) & =\sqrt{E+m}\left(\begin{array}{c}
+\frac{p^{1}-\ii p^{2}}{E+m}\\
+\frac{-p^{3}}{E+m}\\
+0\\
+1
+\end{array}\right)
+\end{align*}
+Damit gilt:
+\begin{align*}
+\sum_{s}u\left(\vec{p},s\right)\overline{u}\left(\vec{p},s\right) & =\slashd p+m\\
+-\sum_{s}v\left(\vec{p},s\right)\overline{v}\left(\vec{p},s\right) & =\slashd p-m
+\end{align*}
+Aus diesen $u,v$ erhält man die Größe $\tilde{u},\tilde{v}$ wie
+folgt:
+\begin{align*}
+\tilde{u}\left(\vec{p},s\right) & =\sqrt{\frac{m}{E}}\cdot\frac{1}{\sqrt{2m}}u\left(\vec{p},s\right)=\frac{1}{\sqrt{2E}}u\left(\vec{p},s\right)\\
+\tilde{v}\left(\vec{p},s\right) & =\sqrt{\frac{m}{E}}\cdot\frac{1}{\sqrt{2m}}v\left(\vec{p},s\right)=\frac{1}{\sqrt{2E}}v\left(\vec{p},s\right)
+\end{align*}
 Definiere noch ein zeitgeordnetes Produkt ($j,l$: Spinorindizes).
 \begin{align}
 \mathcal{T}\left\{ \hat{\psi}_{j}\left(x\right)\hat{\overline{\psi}}_{l}\left(y\right)\right\}  & :=\Theta\left(x^{0}-y^{0}\right)\hat{\psi}_{j}\left(x\right)\hat{\overline{\psi}}_{l}\left(y\right)-\Theta\left(y^{0}x^{0}\right)\hat{\overline{\psi}}_{l}\left(y\right)\hat{\psi}_{j}\left(x\right)
@@ -1945,6 +1984,8 @@ Zudem fordern wir für den normierten Vakuumzustand $\KET 0$:
 \negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \ -\Theta\left(y^{0}-x^{0}\right)\sum_{s,s'}\int\frac{\dd^{3}p\dd^{3}p'}{\left(2\pi\right)^{6}\cdot2E\cdot2E'}\underbrace{\BraKet{0|\hat{d}\left(\vec{p},s\right)\hat{d}^{\dagger}\left(\vec{p}',s'\right)|0}}_{=\BraKet{0|\delta_{ss'}\delta^{\left(3\right)}\left(\vec{p}-\vec{p}'\right)\left(2\pi\right)^{3}\cdot2E|0}}\overline{v}_{l}\left(\vec{p},s\right)v_{j}\left(\vec{p}',s'\right)e^{\ii px}e^{-\ii p'y}=\\
 \negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & =\Theta\left(x^{0}-y^{0}\right)\sum_{s}\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}\cdot2E}\left(u\left(\vec{p},s\right)\overline{u}\left(\vec{p}',s'\right)\right)_{jl}e^{-\ii p\left(x-y\right)}-\\
 \negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \ -\Theta\left(y^{0}-x^{0}\right)\sum_{s}\int\frac{\dd^{3}p}{\left(2\pi\right)\cdot2E}\left(v\left(\vec{p}',s'\right)\overline{v}_{l}\left(\vec{p},s\right)\right)_{jl}e^{\ii p\left(x-y\right)}=\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & =\Theta\left(x^{0}-y^{0}\right)\sum_{s}\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}\left(\tilde{u}\left(\vec{p},s\right)\overline{\tilde{u}}\left(\vec{p}',s'\right)\right)_{jl}e^{-\ii p\left(x-y\right)}-\\
+\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \ -\Theta\left(y^{0}-x^{0}\right)\sum_{s}\int\frac{\dd^{3}p}{\left(2\pi\right)}\left(\tilde{v}\left(\vec{p}',s'\right)\overline{\tilde{v}}_{l}\left(\vec{p},s\right)\right)_{jl}e^{\ii p\left(x-y\right)}=\\
 \negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & =\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}\Bigg(\sum_{r\in\left\{ 1,2\right\} }\left(\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)\right)_{jl}\Theta\left(x^{0}-y^{0}\right)-\\
 \negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace\negthickspace & \qquad\qquad\qquad\quad-\sum_{r\in\left\{ 3,4\right\} }\left(\tilde{\psi}_{r}\left(\vec{p},x\right)\overline{\tilde{\psi}}_{r}\left(\vec{p},y\right)\right)_{jl}\Theta\left(y^{0}-x^{0}\right)\Bigg)=\left(\ii S_{F}\left(x-y\right)\right)_{jl}
 \end{align*}
@@ -2386,7 +2427,7 @@ Streuamplitude ist also:
       child [grow=south,level distance=1cm, edge from parent path={(\tikzparentnode) .. controls +(-0.5,0)  and +(-0.5,0) .. (\tikzchildnode)}] {node[position]{}}
       edge from parent[electron]}
     node[below right]{$y$} edge from parent [photon]} node[right]{$x_3$};
-\end{tikzpicture}}\hfill{}\subfloat[Trilevel-Diagramm]{\begin{tikzpicture}[level/.style={level distance=1.7cm}]
+\end{tikzpicture}}\hfill{}\subfloat[Tree-Level-Diagramm]{\begin{tikzpicture}[level/.style={level distance=1.7cm}]
   \draw[dashed, ->] (-0.6,1) -- node[above]{Zeit} (4,1);
   \path (0,0) node [position] {}
     child [grow=east] {node [position] {}
@@ -2418,12 +2459,12 @@ nicht weiter verwundert, da $I_{\nu}\left(x_{1},x_{2},x_{3}\right)$
 die Wechselwirkung beschreibt, die zwischen Teilchen in den Raumzeitpunkten
 $x_{i}$ besteht. Man nennt $I\left(x_{1},\ldots,x_{n}\right)$ eine
 $n$-Punkt-Greens-Funktion. Real sind die Teilchen aber nicht lokalisiert
-und somit muss man $I$ auf ein- und auslaufende Wellenfunktionen
-$\psi_{e},\overline{\psi}_{e},\left(A_{\gamma}^{*}\right)^{\nu}$
-anwenden und die $x_{i}$ über einen Bereich $U\subseteq\left(\mathbb{R}^{4}\right)^{3}$
-integrieren, sodass nur
+und somit muss man $I$ zu einer bestimmten Zeit $x^{0}$ auf ein-
+und auslaufende Wellenfunktionen $\psi_{e},\overline{\psi}_{e},\left(A_{\gamma}^{*}\right)^{\nu}$
+anwenden und jedes $\vec{x}_{i}$ über $\mathbb{R}^{3}$ integrieren,
+sodass nur
 \begin{align*}
- & \int_{U}\overline{\psi}_{e}\left(x_{1}\right)\left(A_{\gamma}^{*}\right)^{\nu}\left(x_{3}\right)I_{\nu}\left(x_{1},x_{2},x_{3}\right)\psi_{e}\left(x_{2}\right)\dd^{4}x_{1}\dd^{4}x_{2}\dd^{4}x_{3}
+ & \int_{\mathbb{R}^{3}}\dd^{3}x_{1}\int_{\mathbb{R}^{3}}\dd^{3}x_{2}\int_{\mathbb{R}^{3}}\dd^{3}x_{3}\overline{\psi}_{e}\left(x_{1}^{0},\vec{x}_{1}\right)\left(A_{\gamma}^{*}\right)^{\nu}\left(x_{3}^{0},\vec{x}_{3}\right)I_{\nu}\left(x_{1},x_{2},x_{3}\right)\psi_{e}\left(x_{2}^{0},\vec{x}_{2}\right)
 \end{align*}
 eine reale Bedeutung hat.
 
@@ -2465,7 +2506,7 @@ edge from parent[electron] node[above]{$p_2$} node[below]{$\to $}}     node[left
 \end{figure}
 
 
-Den Feynman-Propagator kann man auf unterschiedlich schreiben, vergleiche
+Den Feynman-Propagator kann man unterschiedlich schreiben, vergleiche
 dazu (\ref{eq:Feynman-Propagator-psi}).
 \begin{align*}
 \ii S_{F}\left(y-x\right) & =\int\frac{\dd^{4}p}{\left(2\pi\right)^{4}}e^{-\ii p\left(y-x\right)}\ii\frac{\slashd p+m}{p^{2}-m^{2}+\ii\varepsilon}=\\
@@ -2476,15 +2517,14 @@ dazu (\ref{eq:Feynman-Propagator-psi}).
 \end{align*}
 Für Streuprozesse betrachtet man asymptotische ein- und auslaufende
 Zustände. Für ein von $x$ einlaufendes Teilchen mit Wellenfunktion
-$\psi\left(x\right)=\tilde{u}\left(\vec{p}',s'\right)e^{-\ii p'x}$
-und $U_{x}=\left(t-\varepsilon,t+\varepsilon\right)\times\mathbb{R}^{3}$,
-dass in $y$ wechselwirkt, gilt $x^{0}<y^{0}$, weshalb nur der vordere
+$\psi\left(x\right)=\tilde{u}\left(\vec{p}',s'\right)e^{-\ii p'x}$,
+das in $y$ wechselwirkt, gilt $x^{0}<y^{0}$, weshalb nur der vordere
 Term mit $\Theta\left(y^{0}-x^{0}\right)$ beiträgt.
 \begin{align*}
- & \int_{t-\varepsilon}^{t+\varepsilon}\dd x^{0}\int_{\mathbb{R}^{3}}\dd^{3}x\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{-\ii p\left(y-x\right)}\sum_{s\in\left\{ \pm1\right\} }\tilde{u}\left(\vec{p},s\right)\overline{\tilde{u}}\left(\vec{p},s\right)\tilde{u}\left(\vec{p}',s'\right)e^{-\ii p'x}=\\
- & \quad=\int_{t-\varepsilon}^{t+\varepsilon}\dd x^{0}\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{-\ii py}e^{-\ii\left(E_{p}'-E_{p}\right)x^{0}}\left(2\pi\right)^{3}\delta^{\left(3\right)}\left(\vec{p}'-\vec{p}\right)\sum_{s\in\left\{ \pm1\right\} }\tilde{u}\left(\vec{p},s\right)\overline{\tilde{u}}\left(\vec{p},s\right)\tilde{u}\left(\vec{p}',s'\right)=\\
- & \quad=\int_{t-\varepsilon}^{t+\varepsilon}\dd x^{0}e^{-\ii py}\underbrace{e^{-\ii\left(E_{p}'-E_{p}'\right)x^{0}}}_{=1}\underbrace{\sum_{s\in\left\{ \pm1\right\} }\tilde{u}\left(\vec{p}',s\right)\overline{\tilde{u}}\left(\vec{p}',s\right)\tilde{u}\left(\vec{p}',s'\right)}_{=\tilde{u}\left(\vec{p}',s'\right)}=\\
- & \quad=2\varepsilon e^{-\ii py}\tilde{u}\left(\vec{p}',s'\right)
+ & \int_{\mathbb{R}^{3}}\dd^{3}x\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{-\ii p\left(y-x\right)}\sum_{s\in\left\{ \pm1\right\} }\tilde{u}\left(\vec{p},s\right)\overline{\tilde{u}}\left(\vec{p},s\right)\tilde{u}\left(\vec{p}',s'\right)e^{-\ii p'x}=\\
+ & \quad=\int\frac{\dd^{3}p}{\left(2\pi\right)^{3}}e^{-\ii py}e^{-\ii\left(E_{p}'-E_{p}\right)x^{0}}\left(2\pi\right)^{3}\delta^{\left(3\right)}\left(\vec{p}'-\vec{p}\right)\sum_{s\in\left\{ \pm1\right\} }\tilde{u}\left(\vec{p},s\right)\overline{\tilde{u}}\left(\vec{p},s\right)\tilde{u}\left(\vec{p}',s'\right)=\\
+ & \quad=e^{-\ii py}\underbrace{e^{-\ii\left(E_{p}'-E_{p}'\right)x^{0}}}_{=1}\underbrace{\sum_{s\in\left\{ \pm1\right\} }\tilde{u}\left(\vec{p}',s\right)\overline{\tilde{u}}\left(\vec{p}',s\right)\tilde{u}\left(\vec{p}',s'\right)}_{=\tilde{u}\left(\vec{p}',s'\right)}=\\
+ & \quad=e^{-\ii py}\tilde{u}\left(\vec{p}',s'\right)=e^{-\ii py}\frac{u\left(\vec{p}',s'\right)}{\sqrt{2E}}
 \end{align*}
 Der Faktor $e^{-\ii py}$ sorgt für die Impulserhaltung am Vertex.
 Der Propagator $S_{F}\left(x-y\right)$ beschreibt neben einlaufenden
@@ -2495,14 +2535,16 @@ also:
 \sum_{s\in\left\{ \pm1\right\} }\tilde{v}\left(\vec{p},s\right)\overline{\tilde{v}}\left(\vec{p},s\right)
 \end{align*}
 Für $\overline{\psi}\left(x\right)=\overline{\tilde{v}}\left(\vec{p}',s'\right)e^{\ii p'x}$
-bleibt dann $-2\varepsilon\overline{\tilde{v}}\left(\vec{p}',s'\right)$.
-Dreht man nun $x$ und $y$ um, so sieht man, dass $2\varepsilon\overline{\tilde{u}}\left(\vec{p},s\right)$
+bleibt dann $-\overline{\tilde{v}}\left(\vec{p}',s'\right)$. Dreht
+man nun $x$ und $y$ um, so sieht man, dass $\overline{\tilde{u}}\left(\vec{p},s\right)$
 auslaufende Teilchen und $\tilde{v}\left(\vec{p},s\right)$ einlaufende
 Antiteilchen beschreibt.
 
+Man sollte hierbei im Hinterkopf behalten, dass die realen Teilchen
+keinen exakten Impuls haben, sodass man das Ergebnis immer über einen
+Impulsbereich $\dd^{3}p\left(2\pi\right)^{-3}$ integrieren muss.
+
 Solche Regeln im Impulsraum heißen \emph{Feynman-Regeln}.
-
-
 
 
 \chapter{Feynman-Regeln}
@@ -2512,8 +2554,7 @@ Solche Regeln im Impulsraum heißen \emph{Feynman-Regeln}.
 u\left(\vec{p},s\right) & \cdot\left[\frac{1}{\sqrt{2E}}\right]
 \end{align}
 Den hinteren Faktor in eckigen Klammern schreibt man für gewöhnlich
-nicht hin, da er im Wesentlichen nur die Energie-Impuls-Erhaltung
-liefert.
+nicht hin, weil er immer gleich ist.
 \item Auslaufendes Teilchen:
 \begin{align}
 \overline{u}\left(\vec{p},s\right) & \cdot\left[\frac{1}{\sqrt{2E}}\right]
@@ -2829,25 +2870,25 @@ für die kanonische Quantisierung verwenden:
 \end{align}
 Für einlaufende Photonen steht $\epsilon^{\mu}\left(\vec{q},\lambda\right)$
 und für auslaufende Photonen $\left(\epsilon^{*}\right)^{\mu}\left(\vec{q},\lambda\right)$.
-Dabei sind:
+Dabei sind für $\vec{q}=q\vec{e}_{3}$:
 \begin{align}
-\epsilon^{\mu}\left(\vec{q},1\right) & =\left(\begin{array}{c}
+\epsilon^{\mu}\left(q\vec{e}_{3},1\right) & =\left(\begin{array}{c}
 0\\
 1\\
 0\\
 0
-\end{array}\right) & \epsilon^{\mu}\left(\vec{q},2\right) & =\left(\begin{array}{c}
+\end{array}\right) & \epsilon^{\mu}\left(q\vec{e}_{3},2\right) & =\left(\begin{array}{c}
 0\\
 0\\
 1\\
 0
 \end{array}\right) &  & \text{physikalisch}\\
-\epsilon^{\mu}\left(\vec{q},0\right) & =\left(\begin{array}{c}
+\epsilon^{\mu}\left(q\vec{e}_{3},0\right) & =\left(\begin{array}{c}
 1\\
 0\\
 0\\
 0
-\end{array}\right) & \epsilon^{\mu}\left(\vec{q},3\right) & =\left(\begin{array}{c}
+\end{array}\right) & \epsilon^{\mu}\left(q\vec{e}_{3},3\right) & =\left(\begin{array}{c}
 0\\
 0\\
 0\\
@@ -2980,18 +3021,8 @@ Das verkürzte Matrixelement $\mathcal{M}$ kann man direkt erhalten,
 wenn man die Feynman-Regeln mit Energie-Impuls-Erhaltung ohne die
 zusätzlichen Faktoren benutzt.
 
-Für die Wahrscheinlichkeit muss man das Betragsquadrat bilden.
-\begin{align*}
-\abs M^{2} & =\abs{\mathcal{M}}^{2}\cdot\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)\frac{1}{16E_{e}E_{e}'E_{q}E_{q}'}\left(2\pi\right)^{4}\underbrace{\delta^{\left(4\right)}\left(0\right)}_{=\text{n.def.}}
-\end{align*}
-Das Problem ist, dass das Produkt von Distributionen nicht definiert
-ist. Man interpretiert dieses ,,$\delta^{\left(4\right)}\left(0\right)$``
-wie folgt:
-\begin{align*}
-\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(q\right) & =\int_{-\infty}^{\infty}\dd^{4}xe^{-\ii xq}=\lim_{V,T\to\infty}\int_{V,T}\dd^{4}xe^{-\ii xq}\\
-\Rightarrow\qquad\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(0\right) & \,\widehat{=}\, VT
-\end{align*}
-Das Betragsquadrat des verkürzte Matrixelement ist: 
+Für die Wahrscheinlichkeit muss man das Betragsquadrat bilden. Das
+Betragsquadrat des verkürzte Matrixelement ist: 
 \begin{align*}
 \abs{\mathcal{M}}^{2} & =\left(\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)\gamma_{\varrho}u_{e}\left(\vec{p}_{e},s_{e}\right)\right)^{\dagger}\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)\gamma_{\varrho'}u_{e}\left(\vec{p}_{e},s_{e}\right)\cdot\\
  & \quad\cdot\left(\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)\gamma_{\nu}u_{q}\left(\vec{p}_{q},s_{q}\right)\right)^{\dagger}\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)\gamma_{\nu'}u_{q}\left(\vec{p}_{q},s_{q}\right)\cdot\\
@@ -3018,7 +3049,7 @@ wir über die Endkanäle und mitteln über die Anfangskanäle:
 \end{align*}
 Es folgt
 \begin{align*}
-I_{1} & :=\frac{1}{4}\sum_{\alpha_{e},\alpha_{q},\alpha_{e}',\alpha_{q}'\in\left\{ \pm1\right\} }\abs{\mathcal{M}}^{2}=\\
+I & :=\frac{1}{4}\sum_{\alpha_{e},\alpha_{q},\alpha_{e}',\alpha_{q}'\in\left\{ \pm1\right\} }\abs{\mathcal{M}}^{2}=\\
  & =\frac{1}{4}\text{tr}\left(\gamma_{\varrho}\left(\slashd p_{e}'+m_{e}\right)\underbrace{\left(\sum_{\alpha_{e}'\in\left\{ \pm1\right\} }\frac{1+\alpha_{e}'\gamma_{5}\slashd s_{e}'}{2}\right)}_{=\mathbbm{1}}\gamma_{\varrho'}\left(\slashd p_{e}+m_{e}\right)\sum_{\alpha_{e}\in\left\{ \pm1\right\} }\frac{1+\alpha_{e}\gamma_{5}\slashd s_{e}}{2}\right)\cdot\\
  & \qquad\text{tr}\left(\gamma^{\varrho}\left(\slashd p_{q}'+m_{q}\right)\sum_{\alpha_{q}'\in\left\{ \pm1\right\} }\frac{1+\alpha_{q}'\gamma_{5}\slashd s_{q}'}{2}\gamma^{\varrho'}\left(\slashd p_{q}+m_{q}\right)\sum_{\alpha_{q}\in\left\{ \pm1\right\} }\frac{1+\alpha_{q}\gamma_{5}\slashd s_{q}}{2}\right)\cdot\\
  & \qquad\cdot\frac{q_{e}^{4}Q_{q}^{2}}{\left(p_{e}-p_{e}'\right)^{4}+\varepsilon^{2}}=\\
@@ -3032,7 +3063,7 @@ und mit
 \end{align*}
 folgt dann:
 \begin{align*}
-I_{1} & \approx\frac{q_{e}^{4}Q_{q}^{2}\cdot16}{4\left(p_{e}-p_{e}'\right)^{4}}\left(p_{e,\varrho}p_{e,\varrho'}'-g_{\varrho\varrho'}\left(p_{e}\cdot p_{e}'\right)+p_{e,\varrho}'p_{e,\varrho'}\right)\left(p_{q}^{\varrho}\left(p_{q}'\right)^{\varrho'}-g^{\varrho\varrho'}\left(p_{q}\cdot p_{q}'\right)+\left(p_{q}'\right)^{\varrho}p_{q}^{\varrho'}\right)=\\
+I & \approx\frac{q_{e}^{4}Q_{q}^{2}\cdot16}{4\left(p_{e}-p_{e}'\right)^{4}}\left(p_{e,\varrho}p_{e,\varrho'}'-g_{\varrho\varrho'}\left(p_{e}\cdot p_{e}'\right)+p_{e,\varrho}'p_{e,\varrho'}\right)\left(p_{q}^{\varrho}\left(p_{q}'\right)^{\varrho'}-g^{\varrho\varrho'}\left(p_{q}\cdot p_{q}'\right)+\left(p_{q}'\right)^{\varrho}p_{q}^{\varrho'}\right)=\\
  & =\frac{4q_{e}^{4}Q_{q}^{2}}{\left(p_{e}-p_{e}'\right)^{4}}\left(2\left(p_{e}p_{q}\right)\left(p_{e}'p_{q}'\right)-4\left(p_{e}p_{e}'\right)\left(p_{q}p_{q}'\right)+2\left(p_{e}p_{q}'\right)\left(p_{e}'p_{q}\right)+g^{\varrho}\msd{\varrho}\left(p_{e}p_{e}'\right)\left(p_{q}p_{q}'\right)\right)=\\
  & =\frac{8q_{e}^{4}Q_{q}^{2}}{\left(p_{e}-p_{e}'\right)^{4}}\left(\left(p_{e}\cdot p_{q}\right)\left(p_{e}'\cdot p_{q}'\right)+\left(p_{e}\cdot p_{q}'\right)\left(p_{e}'\cdot p_{q}\right)\right)
 \end{align*}
@@ -3047,11 +3078,25 @@ s+t+u & \sr ={m\approx0}{}0
 \end{align*}
 Damit folgt:
 \begin{align*}
-I_{1} & =\frac{2q_{e}^{4}Q_{q}^{2}}{t^{2}}\left(s^{2}+u^{2}\right)
+I & =\frac{2q_{e}^{4}Q_{q}^{2}}{t^{2}}\left(s^{2}+u^{2}\right)
 \end{align*}
+Insgesamt benötigt man aber das Betragsquadrat von $M$. Wenn man
+dies naiv ausrechnet, so erhält man:
+\begin{align*}
+\abs M^{2} & =\abs{\mathcal{M}}^{2}\cdot\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)\frac{1}{16E_{e}E_{e}'E_{q}E_{q}'}\left(2\pi\right)^{4}\underbrace{\delta^{\left(4\right)}\left(0\right)}_{=\text{n.def.}}
+\end{align*}
+Das Problem ist, dass das Produkt von Distributionen nicht definiert
+ist. Man kann nun dieses ,,$\delta^{\left(4\right)}\left(0\right)$``
+wie folgt interpretieren:
+\begin{align*}
+\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(q\right) & =\int_{-\infty}^{\infty}\dd^{4}xe^{-\ii xq}=\lim_{V,T\to\infty}\int_{V,T}\dd^{4}xe^{-\ii xq}\\
+\Rightarrow\qquad\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(0\right) & \,\widehat{=}\, VT
+\end{align*}
+
+
 Das heißt:
 \begin{align*}
-\frac{1}{4}\sum_{\sr{}{\alpha_{e},\alpha_{q}}{\alpha_{e}',\alpha_{q}'}}\abs M^{2} & =2q_{e}^{4}Q_{q}^{2}\cdot\frac{s^{2}+u^{2}}{t^{2}}\frac{1}{16E_{e}E_{e'}E_{q}E_{q'}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)VT
+\frac{1}{4}\sum_{\sr{}{\alpha_{e},\alpha_{q}}{\alpha_{e}',\alpha_{q}'}}\abs M^{2} & =I\cdot\frac{1}{16E_{e}E_{e'}E_{q}E_{q'}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)VT
 \end{align*}
 Das Quark sei auf einer Fläche $A$ lokalisiert.
 
@@ -3101,13 +3146,92 @@ Damit folgt:
 \end{align*}
 \begin{align*}
 \sigma & =\frac{1}{vTV}\int\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}}\frac{1}{4}\sum_{\sr{}{\alpha_{e},\alpha_{q}}{\alpha_{e}',\alpha_{q}'}}\abs M^{2}=\\
- & =\frac{1}{v}\int\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}}2q_{e}^{4}Q_{q}^{2}\cdot\frac{s^{2}+u^{2}}{t^{2}}\frac{1}{16E_{e}E_{e'}E_{q}E_{q'}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)=\\
- & =\frac{q_{e}^{4}Q_{q}^{2}}{v}\int\frac{\dd^{3}p_{e}'}{\left(4\pi\right)^{2}}\frac{s^{2}+u^{2}}{t^{2}}\frac{1}{2E_{e}E_{e}'E_{q}E_{q}'}\delta\left(E_{e}+E_{q}-\sqrt{\left(\vec{p}_{e}'\right)^{2}}-\sqrt{\left(\vec{p}_{e}+\vec{p}_{q}-\vec{p}_{e}'\right)^{2}}\right)
+ & =\frac{1}{v}\int\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}}I\frac{1}{16E_{e}E_{e'}E_{q}E_{q'}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)
 \end{align*}
-Dies sollte Lorentz-invariant sein.
 \begin{align*}
-v\cdot2E_{e}E_{q} & \sr ={v_{q}=0}{}\left(v_{e}+v_{q}\right)2E_{e}E_{q}=2\left(p_{e}E_{q}+p_{q}E_{e}\right)
+vE_{e}E_{q} & \sr ={v_{q}=0}{}\left(v_{e}+v_{q}\right)E_{e}E_{q}=\left(p_{e}E_{q}+p_{q}E_{e}\right)
 \end{align*}
+\begin{align}
+\dd\sigma & =\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}\cdot16E_{e'}E_{q'}}\frac{1}{p_{e}E_{q}+p_{q}E_{e}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)\cdot I\label{eq:dSigma-handwaving}
+\end{align}
+Diese Argumentation ist ein wenig ,,\foreignlanguage{english}{hand-waving}``
+und es bleibt das ungute Gefühl, dass irgendwo ein Fehler eingebaut
+wurde, weil plötzlich eine undefinierte Größe auftrat. In der Tat
+lag dies daran, dass $M$ nur zusammen mit Integralen über $p_{i}$
+Sinn macht.
+
+Wir betrachten hier den Fall zwei einlaufender Teilchen $e$ und $q$.
+Diese haben jedoch keinen festen Impuls, sondern nur eine Impulsverteilung
+$\phi_{e}\left(\vec{k}_{e}\right)$ um einen mittleren Impuls $\vec{p}_{e}$
+beziehungsweise $\phi_{q}\left(\vec{k}_{q}\right)$ um $\vec{p}_{q}$
+. Der mittlere Impuls des Elektrons gebe die $x_{3}$-Richtung vor
+und $b_{1},b_{2}$ seien die Stoßparameter in $x_{1}$- und $x_{2}$-Richtung.
+Dann ist das auszuführende Integral:
+\begin{align*}
+ & \int\frac{\dd^{3}k_{e}}{\left(2\pi\right)^{3}}\frac{\dd^{3}k_{q}}{\left(2\pi\right)^{3}}\phi_{e}\left(\vec{k}_{e}\right)\phi_{q}\left(\vec{k}_{q}\right)e^{-\ii\left(b_{1}k_{q,1}+b_{2}k_{q,2}\right)}
+\end{align*}
+Den Exponentialfaktor könnte man auch mit $\phi_{q}$ zusammenfassen,
+aber es ist günstiger dies so zu zerlegen, sodass $\phi_{e}$ und
+$\phi_{q}$ kollinear sind, das heißt Stoßparameter $b_{1}=b_{2}=0$
+haben, um über $b$ integrieren zu können. Mit der Definition $b_{3}:=0$
+kann man für den Exponenten kurz $-\ii\vec{b}\vec{k}_{q}$ schreiben.
+Der Wirkungsquerschnitt ist definiert als:
+\begin{align*}
+\sigma & =\int\dd^{2}bP\left(b\right)
+\end{align*}
+Dabei ist $P\left(b\right)$ die Wahrscheinlichkeit der Wechselwirkung
+für einen Stoßparameter $b$.
+\begin{align*}
+P\left(b\right) & =\int\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}}\abs{\int\frac{\dd^{3}k_{e}\dd^{3}k_{q}}{\left(2\pi\right)^{6}}\phi_{e}\left(\vec{k}_{e}\right)\phi_{q}\left(\vec{k}_{q}\right)M\left(\vec{k}_{e},\vec{k}_{q},\vec{p}_{e}',\vec{p}_{q}'\right)e^{\ii\vec{b}\vec{k}_{q}}}^{2}
+\end{align*}
+Somit erhält man für den Wirkungsquerschnitt: 
+\begin{align*}
+\dd\sigma & :=\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}}\int\dd^{2}b\int\frac{\dd^{3}k_{e}\dd^{3}k_{q}\dd^{3}\tilde{k}_{e}\dd^{3}\tilde{k}_{q}}{\left(2\pi\right)^{12}}\phi_{e}\left(\vec{k}_{e}\right)\phi_{e}^{*}\left(\vec{\tilde{k}}_{e}\right)\phi_{q}\left(\vec{k}_{q}\right)\phi_{q}^{*}\left(\vec{\tilde{k}}_{q}\right)\cdot\\
+ & \qquad\cdot M\left(\vec{k}_{e},\vec{k}_{q},\vec{p}_{e}',\vec{p}_{q}'\right)M^{*}\left(\vec{\tilde{k}}_{e},\vec{\tilde{k}}_{q},\vec{p}_{e}',\vec{p}_{q}'\right)e^{-\ii\vec{b}\left(\vec{p}_{q}-\vec{\tilde{p}}_{q}\right)}=\\
+ & =\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}}\int\frac{\dd^{3}k_{e}\dd^{3}k_{q}\dd^{3}\tilde{k}_{e}\dd^{3}\tilde{k}_{q}}{\left(2\pi\right)^{12}}\phi_{e}\left(\vec{k}_{e}\right)\phi_{e}^{*}\left(\vec{\tilde{k}}_{e}\right)\phi_{q}\left(\vec{k}_{q}\right)\phi_{q}^{*}\left(\vec{\tilde{k}}_{q}\right)2\pi\delta\left(k_{q,1}-\tilde{k}_{q,1}\right)\cdot\\
+ & \qquad\cdot2\pi\delta\left(k_{q,2}-\tilde{k}_{q,2}\right)\mathcal{M}\left(\vec{k}_{e},\vec{k}_{q},\vec{p}_{e}',\vec{p}_{q}'\right)\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(k_{e}+k_{q}-p_{e}'-p_{q}'\right)\frac{1}{4\sqrt{E_{e}E_{e}'E_{q}E_{q}'}}\cdot\\
+ & \qquad\cdot\mathcal{M}^{*}\left(\vec{\tilde{k}}_{e},\vec{\tilde{k}}_{q},\vec{p}_{e}',\vec{p}_{q}'\right)\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(\tilde{k}_{e}+\tilde{k}_{q}-p_{e}'-p_{q}'\right)\frac{1}{4\sqrt{\tilde{E}_{e}E_{e}'\tilde{E}_{q}E_{q}'}}=\\
+ & =\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}}\int\frac{\dd^{3}k_{e}\dd^{3}k_{q}\dd^{3}\tilde{k}_{q}}{\left(2\pi\right)^{2}\cdot16E_{e}'E_{q}'\sqrt{E_{e}\tilde{E}_{e}E_{q}\tilde{E}_{q}}}\phi_{e}\left(\vec{k}_{e}\right)\phi_{e}^{*}\left(\vec{p}_{e}'+\vec{p}_{q}'-\vec{k}_{e}\right)\phi_{q}\left(\vec{k}_{q}\right)\phi_{q}^{*}\left(\vec{\tilde{k}}_{q}\right)\cdot\\
+ & \qquad\cdot\delta\left(k_{q,1}-\tilde{k}_{q,1}\right)\delta\left(k_{q,2}-\tilde{k}_{q,2}\right)\mathcal{M}\left(\vec{k}_{e},\vec{k}_{q},\vec{p}_{e}',\vec{p}_{q}'\right)\delta^{\left(4\right)}\left(k_{e}+k_{q}-p_{e}'-p_{q}'\right)\cdot\\
+ & \qquad\cdot\mathcal{M}^{*}\left(\vec{p}_{e}'+\vec{p}_{q}'-\vec{\tilde{k}}_{q},\vec{\tilde{k}}_{q},\vec{p}_{e}',\vec{p}_{q}'\right)\delta\left(\tilde{E}_{e}+\tilde{E}_{q}-E_{e}'-E_{q}'\right)
+\end{align*}
+Nun konzentrieren wir uns auf das Integral über $\tilde{k}_{q}$:
+\begin{align*}
+ & \int\dd^{3}\tilde{k}_{q}f\left(\vec{\tilde{k}}_{q}\right)\delta\left(k_{q,1}-\tilde{k}_{q,1}\right)\delta\left(k_{q,2}-\tilde{k}_{q,2}\right)\delta\left(\tilde{E}_{e}+\tilde{E}_{q}\left(\vec{\tilde{k}}_{q}\right)-E_{e}'-E_{q}'\right)=\\
+ & \qquad=\int\dd\tilde{k}_{q,3}f\left(k_{q,1},k_{q,2},\tilde{k}_{q,3}\right)\delta\left(\tilde{E}_{e}+\tilde{E}_{q}\left(k_{q,1},k_{q,2},\tilde{k}_{q,3}\right)-E_{e}'-E_{q}'\right)=\\
+ & \qquad=\abs{\frac{\dd\left(\tilde{E}_{e}+\tilde{E}_{q}\right)}{\dd\tilde{k}_{q,3}}}^{-1}f\left(k_{q,1},k_{q,2},\tilde{k}_{q,3}\right)\bigg|_{\tilde{E}_{e}+\tilde{E}_{q}-E_{e}'-E_{q}'=0}
+\end{align*}
+Es gilt:
+\begin{align*}
+\frac{\dd\left(\tilde{E}_{e}+\tilde{E}_{q}\right)}{\dd\tilde{k}_{q,3}} & =\frac{2\tilde{k}_{e,3}\cdot\left(-1\right)}{2\tilde{E}_{e}}+\frac{2\tilde{k}_{q,3}}{2\tilde{E}_{q}}=\frac{\tilde{k}_{q,3}\tilde{E}_{e}-\tilde{k}_{e,3}\tilde{E}_{q}}{\tilde{E}_{e}\tilde{E}_{q}}
+\end{align*}
+Da nun alle Delta-Distributionen mit $\tilde{k}$ aufintegriert wurden,
+kann man wieder zu der Näherung mit einem festen einlaufenden Impulsen
+übergehen:
+\begin{align*}
+k_{e} & \to p_{e} & \int\frac{\dd^{3}k_{e}}{\left(2\pi\right)^{3}}\phi_{e}^{*}\phi_{e} & \to1\\
+k_{q} & \to p_{q} & \int\frac{\dd^{3}k_{q}}{\left(2\pi\right)^{3}}\phi_{q}^{*}\phi_{q} & \to1
+\end{align*}
+Man erhält somit:
+\begin{align*}
+\dd\sigma & =\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}\cdot16E_{e}'E_{q}'}\cdot\frac{\abs{\mathcal{M}\left(\vec{p}_{e},\vec{p}_{q},\vec{p}_{e}',\vec{p}_{q}'\right)}^{2}}{p_{q,3}E_{e}-p_{e,3}E_{q}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)
+\end{align*}
+Dieser Ausdruck ist nicht Lorentz-invariant, sondern nur invariant
+unter Boosts entlang der $x_{3}$-Achse. Für den Wirkungsquerschnitt
+im Schwerpunktsystem, in dem der Stoß entlang der $x^{3}$-Achse verläuft,
+kann man verwenden:
+\begin{align*}
+\norm{\vec{p}_{q}} & =p_{q,3}=-p_{e,3}=\norm{\vec{p}_{e}}
+\end{align*}
+Summiert man nun über die Endkanäle und mittelt über die Eingangskanäle,
+so ersetzt man einfach $\abs{\mathcal{M}}^{2}$ durch $I$ und erhält
+(vergleiche (\ref{eq:dSigma-handwaving})):
+\begin{align*}
+\dd\sigma_{\text{cm}} & =\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}\cdot16E_{e}'E_{q}'}\cdot\frac{I}{p_{q}E_{e}+p_{e}E_{q}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)
+\end{align*}
+
+
+Außerdem gilt: 
 \begin{align*}
 \left(p_{e}\cdot p_{q}\right)^{2}-m_{e}^{2}m_{q}^{2} & =\left(E_{e}E_{q}+\norm{\vec{p}_{e}}\norm{\vec{p}_{q}}\right)^{2}-\left(E_{e}^{2}-\norm{\vec{p}_{e}}^{2}\right)\left(E_{q}^{2}-\norm{\vec{p}_{q}}^{2}\right)=\\
  & =2\norm{\vec{p}_{e}}\norm{\vec{p}_{q}}E_{e}E_{q}+\norm{\vec{p}_{e}}^{2}E_{q}^{2}+\norm{\vec{p}_{q}}^{2}E_{e}^{2}=\\
@@ -3115,27 +3239,28 @@ v\cdot2E_{e}E_{q} & \sr ={v_{q}=0}{}\left(v_{e}+v_{q}\right)2E_{e}E_{q}=2\left(p
 \end{align*}
 Also gilt:
 \begin{align*}
-v\cdot2E_{e}E_{q} & =2\sqrt{\left(p_{e}\cdot p_{q}\right)^{2}-m_{e}^{2}m_{q}^{2}}
+p_{q}E_{e}+p_{e}E_{q} & =\sqrt{\left(p_{e}\cdot p_{q}\right)^{2}-m_{e}^{2}m_{q}^{2}}
 \end{align*}
-Damit folgt in der Näherung $m\approx0$:
+Damit folgt:
 \begin{align*}
-\sigma & =\frac{q_{e}^{4}Q_{q}^{2}}{\sqrt{\left(2p_{e}p_{q}\right)^{2}}}\int\frac{\dd^{3}p_{e}'}{\left(4\pi\right)^{2}}\frac{s^{2}+u^{2}}{t^{2}}\frac{1}{E_{e}'E_{q}'}\delta\left(E_{e}+E_{q}-\sqrt{\left(\vec{p}_{e}'\right)^{2}}-\sqrt{\left(\vec{p}_{e}+\vec{p}_{q}-\vec{p}_{e}'\right)^{2}}\right)\\
-\dd\sigma & \sr ={\alpha=\frac{q_{e}^{2}}{4\pi}}{s=2p_{e}p_{q}}4\alpha^{2}Q_{q}^{2}\frac{\dd^{3}p_{e}'}{2E_{e}'}\frac{s^{2}+u^{2}}{st^{2}}\frac{1}{2E_{q}'}\delta\left(E_{e}+E_{q}-E_{e}'-E_{q}'\right)
+\sigma_{\text{cm}} & =\int\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}\cdot4E_{e}'E_{q}'}\cdot\frac{I}{4\sqrt{\left(p_{e}\cdot p_{q}\right)^{2}-m_{e}^{2}m_{q}^{2}}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)\\
+ & =\int\frac{\dd^{3}p_{e}'}{\left(2\pi\right)^{2}\cdot4E_{e}'E_{q}'}\cdot\frac{I}{2\sqrt{\left(2p_{e}\cdot p_{q}\right)^{2}-m_{e}^{2}m_{q}^{2}}}\delta\left(E_{e}+E_{q}-E_{e}'-E_{q}'\right)\approx\\
+ & \sr{\approx}{m\approx0}{}\int\frac{\dd^{3}p_{e}'}{\left(4\pi\right)^{2}\cdot4E_{e}'E_{q}'}\cdot\frac{2I}{\sqrt{\left(2p_{e}\cdot p_{q}\right)^{2}}}\delta\left(E_{e}+E_{q}-E_{e}'-E_{q}'\right)=\\
+ & \sr ={s=\sqrt{\left(2p_{e}\cdot p_{q}\right)^{2}}}{I=\frac{2q_{e}^{4}Q_{q}^{2}}{t^{2}}\left(s^{2}+u^{2}\right)}\int\frac{\dd^{3}p_{e}'}{\left(4\pi\right)^{2}\cdot4E_{e}'E_{q}'}\cdot\frac{2}{s}\cdot\frac{2q_{e}^{4}Q_{q}^{2}}{t^{2}}\left(s^{2}+u^{2}\right)\delta\left(E_{e}+E_{q}-E_{e}'-E_{q}'\right)\\
+ & \sr ={\alpha=\frac{q_{e}^{2}}{4\pi}}{}4\alpha^{2}Q_{q}^{2}\int\frac{\dd^{3}p_{e}'}{\left(4\pi\right)^{2}\cdot4E_{e}'E_{q}'}\cdot\frac{\left(s^{2}+u^{2}\right)}{st^{2}}\delta\left(E_{e}+E_{q}-E_{e}'-E_{q}'\right)
 \end{align*}
-Nun sind $s,t,u$, $\frac{\dd^{3}p_{e}'}{2E_{e}'}$ und $\frac{1}{2E_{q}'}\delta\left(E_{e}+E_{q}-E_{e}'-E_{q}'\right)$
-Lorentz-invariant, und damit auch $\dd\sigma$. Daher kann man in
-das Schwerpunkt-Bezugssystem mit $E_{q}=E_{e}=E_{q}'=E_{e}'$ übergehen.
-Dort kann man den Wirkungsquerschnitt explizit Lorentz-invariant schreiben.
-Das Endergebnis ist:
-\begin{align*}
-\dd\sigma & =\frac{\abs{\mathcal{M}}^{2}}{4\sqrt{\left(p_{e}p_{q}\right)^{2}-m_{e}^{2}m_{q}^{2}}}\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}2E_{e}'2E_{q}'}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)
-\end{align*}
- %DATE: Mo 13.5.13
+Dies ist ein Lorentz-invarianter Ausdruck für den Wirkungsquerschnitt
+im Schwerpunkt-Bezugssystem.
 
-Allgemeine Formel für $2\to n$ Prozesse lautet:
+%DATE: Mo 13.5.13
+
+Die allgemeine Formel für $2\to n$ Streu-Prozesse lautet:
 \begin{align*}
-\dd\sigma & =\frac{\abs{\mathcal{M}}^{2}}{4\sqrt{\left(p_{1}\cdot p_{2}\right)^{2}-m_{1}^{2}m_{2}^{2}}}\underbrace{\left(2\pi\right)^{4}\delta^{4}\left(p_{1}+p_{2}-p_{3}-\ldots-p_{n}\right)\prod_{j=3}^{n+2}\frac{\dd^{3}p_{j}}{\left(2\pi\right)^{3}\cdot2E_{j}}}_{\text{Lorentz-invariantes Phasenraumelement}}
+\dd\sigma_{\text{cm}} & =\frac{\abs{\mathcal{M}}^{2}}{4\sqrt{\left(p_{1}\cdot p_{2}\right)^{2}-m_{1}^{2}m_{2}^{2}}}\underbrace{\left(2\pi\right)^{4}\delta^{4}\left(p_{1}+p_{2}-p_{3}-\ldots-p_{n}\right)\prod_{j=3}^{n+2}\frac{\dd^{3}p_{j}}{\left(2\pi\right)^{3}\cdot2E_{j}}}_{\text{Lorentz-invariantes Phasenraumelement}}
 \end{align*}
+Den Index cm für das Schwerpunkt-System lassen wir in Zukunft weg,
+da wir nur Wirkungsquerschnitte im Schwerpunktsystem berechnen.
+
 \begin{figure}[H]
 \noindent \centering{}\begin{tikzpicture}
 \begin{scope}
@@ -3147,7 +3272,8 @@ Allgemeine Formel für $2\to n$ Prozesse lautet:
   \draw[decoration={markings,mark=at position 0.6 with {\arrow[scale=2]{>}};},postaction={decorate}] ({cos(30)},{sin(30)}) node[position]{} -- ({2*cos(30)},{2*sin(30)}) node[right]{$p_4$};
   \node at (1.4,-0.2) {$\vdots$};
   \draw[decoration={markings,mark=at position 0.6 with {\arrow[scale=2]{>}};},postaction={decorate}] ({cos(-50)},{sin(-50)}) node[position]{} -- ({2*cos(-50)},{2*sin(-50)}) node[right]{$p_{n+2}$};
-  \draw[decoration={markings,mark=at position 0.6 with {\arrow[scale=2]{<}};},postaction={decorate}] ({cos(160)},{sin(160)}) node[position]{} -- ({2*cos(160)},{2*sin(160)}) node[above left]{$p_1$};
+  \draw[decoration={markings,mark=at position 0.6 with {\arrow[scale=2]{<}};},postaction={decorate}] ({cos(160)},{sin(160)}) node[position]{} -- ({2*cos(160)},{2*sin(160)}) node[above left]{$p_2$};
+  \draw[decoration={markings,mark=at position 0.6 with {\arrow[scale=2]{<}};},postaction={decorate}] ({cos(240)},{sin(240)}) node[position]{} -- ({2*cos(240)},{2*sin(240)}) node[above left]{$p_1$};
 \end{tikzpicture}\caption{Allgemeiner $2\to n$ Prozess}
 \end{figure}
 Zur Berechnung von $\abs{\mathcal{M}}$ verwendet man die Feynman-Diagramme.
@@ -3267,7 +3393,7 @@ dann wieder Lorentz-invariant schreiben. Wir wählen das Schwerpunktsystem
 
 
 \begin{figure}[H]
-\noindent \centering{}\begin{tikzpicture}[scale=1.5]
+\noindent \centering{}\begin{tikzpicture}
   \draw[thick,->] (-2,0) -- node[above]{$e^-$} (-0.5,0);
   \draw[thick,<-] ({2*cos(120)},{2*sin(120)}) -- node[above right]{$e^-$} ({0.5*cos(120)},{0.5*sin(120)});
   \draw[thick,->] (2,0) -- node[above]{$q$} (0.5,0);
@@ -3963,6 +4089,142 @@ TODO: Abb54; $\dd^{4}l\frac{1}{l^{4}}$; benötigt Ladung für Acht-Fermionen-Ver
 dieser für 16-Vertex und so weiter und so fort...
 
 Daher hat man unendlich viele freie Parameter.
+
+
+\section{Dimensionale Regularisierung}
+
+Wir führen das $d$-dimensionale Integral $\int\dd^{d}k_{E}$ ein.
+Das $E$ steht für ,,Euklidische`` Koordinaten, Impulse, etc..
+
+TODO: Abb55
+
+Ohne Beweis (vgl. QCD-Skript): Für beliebige $n$-Punkte-Greens-Funktionen,
+das heißt die Amplitude für einen Prozess mit $n$ äußeren Linien,
+gibt es nur Pole (oder Schnitte) im zweiten und vierten Quadranten.
+Deshalb ist immer eine ,,Wick-Rotation`` möglich.
+
+TODO: Abb56; 4-Punkt-Greens-Funktion
+
+Bei Integration über Funktionen, die im Unendlichen schnell genug
+abfallen, gilt:
+
+\begin{align*}
+0 & =\int_{TODO:Abb57}\dd p^{0}\ldots=\int_{-\infty}^{\infty}\dd p^{0}\ldots+\int_{\ii\infty}^{-\ii\infty}\dd p^{0}\ldots+\underbrace{\int_{Abb55b}\dd p^{0}\ldots+\int_{ABB57c}\dd p^{0}\ldots}_{=0}\\
+\Rightarrow\qquad\int_{-\infty}^{\infty}\dd p^{0}\ldots & =\int_{-\ii\infty}^{\ii\infty}\dd p^{0}\ldots\sr ={p^{0}=\ii p_{E}^{0}}{}\ii\int_{\infty}^{\infty}\dd p_{E}^{0}\ldots\big|_{p^{0}\to\ii p_{E}^{0}}
+\end{align*}
+Dies hilft wegen:
+\begin{align*}
+p^{2} & =\left(p^{0}\right)^{2}-\left(\vec{p}\right)^{2}=\left(\ii p_{E}^{0}\right)^{2}-\left(\vec{p}\right)^{2}=-\left(\left(p_{E}^{0}\right)^{2}+\left(\vec{p}\right)^{2}\right)=-p_{E}^{\mu}p_{E}^{\nu}\delta_{\mu\nu}
+\end{align*}
+Das $d$-dimensionale Integral ist nun eine Abbildung:
+\begin{align*}
+\int\dd^{d}k_{E}:\mathcal{F} & \to\mathbb{C}\\
+f\left(k_{E}\right) & \mapsto\int\dd^{d}k_{E}f\left(k_{E}\right)
+\end{align*}
+Dabei ist $\mathcal{F}$ ein geeigneter Funktionenraum. Die definierenden
+Eigenschaften sind:
+\begin{enumerate}
+\item Linearität für $a,b\in\mathbb{C}$, $f,g\in\mathcal{F}$:
+\begin{align*}
+\int\dd^{d}k_{E}\left(af\left(k_{E}\right)+bg\left(k_{E}\right)\right) & =a\int\dd^{d}k_{E}f\left(k_{E}\right)+b\int\dd^{d}k_{E}g\left(k_{E}\right)
+\end{align*}
+
+\item Translationsinvarianz für $p_{E}^{\mu}\in\mathbb{R}$:
+\begin{align*}
+\int\dd^{d}k_{E}f\left(k_{E}\right) & =\int\dd^{d}k_{E}f\left(k_{E}+p_{E}\right)
+\end{align*}
+
+\item Skalierungsgesetz für $\lambda\in\mathbb{R}\setminus\left\{ 0\right\} $:
+\begin{align*}
+\int\dd^{d}k_{E}f\left(\lambda k_{E}\right) & =\lambda^{-d}\int\dd^{d}k_{E}f\left(k_{E}\right)
+\end{align*}
+
+\end{enumerate}
+Definition von Gauß-Paketen:
+\begin{align*}
+\phi_{A,p_{\mu}}\left(k_{E}\right) & =e^{-A\left(k_{E}-p\right)^{2}}
+\end{align*}
+\begin{align*}
+\int\dd^{d}k_{E}f\left(k_{E}\right) & =\sum_{A,p}\hskip-5mm\int c_{A,p_{\mu}}\phi_{A,p_{\mu}}\left(k_{E}\right)
+\end{align*}
+Für ein Gaußsches Paket definieren wir:
+\begin{align*}
+\int\dd^{d}k_{E}\phi_{A,p_{\mu}}\left(k_{E}\right) & :=A^{-\frac{d}{2}}\pi^{\frac{d}{2}}
+\end{align*}
+Die wichtigste Eigenschaft ist:
+\begin{align*}
+\int\dd^{d}k_{E}\left(\lambda^{2}k_{E}^{2}\right)^{N} & \sr ={\text{Linearität}}{}\lambda^{2N}\int\dd^{d}k_{E}\left(k_{E}^{2}\right)^{N}\\
+ & \sr ={\text{Skalierung}}{}\lambda^{-d}\int\dd^{d}k_{E}\left(k_{E}^{2}\right)^{N}
+\end{align*}
+Für $d\not=-2N$ folgt also:
+\begin{align*}
+\int\dd^{d}k_{n}\left(k_{E}^{2}\right)^{N} & =0
+\end{align*}
+Nur für logarithmisch divergente Integrale gilt dies nicht.
+
+\begin{align*}
+\frac{1}{A_{1}^{\alpha_{1}}\cdots A_{m}^{\alpha_{m}}} & =\frac{\Gamma\left(\alpha_{1}+\ldots+\alpha_{m}\right)}{\Gamma\left(\alpha_{1}\right)\cdots\Gamma\left(\alpha_{m}\right)}\int_{0}^{1}\dd x_{1}\ldots\int_{0}^{x_{m-2}}\dd x_{m-1}\frac{x_{m-1}^{\alpha_{1}-1}\left(x_{m-2}-x_{m-1}\right)^{\alpha_{2}-1}\cdots\left(1-x_{1}\right)^{\alpha_{m}-1}}{\left(A_{1}x_{m-1}+A_{2}\left(x_{m-2}-x_{m-1}\right)+\ldots+A_{m}\left(1-x_{1}\right)\right)^{\alpha_{1}+\ldots+\alpha_{m}}}
+\end{align*}
+Für jeden Loop-Impuls $k$ lässt sich der Nenner schreiben als:
+\begin{align*}
+k^{2}+2k\cdot Q+\ldots+\ii\varepsilon
+\end{align*}
+Bei der euklidischen Fortsetzung geht erhält man:
+\begin{align*}
+p^{2}-m^{2}+\ii\varepsilon & \to-p_{E}^{2}-m^{2}+\ii\varepsilon=-\left(p_{E}+m^{2}-\ii\varepsilon\right)
+\end{align*}
+Wegen der Translationsinvarianz kann man $k_{E}$ verschieben zu $k_{E}-Q_{E}$.
+Nur gerade Potenzen bleiben übrig. Fasst man alle übrigen Terme zu
+$M^{2}$ zusammen, so gilt folgende Zentrale Beziehung:
+\begin{align*}
+\fbox{\ensuremath{{\displaystyle \int\dd^{d}k_{E}\frac{\left(k_{E}^{2}\right)^{\alpha}}{\left(k_{E}^{2}+M^{2}-\ii\eta\right)^{\beta}}\stackrel{!}{=}\pi^{\frac{d}{2}}\left(M^{2}\right)^{\alpha-\beta+\frac{d}{2}}\frac{\Gamma\left(\alpha+\frac{d}{2}\right)\Gamma\left(\beta-\alpha-\frac{d}{2}\right)}{\Gamma\left(\frac{d}{2}\right)\Gamma\left(\beta\right)}}}}
+\end{align*}
+Die $\Gamma$-Funktion ist definiert durch:
+\begin{align*}
+\Gamma\left(1\right) & =1\\
+\Gamma\left(z+1\right) & =z\Gamma\left(z\right)
+\end{align*}
+Insbesondere folgt für $n\in\mathbb{N}$:
+\begin{align*}
+\Gamma\left(n+1\right) & =n\Gamma\left(n\right)=n\left(n-1\right)\cdots\cdot2\cdot1\cdot\Gamma\left(1\right)=n!
+\end{align*}
+\begin{align*}
+\Gamma\left(0\right) & =\lim_{z\to0}\frac{\Gamma\left(z+1\right)}{z}=\lim_{z\to0}\frac{1}{z}=\infty
+\end{align*}
+\begin{align*}
+\Gamma\left(-\frac{1}{3}\right) & =\frac{\Gamma\left(\frac{2}{3}\right)}{-\frac{1}{3}}=\frac{\Gamma\left(\frac{5}{3}\right)}{\frac{2}{3}\left(-\frac{1}{3}\right)}=\frac{\Gamma\left(\frac{8}{3}\right)}{\frac{5}{3}\frac{2}{3}\left(-\frac{1}{3}\right)}\sr{\in}{\Gamma\left(\frac{8}{3}\right)\in\left(1!,2!\right)}{}\left(-\frac{54}{10},-\frac{27}{10}\right)
+\end{align*}
+\begin{align*}
+\lim_{\varepsilon\to0}\Gamma\left(-2+\varepsilon\right) & =\lim_{\varepsilon\to0}\frac{\Gamma\left(1+\varepsilon\right)}{\left(-2+\varepsilon\right)\left(-1+\varepsilon\right)\varepsilon}=\frac{1}{2}\lim_{\varepsilon\to0}\frac{1}{\varepsilon}+\frac{3}{4}+\frac{\Gamma'\left(1\right)}{2}
+\end{align*}
+\begin{align*}
+\lim_{\varepsilon\to0}\Gamma\left(\varepsilon\right) & =\lim_{\varepsilon\to0}\frac{\Gamma\left(1+\varepsilon\right)}{\varepsilon}=\lim_{\varepsilon\to0}\frac{1}{\varepsilon}+\Gamma'\left(1\right)
+\end{align*}
+Da dies häufig vorkommt, definiert man die \emph{Eulersche Konstante}:
+\begin{align*}
+\gamma & :=-\Gamma'\left(1\right)=0{,}577\ldots
+\end{align*}
+Um die Einheiten-Dimensionen nicht zu verändern, muss man mit einer
+willkürliche Konstante $\mu$ mit $\left[\mu\right]=\left[k_{E}\right]=\text{Energie}$
+definieren:
+\begin{align*}
+\int\dd^{4}k & \leadsto\int\frac{\dd^{3}k_{E}}{\mu^{d-4}}
+\end{align*}
+Die Divergenz liefert mit $d=4-2\varepsilon$:
+\begin{align*}
+\frac{1}{\varepsilon}\mu^{2\varepsilon} & =\frac{1}{\varepsilon}e^{\varepsilon\ln\left(\mu^{2}\right)}=\frac{1}{\varepsilon}\left(1+\varepsilon\ln\left(\mu^{2}\right)+\ldots\right)=\frac{1}{\varepsilon}+\ln\left(\mu^{2}\right)
+\end{align*}
+Für $D\in\mathbb{N}$ kann man sphärische Koordinaten einführen.
+\begin{align*}
+\int_{-\infty}^{\infty}\dd^{D}k_{E}f\left(k_{E}^{2}\right) & =\frac{2\pi^{\frac{D}{2}}}{\Gamma\left(\frac{D}{2}\right)}\int_{0}^{\infty}\dd k_{E}f\left(k_{E}^{2}\right)k_{E}^{D-1}
+\end{align*}
+Denn es gilt:
+\begin{align*}
+\sqrt{\pi} & =\int_{-\infty}^{\infty}e^{-x^{2}}\dd x\\
+\Rightarrow\qquad\pi^{\frac{D}{2}} & =\left(\int_{-\infty}^{\infty}e^{-x^{2}}\dd x\right)^{\frac{D}{2}}=\int_{-\infty}^{\infty}\dd x_{1}\ldots\int_{-\infty}^{\infty}\dd x_{D}e^{-\left(x_{1}^{2}+\ldots+x_{D}^{2}\right)}=\\
+ & =\int\dd\Omega_{D}\int_{0}^{\infty}\frac{\dd\left(x^{2}\right)}{2}\left(x^{2}\right)^{\frac{D}{2}-1}e^{-x^{2}}=\frac{1}{2}\Gamma\left(\frac{D}{2}\right)\int\dd\Omega_{D}
+\end{align*}
+
 
 
 \chapter{\texorpdfstring{$SU\left(N\right)$}{SU(N)} Eichgruppen}
