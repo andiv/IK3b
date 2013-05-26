@@ -41,7 +41,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 \usepackage{tikz,pgfplots}
 %\usepackage{tikz-3dplot,cancel,polynom}
-\usetikzlibrary{matrix,arrows,calc,decorations.pathmorphing,decorations.markings,decorations.pathreplacing,intersections,trees}
+\usetikzlibrary{matrix,arrows,calc,decorations.pathmorphing,decorations.markings,decorations.pathreplacing,intersections,trees,pgfplots.polar}
 \usetikzlibrary{external}
 \tikzexternalize
 \usepackage{latexsym,stmaryrd,stackrel,braket,bbm,subfig,framed,esvect,scrhack,calc,slashed,leftidx}
@@ -1305,7 +1305,7 @@ Die freie Dirac-Gleichung
 \end{align*}
 ist nicht invariant unter lokalen Eichtransformationen:
 \begin{align*}
-\left(\ii\gamma^{\mu}\partial_{\mu}-m\right)e^{\ii q\Theta\left(x\right)}\psi\left(x\right) & =e^{\ii q\Theta\left(x\right)}\left(-q\gamma^{\mu}\left(\partial_{\mu}\Theta\right)+\ii\gamma^{\mu}\partial_{\mu}-m\right)\psi\left(x\right)
+\left(\ii\gamma^{\mu}\partial_{\mu}-m\right)e^{-\ii q\Theta\left(x\right)}\psi\left(x\right) & =e^{-\ii q\Theta\left(x\right)}\left(q\gamma^{\mu}\left(\partial_{\mu}\Theta\right)+\ii\gamma^{\mu}\partial_{\mu}-m\right)\psi\left(x\right)
 \end{align*}
 Aus der Forderung nach Invarianz folgt, dass es etwas geben muss,
 was sich so transformiert, dass die Dirac-Gleichung invariant wird.
@@ -1313,7 +1313,7 @@ Da $\partial_{\mu}\Theta\left(x\right)$ ein Vektorfeld ist, muss
 das neue Objekt ebenfalls ein Vektorfeld sein, und zwar $A_{\mu}$
 mit:
 \begin{align}
-\left(\ii\gamma^{\mu}\partial_{\mu}-q\gamma^{\mu}A_{\mu}\left(x\right)-m\right)\psi\left(x\right) & =0
+\left(\ii\gamma^{\mu}\partial_{\mu}+q\gamma^{\mu}A_{\mu}\left(x\right)-m\right)\psi\left(x\right) & =0
 \end{align}
 Unter einer Eichtransformation transformiert $A_{\mu}$ wie folgt:
 \begin{align}
@@ -1329,7 +1329,7 @@ zu können, muss man wissen, wie sich $A_{\mu}\left(x\right)$ dynamisch
 entwickelt, das heißt wir brauchen die Lagrangedichte des Photons
 $\mathcal{L}_{A}\left(x\right)$.
 
-Wir wissen, dass $\DD_{\mu}=\partial_{\mu}+\ii qA_{\mu}$ ein eichinvarianter
+Wir wissen, dass $\DD_{\mu}=\partial_{\mu}-\ii qA_{\mu}$ ein eichinvarianter
 Ableitungsoperator ist, der \emph{kovariante Ableitung} genannt wird.
 \begin{itemize}
 \item Für die Dimension von $\mathcal{L}$ gilt:
@@ -1348,11 +1348,11 @@ muss aus $\DD_{\mu}$-Operatoren aufgebaut sein.
 Man beobachtet, dass $\left[\hat{D}_{\mu},\hat{D}_{\nu}\right]$ ein
 Multiplikations- und kein Ableitungsoperator ist.
 \begin{align*}
-\left(\partial_{\mu}+\ii qA_{\mu}\right)\left(\partial_{\nu}+\ii qA_{\nu}\right) & =\partial_{\mu}\partial_{\nu}+\ii q\left(\partial_{\mu}A_{\nu}\right)+\ii qA_{\nu}\partial_{\mu}+\ii qA_{\mu}\partial_{\nu}-q^{2}A_{\mu}A_{\nu}\\
-\left(\partial_{\nu}+\ii qA_{\nu}\right)\left(\partial_{\mu}+\ii qA_{\mu}\right) & =\partial_{\nu}\partial_{\mu}+\ii q\left(\partial_{\nu}A_{\mu}\right)+\ii qA_{\mu}\partial_{\nu}+\ii qA_{\nu}\partial_{\mu}-q^{2}A_{\nu}A_{\mu}
+\left(\partial_{\mu}-\ii qA_{\mu}\right)\left(\partial_{\nu}-\ii qA_{\nu}\right) & =\partial_{\mu}\partial_{\nu}-\ii q\left(\partial_{\mu}A_{\nu}\right)-\ii qA_{\mu}\partial_{\nu}-q^{2}A_{\mu}A_{\nu}\\
+\left(\partial_{\nu}-\ii qA_{\nu}\right)\left(\partial_{\mu}-\ii qA_{\mu}\right) & =\partial_{\nu}\partial_{\mu}-\ii q\left(\partial_{\nu}A_{\mu}\right)-\ii qA_{\nu}\partial_{\mu}-q^{2}A_{\nu}A_{\mu}
 \end{align*}
 \begin{align*}
-\Rightarrow\qquad\left[\hat{D}_{\mu},\hat{D}_{\nu}\right] & =\ii q\left(\partial_{\mu}A_{\nu}-\partial_{\nu}A_{\mu}\right)=:\ii qF_{\mu\nu}
+\Rightarrow\qquad\left[\hat{D}_{\mu},\hat{D}_{\nu}\right] & =-\ii q\left(\partial_{\mu}A_{\nu}-\partial_{\nu}A_{\mu}\right)=:-\ii qF_{\mu\nu}
 \end{align*}
 Wählt man $q$ dimensionslos, so hat $A_{\mu}$ die Dimension einer
 Energie und somit folgt $\left[F_{\mu\nu}\right]=\left[E\right]^{2}$.
@@ -1371,7 +1371,7 @@ Die freie Euler-Lagrange-Gleichung ist also:
 \end{align}
 Die Lagrange-Dichte der Quantenelektrodynamik ist somit:
 \begin{align}
-\mathcal{L}_{\text{QED}}\left(x\right) & =\sum_{\text{Fermionen }j}\overline{\psi}_{j}\left(x\right)\left(\slashd{\hat{p}}-q_{e}Q_{j}\slashd A\left(x\right)-m\right)\psi_{j}\left(x\right)-\frac{1}{4}F_{\mu\nu}\left(x\right)F^{\mu\nu}\left(x\right)
+\mathcal{L}_{\text{QED}}\left(x\right) & =\sum_{\text{Fermionen }j}\overline{\psi}_{j}\left(x\right)\left(\slashd{\hat{p}}+q_{e}Q_{j}\slashd A\left(x\right)-m\right)\psi_{j}\left(x\right)-\frac{1}{4}F_{\mu\nu}\left(x\right)F^{\mu\nu}\left(x\right)
 \end{align}
 Dabei ist $q_{e}$ die Elementarladung und $Q_{j}$ die relative Ladung
 des $j$-ten Fermions.
@@ -1381,17 +1381,17 @@ Variablen aufzufassen, weil eine komplexe Größe zwei reelle Freiheitsgrade
 hat. Die Euler-Lagrange-Gleichungen für $A_{\sigma}$ sind:
 \begin{align}
 0 & =\frac{\partial\mathcal{L}_{\text{QED}}}{\partial A_{\sigma}}-\partial_{\lambda}\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\left(\partial_{\lambda}A_{\sigma}\right)}=\nonumber \\
- & =\sum_{\text{Fermionen }j}\overline{\psi}_{j}\left(x\right)\left(-q_{e}Q_{j}\gamma^{\sigma}\right)\psi_{j}\left(x\right)-\left(\frac{-1}{4}\cdot4\right)\partial_{\lambda}F^{\lambda\sigma}\nonumber \\
-\partial_{\lambda}F^{\lambda\sigma} & =q_{e}\underbrace{\sum_{\text{Fermionen }j}Q_{j}\overline{\psi}_{j}\left(x\right)\gamma^{\sigma}\psi_{j}\left(x\right)}_{=j^{\sigma}\left(x\right)}\label{eq:Maxwell-inhomogen}
+ & =\sum_{\text{Fermionen }j}\overline{\psi}_{j}\left(x\right)\left(q_{e}Q_{j}\gamma^{\sigma}\right)\psi_{j}\left(x\right)-\left(\frac{-1}{4}\cdot4\right)\partial_{\lambda}F^{\lambda\sigma}\nonumber \\
+\partial_{\lambda}F^{\lambda\sigma} & =q_{e}\underbrace{\sum_{\text{Fermionen }j}\left(-Q_{j}\right)\overline{\psi}_{j}\left(x\right)\gamma^{\sigma}\psi_{j}\left(x\right)}_{=j^{\sigma}\left(x\right)}\label{eq:Maxwell-inhomogen}
 \end{align}
 Die Dirac-Gleichung erhält man als Euler-Lagrange-Gleichung für $\overline{\psi}_{j}$.
 \begin{align*}
-0 & =\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\overline{\psi}_{j}}-\partial_{\lambda}\underbrace{\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\left(\partial_{\lambda}\overline{\psi}_{j}\right)}}_{=0}=\left(\slashd{\hat{p}}-q_{e}Q_{j}\slashd A\left(x\right)-m\right)\psi_{j}\left(x\right)
+0 & =\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\overline{\psi}_{j}}-\partial_{\lambda}\underbrace{\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\left(\partial_{\lambda}\overline{\psi}_{j}\right)}}_{=0}=\left(\slashd{\hat{p}}+q_{e}Q_{j}\slashd A\left(x\right)-m\right)\psi_{j}\left(x\right)
 \end{align*}
 Die Euler-Lagrange-Gleichung für $\psi_{j}$ ist die konjugierte Dirac-Gleichung:
 \begin{align*}
-0 & =\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\psi_{j}}-\partial_{\lambda}\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\left(\partial_{\lambda}\psi_{j}\right)}=\overline{\psi}_{j}\left(-q_{e}Q_{j}A^{\lambda}\left(x\right)-m\right)-\partial_{\lambda}\left(\overline{\psi}_{j}\cdot\ii\gamma^{\lambda}\right)=\\
- & =\overline{\psi}_{j}\left(-\overleftarrow{\slashd p}-q_{e}Q_{j}\slashd A\left(x\right)-m\right)
+0 & =\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\psi_{j}}-\partial_{\lambda}\frac{\partial\mathcal{L}_{\text{QED}}}{\partial\left(\partial_{\lambda}\psi_{j}\right)}=\overline{\psi}_{j}\left(q_{e}Q_{j}A^{\lambda}\left(x\right)-m\right)-\partial_{\lambda}\left(\overline{\psi}_{j}\cdot\ii\gamma^{\lambda}\right)=\\
+ & =\overline{\psi}_{j}\left(-\overleftarrow{\slashd p}+q_{e}Q_{j}\slashd A\left(x\right)-m\right)
 \end{align*}
 Dabei bedeutet $\overleftarrow{\slashd p}$, dass der Ableitungsoperator
 nach links wirkt, also auf $\overline{\psi}_{j}$.
@@ -1448,8 +1448,8 @@ wird koppeln.
 
 Die Ladungskonjugation vertauscht Teilchen und Antiteilchen.
 \begin{align}
- & \text{Elektron-Dirac-Gleichung:} & \left(\ii\gamma_{\mu}\partial^{\mu}+q_{e}A^{\mu}\gamma_{\mu}-m\right)\psi & =0\\
- & \text{Positron-Dirac-Gleichung:} & \left(\ii\gamma_{\mu}\partial^{\mu}-q_{e}A^{\mu}\gamma_{\mu}-m\right)\psi & =0
+ & \text{Elektron-Dirac-Gleichung:} & \left(\ii\gamma_{\mu}\partial^{\mu}-q_{e}A^{\mu}\gamma_{\mu}-m\right)\psi & =0\\
+ & \text{Positron-Dirac-Gleichung:} & \left(\ii\gamma_{\mu}\partial^{\mu}+q_{e}A^{\mu}\gamma_{\mu}-m\right)\psi & =0
 \end{align}
 Überlegung: Ein Elektron, das mit Energie $E>0$ und Impuls $\vec{p}$
 vorwärts in der Zeit läuft entspricht einem Positron, dass mit Energie
@@ -1483,8 +1483,8 @@ Dabei ist $C\in\text{GL}_{4}\left(\mathbb{C}\right)$ eine beliebige
 invertierbare Matrix. Komplexe Konjugation der Elektron-Dirac-Gleichung
 und Einfügen von $C$ liefert:
 \begin{align*}
-C\left(-\ii\gamma_{\mu}^{*}\partial^{\mu}+q_{e}A^{\mu}\gamma_{\mu}^{*}-m\right)C^{-1}C\psi^{*} & =0\\
-\left(-\ii C\gamma_{\mu}^{*}C^{-1}\partial^{\mu}+q_{e}A^{\mu}C\gamma_{\mu}^{*}C^{-1}-m\right)\psi_{C} & =0
+C\left(-\ii\gamma_{\mu}^{*}\partial^{\mu}-q_{e}A^{\mu}\gamma_{\mu}^{*}-m\right)C^{-1}C\psi^{*} & =0\\
+\left(-\ii C\gamma_{\mu}^{*}C^{-1}\partial^{\mu}-q_{e}A^{\mu}C\gamma_{\mu}^{*}C^{-1}-m\right)\psi_{C} & =0
 \end{align*}
 Damit dies in die Positron-Dirac-Gleichung übergeht, muss
 \begin{align*}
@@ -1560,17 +1560,17 @@ Wir machen den Ansatz:
 \end{align}
 Die Dirac-Gleichung für $x'$ ist:
 \begin{align*}
-\left(\ii\gamma_{\mu}\frac{\partial}{\partial\left(x'\right)^{\mu}}+q_{e}\gamma^{\mu}A_{\mu}\left(x'\right)-m\right)\psi_{P}\left(x'\right) & =0
+\left(\ii\gamma_{\mu}\frac{\partial}{\partial\left(x'\right)^{\mu}}-q_{e}\gamma^{\mu}A_{\mu}\left(x'\right)-m\right)\psi_{P}\left(x'\right) & =0
 \end{align*}
 Die soll äquivalent sein zu:
 \begin{align*}
-\left(\ii\gamma^{\mu}\frac{\partial}{\partial x^{\mu}}+q_{e}\gamma^{\mu}A_{\mu}\left(x\right)-m\right)\psi\left(x\right) & =0
+\left(\ii\gamma^{\mu}\frac{\partial}{\partial x^{\mu}}-q_{e}\gamma^{\mu}A_{\mu}\left(x\right)-m\right)\psi\left(x\right) & =0
 \end{align*}
 Wegen $\vec{E}\stackrel{P}{\to}-\vec{E}$ und $\vec{B}\stackrel{P}{\to}\vec{B}$
 sowie $\nabla\stackrel{P}{\to}-\nabla$ und $\partial_{t}\stackrel{P}{\to}\partial_{t}$
 folgt $A^{0}\stackrel{P}{\to}A^{0}$ und $A^{j}\stackrel{P}{\to}-A^{j}$.
 \begin{align*}
-\Rightarrow\qquad P^{-1}\left(\ii\gamma^{0}\frac{\partial}{\partial x^{0}}-\ii\gamma^{j}\frac{\partial}{\partial x^{j}}+q_{e}\gamma^{0}A_{0}+q_{e}\gamma^{j}A_{j}-m\right)P\psi & =0
+\Rightarrow\qquad P^{-1}\left(\ii\gamma^{0}\frac{\partial}{\partial x^{0}}-\ii\gamma^{j}\frac{\partial}{\partial x^{j}}-q_{e}\gamma^{0}A_{0}-q_{e}\gamma^{j}A_{j}-m\right)P\psi & =0
 \end{align*}
 Es muss also gelten:
 \begin{align*}
@@ -1593,8 +1593,8 @@ Wir machen den Ansatz:
 \end{align}
 Die Dirac-Gleichung für $\psi_{T}$ ist:
 \begin{align*}
-\left(-\ii\gamma^{0}\frac{\partial}{\partial x^{0}}+\ii\gamma^{j}\frac{\partial}{\partial x^{j}}+q_{e}\gamma^{0}A_{0}\left(x\right)+q_{e}\gamma^{j}A_{j}\left(x\right)-m\right)T\psi^{*}\left(x\right) & =0\qquad/^{*}\\
-\left(T^{*}\right)^{-1}\left(\ii\gamma^{0}\frac{\partial}{\partial x^{0}}-\ii\left(\gamma^{j}\right)^{*}\frac{\partial}{\partial x^{j}}+q_{e}\gamma^{0}A_{0}\left(x\right)+q_{e}\left(\gamma^{j}\right)^{*}A_{j}\left(x\right)-m\right)T^{*}\psi\left(x\right) & =0
+\left(-\ii\gamma^{0}\frac{\partial}{\partial x^{0}}+\ii\gamma^{j}\frac{\partial}{\partial x^{j}}-q_{e}\gamma^{0}A_{0}\left(x\right)-q_{e}\gamma^{j}A_{j}\left(x\right)-m\right)T\psi^{*}\left(x\right) & =0\qquad/^{*}\\
+\left(T^{*}\right)^{-1}\left(\ii\gamma^{0}\frac{\partial}{\partial x^{0}}-\ii\left(\gamma^{j}\right)^{*}\frac{\partial}{\partial x^{j}}-q_{e}\gamma^{0}A_{0}\left(x\right)-q_{e}\left(\gamma^{j}\right)^{*}A_{j}\left(x\right)-m\right)T^{*}\psi\left(x\right) & =0
 \end{align*}
 Nun muss gelten:
 \begin{align*}
@@ -2134,7 +2134,7 @@ Für den Zusammenhang zum Heisenbergbild machen wir folgenden Ansatz:
 
 Die Lagrangedichte ist:
 \begin{align*}
-\mathcal{L}\left(x\right) & =\underbrace{\overline{\psi}\left(x\right)\left(\hat{\slashd p}-m\right)\psi\left(x\right)-\frac{1}{4}F_{\mu\nu}\left(x\right)F^{\mu\nu}\left(x\right)}_{=:\mathcal{L}_{0}}\underbrace{-q_{e}\overline{\psi}\left(x\right)\hat{Q}\slashd A\left(x\right)\psi\left(x\right)}_{=:\mathcal{L}_{I}}
+\mathcal{L}\left(x\right) & =\underbrace{\overline{\psi}\left(x\right)\left(\hat{\slashd p}-m\right)\psi\left(x\right)-\frac{1}{4}F_{\mu\nu}\left(x\right)F^{\mu\nu}\left(x\right)}_{=:\mathcal{L}_{0}}+\underbrace{q_{e}\overline{\psi}\left(x\right)\hat{Q}\slashd A\left(x\right)\psi\left(x\right)}_{=:\mathcal{L}_{I}}
 \end{align*}
 \begin{align*}
 L\left(t\right) & =\int\dd^{3}x\mathcal{L}\left(x\right)=\underbrace{L_{0}}_{\widehat{=}\, T}+\underbrace{L_{I}}_{\widehat{=}\,-V}\\
@@ -2142,7 +2142,7 @@ H\left(t\right) & =\int\dd^{3}x\mathcal{H}\left(x\right)=H_{0}+\underbrace{H_{I}
 \end{align*}
 \begin{align*}
 \mathcal{H}_{0}\left(x\right) & =\overline{\psi}\left(x\right)\left(\hat{\slashd p}-m\right)\psi\left(x\right)-\frac{1}{4}F_{\mu\nu}\left(x\right)F^{\mu\nu}\left(x\right)\\
-\mathcal{H}_{I}\left(x\right) & =q_{e}\overline{\psi}\left(x\right)\hat{Q}\slashd A\left(x\right)\psi\left(x\right)
+\mathcal{H}_{I}\left(x\right) & =-q_{e}\overline{\psi}\left(x\right)\hat{Q}\slashd A\left(x\right)\psi\left(x\right)
 \end{align*}
 \begin{align*}
 \hat{H}_{I} & \to\int\dd^{3}x\hat{\mathcal{H}}_{I}\left(x\right)
@@ -2443,13 +2443,13 @@ edge from parent[electron] node[above]{$e^-$}}     node[left]{$x_2$};
 Die Hamiltondichte der Wechselwirkung ist für ein Elektron mit Ladung
 $q=-q_{e}$:
 \begin{align*}
-\mathcal{H}_{I}\left(x\right) & =-q_{e}\overline{\psi}\left(x\right)\slashd A\left(x\right)\psi\left(x\right)
+\mathcal{H}_{I}\left(x\right) & =q_{e}\overline{\psi}\left(x\right)\slashd A\left(x\right)\psi\left(x\right)
 \end{align*}
 Die Amplitude ergibt sich somit zu:
 \begin{align*}
-I & :=\BraKet{0|\mathcal{T}\left\{ \hat{\psi}_{j_{1}}\left(x_{1}\right)\hat{\overline{\psi}}_{j_{2}}\left(x_{2}\right)\hat{A}_{\nu}\left(x_{3}\right)e^{-\ii\int\dd^{4}y\hat{\overline{\psi}}\left(y\right)\left(-q_{e}\right)\hat{\slashd A}\left(y\right)\hat{\psi}\left(y\right)}\right\} |0}\approx\\
- & \sr{\approx}{\text{1. Ordnung}}{\text{0. Ordnung}\leadsto0}\int\dd^{4}y\BraKet{0|\mathcal{T}\left\{ \hat{\psi}_{j_{1}}\left(x_{1}\right)\hat{\overline{\psi}}_{j_{2}}\left(x_{2}\right)\hat{A}_{\nu}\left(x_{3}\right)\hat{\overline{\psi}}_{k_{2}}\left(y\right)\left(\ii q_{e}\gamma^{\mu}\right)_{k_{2}k_{1}}\hat{\psi}_{k_{1}}\left(y\right)\hat{A}_{\mu}\left(y\right)\right\} |0}=\\
- & =\left(\ii q_{e}\gamma^{\mu}\right)_{k_{2}k_{1}}\int\dd^{4}y\BraKet{0|\mathcal{T}\left\{ \hat{A}_{\nu}\left(x_{3}\right)\hat{A}_{\mu}\left(y\right)\right\} |0}\cdot\\
+I & :=\BraKet{0|\mathcal{T}\left\{ \hat{\psi}_{j_{1}}\left(x_{1}\right)\hat{\overline{\psi}}_{j_{2}}\left(x_{2}\right)\hat{A}_{\nu}\left(x_{3}\right)e^{-\ii\int\dd^{4}y\hat{\overline{\psi}}\left(y\right)q_{e}\hat{\slashd A}\left(y\right)\hat{\psi}\left(y\right)}\right\} |0}\approx\\
+ & \sr{\approx}{\text{1. Ordnung}}{\text{0. Ordnung}\leadsto0}\int\dd^{4}y\BraKet{0|\mathcal{T}\left\{ \hat{\psi}_{j_{1}}\left(x_{1}\right)\hat{\overline{\psi}}_{j_{2}}\left(x_{2}\right)\hat{A}_{\nu}\left(x_{3}\right)\hat{\overline{\psi}}_{k_{2}}\left(y\right)\left(-\ii q_{e}\gamma^{\mu}\right)_{k_{2}k_{1}}\hat{\psi}_{k_{1}}\left(y\right)\hat{A}_{\mu}\left(y\right)\right\} |0}=\\
+ & =\left(-\ii q_{e}\gamma^{\mu}\right)_{k_{2}k_{1}}\int\dd^{4}y\BraKet{0|\mathcal{T}\left\{ \hat{A}_{\nu}\left(x_{3}\right)\hat{A}_{\mu}\left(y\right)\right\} |0}\cdot\\
  & \qquad\cdot\bigg(\underbrace{\BraKet{0|\mathcal{T}\left\{ \hat{\psi}_{j_{1}}\left(x_{1}\right)\hat{\overline{\psi}}_{j_{2}}\left(x_{2}\right)\right\} |0}\left(-1\right)\BraKet{0|\mathcal{T}\left\{ \hat{\psi}_{k_{1}}\left(y\right)\hat{\overline{\psi}}_{k_{2}}\left(y\right)\right\} |0}}_{\leadsto0}\cdot\\
  & \qquad\cdot\left(-1\right)\BraKet{0|\mathcal{T}\left\{ \hat{\psi}_{j_{1}}\left(x_{1}\right)\hat{\overline{\psi}}_{k_{2}}\left(y\right)\right\} |0}\left(-1\right)\BraKet{0|\mathcal{T}\left\{ \hat{\psi}_{k_{1}}\left(y\right)\hat{\overline{\psi}}_{j_{2}}\left(x_{2}\right)\right\} |0}=\\
  & =\left(\ii q_{e}\gamma^{\mu}\right)_{k_{2}k_{1}}\int\ii D_{F\mu\nu}\left(x_{3}-y\right)\ii\left(S_{F}\left(x_{1}-y\right)\right)_{j_{1}k_{2}}\ii\left(S_{F}\left(y-x_{2}\right)\right)_{k_{1}j_{2}}\dd^{4}y
@@ -2477,14 +2477,14 @@ D_{F\mu\nu}\left(x_{3}-y\right) & =-\int\frac{\dd^{4}p_{3}}{\left(2\pi\right)^{4
 \end{align}
 Es folgt:
 \begin{align*}
-I & =\left(\ii q_{e}\gamma^{\mu}\right)_{k_{2}k_{1}}\int\frac{\dd^{4}p_{1}\dd^{4}p_{2}\dd^{4}p_{3}}{\left(2\pi\right)^{12}}\underbrace{\int\dd^{4}ye^{-\ii y\left(-p_{1}+p_{2}-p_{3}\right)}}_{=\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{2}-p_{1}-p_{3}\right);\text{E-p-Erhaltung}}e^{-\ii p_{1}x_{1}}e^{-\ii p_{3}x_{3}}e^{\ii p_{2}x_{2}}\cdot\\
+I & =\left(-\ii q_{e}\gamma^{\mu}\right)_{k_{2}k_{1}}\int\frac{\dd^{4}p_{1}\dd^{4}p_{2}\dd^{4}p_{3}}{\left(2\pi\right)^{12}}\underbrace{\int\dd^{4}ye^{-\ii y\left(-p_{1}+p_{2}-p_{3}\right)}}_{=\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{2}-p_{1}-p_{3}\right);\text{E-p-Erhaltung}}e^{-\ii p_{1}x_{1}}e^{-\ii p_{3}x_{3}}e^{\ii p_{2}x_{2}}\cdot\\
  & \qquad\cdot\ii\frac{g_{\mu\nu}}{p_{3}^{2}+\ii\varepsilon}\ii\left(\frac{\slashd p_{1}+m}{p_{1}^{2}-m^{2}+\ii\varepsilon}\right)_{j_{1}k_{2}}\ii\left(\frac{\slashd p_{2}+m}{p_{2}^{2}-m^{2}+\ii\varepsilon}\right)_{k_{1}j_{2}}=\\
- & =\left(\ii q_{e}\gamma^{\mu}\right)_{k_{2}k_{1}}\int\frac{\dd^{4}p_{2}\dd^{4}p_{3}}{\left(2\pi\right)^{8}}e^{-\ii\left(p_{2}-p_{3}\right)x_{1}}e^{-\ii p_{3}x_{3}}e^{\ii p_{2}x_{2}}\cdot\\
+ & =\left(-\ii q_{e}\gamma^{\mu}\right)_{k_{2}k_{1}}\int\frac{\dd^{4}p_{2}\dd^{4}p_{3}}{\left(2\pi\right)^{8}}e^{-\ii\left(p_{2}-p_{3}\right)x_{1}}e^{-\ii p_{3}x_{3}}e^{\ii p_{2}x_{2}}\cdot\\
  & \qquad\cdot\ii\frac{g_{\mu\nu}}{p_{3}^{2}+\ii\varepsilon}\ii\left(\frac{\slashd p_{2}-\slashd p_{3}+m}{\left(p_{2}-p_{3}\right)^{2}-m^{2}+\ii\varepsilon}\right)_{j_{1}k_{2}}\ii\left(\frac{\slashd p_{2}+m}{p_{2}^{2}-m^{2}+\ii\varepsilon}\right)_{k_{1}j_{2}}
 \end{align*}
 Der essentielle Teil ist also:
 \begin{align*}
-\ii\frac{g_{\mu\nu}}{p_{3}^{2}+\ii\varepsilon}\left(\ii\frac{\slashd p_{2}-\slashd p_{3}+m}{\left(p_{2}-p_{3}\right)^{2}-m^{2}+\ii\varepsilon}\left(\ii q_{e}\gamma^{\mu}\right)\ii\left(\frac{\slashd p_{2}+m}{p_{2}^{2}-m^{2}+\ii\varepsilon}\right)\right)_{j_{1}j_{2}}
+\ii\frac{g_{\mu\nu}}{p_{3}^{2}+\ii\varepsilon}\left(\ii\frac{\slashd p_{2}-\slashd p_{3}+m}{\left(p_{2}-p_{3}\right)^{2}-m^{2}+\ii\varepsilon}\left(-\ii q_{e}\gamma^{\mu}\right)\ii\left(\frac{\slashd p_{2}+m}{p_{2}^{2}-m^{2}+\ii\varepsilon}\right)\right)_{j_{1}j_{2}}
 \end{align*}
 Im Impulsraum erhält man diesen direkt aus dem Feynman-Diagramm, wenn
 man die Energie-Impuls-Erhaltung berücksichtigt:
@@ -2582,7 +2582,7 @@ v\left(\vec{p},s\right) & \cdot\left[\frac{1}{\sqrt{2E}}\right]
 
 \item Für jeden Fermion-Photon-Vertex (Fermionenladung $q_{f}$):
 \begin{align}
--\ii q_{f}\gamma_{\mu} & \cdot\left[\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p-p'-q\right)\right]
+\ii q_{f}\gamma_{\mu} & \cdot\left[\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p-p'-q\right)\right]
 \end{align}
 
 \item Für jeden Fermion-Propagator (Linie):
@@ -3008,15 +3008,15 @@ Quark der $Q_{q}$-fachen Elementarladung $q_{e}$, das heißt $q_{q}=Q_{q}q_{e}$.
 
 
 Das Matrixelement ist nach den Feynman-Regeln mit allen Faktoren:
-\begin{align*}
-M & =\int\left(\frac{\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)}{\sqrt{2E_{e}'}}\left(-\ii\left(-q_{e}\right)\gamma_{\varrho}\right)\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}-p_{e}'-p_{p}\right)\frac{u_{e}\left(\vec{p}_{e},s_{e}\right)}{\sqrt{2E_{e}}}\right)\cdot\\
- & \qquad\cdot\left(\frac{\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)}{\sqrt{2E_{q}'}}\left(-\ii Q_{q}q_{e}\gamma_{\nu}\right)\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{q}+p_{p}-p_{q}'\right)\frac{u_{q}\left(\vec{p}_{q},s_{q}\right)}{\sqrt{2E_{q}}}\right)\frac{\left(-\ii\right)g^{\varrho\nu}}{p_{p}^{2}+\ii\varepsilon}\frac{\dd^{4}p_{p}}{\left(2\pi\right)^{4}}=\\
- & =-\ii Q_{q}q_{e}^{2}\left(\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)\frac{1}{\sqrt{2E_{e}'}}\gamma_{\varrho}u_{e}\left(\vec{p}_{e},s_{e}\right)\frac{1}{\sqrt{2E_{e}}}\right)\cdot\frac{g^{\varrho\nu}}{\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon}\cdot\\
- & \qquad\cdot\left(\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)\frac{1}{\sqrt{2E_{q}'}}\gamma_{\nu}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{q}+p_{e}-p_{e}'-p_{q}'\right)u_{q}\left(\vec{p}_{q},s_{q}\right)\frac{1}{\sqrt{2E_{q}}}\right)=\\
-\\
- & =\underbrace{-\ii Q_{q}q_{e}^{2}\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)\gamma_{\varrho}u_{e}\left(\vec{p}_{e},s_{e}\right)\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)\gamma_{\nu}u_{q}\left(\vec{p}_{q},s_{q}\right)\cdot\frac{g^{\varrho\nu}}{\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon}\cdot}_{=:\mathcal{M}}\\
+\begin{align}
+M & =\int\left(\frac{\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)}{\sqrt{2E_{e}'}}\left(-\ii q_{e}\gamma_{\varrho}\right)\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}-p_{e}'-p_{p}\right)\frac{u_{e}\left(\vec{p}_{e},s_{e}\right)}{\sqrt{2E_{e}}}\right)\cdot\nonumber \\
+ & \qquad\cdot\left(\frac{\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)}{\sqrt{2E_{q}'}}\left(\ii Q_{q}q_{e}\gamma_{\nu}\right)\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{q}+p_{p}-p_{q}'\right)\frac{u_{q}\left(\vec{p}_{q},s_{q}\right)}{\sqrt{2E_{q}}}\right)\frac{\left(-\ii\right)g^{\varrho\nu}}{p_{p}^{2}+\ii\varepsilon}\frac{\dd^{4}p_{p}}{\left(2\pi\right)^{4}}=\nonumber \\
+ & =-\ii Q_{q}q_{e}^{2}\left(\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)\frac{1}{\sqrt{2E_{e}'}}\gamma_{\varrho}u_{e}\left(\vec{p}_{e},s_{e}\right)\frac{1}{\sqrt{2E_{e}}}\right)\cdot\frac{g^{\varrho\nu}}{\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon}\cdot\nonumber \\
+ & \qquad\cdot\left(\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)\frac{1}{\sqrt{2E_{q}'}}\gamma_{\nu}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{q}+p_{e}-p_{e}'-p_{q}'\right)u_{q}\left(\vec{p}_{q},s_{q}\right)\frac{1}{\sqrt{2E_{q}}}\right)=\nonumber \\
+\nonumber \\
+ & =\underbrace{-\ii Q_{q}q_{e}^{2}\overline{u}_{e}\left(\vec{p}_{e}',s_{e}'\right)\gamma_{\varrho}u_{e}\left(\vec{p}_{e},s_{e}\right)\overline{u}_{q}\left(\vec{p}_{q}',s_{q}'\right)\gamma_{\nu}u_{q}\left(\vec{p}_{q},s_{q}\right)\cdot\frac{g^{\varrho\nu}}{\left(p_{e}-p_{e}'\right)^{2}+\ii\varepsilon}\cdot}_{=:\mathcal{M}}\nonumber \\
  & \qquad\cdot\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)\frac{1}{4\sqrt{E_{e}E_{e}'E_{q}E_{q}'}}
-\end{align*}
+\end{align}
 Das verkürzte Matrixelement $\mathcal{M}$ kann man direkt erhalten,
 wenn man die Feynman-Regeln mit Energie-Impuls-Erhaltung ohne die
 zusätzlichen Faktoren benutzt.
@@ -3068,18 +3068,18 @@ I & \approx\frac{q_{e}^{4}Q_{q}^{2}\cdot16}{4\left(p_{e}-p_{e}'\right)^{4}}\left
  & =\frac{8q_{e}^{4}Q_{q}^{2}}{\left(p_{e}-p_{e}'\right)^{4}}\left(\left(p_{e}\cdot p_{q}\right)\left(p_{e}'\cdot p_{q}'\right)+\left(p_{e}\cdot p_{q}'\right)\left(p_{e}'\cdot p_{q}\right)\right)
 \end{align*}
 Führe nun die \emph{Mandelstamm-Variablen} ein:
-\begin{align*}
+\begin{align}
 s & :=\left(p_{e}+p_{q}\right)^{2}\sr ={m\approx0}{}2p_{e}p_{q}=\left(p_{e}'+p_{q}'\right)^{2}=2p_{e}'p_{q}'\\
 t & :=\left(p_{e}-p_{e}'\right)^{2}\sr ={m\approx0}{}-2p_{e}p_{e}'=\left(p_{q}-p_{q}'\right)^{2}=-2p_{q}p_{q}'\\
 u & :=\left(p_{e}-p_{q}'\right)^{2}\sr ={m\approx0}{}-2p_{e}p_{q}'=\left(p_{q}'-p_{e}\right)^{2}=-2p_{e}'p_{q}
-\end{align*}
-\begin{align*}
+\end{align}
+\begin{align}
 s+t+u & \sr ={m\approx0}{}0
-\end{align*}
+\end{align}
 Damit folgt:
-\begin{align*}
+\begin{align}
 I & =\frac{2q_{e}^{4}Q_{q}^{2}}{t^{2}}\left(s^{2}+u^{2}\right)
-\end{align*}
+\end{align}
 Insgesamt benötigt man aber das Betragsquadrat von $M$. Wenn man
 dies naiv ausrechnet, so erhält man:
 \begin{align*}
@@ -3176,9 +3176,9 @@ $\phi_{q}$ kollinear sind, das heißt Stoßparameter $b_{1}=b_{2}=0$
 haben, um über $b$ integrieren zu können. Mit der Definition $b_{3}:=0$
 kann man für den Exponenten kurz $-\ii\vec{b}\vec{k}_{q}$ schreiben.
 Der Wirkungsquerschnitt ist definiert als:
-\begin{align*}
+\begin{align}
 \sigma & =\int\dd^{2}bP\left(b\right)
-\end{align*}
+\end{align}
 Dabei ist $P\left(b\right)$ die Wahrscheinlichkeit der Wechselwirkung
 für einen Stoßparameter $b$.
 \begin{align*}
@@ -3213,9 +3213,9 @@ k_{e} & \to p_{e} & \int\frac{\dd^{3}k_{e}}{\left(2\pi\right)^{3}}\phi_{e}^{*}\p
 k_{q} & \to p_{q} & \int\frac{\dd^{3}k_{q}}{\left(2\pi\right)^{3}}\phi_{q}^{*}\phi_{q} & \to1
 \end{align*}
 Man erhält somit:
-\begin{align*}
+\begin{align}
 \dd\sigma & =\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}\cdot16E_{e}'E_{q}'}\cdot\frac{\abs{\mathcal{M}\left(\vec{p}_{e},\vec{p}_{q},\vec{p}_{e}',\vec{p}_{q}'\right)}^{2}}{p_{q,3}E_{e}-p_{e,3}E_{q}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)
-\end{align*}
+\end{align}
 Dieser Ausdruck ist nicht Lorentz-invariant, sondern nur invariant
 unter Boosts entlang der $x_{3}$-Achse. Für den Wirkungsquerschnitt
 im Schwerpunktsystem, in dem der Stoß entlang der $x^{3}$-Achse verläuft,
@@ -3242,22 +3242,22 @@ Also gilt:
 p_{q}E_{e}+p_{e}E_{q} & =\sqrt{\left(p_{e}\cdot p_{q}\right)^{2}-m_{e}^{2}m_{q}^{2}}
 \end{align*}
 Damit folgt:
-\begin{align*}
-\sigma_{\text{cm}} & =\int\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}\cdot4E_{e}'E_{q}'}\cdot\frac{I}{4\sqrt{\left(p_{e}\cdot p_{q}\right)^{2}-m_{e}^{2}m_{q}^{2}}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)\\
- & =\int\frac{\dd^{3}p_{e}'}{\left(2\pi\right)^{2}\cdot4E_{e}'E_{q}'}\cdot\frac{I}{2\sqrt{\left(2p_{e}\cdot p_{q}\right)^{2}-m_{e}^{2}m_{q}^{2}}}\delta\left(E_{e}+E_{q}-E_{e}'-E_{q}'\right)\approx\\
- & \sr{\approx}{m\approx0}{}\int\frac{\dd^{3}p_{e}'}{\left(4\pi\right)^{2}\cdot4E_{e}'E_{q}'}\cdot\frac{2I}{\sqrt{\left(2p_{e}\cdot p_{q}\right)^{2}}}\delta\left(E_{e}+E_{q}-E_{e}'-E_{q}'\right)=\\
- & \sr ={s=\sqrt{\left(2p_{e}\cdot p_{q}\right)^{2}}}{I=\frac{2q_{e}^{4}Q_{q}^{2}}{t^{2}}\left(s^{2}+u^{2}\right)}\int\frac{\dd^{3}p_{e}'}{\left(4\pi\right)^{2}\cdot4E_{e}'E_{q}'}\cdot\frac{2}{s}\cdot\frac{2q_{e}^{4}Q_{q}^{2}}{t^{2}}\left(s^{2}+u^{2}\right)\delta\left(E_{e}+E_{q}-E_{e}'-E_{q}'\right)\\
+\begin{align}
+\sigma_{\text{cm}} & =\int\frac{\dd^{3}p_{e}'\dd^{3}p_{q}'}{\left(2\pi\right)^{6}\cdot4E_{e}'E_{q}'}\cdot\frac{I}{4\sqrt{\left(p_{e}\cdot p_{q}\right)^{2}-m_{e}^{2}m_{q}^{2}}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{q}-p_{e}'-p_{q}'\right)\nonumber \\
+ & =\int\frac{\dd^{3}p_{e}'}{\left(2\pi\right)^{2}\cdot4E_{e}'E_{q}'}\cdot\frac{I}{2\sqrt{\left(2p_{e}\cdot p_{q}\right)^{2}-m_{e}^{2}m_{q}^{2}}}\delta\left(E_{e}+E_{q}-E_{e}'-E_{q}'\right)\approx\nonumber \\
+ & \sr{\approx}{m\approx0}{}\int\frac{\dd^{3}p_{e}'}{\left(4\pi\right)^{2}\cdot4E_{e}'E_{q}'}\cdot\frac{2I}{\sqrt{\left(2p_{e}\cdot p_{q}\right)^{2}}}\delta\left(E_{e}+E_{q}-E_{e}'-E_{q}'\right)=\nonumber \\
+ & \sr ={s=\sqrt{\left(2p_{e}\cdot p_{q}\right)^{2}}}{I=\frac{2q_{e}^{4}Q_{q}^{2}}{t^{2}}\left(s^{2}+u^{2}\right)}\int\frac{\dd^{3}p_{e}'}{\left(4\pi\right)^{2}\cdot4E_{e}'E_{q}'}\cdot\frac{2}{s}\cdot\frac{2q_{e}^{4}Q_{q}^{2}}{t^{2}}\left(s^{2}+u^{2}\right)\delta\left(E_{e}+E_{q}-E_{e}'-E_{q}'\right)\nonumber \\
  & \sr ={\alpha=\frac{q_{e}^{2}}{4\pi}}{}4\alpha^{2}Q_{q}^{2}\int\frac{\dd^{3}p_{e}'}{\left(4\pi\right)^{2}\cdot4E_{e}'E_{q}'}\cdot\frac{\left(s^{2}+u^{2}\right)}{st^{2}}\delta\left(E_{e}+E_{q}-E_{e}'-E_{q}'\right)
-\end{align*}
+\end{align}
 Dies ist ein Lorentz-invarianter Ausdruck für den Wirkungsquerschnitt
 im Schwerpunkt-Bezugssystem.
 
 %DATE: Mo 13.5.13
 
 Die allgemeine Formel für $2\to n$ Streu-Prozesse lautet:
-\begin{align*}
+\begin{align}
 \dd\sigma_{\text{cm}} & =\frac{\abs{\mathcal{M}}^{2}}{4\sqrt{\left(p_{1}\cdot p_{2}\right)^{2}-m_{1}^{2}m_{2}^{2}}}\underbrace{\left(2\pi\right)^{4}\delta^{4}\left(p_{1}+p_{2}-p_{3}-\ldots-p_{n}\right)\prod_{j=3}^{n+2}\frac{\dd^{3}p_{j}}{\left(2\pi\right)^{3}\cdot2E_{j}}}_{\text{Lorentz-invariantes Phasenraumelement}}
-\end{align*}
+\end{align}
 Den Index cm für das Schwerpunkt-System lassen wir in Zukunft weg,
 da wir nur Wirkungsquerschnitte im Schwerpunktsystem berechnen.
 
@@ -3469,8 +3469,390 @@ Prozesse, zum Beispiel die Quark-Antiquark-Erzeugung aus Gluonen.
 \end{figure}
 
 
+Das verkürzte Matrixelement für diese zwei Feynman-Diagramme ist:
+\begin{align*}
+\mathcal{M} & =\overline{u}\left(p_{e}',s_{e}'\right)\Bigg(\left(-\ii q_{e}\slashd{\epsilon}'\right)\frac{\ii\left(\slashd p_{e}+\slashd p_{\gamma}+m_{e}\right)}{\left(p_{e}+p_{\gamma}\right)^{2}-m_{e}^{2}+\ii\varepsilon}\left(-\ii q_{e}\slashd{\epsilon}\right)+\\
+ & \qquad\qquad\qquad+\left(-\ii q_{e}\slashd{\epsilon}\right)\frac{\ii\left(\slashd p_{e}-\slashd p_{\gamma}'+m_{e}\right)}{\left(p_{e}-p_{\gamma}'\right)-m_{e}^{2}+\ii\varepsilon}\left(-\ii q_{e}\slashd{\epsilon}'\right)\Bigg)u\left(p_{e},s_{e}\right)\\
+ & =-\ii q_{e}^{2}\overline{u}\left(p_{e}',s_{e}'\right)\left(\frac{\slashd{\epsilon}'\left(\slashd p_{e}+\slashd p_{\gamma}+m_{e}\right)\slashd{\epsilon}}{\left(p_{e}+p_{\gamma}\right)^{2}-m_{e}^{2}+\ii\varepsilon}+\frac{\slashd{\epsilon}\left(\slashd p_{e}-\slashd p_{\gamma}'+m_{e}\right)\slashd{\epsilon}'}{\left(p_{e}-p_{\gamma}'\right)-m_{e}^{2}+\ii\varepsilon}\right)u\left(p_{e},s_{e}\right)
+\end{align*}
+Die Polarisation der real ein- und auslaufenden Photonen steht senkrecht
+zum Impuls:
+\begin{align}
+\epsilon\cdot p_{\gamma} & =\epsilon'\cdot p_{\gamma}'=0\label{eq:eps-pg}
+\end{align}
+Außerdem sind die Polarisationsvektoren normiert:
+\begin{align}
+\epsilon\cdot\epsilon & =-1=\epsilon'\cdot\epsilon'\label{eq:eps-normiert}
+\end{align}
+Wie wir gleich zeigen, können auch ein Koordinatensystem und eine
+Eichung gewählt werden, sodass gilt:
+\begin{align}
+\epsilon\cdot p_{e} & =\epsilon'\cdot p_{e}=0\label{eq:eps-pe}
+\end{align}
+Für andere Prozesse wäre dies keine gute Idee, da der Photonen-Propagator
+dann sehr kompliziert aussieht, aber für die Compton-Streuung benötigen
+wir den Photonen-Propagator nicht und daher ist dies tatsächlich eine
+kluge Wahl. (Im Allgemeinen sollte man versuchen möglichst viele Terme
+zum Verschwinden zu bringen.)
+
+Im Schwerpunktsystem gilt $\vec{p}_{\gamma}=-\vec{p}_{e}$. Wir wählen
+nun folgende Eichung:
+\begin{align}
+\epsilon^{0} & =0 & \vec{\epsilon}\cdot\vec{p}_{\gamma} & =0
+\end{align}
+Dann gilt:
+\begin{align}
+\epsilon\cdot p_{e} & =-\vec{\epsilon}\cdot\vec{p}_{e}=\vec{\epsilon}\cdot\vec{p}_{\gamma}=0
+\end{align}
+Als nächstes führen wir einen Umeichung $\epsilon\to\tilde{\epsilon}$,
+$\epsilon'\to\tilde{\epsilon}'$ durch, die $\epsilon^{\mu}$ und
+$\epsilon'\cdot\epsilon'$ nicht ändert, aber $\tilde{\epsilon}\cdot p_{e}=0$
+ergibt. Wegen $\epsilon^{0}=0$ ist dies nichts anderes als eine Rotation
+des Polarisationskoordinatensystems um den Vektor $\vec{\epsilon}$.
+Dazu definieren wir:
+\begin{align*}
+\epsilon_{\mu}\to\tilde{\epsilon}_{\mu} & =\epsilon_{\mu}-\frac{\left(p_{\gamma}'\right)_{\mu}p_{e}^{\nu}}{p_{e}\cdot p_{\gamma}'}\epsilon_{\nu}=\epsilon_{\mu}-\frac{\overbrace{p_{e}\cdot\epsilon}^{=0}}{p_{e}\cdot p_{\gamma}'}\left(p_{\gamma}'\right)_{\mu}=\epsilon_{\mu}\\
+\epsilon_{\mu}'\to\tilde{\epsilon}_{\mu}' & =\epsilon_{\mu}'-\frac{\left(p_{\gamma}'\right)_{\mu}p_{e}^{\nu}}{p_{e}\cdot p_{\gamma}'}\epsilon_{\nu}'=\epsilon_{\mu}'-\frac{p_{e}\cdot\epsilon'}{p_{e}\cdot p_{\gamma}'}\left(p_{\gamma}'\right)_{\mu}
+\end{align*}
+Tatsächlich gilt für den neuen Polarisationsvektor $\tilde{\epsilon}_{\mu}'$
+nun:
+\begin{align}
+\tilde{\epsilon}'\cdot\tilde{\epsilon}' & =\left(\epsilon_{\mu}'-\frac{p_{e}\cdot\epsilon'}{p_{e}\cdot p_{\gamma}'}\left(p_{\gamma}'\right)_{\mu}\right)\left(\left(\epsilon'\right)^{\mu}-\frac{p_{e}\cdot\epsilon'}{p_{e}\cdot p_{\gamma}'}\left(p_{\gamma}'\right)^{\mu}\right)=\nonumber \\
+ & =\epsilon'\cdot\epsilon'-2\frac{p_{e}\cdot\epsilon'}{p_{e}\cdot p_{\gamma}'}\underbrace{p_{\gamma}'\cdot\epsilon'}_{=0}+\frac{p_{e}\cdot\epsilon'}{p_{e}\cdot p_{\gamma}'}\underbrace{p_{\gamma}'\cdot p_{\gamma}'}_{=0}=\epsilon'\cdot\epsilon'\\
+\tilde{\epsilon}'\cdot p_{e} & =\left(\epsilon_{\mu}'-\frac{p_{e}\cdot\epsilon'}{p_{e}\cdot p_{\gamma}'}\left(p_{\gamma}'\right)_{\mu}\right)p_{e}^{\mu}=\epsilon'\cdot p_{e}-\frac{p_{e}\cdot\epsilon'}{p_{e}\cdot p_{\gamma}'}p_{\gamma}'\cdot p_{e}=0
+\end{align}
+Im Folgenden schreiben wir wieder $\epsilon$ und $\epsilon'$ statt
+$\tilde{\epsilon}$ und $\tilde{\epsilon}'$. In den Nennern kann
+man den Limes $\varepsilon\to0$ ausführen, da die anderen Terme im
+Nenner nicht verschwinden, zum Beispiel:
+\begin{align*}
+\left(p_{e}+p_{\gamma}\right)^{2}-m_{e}^{2} & =\left(E_{e}+E_{\gamma}\right)^{2}-\underbrace{\left(\vec{p}_{e}+\vec{p}_{\gamma}\right)^{2}}_{=0}-m_{e}^{2}=\underbrace{E_{e}^{2}-m_{e}^{2}}_{=\vec{p}_{e}^{2}}+2E_{e}E_{\gamma}+E_{\gamma}^{2}>0
+\end{align*}
+Vereinfache nun:
+\begin{align*}
+\left(p_{e}+p_{\gamma}\right)^{2}-m_{e}^{2}+\ii\varepsilon & =p_{e}^{2}+p_{\gamma}^{2}+2p_{e}\cdot p_{\gamma}-m_{e}^{2}=2p_{e}\cdot p_{\gamma}\\
+\left(p_{e}-p'_{\gamma}\right)^{2}-m_{e}^{2}+\ii\varepsilon & =p_{e}^{2}+\left(p'_{\gamma}\right)^{2}-2p_{e}\cdot p'_{\gamma}-m_{e}^{2}=-2p_{e}\cdot p'_{\gamma}
+\end{align*}
+Das Betragsquadrat des Matrixelements $\mathcal{M}$ ist:
+\begin{align*}
+\abs{\mathcal{M}}^{2} & =q_{e}^{4}\overline{u}\left(p_{e}',s_{e}'\right)\left(\frac{\slashd{\epsilon}'\left(\slashd p_{e}+\slashd p_{\gamma}+m_{e}\right)\slashd{\epsilon}}{2p_{e}\cdot p_{\gamma}}+\frac{\slashd{\epsilon}\left(\slashd p_{e}-\slashd p_{\gamma}'+m_{e}\right)\slashd{\epsilon}'}{-2p_{e}\cdot p_{\gamma}'}\right)u\left(p_{e},s_{e}\right)\cdot\\
+ & \qquad\cdot\left(\overline{u}\left(p_{e}',s_{e}'\right)\left(\frac{\slashd{\epsilon}'\left(\slashd p_{e}+\slashd p_{\gamma}+m_{e}\right)\slashd{\epsilon}}{2p_{e}\cdot p_{\gamma}}+\frac{\slashd{\epsilon}\left(\slashd p_{e}-\slashd p_{\gamma}'+m_{e}\right)\slashd{\epsilon}'}{-2p_{e}\cdot p_{\gamma}'}\right)u\left(p_{e},s_{e}\right)\right)^{\dagger}\\
+ & =q_{e}^{4}\overline{u}\left(p_{e}',s_{e}'\right)\left(\frac{\slashd{\epsilon}'\left(\slashd p_{e}+\slashd p_{\gamma}+m_{e}\right)\slashd{\epsilon}}{2p_{e}\cdot p_{\gamma}}+\frac{\slashd{\epsilon}\left(\slashd p_{e}-\slashd p_{\gamma}'+m_{e}\right)\slashd{\epsilon}'}{-2p_{e}\cdot p_{\gamma}'}\right)u\left(p_{e},s_{e}\right)\cdot\\
+ & \qquad\cdot\overline{u}\left(p_{e},s_{e}\right)\left(\frac{\slashd{\epsilon}\left(\slashd p_{e}+\slashd p_{\gamma}+m_{e}\right)\slashd{\epsilon}'}{2p_{e}\cdot p_{\gamma}}+\frac{\slashd{\epsilon}'\left(\slashd p_{e}-\slashd p_{\gamma}'+m_{e}\right)\slashd{\epsilon}}{-2p_{e}\cdot p_{\gamma}'}\right)u\left(p_{e}',s_{e}'\right)\\
+ & =q_{e}^{4}\text{tr}\Bigg(u\left(p_{e}',s_{e}'\right)\overline{u}\left(p_{e}',s_{e}'\right)\left(\frac{\slashd{\epsilon}'\left(\slashd p_{e}+\slashd p_{\gamma}+m_{e}\right)\slashd{\epsilon}}{2p_{e}\cdot p_{\gamma}}+\frac{\slashd{\epsilon}\left(\slashd p_{e}-\slashd p_{\gamma}'+m_{e}\right)\slashd{\epsilon}'}{-2p_{e}\cdot p_{\gamma}'}\right)\cdot\\
+ & \qquad\cdot u\left(p_{e},s_{e}\right)\overline{u}\left(p_{e},s_{e}\right)\left(\frac{\slashd{\epsilon}\left(\slashd p_{e}+\slashd p_{\gamma}+m_{e}\right)\slashd{\epsilon}'}{2p_{e}\cdot p_{\gamma}}+\frac{\slashd{\epsilon}'\left(\slashd p_{e}-\slashd p_{\gamma}'+m_{e}\right)\slashd{\epsilon}}{-2p_{e}\cdot p_{\gamma}'}\right)\Bigg)
+\end{align*}
 
 
+Mittelt man das Betragsquadrat $\abs{\mathcal{M}}^{2}$ über die anfängliche
+Elektron-Polarisation und bildet die Summe über die End-Elektronen-Polarisation,
+so erhält man:
+\begin{align*}
+I & :=\frac{1}{2}\sum_{s_{e},s'_{e}}\abs{{\cal M}}^{2}=\\
+ & =\frac{q_{e}^{4}}{2}\text{tr}\Bigg(\underbrace{\sum_{s'_{e}}u\left(p_{e}',s_{e}'\right)\overline{u}\left(p_{e}',s_{e}'\right)}_{=\slashd p_{e}'+m_{e}}\left(\frac{\slashd{\epsilon}'\left(\slashd p_{e}+\slashd p_{\gamma}+m_{e}\right)\slashd{\epsilon}}{2p_{e}\cdot p_{\gamma}}+\frac{\slashd{\epsilon}\left(\slashd p_{e}-\slashd p_{\gamma}'+m_{e}\right)\slashd{\epsilon}'}{-2p_{e}\cdot p_{\gamma}'}\right)\cdot\\
+ & \qquad\cdot\underbrace{\sum_{s{}_{e}}u\left(p_{e},s_{e}\right)\overline{u}\left(p_{e},s_{e}\right)}_{=\slashd p_{e}+m_{e}}\left(\frac{\slashd{\epsilon}\left(\slashd p_{e}+\slashd p_{\gamma}+m_{e}\right)\slashd{\epsilon}'}{2p_{e}\cdot p_{\gamma}}+\frac{\slashd{\epsilon}'\left(\slashd p_{e}-\slashd p_{\gamma}'+m_{e}\right)\slashd{\epsilon}}{-2p_{e}\cdot p_{\gamma}'}\right)\Bigg)\\
+ & =\frac{q_{e}^{4}}{2}\text{tr}\Bigg(\left(\slashd p_{e}'+m_{e}\right)\left(\frac{\slashd{\epsilon}'\left(\slashd p_{e}+\slashd p_{\gamma}+m_{e}\right)\slashd{\epsilon}}{2p_{e}\cdot p_{\gamma}}-\frac{\slashd{\epsilon}\left(\slashd p_{e}-\slashd p_{\gamma}'+m_{e}\right)\slashd{\epsilon}'}{2p_{e}\cdot p'_{\gamma}}\right)\cdot\\
+ & \qquad\cdot\left(\slashd p_{e}+m_{e}\right)\left(\frac{\slashd{\epsilon}\left(\slashd p_{e}+\slashd p_{\gamma}+m_{e}\right)\slashd{\epsilon}'}{2p_{e}\cdot p_{\gamma}}-\frac{\slashd{\epsilon}'\left(\slashd p_{e}-\slashd p'_{\gamma}+m_{e}\right)\slashd{\epsilon}}{2p_{e}\cdot p'_{\gamma}}\right)\Bigg)
+\end{align*}
+Mit
+\begin{align*}
+\slashd a\slashd b & =2b\cdot a-\slashd b\slashd a
+\end{align*}
+vereinfacht sich dies wegen unserer Wahl von Eichung und Koordinatensystem
+drastisch:
+\begin{align*}
+\left(\slashd p_{e}+m_{e}\right)\slashd{\epsilon}\left(\slashd p_{e}+m_{e}\right) & =\left(\slashd p_{e}+m_{e}\right)\left(2p_{e}\cdot\epsilon-\slashd p_{e}+m_{e}\right)\slashd{\epsilon}=\\
+ & \sr ={\eqref{eq:eps-pe}}{}\left(\slashd p_{e}+m_{e}\right)\left(-\slashd p_{e}+m_{e}\right)\slashd{\epsilon}=\left(p_{e}^{2}-m_{e}^{2}\right)\slashd{\epsilon}=0\\
+\left(\slashd p_{e}+m_{e}\right)\slashd{\epsilon}'\left(\slashd p_{e}+m_{e}\right) & =\left(\slashd p_{e}+m_{e}\right)\left(2p_{e}\cdot\epsilon'-\slashd p_{e}+m_{e}\right)\slashd{\epsilon}'=\\
+ & \sr ={\eqref{eq:eps-pe}}{}\left(\slashd p_{e}+m_{e}\right)\left(-\slashd p_{e}+m_{e}\right)\slashd{\epsilon}'=\left(p_{e}^{2}-m_{e}^{2}\right)\slashd{\epsilon}'=0
+\end{align*}
+Man erhält:
+\begin{align*}
+I & =\frac{q_{e}^{4}}{2}\text{tr}\left(\left(\slashd p_{e}'+m_{e}\right)\left(\frac{\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}}{2p_{e}\cdot p_{\gamma}}+\frac{\slashd{\epsilon}\slashd p_{\gamma}'\slashd{\epsilon}'}{2p_{e}\cdot p'_{\gamma}}\right)\left(\slashd p_{e}+m_{e}\right)\left(\frac{\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'}{2p_{e}\cdot p_{\gamma}}+\frac{\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}}{2p_{e}\cdot p'_{\gamma}}\right)\right)
+\end{align*}
+Nun benutzen wir die Identitäten:
+\begin{align*}
+\slashd p_{\gamma}\slashd{\epsilon}\left(\slashd p_{e}+m_{e}\right)\slashd{\epsilon}\slashd p_{\gamma} & =\slashd p_{\gamma}\left(\left(2\epsilon\cdot p_{e}-\slashd p_{e}\slashd{\epsilon}\right)+m_{e}\slashd{\epsilon}\right)\slashd{\epsilon}\slashd p_{\gamma}\sr ={\eqref{eq:eps-pe}}{}\slashd p_{\gamma}\left(-\slashd p_{e}+m_{e}\right)\underbrace{\left(\epsilon\cdot\epsilon\right)}_{=-1}\slashd p_{\gamma}=\\
+ & =\slashd p_{\gamma}\left(\slashd p_{e}-m_{e}\right)\slashd p_{\gamma}=p_{\gamma}^{2}\left(-\slashd p_{e}-m_{e}\right)+2\left(p_{e}\cdot p_{\gamma}\right)\slashd p_{\gamma}=2\left(p_{e}\cdot p_{\gamma}\right)\slashd p_{\gamma}\\
+\slashd p'_{\gamma}\slashd{\epsilon}'\left(\slashd p_{e}+m_{e}\right)\slashd{\epsilon}'\slashd p'_{\gamma} & =\slashd p_{\gamma}'\left(\left(2\epsilon'\cdot p_{e}-\slashd p_{e}\slashd{\epsilon}'\right)+m_{e}\slashd{\epsilon}'\right)\slashd{\epsilon}'\slashd p_{\gamma}'\sr ={\eqref{eq:eps-pe}}{}\slashd p_{\gamma}'\left(-\slashd p_{e}+m_{e}\right)\underbrace{\left(\epsilon'\cdot\epsilon'\right)}_{=-1}\slashd p_{\gamma}'=\\
+ & =\slashd p'_{\gamma}\left(\slashd p_{e}-m_{e}\right)\slashd p'_{\gamma}=\left(p'_{\gamma}\right)^{2}\left(-\slashd p_{e}-m_{e}\right)+2\left(p_{e}\cdot p'_{\gamma}\right)\slashd p'_{\gamma}=2\left(p_{e}\cdot p'_{\gamma}\right)\slashd p'_{\gamma}
+\end{align*}
+Außerdem verschwindet die Spur des Produkts einer ungeraden Anzahl
+von Gamma-Matrizen. Damit ergibt sich:
+\begin{align*}
+I & =\frac{q_{e}^{4}}{2}\text{tr}\Bigg(\left(\slashd p_{e}'+m_{e}\right)\bigg(\frac{\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}}{2p_{e}\cdot p_{\gamma}}\left(\slashd p_{e}+m_{e}\right)\frac{\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'}{2p_{e}\cdot p_{\gamma}}+\frac{\slashd{\epsilon}\slashd p_{\gamma}'\slashd{\epsilon}'}{2p_{e}\cdot p'_{\gamma}}\left(\slashd p_{e}+m_{e}\right)\frac{\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'}{2p_{e}\cdot p_{\gamma}}+\\
+ & \qquad+\frac{\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}}{2p_{e}\cdot p_{\gamma}}\left(\slashd p_{e}+m_{e}\right)\frac{\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}}{2p_{e}\cdot p'_{\gamma}}+\frac{\slashd{\epsilon}\slashd p_{\gamma}'\slashd{\epsilon}'}{2p_{e}\cdot p'_{\gamma}}\left(\slashd p_{e}+m_{e}\right)\frac{\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}}{2p_{e}\cdot p'_{\gamma}}\bigg)\Bigg)=\\
+ & =\frac{q_{e}^{4}}{2}\text{tr}\Bigg(\left(\slashd p_{e}'+m_{e}\right)\bigg(\frac{\slashd{\epsilon}'}{2p_{e}\cdot p_{\gamma}}\left(2p_{e}\cdot p_{\gamma}\right)\slashd p_{\gamma}\frac{\slashd{\epsilon}'}{2p_{e}\cdot p_{\gamma}}+\frac{\slashd{\epsilon}\slashd p_{\gamma}'\slashd{\epsilon}'}{2p_{e}\cdot p'_{\gamma}}\left(\slashd p_{e}+m_{e}\right)\frac{\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'}{2p_{e}\cdot p_{\gamma}}+\\
+ & \qquad+\frac{\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}}{2p_{e}\cdot p_{\gamma}}\left(\slashd p_{e}+m_{e}\right)\frac{\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}}{2p_{e}\cdot p'_{\gamma}}+\frac{\slashd{\epsilon}}{2p_{e}\cdot p'_{\gamma}}\left(2p_{e}\cdot p'_{\gamma}\right)\slashd p'_{\gamma}\frac{\slashd{\epsilon}}{2p_{e}\cdot p'_{\gamma}}\bigg)\Bigg)=\\
+ & =\frac{q_{e}^{4}}{8\left(p_{e}\cdot p_{\gamma}\right)\left(p_{e}\cdot p_{\gamma}'\right)}\text{tr}\Bigg(\left(\slashd p_{e}'+m_{e}\right)\bigg(2\left(p_{e}\cdot p_{\gamma}'\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}'+\slashd{\epsilon}\slashd p_{\gamma}'\slashd{\epsilon}'\left(\slashd p_{e}+m_{e}\right)\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'+\\
+ & \qquad+\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\left(\slashd p_{e}+m_{e}\right)\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}+2\left(p_{e}\cdot p{}_{\gamma}\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}\bigg)\Bigg)=\\
+ & =\frac{q_{e}^{4}}{8\left(p_{e}\cdot p_{\gamma}\right)\left(p_{e}\cdot p_{\gamma}'\right)}\text{tr}\bigg(2\left(p_{e}\cdot p_{\gamma}'\right)\slashd p_{e}'\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}'+\slashd p_{e}'\slashd{\epsilon}\slashd p_{\gamma}'\slashd{\epsilon}'\left(\slashd p_{e}+m_{e}\right)\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'+\\
+ & \qquad+\slashd p_{e}'\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\left(\slashd p_{e}+m_{e}\right)\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}+2\left(p_{e}\cdot p{}_{\gamma}\right)\slashd p_{e}'\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}+\\
+ & \qquad+2m_{e}\left(p_{e}\cdot p_{\gamma}'\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}'+m_{e}\slashd{\epsilon}\slashd p_{\gamma}'\slashd{\epsilon}'\left(\slashd p_{e}+m_{e}\right)\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'+\\
+ & \qquad+m_{e}\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\left(\slashd p_{e}+m_{e}\right)\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}+2m_{e}\left(p_{e}\cdot p{}_{\gamma}\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}\bigg)=\\
+ & =\frac{q_{e}^{4}}{8\left(p_{e}\cdot p_{\gamma}\right)\left(p_{e}\cdot p_{\gamma}'\right)}\text{tr}\Big(2\left(p_{e}\cdot p_{\gamma}'\right)\slashd p_{e}'\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}'+2\left(p_{e}\cdot p{}_{\gamma}\right)\slashd p_{e}'\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}+\\
+ & \qquad+m_{e}^{2}\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}+m_{e}^{2}\slashd{\epsilon}\slashd p_{\gamma}'\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'+\slashd p_{e}'\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd p_{e}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}+\slashd p_{e}'\slashd{\epsilon}\slashd p_{\gamma}'\slashd{\epsilon}'\slashd p_{e}\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'\Big)
+\end{align*}
+Weiter kann man $p_{e}'$ wegen der Energieerhaltung durch die anderen
+Impulse ausdrücken und erhält für die Skalarprodukte:
+\begin{align}
+p_{e}'\cdot\epsilon & =\left(p_{e}+p_{\gamma}-p_{\gamma}'\right)\cdot\epsilon=-p_{\gamma}'\cdot\epsilon\label{eq:pes-eps}\\
+p'_{e}\cdot\epsilon' & =\left(p_{e}+p_{\gamma}-p'_{\gamma}\right)\cdot\epsilon'=p_{\gamma}\cdot\epsilon'\label{eq:pes-epss}\\
+p'_{e}\cdot p_{\gamma} & =-\frac{1}{2}\left(p_{e}'-p_{\gamma}\right)^{2}+\frac{\left(p_{e}'\right)^{2}+p_{\gamma}^{2}}{2}=-\frac{1}{2}\left(p_{e}-p'_{\gamma}\right)^{2}+\frac{p_{e}^{2}+\left(p_{\gamma}'\right)^{2}}{2}=p_{e}\cdot p'_{\gamma}\label{eq:pes-pg}\\
+p'_{e}\cdot p'_{\gamma} & =\frac{1}{2}\left(p'_{e}+p'_{\gamma}\right)^{2}-\frac{\left(p_{e}'\right)^{2}+\left(p_{\gamma}'\right)^{2}}{2}=\frac{1}{2}\left(p_{e}+p_{\gamma}\right)^{2}-\frac{p_{e}^{2}+p_{\gamma}^{2}}{2}=p_{e}\cdot p_{\gamma}\label{eq:pes-pgs}\\
+p'_{e}\cdot p_{e} & =-\frac{1}{2}\left(p'_{e}-p_{e}\right)^{2}+\frac{\left(p_{e}'\right)^{2}+p_{e}^{2}}{2}=-\frac{1}{2}\left(p_{\gamma}-p'_{\gamma}\right)^{2}+m_{e}^{2}=p_{\gamma}\cdot p'_{\gamma}+m_{e}^{2}\label{eq:pes-pe}
+\end{align}
+
+
+Nun benutzen wir die Regel
+\begin{align}
+\text{tr}\left(\slashd a\slashd b\slashd c\slashd d\right) & =4\big(\left(a\cdot b\right)\left(c\cdot d\right)-\left(a\cdot c\right)\left(b\cdot d\right)+\left(a\cdot d\right)\left(b\cdot c\right)\big)\label{eq:tr-4gamma}
+\end{align}
+für die ersten beiden Terme, die vier Gamma-Matrizen enthalten, und
+für die Terme mit acht Gamma-Matrizen:
+\begin{align*}
+\text{tr}\left(\slashd a\slashd b\slashd c\slashd d\slashd e\slashd f\slashd g\slashd h\right) & =\text{tr}\left(\left(2ab-\slashd b\slashd a\right)\slashd c\slashd d\slashd e\slashd f\slashd g\slashd h\right)=2ab\text{tr}\left(\slashd c\slashd d\slashd e\slashd f\slashd g\slashd h\right)-\text{tr}\left(\slashd b\left(2ac-\slashd c\slashd a\right)\slashd d\slashd e\slashd f\slashd g\slashd h\right)=\\
+ & =2ab\text{tr}\left(\slashd c\slashd d\slashd e\slashd f\slashd g\slashd h\right)-2ac\text{tr}\left(\slashd b\slashd d\slashd e\slashd f\slashd g\slashd h\right)+\text{tr}\left(\slashd b\slashd c\left(2ad-\slashd d\slashd a\right)\slashd e\slashd f\slashd g\slashd h\right)=\\
+ & =2ab\text{tr}\left(\slashd c\slashd d\slashd e\slashd f\slashd g\slashd h\right)-2ac\text{tr}\left(\slashd b\slashd d\slashd e\slashd f\slashd g\slashd h\right)+2ad\text{tr}\left(\slashd b\slashd c\slashd e\slashd f\slashd g\slashd h\right)-\\
+ & \qquad-\text{tr}\left(\slashd b\slashd c\slashd d\left(2ae-\slashd e\slashd a\right)\slashd f\slashd g\slashd h\right)=\\
+ & =2ab\text{tr}\left(\slashd c\slashd d\slashd e\slashd f\slashd g\slashd h\right)-2ac\text{tr}\left(\slashd b\slashd d\slashd e\slashd f\slashd g\slashd h\right)+2ad\text{tr}\left(\slashd b\slashd c\slashd e\slashd f\slashd g\slashd h\right)-2ae\text{tr}\left(\slashd b\slashd c\slashd d\slashd f\slashd g\slashd h\right)+\\
+ & \qquad+\text{tr}\left(\slashd b\slashd c\slashd d\slashd e\left(2af-\slashd f\slashd a\right)\slashd g\slashd h\right)=\\
+ & =2ab\text{tr}\left(\slashd c\slashd d\slashd e\slashd f\slashd g\slashd h\right)-2ac\text{tr}\left(\slashd b\slashd d\slashd e\slashd f\slashd g\slashd h\right)+2ad\text{tr}\left(\slashd b\slashd c\slashd e\slashd f\slashd g\slashd h\right)-2ae\text{tr}\left(\slashd b\slashd c\slashd d\slashd f\slashd g\slashd h\right)+\\
+ & \qquad+2af\text{tr}\left(\slashd b\slashd c\slashd d\slashd e\slashd g\slashd h\right)-\text{tr}\left(\slashd b\slashd c\slashd d\slashd e\slashd f\left(2ag-\slashd g\slashd a\right)\slashd h\right)=\\
+ & =2ab\text{tr}\left(\slashd c\slashd d\slashd e\slashd f\slashd g\slashd h\right)-2ac\text{tr}\left(\slashd b\slashd d\slashd e\slashd f\slashd g\slashd h\right)+2ad\text{tr}\left(\slashd b\slashd c\slashd e\slashd f\slashd g\slashd h\right)-2ae\text{tr}\left(\slashd b\slashd c\slashd d\slashd f\slashd g\slashd h\right)+\\
+ & \qquad+2af\text{tr}\left(\slashd b\slashd c\slashd d\slashd e\slashd g\slashd h\right)-2ag\text{tr}\left(\slashd b\slashd c\slashd d\slashd e\slashd f\slashd h\right)+\text{tr}\left(\slashd b\slashd c\slashd d\slashd e\slashd f\slashd g\left(2ah-\slashd h\slashd a\right)\right)=\\
+ & =2ab\text{tr}\left(\slashd c\slashd d\slashd e\slashd f\slashd g\slashd h\right)-2ac\text{tr}\left(\slashd b\slashd d\slashd e\slashd f\slashd g\slashd h\right)+2ad\text{tr}\left(\slashd b\slashd c\slashd e\slashd f\slashd g\slashd h\right)-2ae\text{tr}\left(\slashd b\slashd c\slashd d\slashd f\slashd g\slashd h\right)+\\
+ & \qquad+2af\text{tr}\left(\slashd b\slashd c\slashd d\slashd e\slashd g\slashd h\right)-2ag\text{tr}\left(\slashd b\slashd c\slashd d\slashd e\slashd f\slashd h\right)+2ah\text{tr}\left(\slashd b\slashd c\slashd d\slashd e\slashd f\slashd g\right)-\text{tr}\left(\slashd a\slashd b\slashd c\slashd d\slashd e\slashd f\slashd g\slashd h\right)\\
+\text{tr}\left(\slashd a\slashd b\slashd c\slashd d\slashd e\slashd f\slashd g\slashd h\right) & =ab\text{tr}\left(\slashd c\slashd d\slashd e\slashd f\slashd g\slashd h\right)-ac\text{tr}\left(\slashd b\slashd d\slashd e\slashd f\slashd g\slashd h\right)+ad\text{tr}\left(\slashd b\slashd c\slashd e\slashd f\slashd g\slashd h\right)-ae\text{tr}\left(\slashd b\slashd c\slashd d\slashd f\slashd g\slashd h\right)+\\
+ & \qquad+af\text{tr}\left(\slashd b\slashd c\slashd d\slashd e\slashd g\slashd h\right)-ag\text{tr}\left(\slashd b\slashd c\slashd d\slashd e\slashd f\slashd h\right)+ah\text{tr}\left(\slashd b\slashd c\slashd d\slashd e\slashd f\slashd g\right)
+\end{align*}
+
+
+Damit erhält man:
+\begin{align*}
+I & =\frac{q_{e}^{4}}{8\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(8\left(p_{e}p_{\gamma}'\right)\Big(\underbrace{\left(p_{e}'\epsilon'\right)}_{\sr ={\eqref{eq:pes-epss}}{}p_{\gamma}\epsilon'}\left(p_{\gamma}\epsilon'\right)-\underbrace{\left(p_{e}'p_{\gamma}\right)}_{\sr ={\eqref{eq:pes-pg}}{}p_{e}p_{\gamma}'}\underbrace{\left(\epsilon'\right)^{2}}_{\sr ={\eqref{eq:eps-normiert}}{}-1}+\underbrace{\left(p_{e}'\epsilon'\right)}_{\sr ={\eqref{eq:pes-epss}}{}p_{\gamma}\epsilon'}\left(\epsilon'p_{\gamma}\right)\Big)+\\
+ & \qquad+8\left(p_{e}p{}_{\gamma}\right)\Big(\underbrace{\left(p_{e}'\epsilon\right)}_{\sr ={\eqref{eq:pes-eps}}{}-p_{\gamma}'\epsilon}\left(p_{\gamma}'\epsilon\right)-\underbrace{\left(p_{e}'p_{\gamma}'\right)}_{\sr ={\eqref{eq:pes-pgs}}{}p_{e}p_{\gamma}}\underbrace{\epsilon^{2}}_{\sr ={\eqref{eq:eps-normiert}}{}-1}+\underbrace{\left(p_{e}'\epsilon\right)}_{\sr ={\eqref{eq:pes-eps}}{}-p_{\gamma}'\epsilon}\left(\epsilon p_{\gamma}'\right)\Big)+\\
+ & \qquad+\text{tr}\Big(m_{e}^{2}\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}+m_{e}^{2}\slashd{\epsilon}\slashd p_{\gamma}'\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'+\slashd p_{e}'\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd p_{e}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}+\slashd p_{e}'\slashd{\epsilon}\slashd p_{\gamma}'\slashd{\epsilon}'\slashd p_{e}\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'\Big)\bigg)=\\
+ & =\frac{q_{e}^{4}}{8\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(8\left(p_{e}p_{\gamma}'\right)\left(\left(p_{\gamma}\epsilon'\right)^{2}+\left(p_{e}p_{\gamma}'\right)+\left(p_{\gamma}\epsilon'\right)^{2}\right)+\\
+ & \qquad+8\left(p_{e}p{}_{\gamma}\right)\left(-\left(p_{\gamma}'\epsilon\right)^{2}+\left(p_{e}p_{\gamma}\right)-\left(p_{\gamma}'\epsilon\right)^{2}\right)+\\
+ & \qquad+\text{tr}\Big(m_{e}^{2}\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}+m_{e}^{2}\slashd{\epsilon}\slashd p_{\gamma}'\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'+\\
+ & \qquad+\left(p_{e}'\epsilon'\right)\slashd p_{\gamma}\slashd{\epsilon}\slashd p_{e}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}-\left(p_{e}'p_{\gamma}\right)\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{e}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}+\left(p_{e}'\epsilon\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd p_{e}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}-\left(p_{e}'p_{e}\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}+\\
+ & \qquad+\left(p_{e}'\epsilon'\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd p_{e}\slashd p'_{\gamma}\slashd{\epsilon}-\left(p_{e}'p_{\gamma}'\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd p_{e}\slashd{\epsilon}'\slashd{\epsilon}+\left(p_{e}'\epsilon\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd p_{e}\slashd{\epsilon}'\slashd p'_{\gamma}+\\
+ & \qquad+\left(p_{e}'\epsilon\right)\slashd p'_{\gamma}\slashd{\epsilon}'\slashd p_{e}\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'-\left(p_{e}'p_{\gamma}'\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd p_{e}\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'+\left(p_{e}'\epsilon'\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd p_{e}\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'-\left(p_{e}'p_{e}\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'+\\
+ & \qquad+\left(p_{e}'\epsilon\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}'\slashd p_{e}\slashd p_{\gamma}\slashd{\epsilon}'-\left(p_{e}'p_{\gamma}\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}'\slashd p_{e}\slashd{\epsilon}\slashd{\epsilon}'+\left(p_{e}'\epsilon'\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}'\slashd p_{e}\slashd{\epsilon}\slashd p_{\gamma}\Big)\bigg)=\\
+ & =\frac{q_{e}^{4}}{8\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(16\left(p_{e}p{}_{\gamma}'\right)\left(p_{\gamma}\epsilon'\right)^{2}+8\left(p_{e}p_{\gamma}'\right)^{2}-16\left(p_{e}p{}_{\gamma}\right)\left(p_{\gamma}'\epsilon\right)^{2}+8\left(p_{e}p_{\gamma}\right)^{2}+\\
+ & \qquad+\text{tr}\Big(m_{e}^{2}\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}+m_{e}^{2}\slashd{\epsilon}\slashd p_{\gamma}'\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'+\left(p_{\gamma}\epsilon'\right)\slashd p_{\gamma}\slashd{\epsilon}\slashd p_{e}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}-\left(p_{e}p_{\gamma}'\right)\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{e}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}-\\
+ & \qquad-\left(p_{\gamma}'\epsilon\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd p_{e}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}-\left(p_{\gamma}p'_{\gamma}+m_{e}^{2}\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}+\left(p_{\gamma}\epsilon'\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd p_{e}\slashd p'_{\gamma}\slashd{\epsilon}-\\
+ & \qquad-\left(p_{e}p_{\gamma}\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd p_{e}\slashd{\epsilon}'\slashd{\epsilon}-\left(p_{\gamma}'\epsilon\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd p_{e}\slashd{\epsilon}'\slashd p'_{\gamma}-\left(p_{\gamma}'\epsilon\right)\slashd p'_{\gamma}\slashd{\epsilon}'\slashd p_{e}\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'-\\
+ & \qquad-\left(p_{e}p_{\gamma}\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd p_{e}\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'+\left(p_{\gamma}\epsilon'\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd p_{e}\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'-\left(p_{\gamma}p'_{\gamma}+m_{e}^{2}\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'-\\
+ & \qquad-\left(p_{\gamma}'\epsilon\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}'\slashd p_{e}\slashd p_{\gamma}\slashd{\epsilon}'-\left(p_{e}p_{\gamma}'\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}'\slashd p_{e}\slashd{\epsilon}\slashd{\epsilon}'+\left(p_{\gamma}\epsilon'\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}'\slashd p_{e}\slashd{\epsilon}\slashd p_{\gamma}\Big)\bigg)=\\
+ & =\frac{q_{e}^{4}}{8\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(16\left(p_{e}p{}_{\gamma}'\right)\left(p_{\gamma}\epsilon'\right)^{2}+8\left(p_{e}p_{\gamma}'\right)^{2}-16\left(p_{e}p{}_{\gamma}\right)\left(p_{\gamma}'\epsilon\right)^{2}+8\left(p_{e}p_{\gamma}\right)^{2}+\\
+ & \qquad+\text{tr}\Big(\left(p_{\gamma}\epsilon'\right)\slashd p_{\gamma}\slashd{\epsilon}\slashd p_{e}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}-\left(p_{e}p_{\gamma}'\right)\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{e}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}-\\
+ & \qquad-\left(p_{\gamma}'\epsilon\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd p_{e}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}-\left(p_{\gamma}p'_{\gamma}\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd{\epsilon}+\left(p_{\gamma}\epsilon'\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd p_{e}\slashd p'_{\gamma}\slashd{\epsilon}-\\
+ & \qquad-\left(p_{e}p_{\gamma}\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd p_{e}\slashd{\epsilon}'\slashd{\epsilon}-\left(p_{\gamma}'\epsilon\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd{\epsilon}\slashd p_{e}\slashd{\epsilon}'\slashd p'_{\gamma}-\left(p_{\gamma}'\epsilon\right)\slashd p'_{\gamma}\slashd{\epsilon}'\slashd p_{e}\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'-\\
+ & \qquad-\left(p_{e}p_{\gamma}\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd p_{e}\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'+\left(p_{\gamma}\epsilon'\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd p_{e}\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'-\left(p_{\gamma}p'_{\gamma}\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{\gamma}\slashd{\epsilon}'-\\
+ & \qquad-\left(p_{\gamma}'\epsilon\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}'\slashd p_{e}\slashd p_{\gamma}\slashd{\epsilon}'-\left(p_{e}p_{\gamma}'\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}'\slashd p_{e}\slashd{\epsilon}\slashd{\epsilon}'+\left(p_{\gamma}\epsilon'\right)\slashd{\epsilon}\slashd p'_{\gamma}\slashd{\epsilon}'\slashd p_{e}\slashd{\epsilon}\slashd p_{\gamma}\Big)\bigg)
+\end{align*}
+
+
+Durch Ausnutzen der Zyklizität der Spur und durch Kommutieren bringen
+wir jetzt die $\slashd{\epsilon}$ und $\epsilon'$ an den Anfang,
+um $\slashd{\epsilon}\slashd{\epsilon}=\slashd{\epsilon}'\slashd{\epsilon}'=-1$
+verwenden zu können. Danach werten wir die Terme mit nur noch vier
+Gamma-Matrizen gemäß der Regel (\ref{eq:tr-4gamma}) aus.
+\begin{align*}
+I & =\frac{q_{e}^{4}}{8\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(16\left(p_{e}p{}_{\gamma}'\right)\left(p_{\gamma}\epsilon'\right)^{2}+8\left(p_{e}p_{\gamma}'\right)^{2}-16\left(p_{e}p{}_{\gamma}\right)\left(p_{\gamma}'\epsilon\right)^{2}+8\left(p_{e}p_{\gamma}\right)^{2}+\\
+ & \qquad+\text{tr}\Big(\left(p_{\gamma}\epsilon'\right)\slashd{\epsilon}\big(2\underbrace{p_{\gamma}\epsilon}_{=0}-\slashd{\epsilon}\slashd p_{\gamma}\big)\slashd p_{e}\big(2\underbrace{\epsilon'p_{\gamma}'}_{=0}-\slashd p'_{\gamma}\slashd{\epsilon}'\big)-\left(p_{e}p_{\gamma}'\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\big(2\underbrace{p_{e}\epsilon'}_{=0}-\slashd{\epsilon}'\slashd p_{e}\big)\slashd p'_{\gamma}-\\
+ & \qquad-\left(p_{\gamma}'\epsilon\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd p_{\gamma}\slashd p_{e}\big(2\underbrace{\epsilon'p_{\gamma}'}_{=0}-\slashd p'_{\gamma}\slashd{\epsilon}'\big)-\left(p_{\gamma}p'_{\gamma}\right)\slashd{\epsilon}\slashd{\epsilon}'\big(2\underbrace{p_{\gamma}\epsilon}_{=0}-\slashd{\epsilon}\slashd p_{\gamma}\big)\big(2\underbrace{\epsilon'p_{\gamma}'}_{=0}-\slashd p'_{\gamma}\slashd{\epsilon}'\big)+\\
+ & \qquad+\left(p_{\gamma}\epsilon'\right)\slashd{\epsilon}\slashd{\epsilon}'\big(2\underbrace{p_{\gamma}\epsilon}_{=0}-\slashd{\epsilon}\slashd p_{\gamma}\big)\slashd p_{e}\slashd p'_{\gamma}-\left(p_{e}p_{\gamma}\right)\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\slashd p_{\gamma}\big(2\underbrace{\epsilon p_{e}}_{=0}-\slashd p_{e}\slashd{\epsilon}\big)-\\
+ & \qquad-\left(p_{\gamma}'\epsilon\right)\slashd{\epsilon}'\big(2\underbrace{p_{\gamma}\epsilon}_{=0}-\slashd{\epsilon}\slashd p_{\gamma}\big)\slashd p_{e}\big(2\underbrace{\epsilon'p_{\gamma}'}_{=0}-\slashd p'_{\gamma}\slashd{\epsilon}'\big)-\left(p_{\gamma}'\epsilon\right)\slashd{\epsilon}'\big(2\underbrace{p_{\gamma}'\epsilon'}_{=0}-\slashd{\epsilon}'\slashd p'_{\gamma}\big)\slashd p_{e}\big(2\underbrace{\epsilon p_{\gamma}}_{=0}-\slashd p_{\gamma}\slashd{\epsilon}\big)-\\
+ & \qquad-\left(p_{e}p_{\gamma}\right)\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\slashd p_{e}\big(2\underbrace{\epsilon p_{\gamma}}_{=0}-\slashd p_{\gamma}\slashd{\epsilon}\big)+\left(p_{\gamma}\epsilon'\right)\slashd{\epsilon}'\slashd{\epsilon}\slashd p'_{\gamma}\slashd p_{e}\big(2\underbrace{\epsilon p_{\gamma}}_{=0}-\slashd p_{\gamma}\slashd{\epsilon}\big)-\\
+ & \qquad-\left(p_{\gamma}p'_{\gamma}\right)\slashd{\epsilon}'\slashd{\epsilon}\big(2\underbrace{p_{\gamma}'\epsilon'}_{=0}-\slashd{\epsilon}'\slashd p'_{\gamma}\big)\big(2\underbrace{\epsilon p_{\gamma}}_{=0}-\slashd p_{\gamma}\slashd{\epsilon}\big)-\left(p_{\gamma}'\epsilon\right)\slashd{\epsilon}'\slashd{\epsilon}\big(2\underbrace{p_{\gamma}'\epsilon'}_{=0}-\slashd{\epsilon}'\slashd p'_{\gamma}\big)\slashd p_{e}\slashd p_{\gamma}-\\
+ & \qquad-\left(p_{e}p_{\gamma}'\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\big(2\underbrace{p_{\gamma}'\epsilon'}_{=0}-\slashd{\epsilon}'\slashd p'_{\gamma}\big)\slashd p_{e}+\left(p_{\gamma}\epsilon'\right)\slashd{\epsilon}\big(2\underbrace{p_{\gamma}'\epsilon'}_{=0}-\slashd{\epsilon}'\slashd p'_{\gamma}\big)\slashd p_{e}\big(2\underbrace{\epsilon p_{\gamma}}_{=0}-\slashd p_{\gamma}\slashd{\epsilon}\big)\Big)\bigg)=\\
+ & =\frac{q_{e}^{4}}{8\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(16\left(p_{e}p{}_{\gamma}'\right)\left(p_{\gamma}\epsilon'\right)^{2}+8\left(p_{e}p_{\gamma}'\right)^{2}-16\left(p_{e}p{}_{\gamma}\right)\left(p_{\gamma}'\epsilon\right)^{2}+8\left(p_{e}p_{\gamma}\right)^{2}+\\
+ & \qquad+\text{tr}\Big(\left(p_{\gamma}\epsilon'\right)\slashd{\epsilon}'\underbrace{\slashd{\epsilon}\slashd{\epsilon}}_{=-1}\slashd p_{\gamma}\slashd p_{e}\slashd p'_{\gamma}+\left(p_{e}p_{\gamma}'\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\slashd p_{e}\slashd p'_{\gamma}+\left(p_{\gamma}'\epsilon\right)\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\slashd p_{\gamma}\slashd p_{e}\slashd p'_{\gamma}-\\
+ & \qquad-\left(p_{\gamma}p'_{\gamma}\right)\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{\gamma}\slashd p'_{\gamma}-\left(p_{\gamma}\epsilon'\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{\gamma}\slashd p_{e}\slashd p'_{\gamma}+\left(p_{e}p_{\gamma}\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\slashd p_{\gamma}\slashd p_{e}-\\
+ & \qquad-\left(p_{\gamma}'\epsilon\right)\underbrace{\slashd{\epsilon}'\slashd{\epsilon}'}_{=-1}\slashd{\epsilon}\slashd p_{\gamma}\slashd p_{e}\slashd p'_{\gamma}-\left(p_{\gamma}'\epsilon\right)\slashd{\epsilon}\underbrace{\slashd{\epsilon}'\slashd{\epsilon}'}_{=-1}\slashd p'_{\gamma}\slashd p_{e}\slashd p_{\gamma}+\left(p_{e}p_{\gamma}\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\slashd p_{e}\slashd p_{\gamma}-\\
+ & \qquad-\left(p_{\gamma}\epsilon'\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\slashd p'_{\gamma}\slashd p_{e}\slashd p_{\gamma}-\left(p_{\gamma}p'_{\gamma}\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd p_{\gamma}+\left(p_{\gamma}'\epsilon\right)\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd p_{e}\slashd p_{\gamma}+\\
+ & \qquad+\left(p_{e}p_{\gamma}'\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd p_{e}+\left(p_{\gamma}\epsilon'\right)\underbrace{\slashd{\epsilon}\slashd{\epsilon}}_{=-1}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd p_{e}\slashd p_{\gamma}\Big)\bigg)=\\
+ & =\frac{q_{e}^{4}}{8\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(16\left(p_{e}p{}_{\gamma}'\right)\left(p_{\gamma}\epsilon'\right)^{2}+8\left(p_{e}p_{\gamma}'\right)^{2}-16\left(p_{e}p{}_{\gamma}\right)\left(p_{\gamma}'\epsilon\right)^{2}+8\left(p_{e}p_{\gamma}\right)^{2}+\\
+ & \qquad+\text{tr}\Big(\left(p_{e}p_{\gamma}'\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\underbrace{\left(\slashd p_{e}\slashd p'_{\gamma}+\slashd p'_{\gamma}\slashd p_{e}\right)}_{=2p_{e}p_{\gamma}'}+\left(p_{e}p_{\gamma}\right)\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\underbrace{\left(\slashd p_{\gamma}\slashd p_{e}+\slashd p_{e}\slashd p_{\gamma}\right)}_{=2p_{e}p_{\gamma}}-\\
+ & \qquad-\left(p_{\gamma}\epsilon'\right)\left(\slashd{\epsilon}'+\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\right)\slashd p_{\gamma}\slashd p_{e}\slashd p'_{\gamma}+\left(p_{\gamma}'\epsilon\right)\left(\slashd{\epsilon}+\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\right)\slashd p_{\gamma}\slashd p_{e}\slashd p'_{\gamma}+\\
+ & \qquad+\left(p_{\gamma}'\epsilon\right)\left(\slashd{\epsilon}+\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\right)\slashd p'_{\gamma}\slashd p_{e}\slashd p_{\gamma}-\left(p_{\gamma}\epsilon'\right)\left(\slashd{\epsilon}'+\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\right)\slashd p'_{\gamma}\slashd p_{e}\slashd p_{\gamma}-\\
+ & \qquad-\left(p_{\gamma}p'_{\gamma}\right)\left(\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{\gamma}\slashd p'_{\gamma}+\slashd{\epsilon}\slashd{\epsilon}'\slashd{\epsilon}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd p_{\gamma}\right)\Big)\bigg)=\\
+ & =\frac{q_{e}^{4}}{8\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(16\left(p_{e}p{}_{\gamma}'\right)\left(p_{\gamma}\epsilon'\right)^{2}+8\left(p_{e}p_{\gamma}'\right)^{2}-16\left(p_{e}p{}_{\gamma}\right)\left(p_{\gamma}'\epsilon\right)^{2}+8\left(p_{e}p_{\gamma}\right)^{2}+\\
+ & \qquad+8\left(\left(p_{e}p_{\gamma}'\right)^{2}+\left(p_{e}p_{\gamma}\right)^{2}\right)\left(\left(\epsilon\epsilon'\right)\left(\epsilon\epsilon'\right)-\left(\epsilon\epsilon\right)\left(\epsilon'\epsilon'\right)+\left(\epsilon\epsilon'\right)\left(\epsilon'\epsilon\right)\right)+\\
+ & \qquad+\text{tr}\Big(-\left(p_{\gamma}\epsilon'\right)\left(\slashd{\epsilon}'+\left(2\epsilon\epsilon'-\slashd{\epsilon}'\slashd{\epsilon}\right)\slashd{\epsilon}\right)\left(\slashd p_{\gamma}\slashd p_{e}\slashd p'_{\gamma}+\slashd p'_{\gamma}\slashd p_{e}\slashd p_{\gamma}\right)+\\
+ & \qquad+\left(p_{\gamma}'\epsilon\right)\left(\slashd{\epsilon}+\left(2\epsilon'\epsilon-\slashd{\epsilon}\slashd{\epsilon}'\right)\slashd{\epsilon}'\right)\left(\slashd p_{\gamma}\slashd p_{e}\slashd p'_{\gamma}+\slashd p'_{\gamma}\slashd p_{e}\slashd p_{\gamma}\right)-\\
+ & \qquad-\left(p_{\gamma}p'_{\gamma}\right)\left(\left(2\epsilon'\epsilon-\slashd{\epsilon}\slashd{\epsilon}'\right)\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{\gamma}\slashd p'_{\gamma}+\slashd{\epsilon}\slashd{\epsilon}'\left(2\epsilon\epsilon'-\slashd{\epsilon}'\slashd{\epsilon}\right)\slashd p'_{\gamma}\slashd p_{\gamma}\right)\Big)\bigg)\\
+ & =\frac{q_{e}^{4}}{8\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(16\left(\left(p_{e}p{}_{\gamma}'\right)\left(p_{\gamma}\epsilon'\right)^{2}-\left(p_{e}p{}_{\gamma}\right)\left(p_{\gamma}'\epsilon\right)^{2}+\left(\left(p_{e}p_{\gamma}'\right)^{2}+\left(p_{e}p_{\gamma}\right)^{2}\right)\left(\epsilon\epsilon'\right)^{2}\right)+\\
+ & \qquad+\text{tr}\Big(-\left(p_{\gamma}\epsilon'\right)\left(2\epsilon\epsilon'\slashd{\epsilon}+2\slashd{\epsilon}'\right)\left(\slashd p_{\gamma}\slashd p_{e}\slashd p'_{\gamma}+\slashd p'_{\gamma}\slashd p_{e}\slashd p_{\gamma}\right)+\\
+ & \qquad+\left(p_{\gamma}'\epsilon\right)\left(2\epsilon\epsilon'\slashd{\epsilon}'+2\slashd{\epsilon}\right)\left(\slashd p_{\gamma}\slashd p_{e}\slashd p'_{\gamma}+\slashd p'_{\gamma}\slashd p_{e}\slashd p_{\gamma}\right)-\\
+ & \qquad-\left(p_{\gamma}p'_{\gamma}\right)\Big(2\epsilon\epsilon'\left(\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{\gamma}\slashd p'_{\gamma}+\slashd{\epsilon}\slashd{\epsilon}'\slashd p'_{\gamma}\slashd p_{\gamma}\right)-\underbrace{\left(\slashd p_{\gamma}\slashd p'_{\gamma}+\slashd p'_{\gamma}\slashd p_{\gamma}\right)}_{=2p_{\gamma}p_{\gamma}'}\Big)\Big)\bigg)
+\end{align*}
+Nun benutzen wir, dass die Regel (\ref{eq:tr-4gamma}) zum Berechnen
+der Spur symmetrisch unter Austausch der zweiten und vierten Matrix
+ist. Außerdem ändert sich nichts, wenn man gleichzeitig die erste
+und die zweite sowie die dritte und die vierte Matrix vertauscht.
+\begin{align*}
+I & =\frac{q_{e}^{4}}{8\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(16\left(\left(p_{e}p{}_{\gamma}'\right)\left(p_{\gamma}\epsilon'\right)^{2}-\left(p_{e}p{}_{\gamma}\right)\left(p_{\gamma}'\epsilon\right)^{2}+\left(\left(p_{e}p_{\gamma}'\right)^{2}+\left(p_{e}p_{\gamma}\right)^{2}\right)\left(\epsilon\epsilon'\right)^{2}\right)+\\
+ & \qquad+8\left(p_{\gamma}p'_{\gamma}\right)^{2}+4\text{tr}\Big(-\left(p_{\gamma}\epsilon'\right)\left(\epsilon\epsilon'\slashd{\epsilon}+\slashd{\epsilon}'\right)\slashd p_{\gamma}\slashd p_{e}\slashd p'_{\gamma}+\left(p_{\gamma}'\epsilon\right)\left(\epsilon\epsilon'\slashd{\epsilon}'+\slashd{\epsilon}\right)\slashd p_{\gamma}\slashd p_{e}\slashd p'_{\gamma}-\\
+ & \qquad-\left(p_{\gamma}p'_{\gamma}\right)\left(\epsilon\epsilon'\right)\slashd{\epsilon}'\slashd{\epsilon}\slashd p_{\gamma}\slashd p'_{\gamma}\Big)\bigg)=\\
+ & =\frac{q_{e}^{4}}{8\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(16\left(\left(p_{e}p{}_{\gamma}'\right)\left(p_{\gamma}\epsilon'\right)^{2}-\left(p_{e}p{}_{\gamma}\right)\left(p_{\gamma}'\epsilon\right)^{2}+\left(\left(p_{e}p_{\gamma}'\right)^{2}+\left(p_{e}p_{\gamma}\right)^{2}\right)\left(\epsilon\epsilon'\right)^{2}\right)+\\
+ & \qquad+8\left(p_{\gamma}p'_{\gamma}\right)^{2}-16\left(p_{\gamma}p'_{\gamma}\right)\left(\epsilon\epsilon'\right)\big(\left(\epsilon'\epsilon\right)\left(p_{\gamma}p_{\gamma}'\right)-\left(\epsilon'p_{\gamma}\right)\left(\epsilon p_{\gamma}'\right)+\underbrace{\left(\epsilon'p_{\gamma}'\right)}_{=0}\left(\epsilon p_{\gamma}\right)\big)+\\
+ & \qquad+4\text{tr}\left(\left(\left(p_{\gamma}'\epsilon\right)-\left(p_{\gamma}\epsilon'\right)\left(\epsilon\epsilon'\right)\right)\slashd{\epsilon}\slashd p_{\gamma}\slashd p_{e}\slashd p'_{\gamma}+\left(\left(p_{\gamma}'\epsilon\right)\left(\epsilon\epsilon'\right)-\left(p_{\gamma}\epsilon'\right)\right)\slashd{\epsilon}'\slashd p_{\gamma}\slashd p_{e}\slashd p'_{\gamma}\right)\bigg)=\\
+ & =\frac{q_{e}^{4}}{8\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(16\left(\left(p_{e}p{}_{\gamma}'\right)\left(p_{\gamma}\epsilon'\right)^{2}-\left(p_{e}p{}_{\gamma}\right)\left(p_{\gamma}'\epsilon\right)^{2}+\left(\left(p_{e}p_{\gamma}'\right)^{2}+\left(p_{e}p_{\gamma}\right)^{2}\right)\left(\epsilon\epsilon'\right)^{2}\right)+\\
+ & \qquad+8\left(p_{\gamma}p'_{\gamma}\right)^{2}+16\left(p_{\gamma}p'_{\gamma}\right)\left(\epsilon\epsilon'\right)\left(-\left(\epsilon'\epsilon\right)\left(p_{\gamma}p_{\gamma}'\right)+\left(p_{\gamma}\epsilon'\right)\left(p_{\gamma}'\epsilon\right)\right)+\\
+ & \qquad+16\left(\left(p_{\gamma}'\epsilon\right)-\left(p_{\gamma}\epsilon'\right)\left(\epsilon\epsilon'\right)\right)\big(\underbrace{\left(p_{\gamma}\epsilon\right)}_{=0}\left(p_{e}p_{\gamma}'\right)-\underbrace{\left(p_{e}\epsilon\right)}_{=0}\left(p_{\gamma}p_{\gamma}'\right)+\left(p_{\gamma}'\epsilon\right)\left(p_{\gamma}p_{e}\right)\big)\\
+ & \qquad+16\left(\left(p_{\gamma}'\epsilon\right)\left(\epsilon\epsilon'\right)-\left(p_{\gamma}\epsilon'\right)\right)\big(\left(p_{\gamma}\epsilon'\right)\left(p_{e}p_{\gamma}'\right)-\underbrace{\left(p_{e}\epsilon'\right)}_{=0}\left(p_{\gamma}p_{\gamma}'\right)+\underbrace{\left(p_{\gamma}'\epsilon'\right)}_{=0}\left(p_{\gamma}p_{e}\right)\big)\bigg)=\\
+ & =\frac{q_{e}^{4}}{\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(2\left(\left(p_{e}p{}_{\gamma}'\right)\left(p_{\gamma}\epsilon'\right)^{2}-\left(p_{e}p{}_{\gamma}\right)\left(p_{\gamma}'\epsilon\right)^{2}+\left(\left(p_{e}p_{\gamma}'\right)^{2}+\left(p_{e}p_{\gamma}\right)^{2}\right)\left(\epsilon\epsilon'\right)^{2}\right)+\\
+ & \qquad+2\left(p_{\gamma}\epsilon'\right)\left(p_{\gamma}'\epsilon\right)\left(\epsilon\epsilon'\right)\left(\left(p_{\gamma}p'_{\gamma}\right)-\left(p_{\gamma}p_{e}\right)+\left(p_{e}p_{\gamma}'\right)\right)+\\
+ & \qquad+\left(p_{\gamma}p'_{\gamma}\right)^{2}\left(1-2\left(\epsilon\epsilon'\right)^{2}\right)+2\left(p_{\gamma}'\epsilon\right)^{2}\left(p_{\gamma}p_{e}\right)-2\left(p_{\gamma}\epsilon'\right)^{2}\left(p_{e}p_{\gamma}'\right)\bigg)=\\
+ & =\frac{q_{e}^{4}}{\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(2\left(\left(p_{e}p_{\gamma}'\right)^{2}+\left(p_{e}p_{\gamma}\right)^{2}\right)\left(\epsilon\epsilon'\right)^{2}+\left(p_{\gamma}p'_{\gamma}\right)^{2}\left(1-2\left(\epsilon\epsilon'\right)^{2}\right)+\\
+ & \qquad+2\left(p_{\gamma}\epsilon'\right)\left(p_{\gamma}'\epsilon\right)\left(\epsilon\epsilon'\right)\left(\left(p_{\gamma}p'_{\gamma}\right)-\left(p_{\gamma}p_{e}\right)+\left(p_{e}p_{\gamma}'\right)\right)\bigg)
+\end{align*}
+Wegen der Energie-Impuls-Erhaltung gilt:
+\begin{align*}
+p_{\gamma}p'_{\gamma}+p_{e}p'_{\gamma}-p_{e}p_{\gamma} & =\left(p'_{\gamma}+p_{e}'-p_{e}\right)p'_{\gamma}+p_{e}p'_{\gamma}-p_{e}p_{\gamma}=\\
+ & =p'_{e}p'_{\gamma}-p_{e}p_{\gamma}=0\\
+\left(p_{\gamma}p'_{\gamma}\right)^{2} & =\left(\left(p'_{\gamma}+p_{e}'-p_{e}\right)p'_{\gamma}\right)^{2}=\left(p_{e}'p'_{\gamma}-p_{e}p'_{\gamma}\right)^{2}=\\
+ & =\left(p_{e}p{}_{\gamma}-p_{e}p'_{\gamma}\right)^{2}=\left(p_{e}p'_{\gamma}\right)^{2}+\left(p_{e}p_{\gamma}\right)^{2}-2\left(p_{e}p'_{\gamma}\right)\left(p_{e}p_{\gamma}\right)
+\end{align*}
+Damit folgt:
+\begin{align*}
+I & =\frac{q_{e}^{4}}{\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\bigg(2\left(\left(p_{e}p_{\gamma}'\right)^{2}+\left(p_{e}p_{\gamma}\right)^{2}\right)\left(\epsilon\epsilon'\right)^{2}+\\
+ & \qquad+\left(\left(p_{e}p'_{\gamma}\right)^{2}+\left(p_{e}p_{\gamma}\right)^{2}-2\left(p_{e}p'_{\gamma}\right)\left(p_{e}p_{\gamma}\right)\right)\left(1-2\left(\epsilon\epsilon'\right)^{2}\right)\bigg)\\
+ & =\frac{q_{e}^{4}}{\left(p_{e}p_{\gamma}\right)\left(p_{e}p_{\gamma}'\right)}\left(4\left(p_{e}p'_{\gamma}\right)\left(p_{e}p_{\gamma}\right)\left(\epsilon\epsilon'\right)^{2}+\left(p_{e}p'_{\gamma}\right)^{2}+\left(p_{e}p_{\gamma}\right)^{2}-2\left(p_{e}p'_{\gamma}\right)\left(p_{e}p_{\gamma}\right)\right)=\\
+ & =q_{e}^{4}\left(\frac{p_{e}\cdot p'_{\gamma}}{p_{e}\cdot p_{\gamma}}+\frac{p_{e}\cdot p_{\gamma}}{p_{e}\cdot p_{\gamma}'}+4\left(\epsilon\cdot\epsilon'\right)^{2}-2\right)
+\end{align*}
+Der Lorentz-invariante Ausdruck für den differentielle Wirkungsquerschnitt
+im Schwerpunktsystem ist somit:
+\begin{align}
+\dd\sigma & =\frac{\dd^{3}p_{e}'\dd^{3}p_{\gamma}'}{\left(2\pi\right)^{6}\cdot4E_{e}'E_{\gamma}'}\cdot\frac{I}{4\sqrt{\left(p_{e}\cdot p_{\gamma}\right)^{2}-m_{e}^{2}m_{\gamma}^{2}}}\left(2\pi\right)^{4}\delta^{\left(4\right)}\left(p_{e}+p_{\gamma}-p_{e}'-p_{\gamma}'\right)=\nonumber \\
+ & =\frac{q_{e}^{4}}{4\left(p_{e}\cdot p_{\gamma}\right)}\left(\frac{p_{e}\cdot p'_{\gamma}}{p_{e}\cdot p_{\gamma}}+\frac{p_{e}\cdot p_{\gamma}}{p_{e}\cdot p_{\gamma}'}+4\left(\epsilon\cdot\epsilon'\right)^{2}-2\right)\delta^{\left(4\right)}\left(p_{e}+p_{\gamma}-p_{e}'-p_{\gamma}'\right)\frac{\dd^{3}p_{e}'\dd^{3}p_{\gamma}'}{16\pi^{2}E_{e}'E_{\gamma}'}
+\end{align}
+Wir betrachten nun das Laborsystem, in dem die Elektronen in Ruhe
+sind. Aus dem Schwerpunktsystem gelangt man durch einen Boost entlang
+der Stoß-Achse in das Laborsystem, wobei der Wirkungsquerschnitt sich
+nicht ändert. Wir werden sehen, dass der Wirkungsquerschnitt in diesem
+Bezugssystem nur vom Streuwinkel $\theta$ des Photons ab.
+
+\begin{figure}[H]
+\noindent \centering{} \begin{tikzpicture}
+  \draw[photon] (-2,0) -- node[above]{$\lambda$} (0,0) node[position]{} -- node[above left]{$\lambda '$} (1.4,1.4);
+  \draw[dashed] (0,0) -- (1.4,0);
+  \draw (1,0) arc (0:45:1);
+  \node at (0.7,0.25){$\theta $};
+  \draw[electron] (0,0) -- node[below left]{$e^-$} (1.4,-1);
+\end{tikzpicture}\caption{Streuwinkel des Photons}
+\end{figure}
+
+
+Im Laborsystem gilt:
+\begin{align*}
+p_{e}\cdot p_{\gamma}' & =m_{e}E'_{\gamma}\\
+p_{e}\cdot p_{\gamma} & =m_{e}E_{\gamma}\\
+\vec{p}_{\gamma}\cdot\left(\vec{p}_{\gamma}\right)' & =E_{\gamma}E'_{\gamma}\cos\theta\\
+\left(\vec{p}_{e}'\right)^{2} & =\left(\vec{p}_{\gamma}-\vec{p}'_{\gamma}\right)^{2}=E_{\gamma}^{2}+\left(E_{\gamma}'\right)^{2}-2E_{\gamma}E_{\gamma}'\cos\theta\\
+E_{e}' & =\sqrt{\left(\vec{p}_{\gamma}-\vec{p}_{\gamma}'\right)^{2}+m_{e}^{2}}
+\end{align*}
+Da wir das gestreute Elektron nicht detektieren, integrieren wir über
+$\vec{p}_{e}'$. Die verbleibende $\delta$-Distribution liefert:
+\begin{align*}
+0 & =E_{e}+E_{\gamma}-E_{e}'-E_{\gamma}'=\\
+ & =m_{e}+E_{\gamma}-E_{\gamma}'-\sqrt{E_{\gamma}^{2}+\left(E_{\gamma}'\right)^{2}-2E_{\gamma}E_{\gamma}'\cos\left(\theta\right)+m_{e}^{2}}\\
+E_{\gamma}^{2}+\left(E_{\gamma}'\right)^{2}-2E_{\gamma}E_{\gamma}'\cos\left(\theta\right)+m_{e}^{2} & =m_{e}^{2}+E_{\gamma}^{2}+\left(E_{\gamma}'\right)^{2}+2m_{e}E_{\gamma}-2m_{e}E_{\gamma}'-2E_{\gamma}E_{\gamma}'\\
+\left(2E_{\gamma}\left(1-\cos\left(\theta\right)\right)+2m_{e}\right)E_{\gamma}' & =2m_{e}E_{\gamma}\\
+E_{\gamma}' & =\frac{m_{e}E_{\gamma}}{E_{\gamma}\left(1-\cos\left(\theta\right)\right)+m_{e}}
+\end{align*}
+Daher ist die Energie des gestreuten Photons durch den Streuwinkel
+$\theta$ und die anfängliche Photonenenergie $E_{\gamma}$ bestimmt.
+Daher folgt:
+\begin{align*}
+\int\dd^{3}p_{\gamma}' & =2\pi\int\dd E_{\gamma}'\left(E_{\gamma}'\right)^{2}\dd\left(\cos\left(\theta\right)\right)
+\end{align*}
+Bei der Integration über $\dd E_{\gamma}'$ tritt die Ableitung des
+Arguments der $\delta$-Distribution auf:
+\begin{align*}
+\frac{\partial}{\partial E_{\gamma}'}\left(m_{e}+E_{\gamma}-E_{\gamma}'-E_{e}'\left(E_{\gamma}'\right)\right) & =-1-\frac{2E_{\gamma}'-2E_{\gamma}\cos\left(\theta\right)}{2\sqrt{E_{\gamma}^{2}+\left(E_{\gamma}'\right)^{2}-2E_{\gamma}E_{\gamma}'\cos\left(\theta\right)+m_{e}^{2}}}=\\
+ & =\frac{-E_{e}'-E_{\gamma}'+E_{\gamma}\cos\left(\theta\right)}{E_{e}'}=\frac{-m_{e}-E_{\gamma}+E_{\gamma}\cos\left(\theta\right)}{E_{e}'}=\\
+ & =-\frac{E_{\gamma}\left(1-\cos\left(\theta\right)\right)+m_{e}}{E_{e}'}=-\frac{m_{e}E_{\gamma}}{E_{e}'E_{\gamma}'}
+\end{align*}
+Setzt man all dies zusammen, so erhält man:
+\begin{align*}
+\sigma & =\int\frac{q_{e}^{4}}{4\left(p_{e}\cdot p_{\gamma}\right)}\left(\frac{p_{e}\cdot p'_{\gamma}}{p_{e}\cdot p_{\gamma}}+\frac{p_{e}\cdot p_{\gamma}}{p_{e}\cdot p_{\gamma}'}+4\left(\epsilon\cdot\epsilon'\right)^{2}-2\right)\abs{-\frac{m_{e}E_{\gamma}}{E_{e}'E_{\gamma}'}}^{-1}\frac{2\pi\left(E_{\gamma}'\right)^{2}\dd\left(\cos\left(\theta\right)\right)}{16\pi^{2}E_{e}'E_{\gamma}'}=\\
+ & =\int\frac{q_{e}^{4}}{4m_{e}E_{\gamma}}\left(\frac{m_{e}E'_{\gamma}}{m_{e}E_{\gamma}}+\frac{m_{e}E_{\gamma}}{m_{e}E'_{\gamma}}+4\left(\epsilon\cdot\epsilon'\right)^{2}-2\right)\frac{E_{e}'E_{\gamma}'}{m_{e}E_{\gamma}}\frac{2\pi\left(E_{\gamma}'\right)^{2}\dd\left(\cos\left(\theta\right)\right)}{16\pi^{2}E_{e}'E_{\gamma}'}=\\
+ & =\frac{\pi}{2}\int\frac{q_{e}^{4}\left(E_{\gamma}'\right)^{2}}{\left(4\pi\right)^{2}m_{e}^{2}E_{\gamma}^{2}}\left(\frac{E'_{\gamma}}{E_{\gamma}}+\frac{E_{\gamma}}{E'_{\gamma}}+4\left(\epsilon\cdot\epsilon'\right)^{2}-2\right)\dd\left(\cos\left(\theta\right)\right)
+\end{align*}
+Dies ergibt die Klein-Nishina-Gleichung (1929):
+\begin{align}
+\frac{\dd\sigma}{\dd\left(\cos\left(\theta\right)\right)} & =\frac{\pi}{2}\frac{\alpha^{2}\left(E_{\gamma}'\right)^{2}}{m_{e}^{2}E_{\gamma}^{2}}\left(\frac{E'_{\gamma}}{E_{\gamma}}+\frac{E_{\gamma}}{E'_{\gamma}}+4\left(\epsilon\cdot\epsilon'\right)^{2}-2\right)
+\end{align}
+Für unpolarisierte Photonen kann man die Summe über die Polarisationen
+in folgender Weise ausführen: $\vec{p}_{\gamma}$ und $\vec{p}_{\gamma}'$
+definieren die \emph{Streuebene}. Die transversalen Polarisationsvektoren
+$\vec{\epsilon}\left(1\right)$ und $\vec{\epsilon}'\left(1\right)$
+sind in dieser Ebene definiert, während die anderen transversalen
+Polarisationsvektoren $\vec{\epsilon}\left(2\right)$ und $\vec{\epsilon}'\left(2\right)$
+senkrecht zu dieser Ebene sind (siehe Abbildung \ref{abb:Polarization-Compton}).
+
+\begin{figure}[H]
+\noindent \centering{} \begin{tikzpicture}
+   \draw[decoration={markings,mark=at position 1 with {\arrow[scale=2]{>}};},postaction={decorate}] (-2,0) node[above right]{$\vec{p}_\gamma $} -- (0,0);
+  \draw[decoration={markings,mark=at position 1 with {\arrow[scale=2]{>}};},postaction={decorate}] (0,0)  --(1.4,1.4) node[above]{$\vec{p}_\gamma '$};
+  \draw[blue,dotted,thick] (-1,-1) -- (-1,0);
+  \draw[blue,thick,->] (-1,0) -- (-1,1) node[above]{$\epsilon (1)$};
+  \draw[blue,dotted,thick] (-0.5,1) -- (-1,0);
+  \draw[blue,thick,->] (-1,0) -- (-1.5,-1) node[below]{$\epsilon (2)$};
+  \draw[red,dotted,thick] (0.7,0.7) -- +(0.7,-0.7);
+  \draw[red,thick,->] (0.7,0.7) -- +(-0.7,0.7) node[above]{$\epsilon' (1)$};
+  \draw[red,dotted,thick]  (0.7,0.7) -- +(0.3,0.8);
+  \draw[red,thick,->] (0.7,0.7) -- +(-0.3,-0.8) node[below]{$\epsilon' (2)$};
+\end{tikzpicture}\caption{Polarisationszustände für Compton-Streuung}
+\label{abb:Polarization-Compton}
+\end{figure}
+
+
+Dann gilt:
+\begin{align*}
+\frac{1}{2}\sum_{i,j\in\left\{ 1,2\right\} }\left(\epsilon\left(i\right)\cdot\epsilon'\left(j\right)\right)^{2} & =\frac{1}{2}\left(\cos^{2}\left(\theta\right)+0+0+1\right)
+\end{align*}
+Für alle anderen Terme ergibt das Summieren/Mitteln über die Polarisationen
+einen Faktor 2. Man erhält:
+\begin{align}
+\frac{\dd\sigma}{\dd\left(\cos\left(\theta\right)\right)} & =\pi\frac{\alpha^{2}\left(E_{\gamma}'\right)^{2}}{m_{e}^{2}E_{\gamma}^{2}}\left(\frac{E'_{\gamma}}{E_{\gamma}}+\frac{E_{\gamma}}{E'_{\gamma}}+\left(1+\cos^{2}\left(\theta\right)\right)-2\right)=\nonumber \\
+ & =\pi\alpha^{2}\frac{\left(E_{\gamma}'\right)^{2}}{m_{e}^{2}E_{\gamma}^{2}}\left(\frac{E'_{\gamma}}{E_{\gamma}}+\frac{E_{\gamma}}{E'_{\gamma}}-\sin^{2}\left(\theta\right)\right)=\\
+ & =\pi\alpha^{2}\frac{\frac{m_{e}}{E_{\gamma}\left(1-\cos\left(\theta\right)\right)+m_{e}}+\frac{E_{\gamma}\left(1-\cos\left(\theta\right)\right)+m_{e}}{m_{e}}-\sin^{2}\left(\theta\right)}{\left(E_{\gamma}\left(1-\cos\left(\theta\right)\right)+m_{e}\right)^{2}}=\nonumber \\
+ & \sr ={K:=\frac{E_{\gamma}}{m_{e}}}{}\underbrace{2\pi\frac{\alpha^{2}}{m_{e}^{2}}}_{=:A}\frac{\frac{1}{K\left(1-\cos\left(\theta\right)\right)+1}+K\left(1-\cos\left(\theta\right)\right)+\cos^{2}\left(\theta\right)}{2\left(K\left(1-\cos\left(\theta\right)\right)+1\right)^{2}}\nonumber 
+\end{align}
+\begin{figure}[H]
+\noindent \centering{}\newcommand{\Konstant}{1}
+\begin{tikzpicture}
+  \begin{polaraxis}[legend style={ cells={anchor=west}, at={(1.3,0.8)}},domain=0:360,samples=300]
+    \renewcommand{\Konstant}{0.000005382}
+    \addplot+[blue,thick,mark=none] {0.5 * ( (\Konstant * (1-cos(x))+1)^(-1) + \Konstant * (1-cos(x)) + (cos(x))^2) / (\Konstant * (1-cos(x)) + 1)^2};
+    \addlegendentry{2,75 eV}
+
+    \renewcommand{\Konstant}{0.11741683}
+    \addplot+[brown,thick,mark=none] {0.5 * ( (\Konstant * (1-cos(x))+1)^(-1) + \Konstant * (1-cos(x)) + (cos(x))^2) / (2 * \Konstant * (1-cos(x)) + 1)^2};
+    \addlegendentry{60 keV}
+
+    \renewcommand{\Konstant}{1}
+    \addplot+[orange,thick,mark=none] {0.5 * ( (\Konstant * (1-cos(x))+1)^(-1) + \Konstant * (1-cos(x)) + (cos(x))^2) / (2 * \Konstant * (1-cos(x)) + 1)^2};
+    \addlegendentry{511 keV}
+
+    \renewcommand{\Konstant}{2.857142857}
+    \addplot+[green,thick,mark=none] {0.5 * ( (\Konstant * (1-cos(x))+1)^(-1) + \Konstant * (1-cos(x)) + (cos(x))^2) / (2 * \Konstant * (1-cos(x)) + 1)^2};
+    \addlegendentry{1,46 MeV}
+
+    \renewcommand{\Konstant}{19.569471624}
+    \addplot+[red,thick,mark=none] {0.5 * ( (\Konstant * (1-cos(x))+1)^(-1) + \Konstant * (1-cos(x)) + (cos(x))^2) / (2 * \Konstant * (1-cos(x)) + 1)^2};
+    \addlegendentry{10 MeV}
+
+  \end{polaraxis}
+\end{tikzpicture}\caption{Klein-Nishina-Wirkungsquerschnitt in Vielfachen von $A\approx5\cdot10^{-29}\,\text{m}^{2}$
+als Funktion des Winkels $\theta$}
+\end{figure}
 
 
 
