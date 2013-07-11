@@ -43,8 +43,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 \usepackage{tikz,pgfplots}
 %\usepackage{tikz-3dplot,cancel,polynom}
-\usetikzlibrary{matrix,arrows,calc,decorations.pathmorphing,decorations.markings,decorations.pathreplacing,intersections,trees,pgfplots.polar}
-\usetikzlibrary{external}
+\usetikzlibrary{matrix,arrows,calc,decorations.pathmorphing,decorations.markings,decorations.pathreplacing,intersections,trees}
+\usetikzlibrary{external,pgfplots.polar}
 \tikzexternalize
 \usepackage{latexsym,stmaryrd,stackrel,braket,bbm,subfig,framed,esvect,scrhack,calc,slashed,leftidx}
 \usepackage [OMLmathrm,OMLmathbf,sfdefault=fav]{isomath}
@@ -166,6 +166,15 @@
   \advance\dimen0-0.2\ht0
   \setbox2=\hbox{\vrule height\ht0 depth -\dimen0}
   {\box0\lower0.4pt\box2}}
+
+% SumInt
+\DeclareMathOperator*{\SumInt}{%
+\mathchoice%
+  {\ooalign{$\displaystyle\sum$\cr\hidewidth$\displaystyle\int$\hidewidth\cr}}
+  {\ooalign{\raisebox{.14\height}{\scalebox{.7}{$\textstyle\sum$}}\cr\hidewidth$\textstyle\int$\hidewidth\cr}}
+  {\ooalign{\raisebox{.2\height}{\scalebox{.6}{$\scriptstyle\sum$}}\cr$\scriptstyle\int$\cr}}
+  {\ooalign{\raisebox{.2\height}{\scalebox{.6}{$\scriptstyle\sum$}}\cr$\scriptstyle\int$\cr}}
+}
 
 % Damit nicht immer "Kapitel 1" etc. über der Kapitelüberschrift steht
 \titleformat{\chapter}
@@ -2602,10 +2611,10 @@ Konstante.
 $\left(-1\right)$. Dies sei am Beispiel eines Loops mit zwei Vertizes
 gezeigt:
 \begin{align*}
- & \BraKet{0|\mathcal{T}\left\{ \hat{\overline{\psi}}_{j_{1}}\left(y\right)\left(e\hat{\slashd A}\right)_{j_{1}j_{3}}\left(\hat{\psi}_{j_{3}}\left(x\right)\hat{\overline{\psi}}_{j_{4}}\left(x'\right)\right)\left(e\hat{\slashd A}\right)_{j_{4}j_{5}}\hat{\psi}_{j_{5}}\left(y'\right)\right\} |0}\\
- & \qquad=\left(-1\right)^{3}\BraKet{0|\mathcal{T}\left\{ \left(e\slashd A\right)_{j_{1}j_{3}}\left(\hat{\psi}_{j_{3}}\left(x\right)\hat{\overline{\psi}}_{j_{4}}\left(x'\right)\right)\left(e\slashd A\right)_{j_{4}j_{5}}\left(\psi_{j_{5}}\left(y'\right)\overline{\psi}_{j_{1}}\left(y\right)\right)\right\} |0}=\\
- & \qquad=-\left(e\slashd A\right)_{j_{1}j_{3}}\left(S_{F}\left(x-x'\right)\right)_{j_{3}j_{4}}\left(e\slashd A\right)_{j_{4}j_{5}}\left(S_{F}\left(y-y'\right)\right)_{j_{5}j_{1}}=\\
- & \qquad=-\text{tr}\left(e\slashd AS_{F}\left(x-x'\right)e\slashd AS_{F}\left(y-y'\right)\right)
+ & \BraKet{0|\mathcal{T}\left\{ \hat{\overline{\psi}}_{j_{1}}\left(x\right)\left(q_{e}\hat{\slashd A}\right)_{j_{1}j_{3}}\left(\hat{\psi}_{j_{3}}\left(x\right)\hat{\overline{\psi}}_{j_{4}}\left(x'\right)\right)\left(q_{e}\hat{\slashd A}\right)_{j_{4}j_{5}}\hat{\psi}_{j_{5}}\left(x'\right)\right\} |0}\\
+ & \qquad=\left(-1\right)^{3}\BraKet{0|\mathcal{T}\left\{ \left(q_{e}\slashd A\right)_{j_{1}j_{3}}\left(\hat{\psi}_{j_{3}}\left(x\right)\hat{\overline{\psi}}_{j_{4}}\left(x'\right)\right)\left(q_{e}\slashd A\right)_{j_{4}j_{5}}\left(\psi_{j_{5}}\left(x'\right)\overline{\psi}_{j_{1}}\left(x\right)\right)\right\} |0}=\\
+ & \qquad=-\left(q_{e}\slashd A\right)_{j_{1}j_{3}}\left(S_{F}\left(x-x'\right)\right)_{j_{3}j_{4}}\left(q_{e}\slashd A\right)_{j_{4}j_{5}}\left(S_{F}\left(x'-x\right)\right)_{j_{5}j_{1}}=\\
+ & \qquad=-\text{tr}\left(q_{e}\slashd AS_{F}\left(x-x'\right)q_{e}\slashd AS_{F}\left(x'-x\right)\right)
 \end{align*}
 Außerdem sieht man, dass bei einem Loops nur Spuren auftreten. Daher
 spielt die Reihenfolge der Loops bei komplizierten Feynman-Diagrammen
@@ -3907,8 +3916,8 @@ als Funktion des Winkels $\theta$}
 
 \section{Vakuumpolarisation}
 
-Betrachte einen Vakuumpolarisations-Loop irgendwo in einem größeren
-Feynman-Diagramm.
+Betrachte einen Vakuumpolarisations-Loop (auch Photon-Selbstenergie
+genannt) irgendwo in einem größeren Feynman-Diagramm.
 
 \begin{figure}[H]
 \noindent \centering{}\begin{tikzpicture}[level/.style={level distance=20mm}]
@@ -3992,7 +4001,8 @@ Es gibt verschiedene Typen von Divergenzen:
     child [grow=0] {node[position]{} edge from parent [positron,edge from parent path={(\tikzparentnode) .. controls +(0,-1)  and +(0,-1) .. (\tikzchildnode)}]};
 \end{tikzpicture}\caption{quadratisch divergentes Feynman-Diagramm}
 \end{figure}
-Dies wird als Null definiert, da sie sonst die Eichinvarianz verletzen.
+Die quadratische Divergenz verschwindet, da sonst die Eichinvarianz
+verletzt wird. Es bleibt eine logarithmische Divergenz.
 \item Linear divergent:
 \begin{align*}
 \sim\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\frac{\left(\slashd k\right)^{3}}{\left(k^{2}\right)^{3}}
@@ -4052,15 +4062,15 @@ führen zu einer Anomalie in der Schwachen Wechselwirkung.
 \begin{figure}[H]
 \noindent \centering{}\begin{tikzpicture}[level/.style={level distance=20mm}, scale=0.5]
   \path (0,0) node[position] (l) {}
-    child [grow=-180] {node[inner sep=0pt]{} edge from parent[positron]}
+    child [grow=-180] {node[position]{} edge from parent[positron]}
     child [grow=0] {node[position] (r) {}
-      child [grow=0] {node[inner sep=0pt]{} edge from parent[electron]}
+      child [grow=0] {node[position]{} edge from parent[electron]}
     edge from parent[electron]};
   \draw[photon] (l) .. controls +(0,-1.35) and +(0,-1.35) .. (r);
 \end{tikzpicture}\caption{logarithmisch divergentes Feynman-Diagramm}
 \end{figure}
-Terme mit ungerader $k$-Potenz verschwinden, da über einen symmetrischen
-Bereich integriert wird. Es bleibt eine logarithmische Divergenz.
+Dieses Integral scheint linear divergent zu sein, aber tatsächlich
+ist es nur logarithmisch divergent.
 \end{enumerate}
 %DATE: Di 14.5.13
 
@@ -4092,9 +4102,9 @@ Eigentlich muss man also $\alpha$ mit $GE^{2}$ vergleichen und das
 Stärkeverhältnis der Kräfte abzuschätzen. Für $GE^{2}>1$ ist die
 Gravitation genauso wichtig wie jede andere Wechselwirkung. So erhält
 man die Planck-Energie:
-\begin{align*}
+\begin{align}
 E_{\text{Pl}} & =\frac{1}{\sqrt{G}}\sr ={\hbar c=1}{}\sqrt{\frac{\hbar c}{G}}\stackrel{\text{SI}}{=}1{,}22\cdot10^{19}\text{GeV}
-\end{align*}
+\end{align}
 Für $E\approx E_{\text{Pl}}$ müsste man im Rahmen der Allgemeinen
 statt der Speziellen Relativitätstheorie rechnen. Physikalische Gesetze
 existieren jedoch auch bei niedrigen Energien. Wir fordern, dass die
@@ -4174,73 +4184,85 @@ Ergebnis.
 
 \subsection{Lineare Divergenzen}
 
+In erster Ordnung Störungstheorie muss man zwei Diagramme addieren.
+
 \begin{figure}[H]
-\noindent \centering{} \begin{tikzpicture}[level/.style={level distance=20mm}]
+\noindent \centering{}\begin{tikzpicture}[level/.style={level distance=20mm}]
   \path node[position]{}
-    child [grow=90]{node[position]{} edge from parent[photon]}
+    child [grow=90,level distance=10mm]{node[position]{} edge from parent[photon]}
     child [grow=-60]{node[position]{}
-      child [grow=-45]{node[position]{} edge from parent[photon]}
+      child [grow=-45,level distance=10mm]{node[position]{} edge from parent[photon]}
       child [grow=180]{node[position]{} edge from parent[electron] node[below=2pt]{$k_2$}}
     node[above right]{$\mu_2$} edge from parent[electron] node[right=2pt]{$k_1$}}
     child [grow=-120]{node[position]{}
-      child [grow=-135]{node[position]{} edge from parent[photon]}
-    node[above left]{$\mu_1$} edge from parent[positron] node[left=2pt]{$k_3$}} node[right]{$\mu_3$};
-\end{tikzpicture}\caption{linear divergentes Feynman-Diagramm}
+      child [grow=-135,level distance=10mm]{node[position]{} edge from parent[photon]}
+    node[above left]{$\mu_3$} edge from parent[positron] node[left=2pt]{$k_3$}} node[right] {$\mu_1$};
+ \begin{scope}[xshift=4.5cm]
+  \path node[position]{}
+    child [grow=90,level distance=10mm]{node[position]{} edge from parent[photon]}
+    child [grow=-60]{node[position]{}
+      child [grow=-45,level distance=10mm]{node[position]{} edge from parent[photon]}
+      child [grow=180]{node[position]{} edge from parent[positron] node[below=2pt]{$-k_2$}}
+    node[above right]{$\mu_2$} edge from parent[positron] node[right=2pt]{$-k_1$}}
+    child [grow=-120]{node[position]{}
+      child [grow=-135,level distance=10mm]{node[position]{} edge from parent[photon]}
+    node[above left]{$\mu_3$} edge from parent[electron] node[left=2pt]{$-k_3$}} node[right] {$\mu_1$};
+ \end{scope}
+\end{tikzpicture}\caption{Die beiden linear divergenten Feynman-Diagramme}
 \end{figure}
 
 
-Die Parität unter Ladungskonjugation $C$ liefert:
+Der Impuls sei entlang der Pfeile der Fermionenlinien definiert. Somit
+geht das zweite Diagramm durch Ladungskonjugation aus dem ersten hervor.
+Das erste Diagramm führt auf ein Integral über eine Spur der Form:
 \begin{align*}
-\psi_{C} & =e^{\ii\varphi}\gamma_{2}\psi^{*}=e^{\ii\varphi}\gamma_{2}\gamma_{0}\overline{\psi}^{\TT}
+ & \text{tr}\left(\left(\slashd k_{3}+m\right)\gamma^{\mu_{3}}\left(\slashd k_{2}+m\right)\gamma^{\mu_{2}}\left(\slashd k_{1}+m\right)\gamma^{\mu_{1}}\right)=\\
+ & \qquad\qquad=\text{tr}\left(\slashd k_{3}\gamma^{\mu_{3}}\slashd k_{2}\gamma^{\mu_{2}}\slashd k_{1}\gamma^{\mu_{1}}\right)+\text{tr}\left(m\gamma^{\mu_{3}}m\gamma^{\mu_{2}}\slashd k_{1}\gamma^{\mu_{1}}\right)+\\
+ & \qquad\qquad\qquad+\text{tr}\left(m\gamma^{\mu_{3}}\slashd k_{2}\gamma^{\mu_{2}}m\gamma^{\mu_{1}}\right)+\text{tr}\left(\slashd k_{3}\gamma^{\mu_{3}}m\gamma^{\mu_{2}}m\gamma^{\mu_{1}}\right)=\\
+ & \qquad\qquad=\text{tr}\left(\slashd k_{3}\gamma^{\mu_{3}}\slashd k_{2}\gamma^{\mu_{2}}\slashd k_{1}\gamma^{\mu_{1}}\right)+m^{2}\text{tr}\left(\gamma^{\mu_{3}}\gamma^{\mu_{2}}\slashd k_{1}\gamma^{\mu_{1}}\right)+\\
+ & \qquad\qquad\qquad+\text{tr}\left(\gamma^{\mu_{3}}\slashd k_{2}\gamma^{\mu_{2}}\gamma^{\mu_{1}}\right)+\text{tr}\left(\slashd k_{3}\gamma^{\mu_{3}}\gamma^{\mu_{2}}\gamma^{\mu_{1}}\right)
 \end{align*}
-Es folgt
+Dabei wurde verwendet, dass die Spur einer ungeraden Anzahl von Dirac-Matrizen
+verschwindet. Ebenso liefert das zweite Diagramm, wenn man ebenfalls
+entgegen der Richtung der Fermionenlinien auswertet:
 \begin{align*}
--\gamma_{0}\gamma_{2}e^{-\ii\varphi}\psi_{C} & =-\gamma_{0}\gamma_{2}e^{-\ii\varphi}e^{\ii\varphi}\gamma_{2}\gamma_{0}\overline{\psi}^{\TT}=-\gamma_{0}\underbrace{\gamma_{2}^{2}}_{=-1}\gamma_{0}\overline{\psi}^{\TT}=\underbrace{\gamma_{0}\gamma_{0}}_{=1}\overline{\psi}^{\TT}=\overline{\psi}^{\TT}
+ & \text{tr}\left(\gamma^{\mu_{1}}\left(-\slashd k_{1}+m\right)\gamma^{\mu_{2}}\left(-\slashd k_{2}+m\right)\gamma^{\mu_{3}}\left(-\slashd k_{3}+m\right)\right)=\\
+ & \qquad\qquad=-\text{tr}\left(\gamma^{\mu_{1}}\slashd k_{1}\gamma^{\mu_{2}}\slashd k_{2}\gamma^{\mu_{3}}\slashd k_{3}\right)-m^{2}\text{tr}\left(\gamma^{\mu_{1}}\slashd k_{1}\gamma^{\mu_{2}}\gamma^{\mu_{3}}\right)+\\
+ & \qquad\qquad\qquad-m^{2}\text{tr}\left(\gamma^{\mu_{1}}\gamma^{\mu_{2}}\slashd k_{2}\gamma^{\mu_{3}}\right)-m^{2}\text{tr}\left(\gamma^{\mu_{1}}\gamma^{\mu_{2}}\gamma^{\mu_{3}}\slashd k_{3}\right)
 \end{align*}
-und:
+Damit sich die Terme der beiden Diagramme aufheben, müsste man die
+Reihenfolge in der Spur vertauschen können. Dass man dies tatsächlich
+darf, überlegt man sich mit Hilfe der Matrix $C:=\gamma^{2}\gamma^{0}$.
+Es gilt:
 \begin{align*}
-\psi_{C} & =e^{\ii\varphi}\gamma_{2}\psi^{*}\\
-\psi_{C}^{*} & =-e^{-\ii\varphi}\gamma_{2}\psi\\
-\gamma_{2}e^{\ii\varphi}\psi_{C}^{*} & =\psi\\
-\psi^{\TT} & =\left(\gamma_{2}e^{\ii\varphi}\psi_{C}^{*}\right)^{\TT}=e^{\ii\varphi}\psi_{C}^{\dagger}\gamma_{2}=e^{\ii\varphi}\overline{\psi}_{C}\gamma_{0}\gamma_{2}
+C^{2} & =\gamma^{2}\gamma^{0}\gamma^{2}\gamma^{0}=-\gamma^{2}\gamma^{2}\gamma^{0}\gamma^{0}=-\left(-\mathbbm{1}\right)\cdot\mathbbm{1}=\mathbbm{1}
 \end{align*}
-Also gilt: 
-\begin{align*}
-\overline{\psi}^{\TT}\psi^{\TT} & =\left(-\gamma_{0}\gamma_{2}\psi_{C}e^{-\ii\varphi}\right)\left(\overline{\psi}_{C}\gamma_{0}\gamma_{2}e^{\ii\varphi}\right)=-\gamma_{0}\gamma_{2}S_{F}^{C}\gamma_{0}\gamma_{2}=\\
- & =-\left(-1\right)^{2}\gamma_{2}\gamma_{0}S_{F}^{C}\gamma_{2}\gamma_{0}
-\end{align*}
-Nun ist $S_{F}\sim\psi\overline{\psi}$ und somit folgt:
-\begin{align*}
-S_{F}^{\TT} & \sim\overline{\psi}^{\TT}\psi^{\TT}\stackrel{\text{C}}{\sim}\gamma_{2}\gamma_{0}S_{F}^{\text{C}}\gamma_{2}\gamma_{0}e^{\ii\varphi-\ii\varphi}
-\end{align*}
-\begin{align*}
-\text{tr}\left(\gamma_{\mu_{1}}S_{F}\left(k_{2}\right)\gamma_{\mu_{2}}S_{F}\left(k_{1}\right)\gamma_{\mu_{3}}S_{F}\left(k\right)\right) & =\text{tr}\left(\left(\gamma_{\mu_{1}}S_{F}\left(k_{2}\right)\gamma_{\mu_{2}}S_{F}\left(k_{1}\right)\gamma_{\mu_{3}}S_{F}\left(k\right)\right)^{\TT}\right)=\\
- & =\text{tr}\left(\gamma_{2}\gamma_{0}S_{F}^{\text{C}}\left(k\right)\gamma_{2}\gamma_{0}\gamma_{\mu_{3}}^{\TT}\gamma_{2}\gamma_{0}S_{F}^{\text{C}}\left(k_{1}\right)\gamma_{2}\gamma_{0}\gamma_{\mu_{2}}^{\TT}\gamma_{2}\gamma_{0}S_{F}^{\text{C}}\left(k_{2}\right)\gamma_{2}\gamma_{0}\gamma_{\mu_{1}}^{\TT}\right)
-\end{align*}
-Nun gilt $S_{F}^{\text{C}}\left(k\right)=S_{F}\left(-k\right)$ und:
-\begin{align*}
-\gamma_{2}\gamma_{0}\gamma_{\mu_{3}}^{\TT}\gamma_{2}\gamma_{0} & =\gamma_{2}\gamma_{0}\left\{ \begin{array}{c}
--\gamma_{\mu_{3}}\text{ falls }\mu_{3}\in\left\{ 1,3\right\} \\
-\gamma_{\mu_{3}}\text{ falls }\mu_{3}\in\left\{ 0,2\right\} 
-\end{array}\right\} \gamma_{2}\gamma_{0}=-\gamma_{\mu_{3}}
-\end{align*}
-Es folgt:
-\begin{align*}
-\text{tr}\left(\gamma_{\mu_{1}}S_{F}\left(k_{2}\right)\gamma_{\mu_{2}}S_{F}\left(k_{1}\right)\gamma_{\mu_{3}}S_{F}\left(k\right)\right) & =\left(-1\right)^{3}\text{tr}\left(S_{F}\left(-k\right)\gamma_{\mu_{3}}S_{F}\left(-k_{1}\right)\gamma_{\mu_{2}}S_{F}\left(-k_{2}\right)\gamma_{\mu_{1}}\right)
-\end{align*}
-TODO: Abb43
+\begin{align}
+C\left(\gamma^{\mu_{i}}\right)^{\TT}C & =\gamma^{2}\gamma^{0}\left\{ \begin{array}{c}
+-\gamma^{\mu_{i}}\text{ falls }\mu_{i}\in\left\{ 1,3\right\} \\
+\gamma^{\mu_{i}}\text{ falls }\mu_{i}\in\left\{ 0,2\right\} 
+\end{array}\right\} \gamma^{2}\gamma^{0}=-\gamma^{\mu_{i}}\nonumber \\
+\left(\gamma^{\mu_{i}}\right)^{\TT} & =-C\gamma^{\mu_{i}}C
+\end{align}
+Somit folgt für die Spur eines Produkts aus einer geraden Anzahl $n$
+an Dirac-Matrizen:
+\begin{align}
+\text{tr}\left(\gamma^{\mu_{1}}\cdots\gamma^{\mu_{n}}\right) & =\text{tr}\left(\left(\gamma^{\mu_{1}}\cdots\gamma^{\mu_{n}}\right)^{\TT}\right)=\text{tr}\left(\left(\gamma^{\mu_{n}}\right)^{\TT}\cdots\left(\gamma^{\mu_{1}}\right)^{\TT}\right)=\nonumber \\
+ & =\underbrace{\left(-1\right)^{n}}_{=1}\text{tr}\left(C\gamma^{\mu_{n}}C\cdots C\gamma^{\mu_{1}}C\right)=\text{tr}\left(C^{2}\gamma^{\mu_{n}}\cdots C^{2}\gamma^{\mu_{1}}\right)=\text{tr}\left(\gamma^{\mu_{n}}\cdots\gamma^{\mu_{1}}\right)
+\end{align}
+Also darf man für Dirac-Matrizen die Reihenfolge unter der Determinante
+vertauschen und somit heben sich die Beiträge der beiden Diagramme
+gerade auf.
 
-Mit zusätzlichem $\gamma^{5}$:
-\begin{align*}
-\text{tr}\left(\gamma^{2}\gamma^{0}S_{F}^{\text{C}}\left(k\right)\gamma^{2}\gamma^{0}\left(\gamma^{5}\right)^{\TT}\gamma_{\mu_{3}}^{\TT}\gamma^{2}\gamma^{0}S_{F}^{\text{C}}\left(k_{1}\right)\gamma^{2}\gamma^{0}\gamma_{\mu_{2}}^{\TT}\gamma^{2}\gamma^{0}S_{F}^{\text{C}}\left(k_{2}\right)\gamma^{2}\gamma^{0}\gamma_{\mu_{1}}^{\TT}\right)
-\end{align*}
-\begin{align*}
-\left(\gamma^{5}\right)^{\TT}\gamma_{\mu_{3}}^{\TT} & =\gamma^{5}\gamma_{\mu_{3}}^{\TT}=-\gamma_{\mu_{3}}^{\TT}\gamma^{5}
-\end{align*}
-Dieses zusätzliche Minus verhindert, dass der Term wegfallen muss.
+In der schwachen Wechselwirkung tritt beim Vertex ein zusätzliches
+$\gamma^{5}$ auf und die beiden Diagramme heben sich nicht mehr vollständig
+auf. Dies nennt man chirale Anomalie der schwachen Wechselwirkung.
 
 
-\section{Explizite Berechnung der Vakuum-Polarisation mit Pauli-Villars Regularisierung}
+\section{Explizite Berechnung der Vakuum-Polarisation}
+
+
+\subsection{Pauli-Villars Regularisierung}
 
 \begin{figure}[H]
 \noindent \centering{}\begin{tikzpicture}[level/.style={level distance=20mm}]
@@ -4254,9 +4276,9 @@ Dieses zusätzliche Minus verhindert, dass der Term wegfallen muss.
 \end{figure}
 
 
-\begin{align*}
+\begin{align}
 I_{\mu\nu} & =-q_{e}^{2}\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\text{tr}\left(\frac{1}{\slashd k-m+\ii\varepsilon}\gamma_{\nu}\frac{1}{\slashd k-\slashd q-m+\ii\varepsilon}\gamma_{\mu}\right)
-\end{align*}
+\end{align}
 Die Eichinvarianz liefert:
 \begin{align*}
 q^{\mu}I_{\mu\nu} & =0\\
@@ -4267,55 +4289,55 @@ Dies ist fundamental!
 q^{\mu}I_{\mu\nu} & =-q_{e}^{2}\text{tr}\left(\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\frac{1}{\slashd k-\slashd q-m+\ii\varepsilon}\left(\left(\slashd k-m+\ii\varepsilon\right)-\left(\slashd k-\slashd q-m+\ii\varepsilon\right)\right)\frac{1}{\slashd k-m+\ii\varepsilon}\gamma_{\nu}\right)=\\
  & =-q_{e}^{2}\text{tr}\left(\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\left(\frac{1}{\slashd k-\slashd q-m+\ii\varepsilon}-\frac{1}{\slashd k-m+\ii\varepsilon}\right)\gamma_{\nu}\right)
 \end{align*}
-Variablentransformation $k_{\mu}\to k_{\mu}+q_{\mu}$ im ersten Summand,
-führt auf das gleiche Integral wie das zweite, sodass man Null erhält?
-Aber die quadratische Divergenzen liefern Oberflächenterme:
+Die Variablentransformation $k_{\mu}\to k_{\mu}+q_{\mu}$ im ersten
+Summand, überführt das erste Integral in das zweite, sodass man Null
+erhält. Aber die quadratische Divergenzen liefern Oberflächenterme:
 \begin{align*}
 \lim_{\Lambda\to\infty}\int_{-\Lambda-a}^{\Lambda-a}\dd x\cdot x & =\lim_{\Lambda\to\infty}\left(\frac{1}{2}\left(\Lambda-a\right)^{2}-\frac{1}{2}\left(\Lambda+a\right)^{2}\right)=\lim_{\Lambda\to\infty}\left(-2\Lambda a\right)\not=0
 \end{align*}
 Die Theorie muss mit einem neuen Integralbegriff definiert werden,
-der sich vom Riemann-Integral ausschließlich für das quadratisch divergente
-Integral unterscheidet.
+der sich vom Riemann-Integral ausschließlich für divergente Integrale
+unterscheidet.
 
 Das Problem existiert nicht für ein logarithmisches Integral:
 \begin{align*}
 \lim_{\Lambda\to\infty}\int_{-\Lambda-a}^{\Lambda-a}\dd x\cdot\frac{1}{x} & =\lim_{\Lambda\to\infty}\left(\ln\left(\Lambda-a\right)-\ln\left(-\Lambda-a\right)\right)=\lim_{\Lambda\to\infty}\ln\left(\frac{\Lambda-a}{-\Lambda-a}\right)=\lim_{\Lambda\to\infty}\ln\left(\frac{\Lambda}{-\Lambda}\right)
 \end{align*}
-
-
 %DATE: Mi 22.5.13
-
+\begin{align}
+I_{\mu\nu} & =-q_{e}^{2}\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\underbrace{\text{tr}\left(\frac{1}{\slashd k-m+\ii\varepsilon}\gamma_{\nu}\frac{1}{\slashd k-\slashd q-m+\ii\varepsilon}\gamma_{\mu}\right)}_{=:B_{\mu\nu}\left(m\right)}-B_{\mu\nu}\left(M\right)
+\end{align}
 \begin{align*}
-I_{\mu\nu} & =-q_{e}^{2}\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\underbrace{\text{tr}\left(\frac{1}{\slashd k-m+\ii\varepsilon}\gamma_{\nu}\frac{1}{\slashd k-\slashd q-m+\ii\varepsilon}\gamma_{\mu}\right)}_{=:\alpha_{m}}-\alpha_{M}
+B_{\mu\nu}\left(m\right) & =\text{tr}\left(\frac{\left(\slashd k+m\right)\gamma_{\nu}\left(\slashd k-\slashd q+m\right)\gamma_{\mu}}{\left(k^{2}-m^{2}+\ii\varepsilon\right)\left(\left(k-q\right)^{2}-m^{2}+\ii\varepsilon\right)}\right)=\\
+ & =4\left(m^{2}g_{\mu\nu}+k_{\nu}\left(k-q\right)_{\mu}-k\cdot\left(k-q\right)g_{\nu\mu}+k_{\mu}\left(k-q\right)_{\nu}\right)
 \end{align*}
-\begin{align*}
-\alpha_{m} & =\text{tr}\left(\frac{\left(\slashd k+m\right)\gamma_{\nu}\left(\slashd k-\slashd q+m\right)\gamma_{\mu}}{\left(k^{2}-m^{2}+\ii\varepsilon\right)\left(\left(k-q\right)^{2}-m^{2}+\ii\varepsilon\right)}\right)=\\
- & =4\left(m^{2}g_{\mu\nu}+k_{\nu}\left(k-q\right)_{\mu}-k\cdot\left(k-1\right)g_{\nu\mu}+k_{\mu}\left(k-q\right)_{\nu}\right)
-\end{align*}
-Wende den Trick mit Feynman-Parametern (2 äquivalente Varianten) an:
-\begin{align*}
+Wende den Trick mit \emph{Feynman-Parametern} (2 äquivalente Varianten)
+an:
+\begin{align}
 \text{1. Variante} &  & \frac{\ii}{k^{2}-m^{2}+\ii\varepsilon} & =\int_{0}^{\infty}\dd ze^{\ii z\left(k^{2}-m^{2}+\ii\varepsilon\right)}\\
-\text{2. Variante} &  & \frac{1}{A_{1}\cdot\ldots A_{n}} & =\left(n-1\right)!\int_{0}^{1}\dd z_{1}\ldots\int_{0}^{1}\dd z_{n}\frac{\delta\left(1-z_{1}-\ldots-z_{n}\right)}{\left(A_{1}z_{1}+\ldots+A_{n}z_{n}\right)^{n}}
-\end{align*}
+\text{2. Variante} &  & \frac{1}{A_{1}\cdot\ldots\cdot A_{n}} & =\left(n-1\right)!\int_{0}^{1}\dd z_{1}\ldots\int_{0}^{1}\dd z_{n}\frac{\delta\left(1-z_{1}-\ldots-z_{n}\right)}{\left(A_{1}z_{1}+\ldots+A_{n}z_{n}\right)^{n}}
+\end{align}
 Wir verwenden die 1. Variante:
 \begin{align*}
 I_{\mu\nu} & =4q_{e}^{2}\int\frac{\dd^{4}k}{\left(2\pi\right)^{4}}\int_{0}^{\infty}\dd z_{1}\int_{0}^{\infty}\dd z_{2}e^{\ii z_{1}\left(k^{2}-m^{2}+\ii\varepsilon\right)+\ii z_{2}\left(\left(k-q\right)^{2}-m^{2}+\ii\varepsilon\right)}\cdot\\
- & \qquad\cdot\left(\left(k-q\right)_{\mu}k_{\nu}+\left(k-q\right)_{\nu}k_{\mu}-g_{\mu\nu}\left(k\left(k-q\right)-m^{2}\right)-\alpha_{M}\right)
+ & \qquad\cdot\left(\left(k-q\right)_{\mu}k_{\nu}+\left(k-q\right)_{\nu}k_{\mu}-g_{\mu\nu}\left(k\left(k-q\right)-m^{2}\right)-\frac{1}{4}B_{\mu\nu}\left(M\right)\right)
 \end{align*}
-Nach Subtraktion des $M$-Terms ist das Integral konvergent, da das
-Integral über $\alpha_{m}$ logarithmisch divergiert, und somit können
-wir die Integrationsvariablen verschieben.
+Aufgrund der Subtraktion von $B_{\mu\nu}\left(M\right)$ ist das Integral
+konvergent, da das Integral über $B_{\mu\nu}\left(m\right)$ nur logarithmisch
+divergiert. Somit können wir die Integrationsvariablen verschieben.
 \begin{align*}
 k_{\mu} & \to l_{\mu}+q_{\mu}\frac{z_{2}}{z_{1}+z_{2}}\\
 \left(k-q\right)_{\mu} & \to l_{\mu}-q_{\mu}\frac{z_{1}}{z_{1}+z_{2}}
 \end{align*}
 Damit erhält man für den Exponenten:
 \begin{align*}
-z_{1}\left(k^{2}-m^{2}+\ii\varepsilon\right)+z_{2}\left(\left(k-q\right)^{2}-m^{2}+\ii\varepsilon\right) & =z_{1}\left(l^{2}+\left(\frac{z_{2}}{z_{1}+z_{2}}\right)^{2}q^{2}+2l\cdot q\frac{z_{2}}{z_{1}+z_{2}}-m^{2}+\ii\varepsilon\right)+\\
- & \qquad+z_{2}\left(l^{2}+\left(\frac{z_{1}}{z_{1}+z_{2}}\right)^{2}q^{2}-2l\cdot q\frac{z_{1}}{z_{1}+z_{2}}-m^{2}+\ii\varepsilon\right)=\\
- & =z_{1}\left(l^{2}+\left(\frac{z_{2}}{z_{1}+z_{2}}\right)^{2}q^{2}-m^{2}+\ii\varepsilon\right)+\\
- & \qquad+z_{2}\left(l^{2}+\left(\frac{z_{1}}{z_{1}+z_{2}}\right)^{2}q^{2}-m^{2}+\ii\varepsilon\right)=\\
- & =\left(z_{1}+z_{2}\right)\left(l^{2}-m^{2}+\ii\varepsilon\right)+q^{2}\frac{z_{1}z_{2}}{z_{1}+z_{2}}
+ & z_{1}\left(k^{2}-m^{2}+\ii\varepsilon\right)+z_{2}\left(\left(k-q\right)^{2}-m^{2}+\ii\varepsilon\right)=\\
+ & \qquad\qquad=z_{1}\left(l^{2}+\left(\frac{z_{2}}{z_{1}+z_{2}}\right)^{2}q^{2}+2lq\frac{z_{2}}{z_{1}+z_{2}}-m^{2}+\ii\varepsilon\right)+\\
+ & \qquad\qquad\qquad+z_{2}\left(l^{2}+\left(\frac{z_{1}}{z_{1}+z_{2}}\right)^{2}q^{2}-2lq\frac{z_{1}}{z_{1}+z_{2}}-m^{2}+\ii\varepsilon\right)=\\
+ & \qquad\qquad=z_{1}\left(l^{2}+\left(\frac{z_{2}}{z_{1}+z_{2}}\right)^{2}q^{2}-m^{2}+\ii\varepsilon\right)+\\
+ & \qquad\qquad\qquad+z_{2}\left(l^{2}+\left(\frac{z_{1}}{z_{1}+z_{2}}\right)^{2}q^{2}-m^{2}+\ii\varepsilon\right)=\\
+ & \qquad\qquad=\left(z_{1}+z_{2}\right)\left(l^{2}-m^{2}+\ii\varepsilon\right)+q^{2}\left(z_{1}\left(\frac{z_{2}}{z_{1}+z_{2}}\right)^{2}+z_{2}\left(\frac{z_{1}}{z_{1}+z_{2}}\right)^{2}\right)=\\
+ & \qquad\qquad=\left(z_{1}+z_{2}\right)\left(l^{2}-m^{2}+\ii\varepsilon\right)+q^{2}\frac{z_{1}z_{2}}{z_{1}+z_{2}}
 \end{align*}
 Dies ist eine gerade Funktion von $l$. Daher bleiben vom Rest des
 Integranden auch nur noch die geraden Potenzen von $l$, denn bei
@@ -4328,46 +4350,19 @@ beiträgt. Den Vorfaktor erhält man durch Multiplikation mit $g^{\mu\nu}$:
 l_{\mu}l_{\nu} & \leadsto cg_{\mu\nu}l^{2}\\
 l^{2}=l_{\mu}l_{\nu}g^{\mu\nu} & \leadsto cg_{\mu\nu}l^{2}g^{\mu\nu}=4cl^{2}
 \end{align*}
-Also ist $c=\frac{1}{4}$. Mit all diesen Tricks erhält man:
+Also ist $c=\frac{1}{4}$.0
+\begin{align}
+l_{\mu}l_{\nu} & \leadsto\frac{1}{4}g_{\mu\nu}l^{2}
+\end{align}
+Mit all diesen Tricks erhält man:
 \begin{align*}
 I_{\mu\nu} & =4q_{e}^{2}\int_{0}^{\infty}\dd z_{1}\int_{0}^{\infty}\dd z_{2}\int\frac{\dd^{4}l}{\left(2\pi\right)^{4}}e^{\ii\left(z_{1}+z_{2}\right)\left(l^{2}-m^{2}+\ii\varepsilon\right)+\ii q^{2}\frac{z_{1}z_{2}}{z_{1}+z_{2}}}\cdot\\
- & \qquad\cdot\left(2\cdot\left(\frac{1}{4}l^{2}g_{\mu\nu}-q_{\mu}q_{\nu}\frac{z_{1}z_{2}}{\left(z_{1}+z_{2}\right)^{2}}\right)-g_{\mu\nu}l^{2}+g_{\mu\nu}q^{2}\frac{z_{1}z_{2}}{\left(z_{1}+z_{2}\right)^{2}}+g_{\mu\nu}m^{2}-\alpha_{M}\right)
+ & \qquad\cdot\left(2\cdot\left(\frac{1}{4}l^{2}g_{\mu\nu}-q_{\mu}q_{\nu}\frac{z_{1}z_{2}}{\left(z_{1}+z_{2}\right)^{2}}\right)-g_{\mu\nu}l^{2}+g_{\mu\nu}q^{2}\frac{z_{1}z_{2}}{\left(z_{1}+z_{2}\right)^{2}}+g_{\mu\nu}m^{2}-\frac{1}{4}B_{\mu\nu}\left(M\right)\right)
 \end{align*}
 Diese Gaußschen Integrale kann man ausrechnen. Nach längerer Rechnung
-erhält man im Limes $\frac{q^{2}}{M^{2}}\to0$: {[}QED-Skript 8.1{]}
+erhält man (siehe QED-Skript, Abschnitt 8.1):
 \begin{align*}
-I_{\mu\nu} & =-\ii\frac{\alpha}{3\pi}\left(q^{2}g_{\mu\nu}-q_{\mu}q_{\nu}\right)\ln\left(\frac{M^{2}}{m^{2}}\right)+\ii\left(q^{2}g_{\mu\nu}-q_{\mu}q_{\nu}\right)\left(\text{endlicher Term}\right)
-\end{align*}
-
-
-Der endliche Term hängt ab von $q^{2}$, je nach $q^{2}\ge4m$, $0\le q^{2}\le4m$
-oder $q^{2}\le0$.
-
-Die Bedingung der Eichinvarianz war:
-\begin{align*}
-q^{\mu}I_{\mu\nu} & =q^{\nu}I_{\mu\nu}=0
-\end{align*}
-Dies ist hier erfüllt.
-
-Jetzt kommen wir zur Renormierung:
-
-TODO: Abb45
-\begin{align*}
-=electron & \left(g_{\mu\lambda}+\left(-\ii\frac{\alpha}{3\pi}\right)\ln\left(\frac{M^{2}}{m^{2}}\right)\left(q^{2}g_{\mu\nu}+q_{\mu}q_{\nu}\right)\frac{-\ii g^{\nu}\msd{\lambda}}{q^{2}+\ii\varepsilon}+\ldots\right)
-\end{align*}
-Der Faktor mit $q_{\mu}q_{\nu}$ trägt nicht bei, da $q_{\mu}W^{\mu}=0$
-ist. Man erhält:
-\begin{align*}
- & =electron\left(g_{\mu\lambda}-\frac{\alpha}{3\pi}\ln\left(\frac{M^{2}}{m^{2}}\right)g_{\mu\lambda}+\ldots\right)
-\end{align*}
-Nehme nun den Faktor auf mit in die Definition der renormierten Ladung:
-\begin{align*}
-e & \to e\left(1-\frac{\alpha}{3\pi}\ln\left(\frac{M^{2}}{m^{2}}\right)+\ldots\right)=e_{R}
-\end{align*}
-Die physikalisch gemessene Ladung ist die renormierte Ladung $e_{R}$.
-Der endlichen Term ist:
-\begin{align*}
- & \ii\left(q^{2}g_{\mu\nu}-q_{\mu}q_{\nu}\right)\left(-\frac{5\alpha}{9\pi}-\frac{4\alpha}{3\pi}\frac{m^{2}}{q^{2}}-\frac{\alpha}{3\pi}\left(1+\frac{2m^{2}}{q^{2}}\right)f\left(q^{2}\right)\right)
+I_{\mu\nu} & =-\ii\left(q^{2}g_{\mu\nu}-q_{\mu}q_{\nu}\right)\left(\frac{\alpha}{3\pi}\ln\left(\frac{M^{2}}{m^{2}}\right)+\frac{5\alpha}{9\pi}+\frac{4\alpha}{3\pi}\frac{m^{2}}{q^{2}}+\frac{\alpha}{3\pi}\left(1+\frac{2m^{2}}{q^{2}}\right)f\left(q^{2}\right)\right)
 \end{align*}
 \begin{align*}
 f\left(q^{2}\right) & =\begin{cases}
@@ -4378,128 +4373,185 @@ f\left(q^{2}\right) & =\begin{cases}
 \end{align*}
 Der Imaginärteil bedeutet, dass die Streumatrix nicht unitär ist,
 was daran liegt, dass aus dem Photon ein reelles Teilchen-Antiteilchen-Paar
-entstehen kann (Fermi's Goldene Regel).
+entstehen kann (Fermis Goldene Regel, siehe \ref{chap:Fermis-Goldene-Regel}).
+
+Die Bedingung der Eichinvarianz
+\begin{align*}
+q^{\mu}I_{\mu\nu} & =q^{\nu}I_{\mu\nu}=0
+\end{align*}
+ist hier erfüllt, da nur Terme proportional zu $q^{2}g_{\mu\nu}-q_{\mu}q_{\nu}$
+auftreten.
+
+
+\subsection{Renormierung}
+
+Jetzt kommen wir zur Renormierung:
+
+\begin{figure}[H]
+\noindent \centering{}\begin{tikzpicture}[level/.style={level distance=20mm}]
+  \path (0,0) node[position]{}
+    child [grow=0] {node[position]{} node[above left]{$\lambda$} edge from parent [photon] }
+    node[above]{$\mu$};
+  \path (2.05,0) node{$\Bigg($} (2.3,0) node[position] {} (2.7,0) node {$+$};
+ \begin{scope}[level/.style={level distance=10mm}]
+  \path (3.4,0) node[position]{}
+    child [grow=0] {node[position]{}
+      child [grow=0] {node[position]{} node [above] {$\lambda$} edge from parent [photon] }
+     node[above right]{$\nu$} edge from parent [electron,edge from parent path={(\tikzparentnode) .. controls +(0,0.7)  and +(0,0.7) .. (\tikzchildnode)}]}
+    child [grow=0] {node[position]{} edge from parent [positron,edge from parent path={(\tikzparentnode) .. controls +(0,-0.7)  and +(0,-0.7) .. (\tikzchildnode)}] }  node[above left]{$\mu$};
+ \end{scope}
+  \path (6,0) node {$+$};
+ \begin{scope}[level/.style={level distance=10mm}]
+  \path (6.6,0) node[position]{}
+    child [grow=0] {node[position]{}
+      child [grow=0] {node[position]{}
+        child [grow=0] {node[position]{}
+        child [grow=0] {node[position]{} edge from parent [photon] }
+        edge from parent [electron,edge from parent path={(\tikzparentnode) .. controls +(0,0.7)  and  +(0,0.7) .. (\tikzchildnode)}]}
+    child [grow=0] {node[position]{} edge from parent [positron,edge from parent path={(\tikzparentnode) .. controls +(0,-0.7)  and +(0,-0.7) .. (\tikzchildnode)}] }
+      edge from parent [photon] }
+     edge from parent [electron,edge from parent path={(\tikzparentnode) .. controls +(0,0.7)  and +(0,0.7) .. (\tikzchildnode)}]}
+    child [grow=0] {node[position]{} edge from parent [positron,edge from parent path={(\tikzparentnode) .. controls +(0,-0.7)  and +(0,-0.7) .. (\tikzchildnode)}] };
+ \end{scope}
+  \path (11,0) node {$+$} (11.9,0) node {$\vphantom{\big|}\ldots \Bigg)=$};
+  \path (1,-2) node {$=$};
+  \path (1.5,-2) node[position]{}
+    child [grow=0] {node[position]{} node[above left]{$\lambda$} edge from parent [photon] }
+    node[above]{$\mu$};
+  \path (3.55,-2) node{$ \Bigg($} (8.75,-2) node {$\displaystyle{g_{\mu\lambda}+\left(-\ii\frac{\alpha}{3\pi}\right)\ln\left(\frac{M^{2}}{m^{2}}\right)\left(q^{2}g_{\mu\nu}+q_{\mu}q_{\nu}\right)\frac{-\ii g^{\nu}\msd{\lambda}}{q^{2}+\ii\varepsilon}+\ldots \Bigg) \,\, \widehat{=}}$};
+  \path (1,-4) node {$\widehat{=}$};
+  \path (1.5,-4) node[position]{}
+    child [grow=0] {node[position]{} node[above left]{$\lambda$} edge from parent [photon] }
+    node[above]{$\mu$};
+  \path (3.55,-4) node{$\Bigg($} (6.4,-4) node {$\displaystyle{ g_{\mu\lambda}-\frac{\alpha}{3\pi}\ln\left(\frac{M^{2}}{m^{2}}\right)g_{\mu\lambda}+\ldots \Bigg) }$};
+\end{tikzpicture}\caption{Störungsrechnung für Photonenselbstenergie}
+\end{figure}
+
+
+Der Faktor mit $q_{\mu}q_{\nu}$ trägt nicht bei, da $q_{\mu}W^{\mu}=0$
+ist. Da der Faktor im Propagator auftritt, kann man ihn auf die beiden
+Vertizes aufteilen, wenn der Graph symmetrisch um die Vakuumfluktuation
+ist, und so den Faktor in die Definition der renormierten Ladung aufnehmen:
+\begin{align}
+e & \to e_{R}:=e\sqrt{1-\frac{\alpha}{3\pi}\ln\left(\frac{M^{2}}{m^{2}}\right)+\text{endlicher Anteil}}\approx\\
+ & =e\left(1-\frac{1}{2}\frac{\alpha}{3\pi}\ln\left(\frac{M^{2}}{m^{2}}\right)+\frac{1}{2}\text{endlicher Anteil}\right)\approx\nonumber \\
+ & \approx\underbrace{e\left(1-\frac{1}{2}\frac{\alpha}{3\pi}\ln\left(\frac{M^{2}}{m^{2}}\right)\right)}_{\tilde{e}_{R}}\left(1+\frac{1}{2}\text{endlicher Anteil}\right)
+\end{align}
+Die physikalisch gemessene Ladung ist die renormierte Ladung $e_{R}$.
+Für ein- oder auslaufende Teilchen wird ein Faktor ${\displaystyle \sqrt{1-\frac{\alpha}{3\pi}\ldots}}$
+in die Wellenfunktionsrenormierung absorbiert.
 
 %DATE: Mi 22.5.13 (2. Vorlesung)
 
-Herleitung von Fermi's goldener Regel (vgl. Jackson):
-
-TODO: Abb46; Der Körper sei von endlicher Ausdehnung, sodass man ihn
-in eine Fläche $S_{1}$ einschließen kann.
-\begin{align*}
-\vec{E} & =\vec{E}_{i}+\vec{E}_{s}\\
-\vec{B} & =\vec{B}_{i}+\vec{B}_{s}
-\end{align*}
-Wieviel Energie wird von dem Körper absorbiert? Mit der äußeren Normalen
-$\vec{n}'$ von $S_{1}$ gilt.
-\begin{align*}
-P_{\text{abs}} & =-\frac{c}{8\pi}\oint_{S_{1}}\text{Re}\left(\vec{E}\times\vec{B}^{*}\right)\cdot\vec{n}'\dd a'\\
-P_{\text{scatt}} & =\frac{c}{8\pi}\oint_{s_{1}}\text{Re}\left(\vec{E}_{s}\times\vec{B}_{s}^{*}\right)\cdot\vec{n}'\dd a'
-\end{align*}
-Die gesamte Verlustleistung der einlaufenden Welle ist:
-\begin{align*}
-P & =-\frac{c}{8\pi}\oint_{S_{1}}\text{Re}\left(\left(\vec{E}_{i}+\vec{E}_{s}\right)\times\left(\vec{B}_{i}^{*}+\vec{B}_{s}^{*}\right)-\vec{E}_{s}\times\vec{B}_{s}^{*}-\vec{E}_{i}\times\vec{B}_{i}^{*}\right)\vec{n}'\dd a'=\\
- & =-\frac{c}{8\pi}\oint_{S_{1}}\text{Re}\left(\vec{E}_{s}\times\vec{B}_{i}^{*}+\vec{E}_{i}\times\vec{B}_{s}^{*}\right)\vec{n}'\dd a'=\\
- & \sr ={\text{Re}\left(z\right)=\text{Re}\left(z^{*}\right)}{}-\frac{c}{8\pi}\oint_{S_{1}}\text{Re}\left(\vec{E}_{s}\times\vec{B}_{i}^{*}+\vec{E}_{i}^{*}\times\vec{B}_{s}\right)\vec{n}'\dd a'
-\end{align*}
-Mit
-\begin{align*}
-\vec{E}_{i} & =E\vec{\epsilon}_{0}e^{\ii\vec{k}_{0}\vec{x}} & \vec{B}_{i} & =\frac{\vec{k}_{0}}{k_{0}}\times\vec{E}_{i}
-\end{align*}
-und dem Ansatz $\frac{e^{\ii kr}}{r}\vec{F}\left(\vec{k}\right)$
-für die gestreute Welle erhält man:
-\begin{align*}
-P & =\frac{c}{2k}\text{Im}\left(E_{0}\vec{\epsilon}_{0}^{*}\cdot\vec{F}\left(\vec{k},\vec{k}_{0}\right)\right)
-\end{align*}
-Definition des Streuquerschnitts:
-\begin{align*}
-\frac{P}{c\frac{\norm{\vec{E}_{0}}^{2}}{8\pi}} & \sim\frac{\text{Energie}}{\text{Zeit}\cdot\frac{\text{Energie}}{c\text{Zeit}\text{Fläche}}}\sim\text{Fläche}=:\sigma
-\end{align*}
-Dieser Wirkungsquerschnitt ist gegeben durch:
-\begin{align*}
-\sigma_{\text{abs}} & =\frac{4\pi}{k}\text{Im}\left[\vec{\epsilon}_{0}^{*}\cdot\frac{\vec{F}\left(\vec{k},\vec{k}_{0}\right)}{E_{0}}\right]_{\vec{k}=\vec{k}_{0}}
-\end{align*}
-Dies ist das optische Theorem. Die Streuamplitude $F$ berechnet durch
-Betrachtung von
-\begin{align*}
-Ae^{\ii\vec{k}\cdot\vec{x}}+F\left(\vec{k},\vec{k}_{0}\right)\frac{e^{\ii\norm{\vec{k}}r}}{r}
-\end{align*}
-im Limes $r\to\infty$.
-
-TODO: Abb47; $q^{2}=\left(k_{e}^{0}-\left(k_{e}'\right)^{0}\right)^{2}-\norm{\vec{k}_{e}-\vec{k}_{e}'}^{2}<0$
-
-Zurück zur Renormierung:
-
-TODO: Abb48, Abb49
-\begin{align*}
-e_{R}=e\left(1-\frac{1}{2}\frac{\alpha}{3\pi}\ln\left(\frac{M^{2}}{m^{2}}\right)+\frac{1}{2}\text{endlicher Anteil}\right) & \approx\underbrace{\left(1-\frac{1}{2}\frac{\alpha}{3\pi}\ln\left(\frac{M^{2}}{m^{2}}\right)\right)}_{\tilde{e}_{R}}\left(1+\frac{1}{2}\text{endlicher Anteil}\right)
-\end{align*}
+\begin{figure}[H]
+\noindent \centering{}\begin{tikzpicture}
+  \draw[dashed] (0,2) -- (0,-2);
+  \path (-2.25,0) node[position]{}
+    child [grow=120] {edge from parent [electron]}
+    child [grow=-120] {edge from parent [positron]}
+    child [grow=0] {node[position]{}
+        child [grow=0] {node[position]{} edge from parent [positron,edge from parent path={(\tikzparentnode) .. controls +(0,-1)  and +(0,-1) .. (\tikzchildnode)}] }
+        child [grow=0] {node[position]{}
+            child [grow=0] {node[position]{}
+                child [grow=60] {edge from parent [electron]}
+                child [grow=-60] {edge from parent [positron]} node [right]{$e \to e_R$}
+            edge from parent[photon]}
+        edge from parent [electron,edge from parent path={(\tikzparentnode) .. controls +(0,1)  and +(0,1) .. (\tikzchildnode)}] }
+    edge from parent [photon]}
+    node [left]{$e \to e_R$};
+\end{tikzpicture}\caption{Ladungsrenormalisierung}
+\end{figure}
 
 
 Messen kann man:
 \begin{align*}
 \frac{\dd\sigma}{\dd q^{2}} & =\underbrace{\frac{e_{R}\left(q^{2}\right)}{4\pi}}_{=\alpha_{R}}f\left(q^{2}\right)
 \end{align*}
-Dies macht sich zum Beispiel durch den Lamb-Shift bemerkbar:
+Dies macht sich zum Beispiel durch den Lamb-Shift bemerkbar: Die $s_{1/2}$-Orbitale
+sind im Mittel näher am Kern als die $p_{1/2}$-Orbitale und erfahren
+somit einen größeren Impulsübertrag $0<-q^{2}\left(2p_{1/2}\right)<-q^{2}\left(2s_{1/2}\right)$.
+Damit folgt für die Kopplungskonstanten $\alpha_{R}\left(2p_{1/2}\right)<\alpha_{R}\left(2s_{1/2}\right)$,
+was zu einer Aufspaltung der Energieniveaus $E_{s_{1/2}}<E_{p_{1/2}}$
+führt.
 
-TODO: Abb50; $-q^{2}\left(2p_{1/2}\right)<-q^{2}\left(2s_{1/2}\right)$;
-$\alpha\left(2p_{1/2}\right)<\alpha\left(2s_{1/2}\right)$
-
-Daher spalten diese vormals entarteten Niveaus auf:
-
-TODO: Abb51
-
-Zur Berechnung verwendet man die Diracgleichung mit Elektronenladung
-$q_{e}\left(p\right)$ bzw. $q_{e}\left(r\right)$.
+Zur Berechnung verwendet man die Dirac-Gleichung mit Elektronenladung
+$q_{e}\left(p\right)$ beziehungsweise $q_{e}\left(r\right)$.
 \begin{align*}
 \left(\slashd p-q_{e}\left(r\right)\slashd A\left(r\right)-m\right)\psi & =0
 \end{align*}
 $A\left(r\right)$ berechnet man aus der gemessenen Ladungsverteilung
 des Kerns.
 
-TODO: Abb52; $-\ii e\gamma_{\mu}+\frac{\alpha}{2\pi}\ldots\sigma_{\mu\nu}q^{\nu}$
 
-Daher wird das magnetische Moment des Elektrons durch die Vakuumfluktionen
-geändert.
+\subsubsection*{Weitere Renormalisierungen}
 
-zurück zum Thema:
+Vakuumfluktionen führen zu den Vertex-Korrekturen
+\begin{align*}
+-\ii q_{e}\gamma_{\mu} & \to-\ii q_{e}\gamma_{\mu}+\frac{\alpha}{2\pi}\frac{q_{e}}{2m}\sigma_{\mu\nu}q^{\nu}
+\end{align*}
+und ändern das magnetische Moment des Elektrons. Dies führt dazu,
+dass der Landé-Faktor $g$ von 2 abweicht.
 
-Ist der Graph symmetrisch um die Vakuumfluktionen, so schreibt man
-an beiden Vertizes die Wurzel des zusätzlichen Faktors hin.
-
-Für ein-/auslaufende Teilchen wird ein Faktor $\sqrt{1-\frac{\alpha}{\pi}\ldots}$
-in die ,,Wellekfunktionsrenormierung`` absorbiert.
+Die Elektronen-Selbstenergie führt neben einer Wellenfunktionenrenormalisierung
+von $\psi$ zu einer renormalisierten Masse $m_{R}$ und zu einer
+weiteren Renormalisierung der Ladung. Diese hebt sich jedoch mit der
+Renormalisierung der Ladung aufgrund der Vertex-Korrekturen auf, sodass
+für die Ladung nur die Renormierung aufgrund der Vakuumpolarisation
+bleibt. Dieses Aufheben ist nicht zufällig, sondern resultiert aus
+den Ward-Identitäten, also aus der Eichinvarianz.
 
 
 \section{Power-Counting}
 
 Hamilton-Dichten wie
-
-\begin{align*}
+\begin{align}
 \mathcal{H}_{I} & =g\overline{\psi}\left(x\right)\gamma_{\mu}\psi\left(x\right)\overline{\psi}\left(x\right)\gamma^{\mu}\psi\left(x\right)
-\end{align*}
-sind nicht möglich, da sie nicht renormierbar sind.
-\begin{align*}
-\mathcal{H}_{0} & =\overline{\psi}\left(x\right)\left(\hat{\slashd p}-m\right)\psi\left(x\right)\\
-\text{dim}\left(\mathcal{H}\right) & =\frac{1}{\text{Länge}^{4}}=\text{Energie}^{4}\\
+\end{align}
+sind nicht möglich, da sie nicht renormierbar sind. Die Dimensionen
+kann man aus der freien Hamilton-Dichte ablesen:
+\begin{align}
+\mathcal{H}_{0} & =\overline{\psi}\left(x\right)\left(\hat{\slashd p}-m\right)\psi\left(x\right)\nonumber \\
+\text{dim}\left(\mathcal{H}\right) & =\frac{1}{\text{Länge}^{4}}=\text{Energie}^{4}\nonumber \\
 \Rightarrow\qquad\text{dim}\left(\psi\right) & =\text{Energie}^{\frac{3}{2}}\\
-\Rightarrow\qquad\text{dim}\left(g\right) & =\text{Energie}^{-2}
-\end{align*}
-TODO: Abb53
+\Rightarrow\qquad\text{dim}\left(g\right) & =\text{Energie}^{-2}\nonumber 
+\end{align}
+\begin{figure}[H]
+\noindent \centering{}\begin{tikzpicture}
+  \path (-2.25,0) node[position]{}
+    child [grow=0] {node[position]{}
+        child [grow=0] {node[position]{} edge from parent [positron] node[above]{$l_1$} node[below] {$l_2$}}
+        child [grow=0] {node[position]{} edge from parent [electron,edge from parent path={(\tikzparentnode) .. controls +(0,-1)  and +(0,-1) .. (\tikzchildnode)}] }
+        child [grow=0] {node[position]{}
+            child [grow=0] {node[position]{}
+            edge from parent[electron]}
+        edge from parent [electron,edge from parent path={(\tikzparentnode) .. controls +(0,1)  and +(0,1) .. (\tikzchildnode)}] }
+    edge from parent [electron]};
+\end{tikzpicture}\caption{Hypothetischer Vier-Fermion-Vertex}
+\end{figure}
 
+
+Für den Vier-Fermion-Vertex gilt:
 \begin{align*}
 g^{2}\int_{-\Lambda}^{\Lambda}\dd^{4}l_{1}\int_{-\Lambda}^{\Lambda}\dd^{4}l_{2}\frac{1}{l^{4}} & \sim g^{2}\Lambda^{4}
 \end{align*}
-Daher divergiert das quartisch, was nicht zu renormieren ist.
-\begin{align*}
-\mathcal{L}_{0}^{\text{KG}} & =\phi\left(\hat{p}^{2}-m^{2}+\ii\varepsilon\right)\phi\\
+Dies divergiert quartisch, da es die Dimension der quadrierten Kopplungskonstanten
+ausgleichen muss und $\text{dim}\left(\Lambda\right)=\text{Energie}$
+ist. Je höher die Ordnung in $g$, desto stärker ist die Divergenz
+in $\Lambda^{k}$ und somit ist diese Theorie nicht zu renormieren:
+Man benötigt eine Ladung für den Vier-Fermion-Vertex, den Acht-Fermion-Vertex,
+den 16-Fermion-Vertex etc.. Daher hat man unendlich viele freie Parameter.
+
+Skalare Teilchen:
+\begin{align}
+\mathcal{L}_{0}^{\text{KG}} & =\phi\left(\hat{p}^{2}-m^{2}+\ii\varepsilon\right)\phi\nonumber \\
 \Rightarrow\qquad\text{dim}\left(\phi\right) & =\text{Energie}
-\end{align*}
+\end{align}
 Bosonen:
-\begin{align*}
-\text{dim}\left(\frac{1}{4}F_{\mu\nu}F^{\mu\nu}\right) & =\text{Energie}^{4}\\
-F^{\mu\nu} & =\partial_{\mu}A_{\nu}-\partial_{\nu}A_{\mu}
-\end{align*}
+\begin{align}
+\text{dim}\left(\frac{1}{4}F_{\mu\nu}F^{\mu\nu}\right) & =\text{Energie}^{4}\nonumber \\
+F^{\mu\nu} & =\partial_{\mu}A_{\nu}-\partial_{\nu}A_{\mu}\nonumber \\
+\text{dim}\left(A_{\mu}\right) & =\text{Energie}
+\end{align}
 Verboten sind Terme wie $F_{\mu\nu}F^{\mu\nu}F_{\alpha\beta}F^{\alpha\beta}$,
 $F_{\mu\nu}F^{\mu\nu}\phi$. Möglich sind $A_{\mu}A^{\mu}A_{\nu}A^{\nu}$,
 $\partial_{\mu}A_{\nu}A^{\mu}A^{\nu}$ etc..
@@ -4511,37 +4563,70 @@ Fermionen:
 \begin{align*}
 e^{2}\overline{\psi}A_{\mu}A^{\mu}\psi & \text{ ist verboten}
 \end{align*}
-TODO: Abb54; $\dd^{4}l\frac{1}{l^{4}}$; benötigt Ladung für Acht-Fermionen-Vertex,
-dieser für 16-Vertex und so weiter und so fort...
 
-Daher hat man unendlich viele freie Parameter.
 
 
 \section{Dimensionale Regularisierung}
 
 Wir führen das $d$-dimensionale Integral $\int\dd^{d}k_{E}$ ein.
-Das $E$ steht für ,,Euklidische`` Koordinaten, Impulse, etc..
+Der Index $E$ steht für ,,Euklidische`` Koordinaten, Impulse, etc..
+Diese erhält man durch eine \emph{Wick-Rotation}.
 
-TODO: Abb55
+\begin{figure}[H]
+\noindent \centering{}\begin{tikzpicture}[arr/.style={decoration={markings,mark=at position 0.6 with {\arrow[scale=2]{>}};},postaction={decorate}}]
+  \draw[->] (-4,0) -- (4,0) node[right]{Re$(p^0)$};
+  \draw[->] (0,-4) -- (0,4) node[above]{Im$(p^0)$};
+  \draw (-1,1) node[above]{Pol} +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+  \draw (1,-1) node[above]{Pol} +(0.1,0.1) -- +(-0.1,-0.1) +(0.1,-0.1) -- +(-0.1,0.1);
+ \begin{scope}[thick,orange]
+  \draw[arr] (-3,0) -- (3,0);
+  \draw[arr] (3,0) arc (0:90:3);
+  \draw[arr] (0,3) -- (0,-3);
+  \draw[arr] (0,-3) arc (-90:-180:3);
+ \end{scope}
+  \node[orange] at (-0.25,2.4) {$A$};
+  \node[orange] at (2.4,2.4) {$b$};
+  \node[orange] at (-2.4,-2.4) {$c$};
+\end{tikzpicture}\caption{Wick-Rotation}
+\end{figure}
 
-Ohne Beweis (vgl. QCD-Skript): Für beliebige $n$-Punkte-Greens-Funktionen,
+
+Nach dem Residuensatz verschwindet das Kurvenintegral entlang $A$,
+wenn im inneren der Kurve keine Pole liegen. Daher lässt sich das
+Integral entlang der reellen Achse, umschreiben in ein Integral entlang
+der imaginären Achse, wenn die Integrale über die Bögen $b$ und $c$
+verschwinden. Dies ist der Fall, wenn der Integrand im Unendlichen
+genügend schnell abfällt.
+
+Ohne Beweis (vgl. QCD-Skript, 5.3): Für beliebige $n$-Punkte-Greens-Funktionen,
 das heißt die Amplitude für einen Prozess mit $n$ äußeren Linien,
 gibt es nur Pole (oder Schnitte) im zweiten und vierten Quadranten.
-Deshalb ist immer eine ,,Wick-Rotation`` möglich.
+Deshalb ist immer eine Wick-Rotation möglich.
 
-TODO: Abb56; 4-Punkt-Greens-Funktion
+\begin{figure}[H]
+\noindent \centering{}\begin{tikzpicture}[level/.style={level distance=20mm}]
+  \path (0,0) node[position] {}
+    child [grow=150] {node{} edge from parent[positron]}
+    child [grow=30] {node{} edge from parent[electron]}
+    child [grow=-90] {node[position]{}
+        child [grow=-150] {node{} edge from parent[positron]}
+        child [grow=-30] {node{} edge from parent[electron]}
+    edge from parent[photon]};
+\end{tikzpicture}\caption{Tree-Level der 4-Punkt-Greens-Funktion}
+\end{figure}
+
 
 Bei Integration über Funktionen, die im Unendlichen schnell genug
 abfallen, gilt:
 
 \begin{align*}
-0 & =\int_{TODO:Abb57}\dd p^{0}\ldots=\int_{-\infty}^{\infty}\dd p^{0}\ldots+\int_{\ii\infty}^{-\ii\infty}\dd p^{0}\ldots+\underbrace{\int_{Abb55b}\dd p^{0}\ldots+\int_{ABB57c}\dd p^{0}\ldots}_{=0}\\
+0 & =\int_{A}\dd p^{0}\ldots=\int_{-\infty}^{\infty}\dd p^{0}\ldots+\int_{\ii\infty}^{-\ii\infty}\dd p^{0}\ldots+\underbrace{\int_{b}\dd p^{0}\ldots+\int_{c}\dd p^{0}\ldots}_{=0}\\
 \Rightarrow\qquad\int_{-\infty}^{\infty}\dd p^{0}\ldots & =\int_{-\ii\infty}^{\ii\infty}\dd p^{0}\ldots\sr ={p^{0}=\ii p_{E}^{0}}{}\ii\int_{\infty}^{\infty}\dd p_{E}^{0}\ldots\big|_{p^{0}\to\ii p_{E}^{0}}
 \end{align*}
 Dies hilft wegen:
-\begin{align*}
-p^{2} & =\left(p^{0}\right)^{2}-\left(\vec{p}\right)^{2}=\left(\ii p_{E}^{0}\right)^{2}-\left(\vec{p}\right)^{2}=-\left(\left(p_{E}^{0}\right)^{2}+\left(\vec{p}\right)^{2}\right)=-p_{E}^{\mu}p_{E}^{\nu}\delta_{\mu\nu}
-\end{align*}
+\begin{align}
+p^{2} & =\left(p^{0}\right)^{2}-\left(\vec{p}\right)^{2}=\left(\ii p_{E}^{0}\right)^{2}-\left(\vec{p}\right)^{2}=-\left(\left(p_{E}^{0}\right)^{2}+\left(\vec{p}\right)^{2}\right)=-p_{E}^{\mu}p_{E}^{\nu}\delta_{\mu\nu}=:-p_{E}^{2}
+\end{align}
 Das $d$-dimensionale Integral ist nun eine Abbildung:
 \begin{align*}
 \int\dd^{d}k_{E}:\mathcal{F} & \to\mathbb{C}\\
@@ -4551,33 +4636,40 @@ Dabei ist $\mathcal{F}$ ein geeigneter Funktionenraum. Die definierenden
 Eigenschaften sind:
 \begin{enumerate}
 \item Linearität für $a,b\in\mathbb{C}$, $f,g\in\mathcal{F}$:
-\begin{align*}
+\begin{align}
 \int\dd^{d}k_{E}\left(af\left(k_{E}\right)+bg\left(k_{E}\right)\right) & =a\int\dd^{d}k_{E}f\left(k_{E}\right)+b\int\dd^{d}k_{E}g\left(k_{E}\right)
-\end{align*}
+\end{align}
 
 \item Translationsinvarianz für $p_{E}^{\mu}\in\mathbb{R}$:
-\begin{align*}
+\begin{align}
 \int\dd^{d}k_{E}f\left(k_{E}\right) & =\int\dd^{d}k_{E}f\left(k_{E}+p_{E}\right)
-\end{align*}
+\end{align}
 
-\item Skalierungsgesetz für $\lambda\in\mathbb{R}\setminus\left\{ 0\right\} $:
-\begin{align*}
+\item Skalierungsgesetz für $\lambda\in\mathbb{R}_{>0}$:
+\begin{align}
 \int\dd^{d}k_{E}f\left(\lambda k_{E}\right) & =\lambda^{-d}\int\dd^{d}k_{E}f\left(k_{E}\right)
-\end{align*}
+\end{align}
 
 \end{enumerate}
-Definition von Gauß-Paketen:
+Wie definieren Gauß-Pakete
 \begin{align*}
 \phi_{A,p_{\mu}}\left(k_{E}\right) & =e^{-A\left(k_{E}-p\right)^{2}}
 \end{align*}
+und betrachten Funktionen, die sich in Gauß-Paketen entwickeln lassen:
 \begin{align*}
-\int\dd^{d}k_{E}f\left(k_{E}\right) & =\sum_{A,p}\hskip-5mm\int c_{A,p_{\mu}}\phi_{A,p_{\mu}}\left(k_{E}\right)
+f\left(k_{E}\right) & =\SumInt_{A,p}c_{A,p_{\mu}}\phi_{A,p_{\mu}}\left(k_{E}\right)
 \end{align*}
-Für ein Gaußsches Paket definieren wir:
+Für ein Gaußsches Paket definieren wir in Analogie zu $d\in\mathbb{N}$
+für allgemeines $d\in\mathbb{R}$:
 \begin{align*}
 \int\dd^{d}k_{E}\phi_{A,p_{\mu}}\left(k_{E}\right) & :=A^{-\frac{d}{2}}\pi^{\frac{d}{2}}
 \end{align*}
-Die wichtigste Eigenschaft ist:
+Damit folgt:
+\begin{align*}
+\int\dd^{d}k_{E}f\left(k_{E}\right) & =\SumInt_{A,p}c_{A,p_{\mu}}\int\dd^{d}k_{E}\phi_{A,p_{\mu}}\left(k_{E}\right)=\SumInt_{A,p}c_{A,p_{\mu}}A^{-\frac{d}{2}}\pi^{\frac{d}{2}}
+\end{align*}
+Die wichtigste Eigenschaft ist, dass das Integral über Potenzen $k_{E}^{2N}$
+für $d\not=-2N$ verschwindet:
 \begin{align*}
 \int\dd^{d}k_{E}\left(\lambda^{2}k_{E}^{2}\right)^{N} & \sr ={\text{Linearität}}{}\lambda^{2N}\int\dd^{d}k_{E}\left(k_{E}^{2}\right)^{N}\\
  & \sr ={\text{Skalierung}}{}\lambda^{-d}\int\dd^{d}k_{E}\left(k_{E}^{2}\right)^{N}
@@ -4588,32 +4680,37 @@ Für $d\not=-2N$ folgt also:
 \end{align*}
 Nur für logarithmisch divergente Integrale gilt dies nicht.
 
-\begin{align*}
-\frac{1}{A_{1}^{\alpha_{1}}\cdots A_{m}^{\alpha_{m}}} & =\frac{\Gamma\left(\alpha_{1}+\ldots+\alpha_{m}\right)}{\Gamma\left(\alpha_{1}\right)\cdots\Gamma\left(\alpha_{m}\right)}\int_{0}^{1}\dd x_{1}\ldots\int_{0}^{x_{m-2}}\dd x_{m-1}\frac{x_{m-1}^{\alpha_{1}-1}\left(x_{m-2}-x_{m-1}\right)^{\alpha_{2}-1}\cdots\left(1-x_{1}\right)^{\alpha_{m}-1}}{\left(A_{1}x_{m-1}+A_{2}\left(x_{m-2}-x_{m-1}\right)+\ldots+A_{m}\left(1-x_{1}\right)\right)^{\alpha_{1}+\ldots+\alpha_{m}}}
-\end{align*}
+
+\subsection{Formel für das \texorpdfstring{$d$}{d}-dimensionale Integral}
+
+Allgemeine Feynman-Parameter:
+\begin{align}
+\frac{1}{A_{1}^{\alpha_{1}}\cdots A_{m}^{\alpha_{m}}} & =\frac{\Gamma\left(\alpha_{1}+\ldots+\alpha_{m}\right)}{\Gamma\left(\alpha_{1}\right)\cdots\Gamma\left(\alpha_{m}\right)}\int_{0}^{1}\dd x_{1}\ldots\int_{0}^{x_{m-2}}\dd x_{m-1}\cdot\nonumber \\
+ & \qquad\cdot\frac{x_{m-1}^{\alpha_{1}-1}\left(x_{m-2}-x_{m-1}\right)^{\alpha_{2}-1}\cdots\left(1-x_{1}\right)^{\alpha_{m}-1}}{\left(A_{1}x_{m-1}+A_{2}\left(x_{m-2}-x_{m-1}\right)+\ldots+A_{m}\left(1-x_{1}\right)\right)^{\alpha_{1}+\ldots+\alpha_{m}}}
+\end{align}
 Für jeden Loop-Impuls $k$ lässt sich der Nenner schreiben als:
 \begin{align*}
-k^{2}+2k\cdot Q+\ldots+\ii\varepsilon
+A_{i} & =k_{i}^{2}+2k_{i}\cdot Q+\ldots+\ii\varepsilon
 \end{align*}
-Bei der euklidischen Fortsetzung geht erhält man:
+Bei der euklidischen Fortsetzung erhält man:
 \begin{align*}
-p^{2}-m^{2}+\ii\varepsilon & \to-p_{E}^{2}-m^{2}+\ii\varepsilon=-\left(p_{E}+m^{2}-\ii\varepsilon\right)
+k^{2}-m^{2}+\ii\varepsilon & \to-k_{E}^{2}-m^{2}+\ii\varepsilon=-\left(k_{E}+m^{2}-\ii\varepsilon\right)
 \end{align*}
 Wegen der Translationsinvarianz kann man $k_{E}$ verschieben zu $k_{E}-Q_{E}$.
-Nur gerade Potenzen bleiben übrig. Fasst man alle übrigen Terme zu
-$M^{2}$ zusammen, so gilt folgende Zentrale Beziehung:
-\begin{align*}
-\fbox{\ensuremath{{\displaystyle \int\dd^{d}k_{E}\frac{\left(k_{E}^{2}\right)^{\alpha}}{\left(k_{E}^{2}+M^{2}-\ii\eta\right)^{\beta}}\stackrel{!}{=}\pi^{\frac{d}{2}}\left(M^{2}\right)^{\alpha-\beta+\frac{d}{2}}\frac{\Gamma\left(\alpha+\frac{d}{2}\right)\Gamma\left(\beta-\alpha-\frac{d}{2}\right)}{\Gamma\left(\frac{d}{2}\right)\Gamma\left(\beta\right)}}}}
-\end{align*}
+Nur gerade Potenzen bleiben übrig, da der Integrationsbereich symmetrisch
+ist. Fasst man alle übrigen Terme zu $M^{2}$ zusammen, so gilt folgende
+zentrale Beziehung:
+\begin{align}
+\fbox{\ensuremath{{\displaystyle \int\dd^{d}k_{E}\frac{\left(k_{E}^{2}\right)^{\alpha}}{\left(k_{E}^{2}+M^{2}-\ii\eta\right)^{\beta}}\stackrel{!}{=}\pi^{\frac{d}{2}}\left(M^{2}\right)^{\alpha-\beta+\frac{d}{2}}\frac{\Gamma\left(\alpha+\frac{d}{2}\right)\Gamma\left(\beta-\alpha-\frac{d}{2}\right)}{\Gamma\left(\frac{d}{2}\right)\Gamma\left(\beta\right)}}}}\label{eq:d-dim-int}
+\end{align}
 Die $\Gamma$-Funktion ist definiert durch:
-\begin{align*}
-\Gamma\left(1\right) & =1\\
-\Gamma\left(z+1\right) & =z\Gamma\left(z\right)
-\end{align*}
+\begin{align}
+\Gamma\left(1\right) & =1 & \Gamma\left(z+1\right) & =z\Gamma\left(z\right)
+\end{align}
 Insbesondere folgt für $n\in\mathbb{N}$:
-\begin{align*}
+\begin{align}
 \Gamma\left(n+1\right) & =n\Gamma\left(n\right)=n\left(n-1\right)\cdots\cdot2\cdot1\cdot\Gamma\left(1\right)=n!
-\end{align*}
+\end{align}
 \begin{align*}
 \Gamma\left(0\right) & =\lim_{z\to0}\frac{\Gamma\left(z+1\right)}{z}=\lim_{z\to0}\frac{1}{z}=\infty
 \end{align*}
@@ -4623,26 +4720,26 @@ Insbesondere folgt für $n\in\mathbb{N}$:
 \begin{align*}
 \lim_{\varepsilon\to0}\Gamma\left(-2+\varepsilon\right) & =\lim_{\varepsilon\to0}\frac{\Gamma\left(1+\varepsilon\right)}{\left(-2+\varepsilon\right)\left(-1+\varepsilon\right)\varepsilon}=\frac{1}{2}\lim_{\varepsilon\to0}\frac{1}{\varepsilon}+\frac{3}{4}+\frac{\Gamma'\left(1\right)}{2}
 \end{align*}
-\begin{align*}
+\begin{align}
 \lim_{\varepsilon\to0}\Gamma\left(\varepsilon\right) & =\lim_{\varepsilon\to0}\frac{\Gamma\left(1+\varepsilon\right)}{\varepsilon}=\lim_{\varepsilon\to0}\frac{1}{\varepsilon}+\Gamma'\left(1\right)
-\end{align*}
+\end{align}
 Da dies häufig vorkommt, definiert man die \emph{Eulersche Konstante}:
-\begin{align*}
+\begin{align}
 \gamma & :=-\Gamma'\left(1\right)=0{,}577\ldots
-\end{align*}
+\end{align}
 Um die Einheiten-Dimensionen nicht zu verändern, muss man mit einer
 willkürliche Konstante $\mu$ mit $\left[\mu\right]=\left[k_{E}\right]=\text{Energie}$
 definieren:
 \begin{align*}
-\int\dd^{4}k & \leadsto\int\frac{\dd^{3}k_{E}}{\mu^{d-4}}
+\int\dd^{4}k & \leadsto\int\frac{\dd^{d}k_{E}}{\mu^{d-4}}
 \end{align*}
-Die Divergenz liefert mit $d=4-2\varepsilon$:
+Die Divergenz liefert mit $d=4-2\varepsilon$ für $\varepsilon\ll1$:
 \begin{align*}
-\frac{1}{\varepsilon}\mu^{2\varepsilon} & =\frac{1}{\varepsilon}e^{\varepsilon\ln\left(\mu^{2}\right)}=\frac{1}{\varepsilon}\left(1+\varepsilon\ln\left(\mu^{2}\right)+\ldots\right)=\frac{1}{\varepsilon}+\ln\left(\mu^{2}\right)
+\frac{1}{\varepsilon}\mu^{2\varepsilon} & =\frac{1}{\varepsilon}e^{\varepsilon\ln\left(\mu^{2}\right)}\approx\frac{1}{\varepsilon}\left(1+\varepsilon\ln\left(\mu^{2}\right)\right)=\frac{1}{\varepsilon}+\ln\left(\mu^{2}\right)
 \end{align*}
 Für $D\in\mathbb{N}$ kann man sphärische Koordinaten einführen.
 \begin{align*}
-\int_{-\infty}^{\infty}\dd^{D}k_{E}f\left(k_{E}^{2}\right) & =\frac{2\pi^{\frac{D}{2}}}{\Gamma\left(\frac{D}{2}\right)}\int_{0}^{\infty}\dd k_{E}f\left(k_{E}^{2}\right)k_{E}^{D-1}
+\int\dd^{D}k_{E}f\left(k_{E}^{2}\right) & =\frac{2\pi^{\frac{D}{2}}}{\Gamma\left(\frac{D}{2}\right)}\int_{0}^{\infty}\dd k_{E}f\left(k_{E}^{2}\right)k_{E}^{D-1}
 \end{align*}
 Denn es gilt:
 \begin{align*}
@@ -4655,34 +4752,34 @@ fortsetzen.
 
 %DATE: Di 28.5.13
 
+Nun zeigen wir die Beziehung (\ref{eq:d-dim-int}):\\
 Man darf beliebige Potenzterme abziehen, da diese das $d$-dimensionale
 Integral nicht ändern.
 \begin{align*}
 \Rightarrow\qquad\int\dd^{d}k\frac{\left(k^{2}\right)^{\alpha}}{\left(k^{2}+M^{2}-\ii\varepsilon\right)^{\beta}} & =\int\dd^{d}k\left(\frac{\left(k^{2}\right)^{\alpha}}{\left(k^{2}+M^{2}-\ii\varepsilon\right)^{\beta}}-\sum_{n}\left(k^{2}\right)^{\nu_{n}}c_{n}\right)
 \end{align*}
 Dies macht man so, dass das verbleibende Integral höchstens logarithmisch
-divergent ist. Variablensubstitution
+divergent ist.
 \begin{align*}
-\tilde{k}^{2} & :=\frac{M^{2}}{k^{2}}
+\int\dd^{d}k\frac{\left(k^{2}\right)^{\alpha}}{\left(k^{2}+M^{2}-\ii\varepsilon\right)^{\beta}} & =\frac{2\pi^{\frac{d}{2}}}{\Gamma\left(\frac{d}{2}\right)}\int_{0}^{\infty}\dd k_{E}\frac{\left(k_{E}^{2}\right)^{\alpha}}{\left(k_{E}^{2}+M^{2}-\ii\varepsilon\right)^{\beta}}k_{E}^{d-1}=\\
+ & =\frac{2\pi^{\frac{d}{2}}}{\Gamma\left(\frac{d}{2}\right)}\int_{0}^{\infty}\frac{\dd\left(k_{E}\right)^{2}}{2k_{E}}\frac{\left(k_{E}^{2}\right)^{\alpha}}{\left(k_{E}^{2}+M^{2}-\ii\varepsilon\right)^{\beta}}\left(k_{E}^{2}\right)^{\frac{d}{2}-\frac{1}{2}}=\\
+ & \sr ={\tilde{k}^{2}:=\frac{k_{E}^{2}}{M^{2}}}{}\frac{2\pi^{\frac{d}{2}}}{\Gamma\left(\frac{d}{2}\right)}\left(M^{2}\right)^{\alpha-\beta+\frac{d}{2}}\underbrace{\int\frac{\dd\left(\tilde{k}^{2}\right)}{2}\frac{\left(\tilde{k}^{2}\right)^{\alpha+\frac{d}{2}-1}}{\left(\tilde{k}^{2}+1-\ii\eta\right)^{\beta}}}_{=:\tilde{I}_{\alpha\beta}}
 \end{align*}
-liefert:
+Beim Integral $\tilde{I}_{\alpha\beta}$ kann man wieder alle nicht-logarithmischen
+Divergenzen vernachlässigen. Integriere nun partielle mit:
 \begin{align*}
-\int\dd^{d}k\frac{\left(k^{2}\right)^{\alpha}}{\left(k^{2}+M^{2}-\ii\varepsilon\right)^{\beta}} & =\frac{2\pi^{\frac{d}{2}}}{\Gamma\left(\frac{d}{2}\right)}\left(M^{2}\right)^{\alpha-\beta+\frac{d}{2}}\underbrace{\int\frac{\dd\left(\tilde{k}^{2}\right)}{2}\left(\tilde{k}^{2}\right)^{\frac{d}{2}-1}\left(\frac{\left(\tilde{k}^{2}\right)^{\alpha}}{\left(\tilde{k}^{2}+1-\ii\eta\right)^{\beta}}-\sum_{n}\left(\tilde{k}^{2}\right)^{\nu_{n}}c_{n}\right)}_{=:\tilde{I}_{\alpha\beta}}
+u\left(\tilde{k}^{2}\right) & =\left(\tilde{k}^{2}\right)^{\alpha+\frac{d}{2}-1} & v\left(\tilde{k}^{2}\right) & =\frac{1}{\left(\tilde{k}^{2}+1-\ii\eta\right)^{\beta}}
 \end{align*}
-Integriere nun partielle mit:
-\begin{align*}
-u\left(\tilde{k}^{2}\right) & =\left(\tilde{k}^{2}\right)^{\frac{d}{2}-1}\left(\tilde{k}^{2}\right)^{\alpha} & v\left(\tilde{k}^{2}\right) & =\frac{1}{\left(\tilde{k}^{2}+1-\ii\eta\right)^{\beta}}
-\end{align*}
-Man erhält für $\alpha+\frac{d}{2}-1>0$:
-\begin{align*}
-\tilde{I}_{\alpha\beta} & =\underbrace{\left[\frac{1}{2}\left(\tilde{k}^{2}\right)^{\alpha+\frac{d}{2}-1}\left(\frac{\left(\tilde{k}^{2}+1\right)^{1-\beta}}{1-\beta}-\text{Gegenterme}\right)\right]_{0}^{\infty}}_{=0}-\frac{\frac{d}{2}+\alpha-1}{1-\beta}
-\end{align*}
-Diese Rekursionsbeziehung definiert $\tilde{I}_{\alpha,\beta}$ bis
+Man erhält für $\alpha+\frac{d}{2}-1>0$ und $\beta\not=1$:
+\begin{align}
+\tilde{I}_{\alpha,\beta} & =\underbrace{\left[\frac{1}{2}\left(\tilde{k}^{2}\right)^{\alpha+\frac{d}{2}-1}\left(\frac{\left(\tilde{k}^{2}+1\right)^{1-\beta}}{1-\beta}-\text{Gegenterme}\right)\right]_{0}^{\infty}}_{=0}-\frac{\frac{d}{2}+\alpha-1}{1-\beta}\tilde{I}_{\alpha-1,\beta-1}
+\end{align}
+Diese Rekursionsbeziehung definiert $\tilde{I}_{\alpha\beta}$ bis
 auf eine multiplikative Konstante, ähnlich wie bei der Definition
 der Gamma-Funktion. Es folgt:
-\begin{align*}
-\tilde{I}_{\alpha,\beta} & =\frac{\Gamma\left(\alpha+\frac{d}{2}\right)}{\Gamma\left(\beta\right)}K\left(\alpha-\beta\right)=\frac{\left(\alpha+\frac{d}{2}-1\right)}{\left(\beta-1\right)\Gamma\left(\beta-1\right)}\underbrace{\frac{\Gamma\left(\alpha+\frac{d}{2}-1\right)}{\Gamma\left(\beta-1\right)}\underbrace{K\left(\left(\alpha-1\right)-\left(\beta-1\right)\right)}_{=K\left(\alpha-\beta\right)}}_{=\tilde{I}_{\alpha-1,\beta-1}}
-\end{align*}
+\begin{align}
+\tilde{I}_{\alpha,\beta} & =\frac{\Gamma\left(\alpha+\frac{d}{2}\right)}{\Gamma\left(\beta\right)}K\left(\alpha-\beta\right)=\frac{\alpha+\frac{d}{2}-1}{\beta-1}\underbrace{\frac{\Gamma\left(\alpha+\frac{d}{2}-1\right)}{\Gamma\left(\beta-1\right)}\overbrace{K\left(\left(\alpha-1\right)-\left(\beta-1\right)\right)}^{=K\left(\alpha-\beta\right)}}_{=\tilde{I}_{\alpha-1,\beta-1}}
+\end{align}
 Nun gilt:
 \begin{align*}
 \frac{\left(\tilde{k}^{2}\right)^{\alpha}}{\left(\tilde{k}^{2}+1-\ii\eta\right)^{\beta}} & =\frac{\left(\tilde{k}^{2}\right)^{\alpha}}{\left(\tilde{k}^{2}+1-\ii\eta\right)^{\beta}}\left(\left(\tilde{k}^{2}+1\right)-\tilde{k}^{2}\right)=\frac{\left(\tilde{k}^{2}\right)^{\alpha}}{\left(\tilde{k}^{2}+1-\ii\eta\right)^{\beta-1}}-\frac{\left(\tilde{k}^{2}\right)^{\alpha+1}}{\left(\tilde{k}^{2}+1-\ii\eta\right)^{\beta-1}}
@@ -4690,34 +4787,48 @@ Nun gilt:
 Damit folgt:
 \begin{align*}
 \tilde{I}_{\alpha,\beta} & =\tilde{I}_{\alpha,\beta-1}-\tilde{I}_{\alpha+1,\beta}\\
-\frac{\Gamma\left(\alpha+\frac{d}{2}\right)}{\Gamma\left(\beta\right)}K\left(\alpha-\beta\right) & =\frac{\Gamma\left(\alpha+\frac{d}{2}\right)}{\Gamma\left(\beta-1\right)\left(\beta-1\right)}\left(\beta-1\right)K\left(\alpha-\beta+1\right)-\frac{\Gamma\left(\alpha+1+\frac{d}{2}\right)}{\Gamma\left(\beta\right)\left(\alpha+\frac{d}{2}\right)}\left(\alpha+\frac{d}{2}\right)K\left(\alpha+1-\beta\right)\\
-\Rightarrow\qquad K\left(-\left(\beta-\alpha\right)\right) & =\left(\beta-1-\alpha-\frac{d}{2}\right)K\left(-\left(\beta-\alpha-1\right)\right)
+\frac{\Gamma\left(\alpha+\frac{d}{2}\right)}{\Gamma\left(\beta\right)}K\left(\alpha-\beta\right) & =\frac{\Gamma\left(\alpha+\frac{d}{2}\right)}{\Gamma\left(\beta-1\right)}K\left(\alpha-\beta+1\right)-\frac{\Gamma\left(\alpha+1+\frac{d}{2}\right)}{\Gamma\left(\beta\right)}K\left(\alpha+1-\beta\right)=\\
+ & =\left(\left(\beta-1\right)\frac{\Gamma\left(\alpha+\frac{d}{2}\right)}{\Gamma\left(\beta\right)}-\left(\alpha+\frac{d}{2}\right)\frac{\Gamma\left(\alpha+\frac{d}{2}\right)}{\Gamma\left(\beta\right)}\right)K\left(\alpha-\beta+1\right)=\\
+ & =\frac{\Gamma\left(\alpha+\frac{d}{2}\right)}{\Gamma\left(\beta\right)}\left(\beta-1-\alpha-\frac{d}{2}\right)K\left(\alpha-\beta+1\right)\\
+\Rightarrow\qquad K\left(\alpha-\beta\right) & =\left(\beta-\alpha-1-\frac{d}{2}\right)K\left(\alpha-\beta+1\right)
 \end{align*}
 Mit demselben Argument wie oben folgt mit $C\in\mathbb{C}$:
-\begin{align*}
-K\left(\alpha-\beta\right) & =C\cdot\Gamma\left(\beta-\alpha-\frac{d}{2}\right)=C\cdot\left(\beta-\alpha-\frac{d}{2}-1\right)\Gamma\left(\beta-\alpha-\frac{d}{2}-1\right)
-\end{align*}
-Die Konstante $C$ kann man für einen einfachen Spezialfall berechnen.
+\begin{align}
+K\left(\alpha-\beta\right) & =C\cdot\Gamma\left(-\left(\alpha-\beta\right)-\frac{d}{2}\right)=\\
+ & =C\cdot\left(\beta-\alpha-1-\frac{d}{2}\right)\Gamma\left(-\left(\alpha-\beta+1\right)-\frac{d}{2}\right)\nonumber 
+\end{align}
+Die Konstante $C$ kann man für einen einfachen Spezialfall berechnen:
 \begin{align*}
 \alpha & =1-\frac{d}{2} & \beta & =2
 \end{align*}
-Besser:
 \begin{align*}
-\alpha & =2-\frac{d}{2} & \beta & =3
+\tilde{I}_{1-\frac{d}{2},2} & =\int_{0}^{\infty}\frac{\dd\left(\tilde{k}^{2}\right)}{2}\frac{\left(\tilde{k}^{2}\right)^{1-\frac{d}{2}+\frac{d}{2}-1}}{\left(\tilde{k}^{2}+1-\ii\eta\right)^{2}}=\frac{1}{2}\int_{0}^{\infty}\dd\left(\tilde{k}^{2}\right)\frac{1}{\left(\tilde{k}^{2}+1\right)^{2}}=\\
+ & =\frac{1}{2}\left[\frac{-1}{\tilde{k}^{2}+1}\right]_{0}^{\infty}=\frac{1}{2}\sr =!{}\underbrace{\frac{\Gamma\left(1-\frac{d}{2}+\frac{d}{2}\right)}{\Gamma\left(2\right)}}_{=1}C\cdot\underbrace{\Gamma\left(-\left(1-\frac{d}{2}-2\right)-\frac{d}{2}\right)}_{=1}=C
 \end{align*}
+Damit folgt $C=\frac{1}{2}$ und:
 \begin{align*}
-\int\dd^{d}k\frac{\left(k^{2}\right)^{1-\frac{d}{2}}}{\left(k^{2}+1-\ii\eta\right)^{2}} & =\frac{\pi^{\frac{d}{2}}}{\Gamma\left(\frac{d}{2}\right)}\int_{0}^{\infty}\dd\left(k^{2}\right)\frac{1}{\left(k^{2}+1-\ii\eta\right)^{2}}=\frac{\pi^{\frac{d}{2}}}{\Gamma\left(\frac{d}{2}\right)}\left[-\frac{1}{k^{2}+1-\ii\eta}\right]_{0}^{\infty}=\\
- & =\frac{\pi^{\frac{d}{2}}}{\Gamma\left(\frac{d}{2}\right)}\stackrel{!}{=}\frac{2\pi^{\frac{d}{2}}}{\Gamma\left(\frac{d}{2}\right)}\frac{1\cdot\overbrace{\Gamma\left(2-\frac{d}{2}-1+\frac{d}{2}\right)}^{=1}}{\underbrace{\Gamma\left(2\right)}_{=1}}C
+\tilde{I}_{\alpha,\beta} & =\frac{\Gamma\left(\alpha+\frac{d}{2}\right)}{2\Gamma\left(\beta\right)}\cdot\Gamma\left(-\left(\alpha-\beta\right)-\frac{d}{2}\right)
 \end{align*}
-Damit folgt $C=\frac{1}{2}$.
+Es ergibt sich Gleichung (\ref{eq:d-dim-int}).
 
 
 \subsection{Beispiel: Vakuum-Polarisation}
 
-TODO: Abb58
+\begin{figure}[H]
+\noindent \centering{}\begin{tikzpicture}[level/.style={level distance=19mm}]
+  \path (0,0) node {}
+    child [grow=0] {node[position] {}
+      child [grow=0]{node[position] {}
+        child [grow=0] {edge from parent[photon] node[above]{$k \to$}}
+        child [grow=180] {node[position]{} edge from parent[electron,edge from parent path={(\tikzparentnode) .. controls +(0,-1)  and +(0,-1) .. (\tikzchildnode)}] node[below]{$q$} }
+       node[below right]{$\mu '$} edge from parent[electron,edge from parent path={(\tikzparentnode) .. controls +(0,1)  and +(0,1) .. (\tikzchildnode)}] node[above]{$k+q$}}
+     node[below left]{$\mu$} edge from parent[photon] node[above]{$k \to$}};
+\end{tikzpicture}\caption{Diagramm der Vakuum-Polarisation}
+\end{figure}
 
-Vernachlässigung von $m_{e}$. Betrachte nur den divergenten Term.
 
+Im Folgenden wird die Elektronenmasse $m_{e}$ vernachlässigt und
+wir betrachten nur den divergenten Term.
 \begin{align*}
 I_{\mu\mu'} & =-\int\frac{\dd^{4}q}{\left(2\pi\right)^{4}}\text{tr}\left(\left(-\ii q_{e}\gamma_{\mu'}\right)\ii\frac{\slashd q+\slashd k}{\left(q+k\right)^{2}+\ii\eta}\left(-\ii q_{e}\gamma_{\mu}\right)\ii\frac{\slashd q}{q^{2}+\ii\varepsilon}\right)
 \end{align*}
@@ -4730,36 +4841,33 @@ Fermionen-Loop handelt. Wähle Feynman-Parameter:
  & =\int_{0}^{1}\dd z\frac{1}{\left(\left(q+zk\right)^{2}-z^{2}k^{2}+zk^{2}+\ii\eta\right)^{2}}=\\
  & =\int_{0}^{1}\dd z\frac{1}{\left(\left(q+zk\right)^{2}+z\left(1-z\right)k^{2}+\ii\eta\right)^{2}}
 \end{align*}
-Substitution:
-\begin{align*}
-q_{\nu} & \to q_{\nu}-zk_{\nu}
-\end{align*}
+Die Substitution $q_{\nu}\to q_{\nu}-zk_{\nu}$ liefert:
 \begin{align*}
 I_{\mu\mu'} & =-q_{e}^{2}\int_{0}^{1}\dd z\int\frac{\dd^{4}q}{\left(2\pi\right)^{4}}\frac{\text{tr}\left(\gamma_{\mu'}\left(\slashd q+\slashd k\left(1-z\right)\right)\gamma_{\mu}\left(\slashd q-z\slashd k\right)\right)}{\left(q^{2}+z\left(1-z\right)k^{2}+\ii\eta\right)^{2}}=\\
- & \sr ={k^{2}\not=0}{}q_{e}^{2}\int_{0}^{1}\dd z\int\frac{\dd^{4}q}{\left(2\pi\right)^{4}}\frac{\text{tr}\left(\gamma_{\mu'}\left(\slashd q+\slashd k\left(1-z\right)\right)\gamma_{\mu}\left(\slashd q-z\slashd k\right)\right)}{\left(q^{2}+z\left(1-z\right)k^{2}+\ii\eta\right)^{2}}=\\
- & =-4q_{e}^{2}\int_{0}^{1}\dd z\int\frac{\dd^{4}q}{\left(2\pi\right)^{4}}\frac{\left(q+\left(1-z\right)k\right)_{\mu'}\left(q-zk\right)_{\mu}+\left(q+\left(1-z\right)k\right)_{\mu}\left(q-zk\right)_{\mu'}-g_{\mu\mu'}\left(q+\left(1-z\right)k\right)\left(q-zk\right)}{\left(q^{2}+z\left(1-z\right)k^{2}+\ii\eta\right)^{2}}=\\
- & \sr ={q_{\mu\mu'}\leadsto\frac{1}{4}g_{\mu\mu'}q^{2}}{}-4q_{e}^{2}\int_{0}^{1}\dd z\int\frac{\dd^{4}q}{\left(2\pi\right)^{4}}\frac{\frac{2}{4}g_{\mu\mu'}q^{2}-2z\left(1-z\right)k_{\mu}k_{\mu'}-g_{\mu\mu'}\left(q^{2}-z\left(1-z\right)k^{2}\right)}{\left(q_{E}^{2}+z\left(1-z\right)k^{2}+\ii\eta\right)^{2}}
+ & =-4q_{e}^{2}\int_{0}^{1}\dd z\int\frac{\dd^{4}q}{\left(2\pi\right)^{4}}\frac{1}{\left(q^{2}+z\left(1-z\right)k^{2}+\ii\eta\right)^{2}}\cdot\big(\left(q+\left(1-z\right)k\right)_{\mu'}\left(q-zk\right)_{\mu}+\\
+ & \qquad+\left(q+\left(1-z\right)k\right)_{\mu}\left(q-zk\right)_{\mu'}-g_{\mu\mu'}\left(q+\left(1-z\right)k\right)\left(q-zk\right)\big)=\\
+ & \sr ={q_{\mu}q_{\mu'}\leadsto\frac{1}{4}g_{\mu\mu'}q^{2}}{\text{linear in }q_{\mu}\leadsto0}-4q_{e}^{2}\int_{0}^{1}\dd z\int\frac{\dd^{4}q}{\left(2\pi\right)^{4}}\frac{\frac{2}{4}g_{\mu\mu'}q^{2}-2z\left(1-z\right)k_{\mu}k_{\mu'}-g_{\mu\mu'}\left(q^{2}-z\left(1-z\right)k^{2}\right)}{\left(q^{2}+z\left(1-z\right)k^{2}+\ii\eta\right)^{2}}
 \end{align*}
 Führe nun die Wick-Rotation durch:
 \begin{align*}
 I_{\mu\mu'} & =-\ii\frac{2q_{e}^{2}}{\left(2\pi\right)^{4}}\int_{0}^{1}\dd z\int\dd^{4}q_{E}\frac{g_{\mu\mu'}q_{E}^{2}-2z\left(1-z\right)\left(2k_{\mu}k_{\mu'}-g_{\mu\mu'}k^{2}\right)}{\left(q_{E}^{2}-z\left(1-z\right)k^{2}-\ii\eta\right)^{2}}
 \end{align*}
-Setze nun das Integral in $d$-Dimensionen fort mit beliebigem $\tilde{\mu}$
-mit Einheit Energie:
+Setze das Integral in $d$-Dimensionen fort, wobei $\tilde{\mu}$
+eine Konstante mit Einheit Energie ist:
 \begin{align*}
-I_{\mu\mu'} & =-\ii\frac{2q_{e}^{2}}{\left(2\pi\right)^{4}}\int_{0}^{1}\dd z\int\frac{\dd^{d}q_{E}}{\tilde{\mu}^{d-4}}\frac{g_{\mu\mu'}q_{E}^{2}-2z\left(1-z\right)\left(k_{\mu}k_{\mu'}-g_{\mu\mu'}k^{2}\right)}{\left(q_{E}^{2}-z\left(1-z\right)k^{2}\right)^{2}}=\\
+I_{\mu\mu'} & =-\ii\frac{2q_{e}^{2}}{\left(2\pi\right)^{4}}\int_{0}^{1}\dd z\int\frac{\dd^{d}q_{E}}{\tilde{\mu}^{d-4}}\frac{g_{\mu\mu'}q_{E}^{2}-2z\left(1-z\right)\left(k_{\mu}k_{\mu'}-g_{\mu\mu'}k^{2}\right)}{\left(q_{E}^{2}-z\left(1-z\right)k^{2}-\ii\eta\right)^{2}}=\\
  & =-\ii\frac{2q_{e}^{2}}{\left(2\pi\right)^{4}}\int_{0}^{1}\dd z\frac{1}{\tilde{\mu}^{d-4}}\frac{\pi^{\frac{d}{2}}}{\Gamma\left(\frac{d}{2}\right)\Gamma\left(2\right)}\bigg(\left(-z\left(1-z\right)k^{2}\right)^{1-2+\frac{d}{2}}g_{\mu\mu'}\Gamma\left(1+\frac{d}{2}\right)\Gamma\left(2-1-\frac{d}{2}\right)-\\
  & \qquad-2z\left(1-z\right)\left(2k_{\mu}k_{\mu'}-g_{\mu\mu'}k^{2}\right)\left(-z\left(1-z\right)k^{2}\right)^{0-2+\frac{d}{2}}\Gamma\left(0+\frac{d}{2}\right)\Gamma\left(2-0-\frac{d}{2}\right)\bigg)
 \end{align*}
 Mit $d=4-2\varepsilon$ folgt:
 \begin{align*}
-I_{\mu\mu'} & =-\ii\frac{2q_{e}^{2}\pi^{-\varepsilon}}{16\pi^{2}\tilde{\mu}^{-2\varepsilon}}\int_{0}^{1}\dd z\bigg(\left(-z\left(1-z\right)k^{2}\right)^{1-\varepsilon}g_{\mu\mu'}\left(2-\varepsilon\right)\Gamma\left(-1+\varepsilon\right)-\\
- & \qquad-2z\left(1-z\right)\left(2k_{\mu}k_{\mu'}-g_{\mu\mu'}k^{2}\right)\left(-z\left(1-z\right)k^{2}\right)^{-\varepsilon}\Gamma\left(\varepsilon\right)\bigg)
+I_{\mu\mu'} & =-\ii\frac{q_{e}^{2}\pi^{-\varepsilon}}{8\pi^{2}\tilde{\mu}^{-2\varepsilon}}\int_{0}^{1}\dd z\bigg(\left(-z\left(1-z\right)k^{2}\right)^{1-\varepsilon}g_{\mu\mu'}\frac{\left(2-\varepsilon\right)\Gamma\left(2-\varepsilon\right)}{\Gamma\left(2-\varepsilon\right)}\Gamma\left(-1+\varepsilon\right)-\\
+ & \qquad-2z\left(1-z\right)\left(2k_{\mu}k_{\mu'}-g_{\mu\mu'}k^{2}\right)\left(-z\left(1-z\right)k^{2}\right)^{-\varepsilon}\frac{\Gamma\left(2-\varepsilon\right)}{\Gamma\left(2-\varepsilon\right)}\Gamma\left(\varepsilon\right)\bigg)
 \end{align*}
 Nun gilt
 \begin{align*}
 \Gamma\left(\varepsilon\right) & =\frac{1}{\varepsilon}\Gamma\left(1+\varepsilon\right)=\frac{1}{\varepsilon}+\Gamma'\left(1\right)+\mathcal{O}\left(\varepsilon\right)\\
-\Gamma\left(-1+\varepsilon\right) & =\frac{1}{-1+\varepsilon}\Gamma\left(\varepsilon\right)=-\left(1+\varepsilon\right)\Gamma\left(\varepsilon\right)+\mathcal{O}\left(\varepsilon\right)=-\frac{1}{\varepsilon}-\Gamma'\left(1\right)-1+\mathcal{O}\left(\varepsilon\right)
+\Gamma\left(-1+\varepsilon\right) & =\frac{1}{-1+\varepsilon}\Gamma\left(\varepsilon\right)=-\left(1+\varepsilon\right)\Gamma\left(\varepsilon\right)+\mathcal{O}\left(\varepsilon\right)=-\frac{1}{\varepsilon}-\Gamma'\left(1\right)-1+\mathcal{O}_{0}\left(\varepsilon\right)
 \end{align*}
 und:
 \begin{align*}
@@ -4767,11 +4875,12 @@ und:
 \end{align*}
 Beispiel:
 \begin{align*}
-\int_{0}^{1}\dd z\left(z\left(1-z\right)\right)^{1-\varepsilon} & =\frac{\Gamma\left(2-\varepsilon\right)\Gamma\left(2-\varepsilon\right)}{\Gamma\left(4-2\varepsilon\right)}=\frac{\left(1-\varepsilon\Gamma'\left(2\right)\right)^{2}}{\left(3!-2\varepsilon\Gamma'\left(4\right)\right)}=\frac{1}{6}+\mathcal{O}\left(\varepsilon\right)
+\int_{0}^{1}\dd z\left(z\left(1-z\right)\right)^{1-\varepsilon} & =\frac{\Gamma\left(2-\varepsilon\right)\Gamma\left(2-\varepsilon\right)}{\Gamma\left(4-2\varepsilon\right)}=\frac{\left(1-\varepsilon\Gamma'\left(2\right)\right)^{2}}{\left(3!-2\varepsilon\Gamma'\left(4\right)\right)}=\frac{1}{6}+\mathcal{O}_{0}\left(\varepsilon\right)\\
+\left(\frac{\tilde{\mu}^{2}}{-k^{2}\pi}\right)^{\varepsilon} & =e^{\varepsilon\ln\left(-\frac{\tilde{\mu}}{k^{2}\pi}\right)}=1+\varepsilon\ln\left(-\frac{\tilde{\mu}^{2}}{k^{2}\pi}\right)+\mathcal{O}_{0}\left(\varepsilon\right)
 \end{align*}
 \begin{align*}
-I_{\mu\mu'} & =-\ii\frac{q_{e}^{2}}{8\pi^{2}}\underbrace{\left(\frac{\tilde{\mu}^{2}}{-k^{2}\pi}\right)^{\varepsilon}}_{=e^{\varepsilon\left(-\frac{\tilde{\mu}}{k^{2}\pi}\right)=1+\varepsilon\ln\left(-\frac{\tilde{\mu}^{2}}{k^{2}\pi}\right)}}\frac{1}{6}\underbrace{\left(2k^{2}g_{\mu\mu'}-4k_{\mu}k_{\mu'}+2k^{2}g_{\mu\mu'}\right)}_{=4\left(k^{2}g_{\mu\mu'}-k_{\mu}k_{\mu'}\right)}\frac{1}{\varepsilon}+\mathcal{O}_{0}\left(\varepsilon^{0}\right)=\\
- & =-\ii\frac{\alpha^{2}}{3\pi}\left(k^{2}g_{\mu\mu'}-k_{\mu}k_{\mu'}\right)\left(\frac{1}{\varepsilon}+\ln\left(\frac{\tilde{\mu}^{2}}{-k^{2}}\right)\right)+\mathcal{O}_{0}\left(\varepsilon^{0}\right)
+I_{\mu\mu'} & =-\ii\frac{q_{e}^{2}}{8\pi^{2}}\left(\frac{\tilde{\mu}^{2}}{-k^{2}\pi}\right)^{\varepsilon}\frac{1}{6}\underbrace{\left(2k^{2}g_{\mu\mu'}-4k_{\mu}k_{\mu'}+2k^{2}g_{\mu\mu'}\right)}_{=4\left(k^{2}g_{\mu\mu'}-k_{\mu}k_{\mu'}\right)}\frac{1}{\varepsilon}+\mathcal{O}_{0}\left(\varepsilon^{0}\right)=\\
+ & =-\ii\frac{\alpha}{3\pi}\left(k^{2}g_{\mu\mu'}-k_{\mu}k_{\mu'}\right)\left(\frac{1}{\varepsilon}+\ln\left(\frac{-\tilde{\mu}^{2}}{k^{2}\pi}\right)\right)+\mathcal{O}_{0}\left(\varepsilon^{0}\right)
 \end{align*}
 Dies entspricht der Pauli-Villar-Regularisierung.
 \begin{align*}
@@ -4784,6 +4893,8 @@ I_{\mu\mu'}\left(k_{1}^{2}\right)-I_{\mu\mu'}\left(k_{2}^{2}\right) & =-\ii\frac
 
 \chapter{Quantenchromodynamik (\texorpdfstring{$SU\left(N\right)$}{SU(N)}
 Eichgruppen)}
+
+
 
 Eichprinzip: Die Transformationen
 \begin{align*}
@@ -5650,6 +5761,8 @@ ist für jeden Prozess gleich.
 
 \chapter{Die laufende Kopplungskonstante \texorpdfstring{$\alpha_{S}\left(Q^{2}\right)$}{}}
 
+
+
 TODO: Abb86
 
 TODO: Abb87
@@ -5712,14 +5825,1101 @@ Man erhält:
 
 TODO: Kapitel 6.2 des QCD-Skriptes
 
-%DATE: Mi 26.6.13
+%DATE: Mo 1.7.13
 
 
-\chapter{Dimensionale Regularisierung \texorpdfstring{$\overline{MS}$}{}}
+\chapter{Das Funktionalintegral}
+
+Das Funktionalintegral $\int\mathcal{D}\left[q\right]$ ist ein Integral
+über alle möglichen (beliebig unstetigen) Funktionen $q\left(t\right),q\left(x^{\mu}\right)$.
+
+Bemerkung: In der kanonischen Quantisierung sind die Kommutatoren
+zur gleichen Zeit proportional zu $\delta^{\left(3\right)}\left(\vec{x}-\vec{y}\right)$.
+Dies entspricht dem Funktionenraum aller, auch beliebig unstetiger
+Funktionen.
+
+Zur Berechnung des Funktionalintegrals betrachten wir eine Entwicklung
+nach einem Basissystem des Funktionenraums aus Stufenfunktionen.
+
+TODO: Abb92
+\begin{align*}
+q\left(t\right) & =\sum_{k=1}^{\infty}\alpha_{k}u_{k}\left(t\right)\\
+q_{n}\left(t\right) & :=\sum_{k=1}^{n}\alpha_{k}u_{k}\left(t\right)
+\end{align*}
 
 
-\chapter{Standard-Modell, SSB und Higgs-Feld}
+Im Allgemeinen ist diese Basis überabzählbar, aber diesen Fall betrachten
+wir nicht. Zum Beispiel für Funktionen auf dem Intervall $\left[0,1\right]$
+kann man wie folgt eine abzählbare Basis wählen:
 
+TODO: Abb93
+
+Definition:
+\begin{align*}
+\int\mathcal{D}\left[q\right]F\left[q\right] & :=\lim_{n\to\infty}\int_{-\infty}^{\infty}\dd\alpha_{1}\ldots\int_{-\infty}^{\infty}\dd\alpha_{n}F\left(\alpha_{1},\ldots,\alpha_{n}\right)\cdot\mathcal{M}_{n}
+\end{align*}
+Das Integrationsmaß $\mathcal{M}_{n}$ muss so gewählt werden, dass
+das Funktionalintegral endliche Werte liefert. Wir brauchen nur die
+Annahme, dass $\mathcal{M}_{n}$ existiert.
+
+
+\section{Beispiel: \texorpdfstring{$\phi^{4}$}{Phi^4}-Theorie}
+
+Behauptung: Für
+\begin{align*}
+F\left[j\right] & :=D\int\mathcal{D}\left[\phi\right]e^{\ii\int\dd^{4}x\left(\mathcal{L}\left(\phi\left(x\right)\right)+j\left(x\right)\phi\left(x\right)\right)}
+\end{align*}
+gilt:
+\begin{align*}
+\frac{1}{F\left(0\right)}\frac{\delta^{2}F\left[j\right]}{\delta j\left(y_{1}\right)\delta_{j}\left(y_{2}\right)}\bigg|_{j=0} & \sr =!{}\BraKet{0|\TT\left\{ \hat{\phi}\left(y_{1}\right)\hat{\phi}\left(y_{2}\right)e^{-\ii\int\dd^{4}x\frac{\lambda}{4!}\left(\hat{\phi}\left(x\right)\right)^{4}}\right\} |0}
+\end{align*}
+
+
+Beweis:
+
+1. Schritt: Trennung des freien und Wechselwirkungsanteils in $\mathcal{L}\left(x\right)$:
+\begin{align*}
+F\left[j\right] & =D\int\mathcal{D}\left[\phi\right]e^{-\ii\frac{\lambda}{4!}\int\dd^{4}x\left(\phi\left(x\right)\right)^{4}}e^{-\ii\int\dd^{4}y\left(\frac{1}{2}\phi\left(y\right)\left(\square+m^{2}\right)\phi\left(y\right)-j\left(y\right)\phi\left(y\right)\right)}
+\end{align*}
+\begin{align*}
+\frac{\delta}{\delta j\left(x\right)}e^{\ii\int\dd^{4}y'j\left(y'\right)\phi\left(y'\right)} & =\ii\int\dd^{4}y''\delta^{\left(4\right)}\left(x-y''\right)\phi\left(y''\right)e^{\ii\int\dd^{4}y'j\left(y'\right)\phi\left(y'\right)}=\\
+ & =\ii\phi\left(x\right)e^{\ii\int\dd^{4}y'j\left(y'\right)\phi\left(y'\right)}
+\end{align*}
+Damit kann man schreiben:
+\begin{align*}
+F\left[j\right] & =D\int\mathcal{D}\left[\phi\right]e^{-\ii\frac{\lambda}{4!}\int\dd^{4}x\left(\frac{\delta}{\delta j\left(x\right)}\right)^{4}}e^{-\ii\int\dd^{4}y\left(\frac{1}{2}\phi\left(y\right)\left(\square+m^{2}\right)\phi\left(y\right)-j\left(y\right)\phi\left(y\right)\right)}=\\
+ & =De^{-\ii\frac{\lambda}{4!}\int\dd^{4}x\left(\frac{\delta}{\delta j\left(x\right)}\right)^{4}}\int\mathcal{D}\left[\phi\right]e^{-\ii\int\dd^{4}y\left(\frac{1}{2}\phi\left(y\right)\left(\square+m^{2}\right)\phi\left(y\right)-j\left(y\right)\phi\left(y\right)\right)}
+\end{align*}
+(Dabei gehen wir davon aus, dass man das Funktionalintegral und die
+Funktionalableitungen vertauschen darf.)\\
+„Quadratische Ergänzung“: Bei der Subtraktion eines konstanten Terms
+ändert sich das Funktionalintegral nicht.
+\begin{align*}
+\phi\left(y\right) & \to\phi\left(y\right)-\int\dd^{4}y'\Delta_{F}\left(y-y'\right)j\left(y'\right)
+\end{align*}
+Nun gilt:
+\begin{align*}
+\left(\square_{y}+m^{2}\right)\Delta_{F}\left(y-y'\right) & =-\delta^{\left(4\right)}\left(y-y'\right)
+\end{align*}
+Es folgt:
+\begin{align*}
+ & \int\dd^{4}y\left(\frac{1}{2}\phi\left(y\right)\left(\square+m^{2}\right)\phi\left(y\right)-j\left(y\right)\phi\left(y\right)\right)\\
+ & \to\int\dd^{4}y\frac{1}{2}\left(\phi\left(y\right)-\int\dd^{4}y'\Delta_{F}\left(y-y'\right)j\left(y'\right)\right)\left(\square+m^{2}\right)\left(\phi\left(y\right)-\int\dd^{4}y'\Delta_{F}\left(y-y'\right)j\left(y'\right)\right)\\
+ & \qquad-j\left(y\right)\left(\phi\left(y\right)-\int\dd^{4}y'\Delta_{F}\left(y-y'\right)j\left(y'\right)\right)=\\
+ & =\int\dd^{4}y\frac{1}{2}\phi\left(y\right)\left(\square+m^{2}\right)\phi\left(y\right)-\underline{\frac{1}{2}\phi\left(y\right)\underbrace{\left(\square_{y}+m^{2}\right)\int\dd^{4}y'\Delta_{F}\left(y-y'\right)j\left(y'\right)}_{=-j\left(y\right)}}-\\
+ & \qquad-\underline{\frac{1}{2}\int\dd^{4}y'\Delta_{F}\left(y-y'\right)j\left(y'\right)(\underbrace{\square_{y}}_{2\text{ part.Int.}}+m^{2})\phi\left(y\right)}+\\
+ & \qquad+\frac{1}{2}\int\dd^{4}y'\dd^{4}y''\Delta_{F}\left(y-y'\right)j\left(y'\right)\left(\square_{y}+m^{2}\right)\Delta_{F}\left(y-y''\right)j\left(y''\right)-\underline{j\left(y\right)\phi\left(y\right)}=\\
+ & =\int\dd^{4}y\frac{1}{2}\phi\left(y\right)\left(\square+m^{2}\right)\phi\left(y\right)+\frac{1}{2}\int\dd^{4}y'\dd^{4}y''\Delta_{F}\left(y-y'\right)j\left(y'\right)\left(\square_{y}+m^{2}\right)\Delta_{F}\left(y-y''\right)j\left(y''\right)
+\end{align*}
+\begin{align*}
+F\left[j\right] & =e^{-\ii\frac{\lambda}{4!}\int\dd^{4}x\left(\frac{\delta}{\delta j\left(x\right)}\right)^{4}}\cdot e^{-\frac{\ii}{2}\int\dd^{4}y\dd^{4}y'j\left(y\right)\Delta_{F}\left(y-y'\right)j\left(y'\right)}\underbrace{D\int\mathcal{D}\left[\phi\right]e^{-\frac{\ii}{2}\int\dd^{4}y\phi\left(y\right)\left(\square+m^{2}\right)\phi\left(y\right)}}_{=:C=\text{konst.}}
+\end{align*}
+Wir wählen nun $D$ so, dass $C=1$ ist. (Dabei nehmen wir an, dass
+das Funktionalintegral nicht divergiert und nicht gegen Null konvergiert.)
+
+Beispiel:
+
+Ordnung $\lambda^{0}$:
+\begin{align*}
+\frac{\delta^{2}F\left[j\right]}{\delta j\left(y_{1}\right)\delta j\left(y_{2}\right)}\bigg|_{j=0} & =\frac{1}{\delta j\left(y_{1}\right)}\left(-\frac{\ii}{2}\cdot2\right)\int\dd^{4}yj\left(y\right)\Delta_{F}\left(y-y_{2}\right)e^{-\frac{\ii}{2}\int\dd^{4}y\dd^{4}y'j\left(y\right)\Delta_{F}\left(y-y'\right)j\left(y'\right)}\bigg|_{j=0}=\\
+ & =-\ii\int\dd^{4}y\delta^{\left(4\right)}\left(y-y_{1}\right)\Delta_{F}\left(y-y_{2}\right)e^{-\frac{\ii}{2}\int\dd^{4}y\dd^{4}y'j\left(y\right)\Delta_{F}\left(y-y'\right)j\left(y'\right)}\bigg|_{j=0}=\\
+ & =-\ii\Delta_{F}\left(y_{1}-y_{2}\right)
+\end{align*}
+Ordnung $\lambda^{1}$:
+\begin{align*}
+\frac{\delta^{2}F\left[j\right]}{\delta j\left(y_{1}\right)\delta j\left(y_{2}\right)}\bigg|_{j=0} & =-\ii\frac{\lambda}{4!}\int\dd^{4}x\left(\frac{\delta}{\delta j\left(x\right)}\right)^{4}\left(-\ii\Delta_{F}\left(y_{1}-y_{2}\right)-\int\dd^{4}yj\left(y\right)\Delta_{F}\left(y-y_{2}\right)\int\dd^{4}y'j\left(y'\right)\Delta_{F}\left(y'-y_{1}\right)\right)\\
+ & \qquad\cdot e^{-\frac{\ii}{2}\int\dd^{4}z\dd^{4}z'j\left(z\right)\Delta_{F}\left(z-z'\right)j\left(z'\right)}\bigg|_{j=0}=\\
+ & =-\ii\Delta_{F}\left(y_{1}-y_{2}\right)\left(-\frac{\ii}{2}\lambda\right)\left(\frac{1}{2}\Delta_{F}\left(x-x\right)\right)^{2}-\ii\frac{\lambda}{2}\int\dd^{4}x\Delta_{F}\left(x-y_{2}\right)\Delta_{F}\left(x-y_{1}\right)\Delta_{F}\left(x-x\right)\\
+ & \widehat{=}\,\BraKet{0|\TT\left\{ \hat{\phi}\left(y_{1}\right)\hat{\phi}\left(y_{2}\right)e^{-\ii\int\dd^{4}x\frac{\lambda}{4!}\left(\hat{\phi}\left(x\right)\right)^{4}}\right\} |0}
+\end{align*}
+TODO: Abb94
+
+In Ordnung $\lambda^{n}$ hat man:
+\begin{align*}
+\text{Funktionalintegral:} & \qquad\left(\frac{\delta^{4}}{\left(\delta j\right)^{4}}\right)^{n}\frac{\delta^{2}}{\delta j\left(y_{1}\right)\delta\left(y_{2}\right)}\\
+\text{Kanonische Quantisierung:} & \qquad\left(\hat{\phi}^{4}\right)^{n}\hat{\phi}\left(y_{1}\right)\hat{\phi}\left(y_{2}\right)
+\end{align*}
+Bei der kanonischen Quantisierung verwendet man das Wicksche Theorem
+und wandelt Paare von $\hat{\phi}$ in Propagatoren um.
+
+Beim Funktionalintegral bleiben wegen der Auswertung an $j=0$ nur
+solche Beiträge, wo eine Ableitung auf die Exponentialfunktion wirkt
+und einen Faktor $j$ produziert und eine weitere Ableitung dieses
+$j$ wieder vernichtet. Daher muss man Paare von Ableitungen bilden
+und erhält Propagatoren.
+
+Die Bildungsgesetze, das heißt die Kombinationen beziehungsweise Permutationen
+und kombinatorischen Faktoren sind identisch. Also sind beide Verfahren
+äquivalent im störungstheoretischen Sinne.
+
+
+\section{Die Behandlung von Fermionen}
+
+Fermionen erfüllen das Pauli-Prinzip, weswegen die beschreibenden
+Felder antikommutieren müssen. In der Kanonischen Quantisierung wird
+dies durch die Antikommutatoren der Feldoperatoren beschrieben. Für
+die Funktionalintegralquantisierung benötigt man nun antikommutierende
+Zahlen, eine sogenannte \emph{Grassmann-Algebra}.
+
+Definition: Seien $c_{i},c_{j}$ Grassmann-Zahlen und $.\cdot.$ die
+,,Multiplikation``, so gelte:
+\begin{align*}
+c_{i}\cdot c_{j} & =-c_{j}\cdot c_{i}
+\end{align*}
+Insbesondere folgt:
+\begin{align*}
+c_{i}\cdot c_{i} & =-c_{i}\cdot c_{i}\\
+2c_{i}\cdot c_{i} & =0\\
+\left(c_{i}\right)^{2} & =0
+\end{align*}
+Die allgemeinste Funktion ist daher:
+\begin{align*}
+f\left(c_{i}\right) & =f_{i}+g_{i}c_{i}\\
+F\left(c_{1},\ldots,c_{n}\right) & =\prod_{i=1}^{n}\left(f_{i}+g_{i}c_{i}\right)
+\end{align*}
+Definition der Integralrechnung:
+\begin{align*}
+\int\dd c_{i}1 & :=0 & \int\dd c_{i}\cdot c_{i} & :=1
+\end{align*}
+Definition der Ableitung:
+\begin{align*}
+\frac{\partial1}{\partial c_{j}} & :=0 & \frac{\partial c_{i}}{\partial c_{j}} & =\delta_{ij} & \frac{\partial}{\partial c_{j}}\frac{\partial}{\partial c_{i}} & =-\frac{\partial}{\partial c_{i}}\frac{\partial}{\partial c_{j}}
+\end{align*}
+Es gilt:
+\begin{align*}
+\int\dd a_{1}\dd b_{1}\ldots\dd a_{N}\dd b_{N}e^{-\sum_{i,j=1}^{N}a_{i}Q_{ij}b_{j}} & =\det\left(Q\right)
+\end{align*}
+\begin{align*}
+\int\dd\overline{\psi}\left(x_{1}\right)\dd\psi\left(x_{1}\right)\dd\overline{\psi}\left(x_{2}\right)\dd\psi\left(x_{2}\right)\ldots\dd\overline{\psi}\left(x_{N}\right)\dd\psi\left(x_{N}\right)e^{-\sum_{i,j}\overline{\psi}\left(x_{i}\right)\hat{D}_{ij}\psi\left(x_{j}\right)} & =\det\left(\hat{D}_{ij}\right)
+\end{align*}
+$\hat{D}_{ij}$ hängt nur von den Eichfeldern $A_{\mu}$ ab.
+
+%DATE: Di 2.7.13
+
+
+\subsubsection*{Beweis}
+
+\begin{align*}
+I & =\int\dd a_{1}\dd b_{1}\ldots\dd a_{N}\dd b_{N}e^{-\sum_{i,j=1}^{N}a_{i}Q_{ij}b_{j}}
+\end{align*}
+Wegen $\int\dd a_{j}1=0$ und $\int\dd a_{j}a_{j}=1$ verschwinden
+alle Integrale außer über Produkte von $N$ Faktoren $a_{i}b_{j}$,
+weswegen nur der $N$-te Term der Entwicklung beiträgt:
+\begin{align*}
+I & =\frac{\left(-1\right)^{N}}{N!}\int\dd a_{1}\dd b_{1}\ldots\dd a_{N}\dd b_{N}\left(\sum_{i,j=1}^{N}a_{i}Q_{ij}b_{j}\right)^{N}=\\
+ & =\frac{\left(-1\right)^{N}}{N!}\int\dd a_{1}\dd b_{1}\ldots\dd a_{N}\dd b_{N}\sum_{\sigma\in\mathfrak{S}\left(N\right)}N!a_{1}Q_{1\sigma\left(1\right)}b_{\sigma\left(1\right)}\ldots a_{N}Q_{N\sigma\left(N\right)}b_{\sigma\left(N\right)}=\\
+ & =\left(-1\right)^{N}\int\dd a_{1}\dd b_{1}\ldots\underbrace{\dd a_{N}\left(-a_{N}\right)}_{=-1}\dd b_{N}b_{\sigma\left(N\right)}\sum_{\sigma\in\mathfrak{S}\left(N\right)}a_{1}Q_{1\sigma\left(1\right)}b_{\sigma\left(1\right)}\ldots Q_{N\sigma\left(N\right)}=\\
+ & =\left(-1\right)^{N}\left(-1\right)^{N}\sum_{\sigma\in\mathfrak{S}\left(N\right)}\text{sign}\left(\sigma\right)Q_{1\sigma\left(1\right)}\ldots Q_{N\sigma\left(N\right)}=\text{det}\left(Q\right)
+\end{align*}
+\qqed[]
+
+Diese Aussage macht wieder eigentlich nur Sinn für diskretisierte
+Räume (Gitter), da zum Beispiel die Determinante des Ableitungsoperators
+nicht sinnvoll definiert ist.
+
+Erweiterung auf Felder $a_{j}$ an Orten $x_{k}$:
+\begin{align*}
+c_{i} & \to a_{j}\left(x_{k}\right)\\
+i & \to\left(j,k\right)
+\end{align*}
+\begin{align*}
+\underbrace{\left(1,1\right)}_{i=1}\quad\underbrace{\left(1,2\right)}_{i=2}\quad\underbrace{\left(1,3\right)}_{i=4} & \ldots\\
+\underbrace{\left(2,1\right)}_{i=3}\quad\underbrace{\left(2,2\right)}_{i=5}\quad\left(2,3\right) & \ldots\\
+\underbrace{\left(3,1\right)}_{i=6}\quad\left(3,2\right)\quad\left(3,3\right) & \ldots\\
+\vdots\qquad
+\end{align*}
+Es folgt:
+\begin{align*}
+a_{j_{1}}\left(x_{k_{1}}\right)a_{j_{2}}\left(x_{k_{2}}\right) & =-a_{j_{2}}\left(x_{k_{2}}\right)a_{j_{1}}\left(x_{k_{1}}\right)
+\end{align*}
+\begin{align*}
+\int\dd\left(a_{j}\left(x_{i}\right)\right)a_{j'}\left(x_{i'}\right) & =\delta_{jj'}\delta_{ii'}
+\end{align*}
+Definition:
+\begin{align*}
+\int\mathcal{D}\left[a\right]F\left[a\right] & :=\lim_{N\to\infty}\int\dd a_{1}\left(x_{1}\right)\ldots\dd a_{1}\left(x_{N}\right)\dd a_{2}\left(x_{1}\right)\ldots\dd a_{2}\left(x_{N}\right)\ldots\dd a_{k}\left(x_{N}\right)F\left(a_{i}\left(x_{j}\right)\right)
+\end{align*}
+Kontinuumslimes:
+\begin{align*}
+\frac{\delta a_{i}\left(x\right)}{\delta a_{j}\left(x'\right)} & =\delta_{ij}\delta^{\left(4\right)}\left(x-x'\right)
+\end{align*}
+Das \emph{Erzeugende Funktional} für Dirac-Felder sieht genauso aus
+wie das für $\phi$-Felder:
+\begin{align*}
+F\left[\overline{\zeta},\zeta\right] & :=D\int\mathcal{D}\left[\overline{\psi},\psi\right]e^{\ii\int\dd^{4}x\left(\mathcal{L}_{\text{Dirac}}\left(x\right)+\overline{\zeta}\left(x\right)\psi\left(x\right)+\overline{\psi}\left(x\right)\zeta\left(x\right)\right)}
+\end{align*}
+Dabei sind $\zeta$ und $\overline{\zeta}$ Grassman-wertige Hilfsfelder.
+\begin{align*}
+\psi\left(x\right)\psi\left(y\right) & =-\psi\left(y\right)\psi\left(x\right)\\
+\overline{\psi}_{i}\left(x\right)\psi_{j}\left(y\right) & =-\psi_{j}\left(y\right)\overline{\psi}_{i}\left(x\right)\\
+\zeta\left(x\right)\psi\left(y\right) & =-\psi\left(y\right)\zeta\left(x\right)
+\end{align*}
+„Quadratische Ergänzung“ (Dies ist immer möglich, da der freie Anteil
+immer quadratisch ist, weil ein Feld rein und eines wieder raus geht.):
+\begin{align*}
+\psi\left(x\right) & \to\psi\left(x\right)-\int\dd^{4}y'S_{F}\left(x-y'\right)\zeta\left(y'\right)\\
+\overline{\psi}\left(x\right) & \to\overline{\psi}\left(x\right)-\int\dd^{4}y'\overline{\zeta}\left(y'\right)S_{F}\left(x-y'\right)
+\end{align*}
+Damit erhält man:
+\begin{align*}
+F\left[\overline{\zeta},\zeta\right] & =D\int\mathcal{D}\left[\overline{\psi},\psi\right]e^{\ii\int\dd^{4}x\overline{\psi}\left(x\right)\left(\hat{\slashd p}-m\right)\psi\left(x\right)-\ii\int\dd^{4}y\dd^{4}y'\overline{\zeta}\left(y\right)S_{F}\left(y-y'\right)\zeta\left(y'\right)}=\\
+ & =F\left[0,0\right]\cdot e^{-\ii\int\dd^{4}y\dd^{4}y'\overline{\zeta}\left(y\right)S_{F}\left(y-y'\right)\zeta\left(y'\right)}
+\end{align*}
+\begin{align*}
+\frac{1}{F\left[0,0\right]}\frac{\delta^{2}F}{\delta\overline{\zeta}\left(y\right)\delta\zeta\left(z\right)}\bigg|_{\zeta=\overline{\zeta}=0} & =\left(-\ii\right)\left(-1\right)S_{F}\left(y-z\right)
+\end{align*}
+Der Faktor $\left(-1\right)$ kommt daher, dass die Ableitung $\frac{\delta}{\delta\zeta\left(z\right)}$
+mit $\overline{\zeta}$ vertauscht werden muss und beide Grassman-wertig
+sind.
+
+Der Wechselwirkungs-Term der QED:
+\begin{align*}
+ & \int\mathcal{D}\left[\overline{\psi},\psi,A_{\mu}\right]e^{\ii\int\dd^{4}x\left[\mathcal{L}_{0}\left(x\right)-q_{e}\overline{\psi}_{j}\left(x\right)\left(\slashd A\left(x\right)\right)_{jk}\psi_{k}\left(x\right)+\overline{\zeta}\psi+\overline{\psi}\zeta+A^{\mu}J_{\mu}\right]}=\\
+ & \qquad\qquad=e^{-\ii q_{e}\int\dd^{4}x\left(-\ii\left(\gamma_{\mu}\right)_{jk}\frac{\delta}{\delta\zeta_{j}\left(x\right)}\frac{\delta}{\delta\overline{\zeta}_{j}\left(x\right)}\frac{\delta}{\delta J_{\mu}\left(x\right)}\right)}\cdot\int\mathcal{D}\left[\overline{\psi},\psi,A^{\mu}\right]e^{\ii\int\dd^{4}x\left(\mathcal{L}_{0}+\overline{\zeta}\psi+\overline{\psi}\zeta+A^{\mu}J_{\mu}\right)}
+\end{align*}
+
+
+
+\section{Amputierte, Irreduzible $n$-Punkte-Greens-Funktion}
+
+Für die $\phi^{4}$-Theorie gilt:
+\begin{align*}
+F\left[j\right] & =D\int\mathcal{D}\left[\phi\right]e^{\ii\int\dd^{4}x\left(\mathcal{L}\left(\phi\left(x\right)\right)+j\left(x\right)\phi\left(x\right)\right)}\\
+G_{N}\left(x_{1},\ldots,x_{N}\right) & =\frac{\delta^{N}F}{\delta j\left(x_{1}\right)\ldots\delta j\left(x_{N}\right)}\bigg|_{j=0}\widehat{=}\BraKet{0|\TT\left\{ \hat{\phi}\left(x_{1}\right)\ldots\hat{\phi}\left(x_{N}\right)e^{\ii\int\dd^{4}x\mathcal{L}_{\text{int}}\left(\phi\left(x\right)\right)}\right\} |0}
+\end{align*}
+TODO: Abb95
+
+Zweipunktfunktion:
+
+TODO: Abb96
+\begin{enumerate}
+\item Schritt: Betrachte $\frac{F\left[j\right]}{F\left[0\right]}$, denn
+$F\left[0\right]$ entspricht einem Normierungsfaktor, weil es bei
+allen Termen vorkommt. Man muss also keine Vakuumgraphen berechnen.
+\item Schritt:
+\begin{align*}
+Z^{\text{con}}\left[j\right] & :=-\ii\ln\left(\frac{F\left[j\right]}{F\left[0\right]}\right)\\
+\frac{F\left[j\right]}{F\left[0\right]} & =e^{\ii Z^{\text{con}}\left[j\right]}
+\end{align*}
+Nun liefert
+\begin{align*}
+\frac{\delta^{N}Z^{\text{con}}}{\delta j\left(x_{1}\right)\ldots\delta j\left(x_{N}\right)}\bigg|_{j=0}
+\end{align*}
+alle zusammenhängenden $N$-Punkte-Funktionen, zum Beispiel die 4-Punkt-Funktion:\\
+TODO: Abb97
+\item Schritt: Zerlegung in zwei Graphen durch zerschneiden einer Linie.\\
+TODO: Abb98\\
+Ein Graph heißt irreduzibel, wenn man ihn nicht durch zerschneiden
+einer Linie in Untergraphen zerlegen kann.\\
+Ein amputierter Graph ist ein Graph von dem die äußeren Propagatoren
+entfernt wurden.\\
+Die amputierten irreduziblen Graphen bilden den minimalen Satz, der
+zur Kenntnis aller Graphen benötigt wird.\\
+Das erzeugende Funktional
+\begin{align*}
+\Gamma\left[\tilde{\phi}\right] & :=Z^{\text{con}}\left[j\right]-\int\dd^{4}xj\left(x\right)\tilde{\phi}(x,j]
+\end{align*}
+generiert die amputierten irreduziblen Green'sschen Funktionen. (Vergleiche
+Legendre-Transformation.) Die amputierte irreduzible 2-Punkte-Funktion
+ist:
+\begin{align*}
+\frac{\delta^{2}\Gamma}{\delta\tilde{\phi}(z,j]\delta\tilde{\phi}(x,j]}\bigg|_{\tilde{\phi}=0}
+\end{align*}
+Bemerkung:
+\begin{align*}
+\frac{\delta Z^{\text{con}}\left[j\right]}{\delta j\left(x\right)} & =:\tilde{\phi}(x,j]
+\end{align*}
+Durch
+\begin{align*}
+\frac{\delta\Gamma\left[\tilde{\phi}\right]}{\delta\tilde{\phi}(x,j]} & =-j\left(x\right)
+\end{align*}
+wird implizit $\Gamma$ definiert. Diese beiden Gleichungen werden
+in obiger Definition von $\Gamma$ zusammengefasst. Es folgt:
+\begin{align*}
+\int\dd^{4}z\frac{\delta^{2}Z^{\text{con}}}{\delta j\left(x_{1}\right)\delta j\left(z\right)}\frac{\delta^{2}\Gamma}{\delta\tilde{\phi}(z,j]\delta\tilde{\phi}(x_{2},j]}\bigg|_{j\text{ fest}} & =\int\dd^{4}z\frac{\delta\tilde{\phi}(z,j]}{\delta j\left(x_{1}\right)}\left(-\frac{\delta j\left(x_{2}\right)}{\tilde{\phi}(z,j]}\right)=\int\dd^{4}z\frac{\delta\tilde{\phi}(z,j]}{\delta j\left(x_{1}\right)}\left(-\frac{\tilde{\phi}(z,j]}{\delta j\left(x_{2}\right)}\right)^{-1}=\\
+ & =-\frac{\delta j\left(x_{2}\right)}{\delta j\left(x_{1}\right)}=-\delta\left(x_{1}-x_{2}\right)
+\end{align*}
+Die amputierte irreduzible Greensfunktion ist:
+\begin{align*}
+\left(\square_{x}+m^{2}\right)\frac{\delta Z^{\text{con}}}{\delta j\left(x\right)\delta j\left(y\right)}\left(\overleftarrow{\square_{y}}+m^{2}\right)
+\end{align*}
+In niedrigster Ordnung:\\
+TODO: Abb99
+\end{enumerate}
+%DATE: Di 2.7.13 (2. Vorlesung)
+\begin{align*}
+0 & =\frac{\delta^{2}}{\delta j\left(x_{2}\right)\delta j\left(x_{3}\right)}\int\dd^{4}z_{1}\frac{\delta^{2}Z^{\text{con}}\left[j\right]}{\delta j\left(x_{1}\right)\delta j\left(z_{1}\right)}\frac{\delta^{2}\Gamma\left[\tilde{\phi}\right]}{\delta\tilde{\phi}(z_{4},j]\delta\tilde{\phi}(z_{1},j]}\Bigg|_{j,\tilde{\phi}=0}=\\
+ & =\frac{\delta}{\delta j\left(x_{2}\right)}\bigg(\int\dd^{4}z_{1}\frac{\delta^{3}Z^{\text{con}}\left[j\right]}{\delta j\left(x_{1}\right)\delta j\left(z_{1}\right)\delta j\left(x_{3}\right)}\frac{\delta^{2}\Gamma\left[\tilde{\phi}\right]}{\delta\tilde{\phi}(z_{4},j]\delta\tilde{\phi}(z_{1},j]}+\\
+ & \qquad+\int\dd^{4}z_{1}\int\dd^{4}z_{3}\frac{\delta^{2}Z^{\text{con}}\left[j\right]}{\delta j\left(x_{1}\right)\delta j\left(z_{1}\right)}\frac{\delta^{3}\Gamma\left[\tilde{\phi}\right]}{\delta\tilde{\phi}(z_{4},j]\delta\tilde{\phi}(z_{1},j]\delta\tilde{\phi}(z_{3},j]}\underbrace{\frac{\delta\tilde{\phi}\left(z_{3}\right)}{\delta j\left(x_{3}\right)}}_{=\frac{\delta^{2}Z^{\text{con}}}{\delta j\left(z_{3}\right)\delta j\left(x_{3}\right)}}\bigg)\Bigg|_{j,\tilde{\phi}=0}=\\
+ & =\int\dd^{4}z_{1}\frac{\delta^{4}Z^{\text{con}}\left[j\right]}{\delta j\left(x_{1}\right)\delta j\left(z_{1}\right)\delta j\left(x_{3}\right)\delta j\left(x_{2}\right)}\frac{\delta^{2}\Gamma\left[\tilde{\phi}\right]}{\delta\tilde{\phi}(z_{4},j]\delta\tilde{\phi}(z_{1},j]}+\\
+ & \qquad+\int\dd^{4}z_{1}\dd^{4}z_{2}\dd^{4}z_{3}\frac{\delta^{2}Z^{\text{con}}\left[j\right]}{\delta j\left(x_{1}\right)\delta j\left(z_{1}\right)}\frac{\delta^{4}\Gamma\left[\tilde{\phi}\right]}{\delta\tilde{\phi}(z_{1},j]\delta\tilde{\phi}(z_{2},j]\delta\tilde{\phi}(z_{3},j]\delta\tilde{\phi}(z_{4},j]}\frac{\delta^{2}Z^{\text{con}}}{\delta j\left(z_{2}\right)\delta j\left(x_{2}\right)}\frac{\delta^{2}Z^{\text{con}}}{\delta j\left(z_{3}\right)\delta j\left(x_{3}\right)}\Bigg|_{j,\tilde{\phi}=0}
+\end{align*}
+Die $\phi^{4}$-Theorie hat keine $n$-Punkt-Funktionen mit ungeradem
+$n$, weswegen entsprechende Terme weggelassen wurden. Multipliziere
+mit $\frac{\delta^{2}Z^{\text{con}}}{\delta j\left(z_{4}\right)\delta j\left(x_{4}\right)}$
+und integriere über $z_{4}$.
+\begin{align*}
+\int\dd^{4}z_{4}\frac{\delta^{2}Z^{\text{con}}}{\delta j\left(z_{4}\right)\delta j\left(x_{4}\right)}\frac{\delta^{2}\Gamma\left[\tilde{\phi}\right]}{\delta\tilde{\phi}(z_{4},j]\delta\tilde{\phi}(z_{1},j]} & =-\delta^{\left(4\right)}\left(x_{4}-z_{1}\right)
+\end{align*}
+Man erhält:
+\begin{align*}
+\frac{\delta^{4}Z^{\text{con}}\left[j\right]}{\delta j\left(x_{1}\right)\delta j\left(x_{2}\right)\delta j\left(x_{3}\right)\delta j\left(x_{4}\right)}\Bigg|_{j=0} & =\int\dd^{4}z_{1}\dd^{4}z_{2}\dd^{4}z_{3}\dd^{4}z_{4}\frac{\delta^{4}\Gamma\left[\tilde{\phi}\right]}{\delta\tilde{\phi}(z_{1},j]\delta\tilde{\phi}(z_{2},j]\delta\tilde{\phi}(z_{3},j]\delta\tilde{\phi}(z_{4},j]}\Bigg|_{\tilde{\phi}=0}\cdot\\
+ & \qquad\cdot\frac{\delta^{2}Z^{\text{con}}\left[j\right]}{\delta j\left(x_{1}\right)\delta j\left(z_{1}\right)}\frac{\delta^{2}Z^{\text{con}}}{\delta j\left(z_{2}\right)\delta j\left(x_{2}\right)}\frac{\delta^{2}Z^{\text{con}}}{\delta j\left(z_{3}\right)\delta j\left(x_{3}\right)}\frac{\delta^{2}Z^{\text{con}}}{\delta j\left(z_{4}\right)\delta j\left(x_{4}\right)}\Bigg|_{j=0}
+\end{align*}
+TODO: Abb100
+
+TODO: Abb101
+
+
+\section{Die Ward-Identität der QED}
+
+\begin{align*}
+F\left[J_{\mu},\overline{\zeta},\zeta\right] & =D\int\left(\prod_{\mu}\mathcal{D}\left[A_{\mu}\right]\right)\mathcal{D}\left[\psi\right]\mathcal{D}\left[\overline{\psi}\right]\cdot\exp\left(\ii\int\dd^{4}x\left(\mathcal{L}_{\text{QED}}\left(x\right)+J_{\mu}\left(x\right)A^{\mu}\left(x\right)+\overline{\zeta}\left(x\right)\psi\left(x\right)+\overline{\psi}\left(x\right)\zeta\left(x\right)\right)\right)
+\end{align*}
+Eich-Transformation:
+\begin{align*}
+A_{\mu}\left(x\right) & \to A_{\mu}\left(x\right)+\partial_{\mu}\Lambda\left(x\right)\\
+\psi\left(x\right) & \to e^{-\ii q_{e}\Lambda\left(x\right)}\psi\left(x\right)\\
+\overline{\psi}\left(x\right) & \to\overline{\psi}\left(x\right)e^{\ii q_{e}\Lambda\left(x\right)}
+\end{align*}
+$\mathcal{D}\left[\psi\right]\mathcal{D}\left[\overline{\psi}\right]$
+ist invariant, da die Faktoren $e^{-\ii q_{e}\Lambda\left(x\right)}$
+und $e^{\ii q_{e}\Lambda\left(x\right)}$ sich aufheben. $A_{\mu}$
+wird nur verschoben, was das Funktionalintegral nicht ändert. Da $\mathcal{L}_{\text{QED}}$
+auch eichinvariant ist, ändern sich nur die übrigen Terme im Exponenten:
+\begin{align*}
+F\left[J_{\mu},\overline{\zeta},\zeta\right] & \to D\int\mathcal{D}\left[A_{\mu},\psi,\overline{\psi}\right]e^{\ii\int\dd^{4}x'\left(\mathcal{L}_{\text{QED}}+J_{\mu}A^{\mu}+J_{\mu}\partial^{\mu}\Lambda+\overline{\zeta}e^{-\ii q_{e}\Lambda}\psi+\overline{\psi}e^{\ii q_{e}\Lambda}\zeta\right)}
+\end{align*}
+Eichinvarianz von $F$ bedeutet:
+\begin{align*}
+0 & =\frac{\delta F}{\delta\Lambda\left(x\right)}\bigg|_{\Lambda=0}=D\int\mathcal{D}\left[A_{\mu},\psi,\overline{\psi}\right]\left(-\ii\partial^{\mu}J_{\mu}\left(x\right)+q_{e}\overline{\zeta}\left(x\right)\psi\left(x\right)-q_{e}\overline{\psi}\left(x\right)\zeta\left(x\right)\right)e^{\ii\int\dd^{4}x'\left(\mathcal{L}_{\text{QED}}+J_{\mu}A^{\mu}+\overline{\zeta}\psi+\overline{\psi}\zeta\right)}=\\
+ & =\left(-\ii\partial^{\mu}J_{\mu}\left(x\right)-\ii q_{e}\overline{\zeta}\left(x\right)\frac{\delta}{\delta\overline{\zeta}\left(x\right)}+\ii q_{e}\zeta\left(x\right)\frac{\delta}{\delta\zeta\left(x\right)}\right)F\left[J_{\mu},\zeta,\overline{\zeta}\right]=\\
+ & =\left(-\ii\partial^{\mu}J_{\mu}\left(x\right)-\ii q_{e}\overline{\zeta}\left(x\right)\frac{\delta}{\delta\overline{\zeta}\left(x\right)}+\ii q_{e}\zeta\left(x\right)\frac{\delta}{\delta\zeta\left(x\right)}\right)F\left[0,0,0\right]e^{\ii Z^{\text{con}}\left[J_{\mu},\overline{\zeta},\zeta\right]}=\\
+ & =\left(-\ii\partial^{\mu}J_{\mu}\left(x\right)+q_{e}\overline{\zeta}\left(x\right)\frac{\delta Z^{\text{con}}}{\delta\overline{\zeta}\left(x\right)}-q_{e}\zeta\left(x\right)\frac{\delta Z^{\text{con}}}{\delta\zeta\left(x\right)}\right)F\left[0,0,0\right]e^{\ii Z^{\text{con}}\left[J_{\mu},\overline{\zeta},\zeta\right]}
+\end{align*}
+Dies schreiben wir nun auf amputierte, irreduzible Greensfunktionen
+um:
+\begin{align*}
+\Gamma\left[\tilde{A}_{\mu},\tilde{\psi},\overline{\tilde{\psi}}\right] & =Z^{\text{con}}\left[J_{\mu},\overline{\zeta},\zeta\right]-\int\dd^{4}x\left(J_{\mu}\left(x\right)\tilde{A}^{\mu}\left(x\right)+\overline{\zeta}\left(x\right)\tilde{\psi}\left(x\right)+\overline{\tilde{\psi}}\left(x\right)\zeta\left(x\right)\right)
+\end{align*}
+\begin{align*}
+\frac{\delta Z^{\text{con}}}{\delta J_{\mu}\left(x\right)} & =\tilde{A}^{\mu}(x,J_{\lambda}] & \frac{\delta Z^{\text{con}}}{\delta\overline{\zeta}\left(x\right)} & =\tilde{\psi}(x,\overline{\zeta}] & \frac{\delta Z^{\text{con}}}{\delta\zeta\left(x\right)} & =-\tilde{\overline{\psi}}(x,\overline{\zeta}]\\
+\frac{\delta\Gamma}{\delta\tilde{A}_{\mu}(x,J_{\lambda}]} & =-J_{\mu}\left(x\right) & \frac{\delta\Gamma}{\delta\tilde{\psi}(x,J_{\lambda}]} & =\overline{\zeta}\left(x\right) & \frac{\delta\Gamma}{\delta\tilde{\overline{\psi}}(x,J_{\lambda}]} & =-\zeta\left(x\right)
+\end{align*}
+\begin{align*}
+0 & =\ii\frac{\partial}{\partial x^{\mu}}\frac{\delta\Gamma}{\delta\tilde{A}_{\mu}(x,J_{\lambda}]}+q_{e}\frac{\delta\Gamma}{\delta\tilde{\psi}(x,J_{\lambda}]}\tilde{\psi}(x,\overline{\zeta}]-q_{e}\frac{\delta\Gamma}{\delta\tilde{\overline{\psi}}(x,J_{\lambda}]}\tilde{\overline{\psi}}(x,\overline{\zeta}]
+\end{align*}
+Hieraus folgt zum Beispiel:
+\begin{align*}
+0 & =\frac{\delta\Gamma}{\delta\overline{\tilde{\psi}}\left(z\right)}\frac{\delta}{\delta\tilde{\psi}\left(y\right)}0\bigg|_{\tilde{\psi},\overline{\tilde{\psi}},\tilde{A}_{\mu}=0}=\\
+ & =\ii\frac{\partial}{\partial x^{\mu}}\frac{\delta^{3}\Gamma}{\delta\tilde{A}_{\mu}\left(x\right)\delta\overline{\tilde{\psi}}\left(z\right)\delta\tilde{\psi}\left(y\right)}-q_{e}\underbrace{\frac{\delta^{2}\Gamma}{\delta\overline{\tilde{\psi}}\left(z\right)\delta\tilde{\psi}\left(x\right)}\delta^{\left(4\right)}\left(x-y\right)}_{1}-q_{e}\frac{\delta\Gamma}{\delta\tilde{\psi}\left(y\right)\delta\overline{\tilde{\psi}}\left(x\right)}\delta^{\left(4\right)}\left(x-z\right)
+\end{align*}
+Fourier-Transformation mit Impuls-Erhaltung:
+\begin{align*}
+\int\dd^{4}x\dd^{4}y\dd^{4}ze^{\ii\left(p_{x}x+p_{y}y+p_{z}z\right)}\delta^{\left(4\right)}\left(p_{x}+p_{y}+p_{z}\right)
+\end{align*}
+
+
+Für 1 gilt:
+\begin{align*}
+ & \int\dd^{4}x\dd^{4}y\dd^{4}ze^{\ii\left(p_{x}x-\left(p_{x}+p_{y}\right)y+p_{z}z\right)}\frac{\delta^{2}\Gamma}{\delta\overline{\tilde{\psi}}\left(z\right)\delta\tilde{\psi}\left(x\right)}\delta^{\left(4\right)}\left(p_{x}+p_{y}+p_{z}\right)\delta^{\left(4\right)}\left(x-y\right)=\\
+ & =\delta^{\left(4\right)}\left(p_{x}+p_{y}+p_{z}\right)\underbrace{\int\dd^{4}x\dd^{4}ze^{\ii p_{z}\left(z-x\right)}\frac{\delta^{2}\Gamma}{\delta\overline{\tilde{\psi}}\left(z\right)\delta\tilde{\psi}\left(x\right)}}_{=:\Gamma_{0|1|1}\left(p_{z}\right)}=\\
+ & =:\delta^{\left(4\right)}\left(p_{x}+p_{y}+p_{z}\right)\Gamma_{0|1|1}\left(-p_{x}-p_{y}\right)
+\end{align*}
+Die Indizes bei $\Gamma$ stehen für Ableitungen nach $A^{\mu}$,
+$\overline{\tilde{\psi}}$ beziehungsweise $\tilde{\psi}$. Insgesamt
+folgt:
+\begin{align*}
+0 & =\left(-p_{x\mu}\Gamma_{1|1|1}^{\mu}\left(p_{x},p_{y}\right)-q_{e}\Gamma_{0|1|1}\left(-p_{x}-p_{y}\right)+q_{e}\Gamma_{0|1|1}\left(-p_{y}\right)\right)\delta^{\left(4\right)}\left(p_{x}+p_{y}+p_{z}\right)
+\end{align*}
+In niedrigster Ordnung gilt:
+
+TODO: Abb102
+\begin{align*}
+\Gamma_{1|1|1}^{\mu}\left(p_{x},p_{y}\right) & =q_{e}\gamma^{\mu}\\
+\Gamma_{0|1|1}^{\mu}\left(p\right) & =S_{F}^{-1}\left(p\right)=\slashd p-m
+\end{align*}
+Damit erhalten wir:
+\begin{align*}
+\left(-p_{x\mu}q_{e}\gamma^{\mu}-q_{e}\left(-\slashd p_{x}-\slashd p_{y}-m\right)+q_{e}\left(-\slashd{p_{y}}-m\right)\right) & =0
+\end{align*}
+Dies gilt sowohl für die renormierte als auch für die nicht-renormierte
+Theorie. Renormiert:
+\begin{align*}
+\left(-p_{x\mu}Z_{1|1|1}\Gamma_{1|1|1}^{\mu}\left(p_{x},p_{y}\right)-q_{e}Z_{0|1|1}\Gamma_{0|1|1}\left(-p_{x}-p_{y}\right)+q_{e}Z_{0|1|1}\Gamma_{0|1|1}\left(-p_{y}\right)\right) & =0
+\end{align*}
+Im engeren Sinne ist die Ward-Identität:
+\begin{align*}
+Z_{1|1|1} & =Z_{0|1|1}
+\end{align*}
+TODO: Abb103
+
+Deshalb trägt in der QED nur die Vakuum-Polarisation zur Renormierung
+der Ladung bei.
+
+%DATE: Mo 8.7.13
+
+
+\section{Erzeugendes Funktional für Eichfelder}
+\begin{description}
+\item [{Problem:}] In $\int\mathcal{D}\left[A_{\mu}\right]$ integriert
+man über unendlich viele äquivalente Eichkopien. Das Ziel ist nur
+jeweils über einen Vertreter zu integrieren. Dazu wird eine Eichung
+festgelegt.
+\item [{Bemerkung:}]~
+
+\begin{itemize}
+\item Ist dies eindeutig möglich? Für nicht-abelsche Eichtheorien ist dies
+das Gribov-Problem ($\partial^{\mu}\Lambda\sim\frac{1}{g}$).
+\item Dies ist kein Problem für Gitter-QCD, da es nur endlich viele Feldkonfigurationen
+gibt.
+\end{itemize}
+\end{description}
+Zunächst betrachten wir nur endlich viele Variablen und das Integral
+\begin{align*}
+\int\dd x_{1}\ldots\dd x_{N}F\left(x_{1},\ldots,x_{N}\right)
+\end{align*}
+mit $L$ Nebenbedingungen $f_{l}\left(x_{j}\right)=0$ für $l\in\left\{ 1,\ldots,L\right\} $.
+\begin{enumerate}
+\item Methode: Auflösen nach $x_{N}\left(x_{1},\ldots,x_{N-L}\right),\ldots,x_{N-L+1}\left(x_{1},\ldots,x_{N-L}\right)$
+\begin{align*}
+\int\dd x_{1}\ldots\dd x_{N-L}F\left(x_{1},\ldots,x_{N-L},x_{N-L+1}\left(x_{1},\ldots,x_{N}\right),\ldots,x_{N}\left(x_{1},\ldots,x_{N-L}\right)\right)
+\end{align*}
+
+\item Methode:
+\begin{align*}
+\int\dd x_{1}\ldots\dd x_{N}\prod_{l=1}^{L}\delta\left(f_{l}\left(x_{1},\ldots,x_{N}\right)\right)\frac{\partial\left(f_{1}\ldots f_{L}\right)}{\partial\left(x_{N-L+1}\ldots x_{N}\right)}F\left(x_{1},\ldots,x_{N}\right)
+\end{align*}
+
+\end{enumerate}
+Der Grenzfall der 2. Methode für $N\to\infty$, das heißt für eine
+kontinuierliche Variable $x$ ist:
+\begin{align*}
+\int\mathcal{D}\left[A_{\mu}^{a}\right]\prod_{x,a}\delta\left(\mathcal{F}^{a}[A_{\mu}^{b},x)\right)\left[\det\left(\frac{\delta\mathcal{F}^{a}[A_{\mu}^{gc},x)}{\delta\Theta^{b}\left(y\right)}\right)\right]_{\Theta^{b}=0}F\left[A_{\mu}^{b}\right]
+\end{align*}
+Das unendliche Produkt der $\delta$-Distributionen ist zu verstehen
+als Grenzwert eines immer feineren Gitters von Raum-Zeit-Punkten.
+Dabei ist $g$ eine beliebige infinitesimale Eichtransformation mit
+den Eichwinkeln $\Theta^{b}$. Das gerade diese Determinante auftritt
+ist nicht offensichtlich und wird daher noch gezeigt.
+
+Wir wollen nun die Determinante in einen Exponentialfunktion umwandeln,
+sodass man den Exponent einfach als zusätzlichen Term in der Lagrangedichte
+interpretieren kann.
+\begin{align*}
+\left[\det\left(\frac{\delta\mathcal{F}^{a}[A_{\mu}^{gc},x)}{\delta\Theta^{b}\left(y\right)}\right)\right]_{\Theta^{b}=0} & \to\int\mathcal{D}\left[\overline{\eta}^{a},\eta^{b}\right]e^{-\ii\int\dd^{4}x\dd^{4}y\overline{\eta}^{a}\left(x\right)\frac{\delta\mathcal{F}^{a}[A_{\mu}^{gc},x)}{\delta\Theta^{b}\left(y\right)}\big|_{\Theta^{b}=0}\eta^{b}\left(y\right)}
+\end{align*}
+Diese Terme beschreiben die Geist-Felder mit denen man einfach rechnen
+kann.
+
+Der zweite mathematische Trick erlaubt auch das Produkt der $\delta$-Distributionen
+\begin{align*}
+\prod_{x,a} & \delta\left(\mathcal{F}^{a}[A_{\mu}^{b},x)\right)
+\end{align*}
+als Exponentialfunktion zu schreiben. Es sei $D\in\mathbb{R}_{>0}$
+so gewählt, dass das Gaußsche Integral normiert ist:
+\begin{align*}
+D\int\mathcal{D}\left[B^{b}\left(x\right)\right]e^{-\frac{\ii}{2\alpha}\int\dd xB^{b}\left(x\right)B^{b}\left(x\right)} & =1
+\end{align*}
+Wenn $\mathcal{F}^{a}=0$ eine Eichung ist, ist auch $\mathcal{F}^{a}[A_{\mu}^{b},x)=B^{a}\left(x\right)$
+eine Eichung.
+\begin{align*}
+\prod_{x,a}\delta\left(\mathcal{F}^{a}[A_{\mu}^{b},x)\right) & \to D\int\mathcal{D}\left[B^{a}\left(x\right)\right]\left(\prod_{x,a}\delta\left(\mathcal{F}^{a}[A_{\mu}^{b},x)-B^{a}\left(x\right)\right)\right)e^{-\frac{\ii}{2\alpha}\int\dd xB^{a}\left(x\right)B^{a}\left(x\right)}=\\
+ & =De^{-\frac{\ii}{2\alpha}\int\dd x\mathcal{F}^{a}[A_{\mu}^{b},x)\mathcal{F}^{a}[A_{\mu}^{b},x)}
+\end{align*}
+Dabei ist die Funktionaldeterminante gleich Eins, da die Konstante
+$B^{b}$ nicht von $\Theta^{b}$ abhängt.
+
+Wir leiten nun die Determinante in obiger Formel her. Zerlege dazu
+das Funktionalintegral:
+\begin{align*}
+\int\mathcal{D}\left[A_{\mu}^{a}\right] & =\int\underbrace{\mathcal{D}\left[A_{\mu}^{a}{}'\right]}_{\text{keine Eichkopien}}\underbrace{\mathcal{D}\left[g\right]}_{\text{Eichungen}}
+\end{align*}
+Wir schreiben daher für ein beliebiges Funktionalintegral mit einer
+beliebigen (eichinvarianten) Funktion. 
+\begin{align*}
+ & \int\mathcal{D}\left[A_{\mu}^{a}\right]f\left(A_{\mu}^{a}\right)e^{\ii S-\ii\int\dd^{4}xJ_{\mu}^{a}\left(X\right)A^{a\mu}\left(x\right)}\left(\prod_{a,x}\delta\left(\mathcal{F}^{a}\left(x\right)\right)\right)\cdot\Delta=\\
+ & \qquad=\int\mathcal{D}\left[A_{\mu}^{a}{}'\right]\underbrace{\int\mathcal{D}\left[g\right]\left(\prod_{a,x}\delta\left(\mathcal{F}^{a}[A_{\mu}^{gb}{}',x)\right)\right)\cdot\Delta}_{\sr =!{}1}\cdot f\left(A_{\mu}^{a}\right)e^{\ii S-\ii\int\dd^{4}xJ_{\mu}^{a}\left(x\right)A^{a\mu}\left(x\right)}
+\end{align*}
+%DATE: Di 9.7.13
+\begin{align*}
+\Delta^{-1}\left[A_{\mu}^{b}{}'\right] & =\int\mathcal{D}\left[g\right]\left(\prod_{a,x}\delta\left(\mathcal{F}^{a}[A_{\mu}^{gb}{}',x)\right)\right)
+\end{align*}
+
+
+Bemerkung: Die Wirkung $S\left[A_{\mu}^{b}{'}\right]$ ist eichunabhängig,
+ebenso wie physikalische Größen $f$. Der Term mit dem Strom $J_{\mu}^{a}\left(x\right)A^{a\mu}\left(x\right)$
+hängt zwar von der Eichung ab, aber in der neuen Eichung definiert
+man einen neuen Strom, sodass es physikalisch keine Rolle spielt.
+
+Man muss nur infinitesimale Eichungen betrachten, da sonst $\delta\left(\mathcal{F}^{a}\right)$
+Null liefert.
+\begin{align*}
+\int\mathcal{D}\left[g\right] & \to\int\prod_{a=1}^{8}\mathcal{D}\left[\Theta^{a}\right]\prod_{a,x}\delta\left(\mathcal{F}[A_{\mu}^{gb}{}',x)\right)=\\
+ & =\int\prod_{a=1}^{8}\mathcal{D}\left[\Theta^{a}\right]\left(\prod_{a,x}\delta\left(\Theta^{a}\left(x\right)\right)\right)\left[\det\left(\frac{\delta\mathcal{F}[A_{\mu}^{gb}{'},x)}{\delta\Theta^{b}\left(y\right)}\right)\bigg|_{\Theta^{b}=0}\right]^{-1}=\\
+ & =\left[\det\left(\frac{\delta\mathcal{F}[A_{\mu}^{gb}{'},x)}{\delta\Theta^{b}\left(y\right)}\right)\bigg|_{\Theta^{b}=0}\right]^{-1}=\Delta^{-1}
+\end{align*}
+
+
+
+\subsubsection*{1. Beispiel: Die transversale Eichung}
+
+\begin{align*}
+\mathcal{F}^{a}\left(x\right) & =\partial^{\mu}A_{\mu}^{a}\left(x\right)=0
+\end{align*}
+Infinitesimale Eich-Transformation:
+\begin{align*}
+\psi & \to\underbrace{e^{-\ii g\Theta^{a}\left(x\right)\frac{\lambda^{a}}{2}}}_{=:U\left(x\right)}\psi\left(x\right)=\left(1-\ii g\Theta^{a}\left(x\right)\frac{\lambda^{a}}{2}\right)\psi\left(x\right)
+\end{align*}
+\begin{align*}
+g\slashd A^{b}\left(x\right)\frac{\lambda^{b}}{2} & \to U\left(x\right)g\slashd A^{c}\frac{\lambda^{c}}{2}U^{-1}\left(x\right)-g\left(\partial_{\mu}\Theta^{b}\right)\frac{\lambda^{b}}{2}=\\
+ & =g\slashd A^{c}\frac{\lambda^{c}}{2}+\ii g^{2}\slashd A^{c}\underbrace{\left[\frac{\lambda^{c}}{2},\frac{\lambda^{a}}{2}\right]}_{=\ii f_{cab}\frac{\lambda^{b}}{2}=-\ii f_{acb}\frac{\lambda^{b}}{2}}\Theta^{a}\left(x\right)-g\left(\partial_{\mu}\Theta^{b}\right)\frac{\lambda^{b}}{2}
+\end{align*}
+\begin{align*}
+A_{\mu}^{gb}\left(x\right) & =A_{\mu}^{b}\left(x\right)+gf_{acb}\Theta^{a}\left(x\right)A_{\mu}^{c}\left(x\right)-\partial_{\mu}\Theta^{b}\left(x\right)
+\end{align*}
+\begin{align*}
+\mathcal{F}^{b}\left[A_{\mu}^{gc}\right] & =0+gf_{acb}\left(\partial^{\mu}\Theta^{a}\left(x\right)\right)A_{\mu\left(x\right)}^{c}+0-\partial^{\mu}\partial_{\mu}\Theta^{b}\left(x\right)\\
+\frac{\delta\mathcal{F}^{b}[A_{\mu}^{gc},x)}{\delta\Theta^{d}\left(y\right)} & =\underbrace{\delta^{\left(4\right)}\left(x-y\right)\left(-\partial^{\mu}gf_{dcb}A_{\mu}^{c}\left(x\right)-\delta^{db}\partial^{\mu}\partial_{\mu}\right)}_{=:\mathcal{M}^{db}\left(x,y\right)}
+\end{align*}
+Die Ableitungsoperatoren in dieser Zeile wirken auf alles was von
+rechts multipliziert wird. (Partielle Integration)
+\begin{align*}
+\det\left(\mathcal{M}^{db}\left(x,y\right)\right) & =\int\mathcal{D}\left[\overline{\zeta}^{d},\zeta^{b}\right]e^{-\ii\int\dd^{4}x\dd^{4}y\overline{\zeta}^{d}\left(x\right)\mathcal{M}^{db}\left(x,y\right)\zeta^{b}\left(y\right)}
+\end{align*}
+\begin{align*}
+\int\dd^{4}x\dd^{4}y\overline{\zeta}^{d}\left(x\right)\mathcal{M}^{db}\left(x,y\right)\zeta^{b}\left(y\right) & =-\int\dd^{4}x\left(\overline{\zeta}^{d}\left(x\right)\partial^{\mu}\partial_{\mu}\zeta^{d}\left(y\right)+g\overline{\zeta}^{d}\left(x\right)\partial^{\mu}\left(f_{dcb}A_{\mu}^{c}\left(x\right)\zeta^{b}\left(x\right)\right)\right)
+\end{align*}
+Ghost-Feynman-Regeln:
+\begin{itemize}
+\item Propagator:\\
+TODO: Abb104
+\begin{align*}
+\frac{\ii\delta_{db}}{k^{2}+\ii\varepsilon} & =\ii D_{F}\left(k\right)
+\end{align*}
+
+\item Gluon-Geist-Vertex:\\
+TODO: Abb105
+\begin{align*}
+gf_{dbc}k_{f}^{\mu} & =gf_{dbc}\left(k_{i}+q\right)^{\mu}
+\end{align*}
+
+\end{itemize}
+
+\subsubsection*{2. Beispiel: Die axiale Eichung}
+
+Für einen Lorentz-Vektor $\eta^{\mu}\not=0$ gelte:
+
+\begin{align*}
+\mathcal{F}^{a}\left[A\right] & =\eta^{\mu}A_{\mu}^{a}=0\\
+\mathcal{F}^{a}\left[A_{\mu}^{gb}\right] & =0+0-\eta^{\mu}\partial_{\mu}\Theta^{a}\left(x\right)\\
+\frac{\delta\eta^{\mu}\partial_{\mu}\Theta^{a}\left(x\right)}{\delta\Theta^{b}\left(y\right)} & =\delta_{ab}\delta^{4}\left(x-y\right)\left(-n^{\mu}\partial_{\mu}\right)
+\end{align*}
+Beitrag zu $\mathcal{L}$:
+\begin{align*}
+-\int\dd^{4}x\overline{\zeta}^{a}\left(x\right)\eta^{\mu}\partial_{\mu}\zeta^{a}\left(x\right)
+\end{align*}
+Es gibt keinen Ghost-Vertex! Daher kann man das Integral in die Normierung
+stecken. In der axialen Eichung kann man also ohne Geistfelder rechnen.
+Warum rechnet man selten in dieser Eichung?
+\begin{align*}
+\mathcal{L} & =-\frac{1}{4}F_{\mu\nu}^{a}F^{a\mu\nu}-\frac{1}{2\alpha}\left(n_{\mu}A^{a\mu}\right)\left(n_{\nu}A^{a\nu}\right)
+\end{align*}
+(Dieses $\alpha$ ist eine beliebige Zahl, nicht die Feinstrukturkonstante.)
+Der Gluonpropagator ist daher:
+\begin{align*}
+-\ii\delta_{ab}\frac{g_{\mu\nu}-\frac{k_{\mu}n_{\nu}+k_{\nu}n_{\mu}}{k\cdot n}+\frac{n^{2}}{\left(n\cdot k\right)^{2}}n_{\mu}n_{\nu}}{}
+\end{align*}
+Dieser Propagator ist relativ kompliziert im Vergleich zur transversalen
+Eichung.
+
+
+\chapter{Standardmodell der Teilchenphysik}
+
+
+\section{Die Spontane Symmetriebrechung (SSB)}
+
+
+
+Die schwache Wechselwirkung verursacht Zerfälle wie:
+
+TODO: Abb106
+
+Versuch einer Lagrange-Dichte:
+\begin{align*}
+\mathcal{L} & =\frac{G_{\Gamma^{-}}}{\sqrt{2}}\overline{\psi}_{p}\left(x\right)\Gamma_{\mu}\psi_{n}\left(x\right)\overline{\psi}_{e}\left(x\right)\Gamma^{\mu}\psi_{\nu}\left(x\right)
+\end{align*}
+Diese Lagrange-Dichte ist aber nicht renormalisierbar, weshalb man
+zunächst verbot höhere Ordnungen auszurechnen.
+
+TODO: Abb107
+
+Mit einem neuen Teilchen $W^{-}$ kann man eine bessere Lagrange-Dichte
+aufstellen:
+\begin{align*}
+\mathcal{L}_{W} & =-\frac{1}{4}\left(\partial^{\mu}W^{\nu}-\partial^{\nu}W^{\mu}\right)\left(\partial_{\mu}W_{\nu}-\partial_{\nu}W_{\mu}\right)+\frac{1}{2}m_{W}^{2}W_{\mu}W^{\mu}
+\end{align*}
+Die Euler-Lagrange-Gleichung ist:
+\begin{align*}
+\partial_{\mu}\partial^{\mu}W_{\nu}-\partial^{\mu}\partial_{\nu}W_{\mu}+m_{W}^{2}W_{\nu} & =0
+\end{align*}
+Im Impulsraum ist das:
+\begin{align*}
+q_{\mu}q^{\nu}W_{\nu}-q^{\mu}q_{\nu}W_{\mu}-m_{W}^{2}W_{\mu} & =0
+\end{align*}
+Propagator:
+\begin{align*}
+\left(q_{\mu}q^{\mu}g_{\lambda\nu}-q_{\lambda}q_{\nu}-m_{W}^{2}g_{\lambda\nu}\right)\ii G^{\lambda\lambda^{'}}\left(q\right) & =g_{\nu}\msu{\lambda'}
+\end{align*}
+Der allgemeinste Ansatz ist:
+\begin{align*}
+G^{\lambda\lambda'}\left(q\right) & =a\left(q^{2}\right)q^{\lambda}q^{\lambda'}+b\left(q^{2}\right)g^{\lambda\lambda'}
+\end{align*}
+Damit folgt:
+\begin{align*}
+\ii\left(\underline{q^{2}a\left(q^{2}\right)q_{\nu}q^{\lambda'}}-\underline{a\left(q^{2}\right)q^{2}q_{\nu}q^{\lambda'}}\underbrace{-m_{W}^{2}a\left(q^{2}\right)q_{\nu}q^{\lambda'}}_{r}+\underbrace{b\left(q^{2}\right)q^{2}g_{\nu}\msu{\lambda'}}_{y}-\underbrace{b\left(q^{2}\right)q_{\nu}q^{\lambda'}}_{r}-\underbrace{m_{W}^{2}g_{\nu}\msu{\lambda'}b\left(q^{2}\right)}_{y}\right) & =\underbrace{g_{\nu}\msu{\lambda'}}_{y}
+\end{align*}
+Man erhält:
+\begin{align*}
+b\left(q^{2}\right) & =\frac{-\ii}{q^{2}-m_{W}^{2}+\ii\varepsilon}\\
+a\left(q^{2}\right) & =-\frac{1}{m_{W}^{2}}b\left(q^{2}\right)=-\ii\frac{-\frac{1}{m_{W}^{2}}}{q^{2}-m_{W}^{2}+\ii\varepsilon}\\
+G^{\lambda\lambda'}\left(q\right) & =-\ii\frac{g^{\lambda\lambda'}-\frac{q^{\lambda}q^{\lambda'}}{m_{W}^{2}}}{q^{2}-m_{W}^{2}+\ii\varepsilon}
+\end{align*}
+Dies führt wegen $q^{\lambda}q^{\lambda'}$ im Zähler zu üblen Divergenzen!
+
+Um diese Problem zu umgehen, führt man skalare Felder (Higgs-Felder)
+mit einem Potential (einer Potentialdichte) ein.
+\begin{align*}
+V_{\phi}\left(x\right) & =-\mu^{2}\left(\phi^{\dagger}\left(x\right)\phi\left(x\right)\right)+\lambda\left(\phi^{\dagger}\left(x\right)\phi\left(x\right)\right)^{2}
+\end{align*}
+Dabei hat $\mu$ die Dimension Energie und $\lambda$ ist dimensionslos.
+
+TODO: Abb108
+
+Idee: Die Masse $m_{W}$ wird durch den Vakuumerwartungswert des $\phi$-Feldes
+verursacht:
+\begin{align*}
+m_{W}^{2}W_{\mu}W^{\mu} & \to\frac{\left\langle \phi\right\rangle ^{2}}{V^{2}}m_{W}^{2}W_{\mu}W^{\mu}
+\end{align*}
+Betrachte die Lagrangedichte für ein $SU\left(2\right)$ Higgs-Dublett:
+\begin{align*}
+\phi\left(x\right) & =\left(\begin{array}{c}
+\varphi_{1}\left(x\right)+\ii\varphi_{2}\left(x\right)\\
+\varphi_{3}\left(x\right)+\ii\varphi_{4}\left(x\right)
+\end{array}\right)
+\end{align*}
+Die $\varphi_{i}\left(x\right)$ sind reell.
+\begin{align*}
+\mathcal{L}_{\phi}\left(x\right) & =\abs{\left(\partial_{\mu}-\ii g\vec{A}_{\mu}\vec{\tau}\right)\phi}^{2}+\underbrace{\mu^{2}\phi^{\dagger}\left(x\right)\phi\left(x\right)-\lambda\left(\phi^{\dagger}\left(x\right)\phi\left(x\right)\right)^{2}}_{=-V_{\phi}\left(x\right)}
+\end{align*}
+$\vec{A}_{\mu}$ sind die $SU\left(2\right)$-Eichfelder.
+\begin{align*}
+\tau_{1} & =\left(\begin{array}{cc}
+0 & 1\\
+1 & 0
+\end{array}\right) & \tau_{2} & =\left(\begin{array}{cc}
+0 & -\ii\\
+\ii & 0
+\end{array}\right) & \tau_{3} & =\left(\begin{array}{cc}
+1 & 0\\
+0 & -1
+\end{array}\right)
+\end{align*}
+\begin{align*}
+\BraKet{0|\phi|0} & =h\left(\begin{array}{c}
+\alpha\\
+\beta
+\end{array}\right)\\
+\abs{\alpha}^{2}+\abs{\beta}^{2} & =1\\
+h & \in\mathbb{R}
+\end{align*}
+\begin{align*}
+\phi\left(x\right) & =h\left(\begin{array}{c}
+\alpha\\
+\beta
+\end{array}\right)+\left(\begin{array}{c}
+\varphi_{1}\left(x\right)+\ii\varphi_{2}\left(x\right)\\
+\varphi_{3}\left(x\right)+\ii\varphi_{4}\left(x\right)
+\end{array}\right)\\
+\BraKet{0|\varphi_{i}|0} & =0
+\end{align*}
+
+
+
+
+%DATE: Di 9.7.13 (2. Vorlesung)
+\begin{align*}
+\BraKet{0|V_{\phi}|0} & =-\mu^{2}h^{2}\underbrace{\left(\abs{\alpha}^{2}+\abs{\beta}^{2}\right)}_{=1}+\lambda h^{4}
+\end{align*}
+Minimum:
+\begin{align*}
+0 & =\frac{\dd\BraKet{0|V_{\phi}|0}}{\dd h}=-2\mu^{2}h+4\lambda h^{3}\\
+h & =\frac{\mu}{\sqrt{2\lambda}}
+\end{align*}
+Betrachte den Term:
+\begin{align*}
+\abs{\left(-\ii g\vec{A}_{\mu}\cdot\vec{\tau}\right)\frac{\mu}{\sqrt{2\lambda}}\left(\begin{array}{c}
+\alpha\\
+\beta
+\end{array}\right)}^{2} & =:\frac{1}{2}\underbrace{M_{ij}^{2}}_{\text{Massenmatrix}}A_{\mu}^{i}A^{j\mu}
+\end{align*}
+Um das Spektrum zu erhalten, muss man $M_{ij}$ noch diagonalisieren.
+\begin{align*}
+\abs{\left(-\ii g\vec{A}_{\mu}\cdot\vec{\tau}\right)\frac{\mu}{\sqrt{2\lambda}}\left(\begin{array}{c}
+\alpha\\
+\beta
+\end{array}\right)}^{2} & =g^{2}\frac{\mu^{2}}{2\lambda}\underbrace{A_{\mu}^{i}\left(x\right)A^{j\mu}\left(x\right)}_{\text{symmetrisch in }i\leftrightarrow j}\left(\left(\begin{array}{cc}
+\alpha^{*} & \beta^{*}\end{array}\right)\tau^{i}\tau^{j}\left(\begin{array}{c}
+\alpha\\
+\beta
+\end{array}\right)\right)=\\
+ & =g^{2}\frac{\mu^{2}}{2\lambda}A_{\mu}^{i}\left(x\right)A^{j\mu}\left(x\right)\frac{1}{2}\left(\left(\begin{array}{cc}
+\alpha^{*} & \beta^{*}\end{array}\right)\left(\tau^{i}\tau^{j}+\tau^{j}\tau^{i}\right)\left(\begin{array}{c}
+\alpha\\
+\beta
+\end{array}\right)\right)=\\
+ & \sr ={\left[\tau^{i},\tau^{j}\right]=2\delta^{ij}\mathbbm{1}_{2\times2}}{}g^{2}\frac{\mu^{2}}{2\lambda}A_{\mu}^{i}\left(x\right)A^{j\mu}\left(x\right)\delta_{ij}\left(\abs{\alpha}^{2}+\abs{\beta}^{2}\right)=\\
+ & =g^{2}\frac{\mu^{2}}{2\lambda}A_{\mu}^{i}\left(x\right)A^{i\mu}\left(x\right)
+\end{align*}
+Alle drei Eichfelder erhalten die Masse $\frac{g\mu}{\lambda}$.
+
+
+\section{Die Massenmatrix der Higgs-Felder}
+
+\begin{align*}
+\phi_{0} & :=h\left(\begin{array}{c}
+\alpha\\
+\beta
+\end{array}\right)=h\left(\begin{array}{c}
+a_{1}+\ii a_{2}\\
+a_{3}+\ii a_{4}
+\end{array}\right)
+\end{align*}
+Quadratischer Term der Taylor-Reihe für $V_{\phi}$ liefert die Massenmatrix:
+
+\begin{align*}
+\frac{\partial^{2}V_{\phi}}{\partial\varphi_{i}\partial\varphi_{j}}\bigg|_{\phi=\phi_{0}} & =\frac{\partial^{2}}{\partial\varphi_{i}\partial\varphi_{j}}\left(-\mu^{2}\sum_{m=1}^{4}\varphi_{m}^{2}+\lambda\sum_{m,n=1}^{4}\varphi_{m}^{2}\varphi_{n}^{2}\right)\bigg|_{\varphi=ha_{m}}=\\
+ & =\left(-2\mu^{2}\delta_{ij}+4\lambda\sum_{m=1}^{4}\varphi_{m}^{2}\delta_{ij}+4\lambda\cdot2\varphi_{i}\varphi_{j}\right)\bigg|_{\varphi=ha_{m}}=\\
+ & =-2\mu^{2}\delta_{ij}+4\lambda h^{2}\delta_{ij}+8\lambda h^{2}a_{i}a_{j}=\\
+ & =-2\mu^{2}\delta_{ij}+4\lambda\frac{\mu^{2}}{2\lambda}\delta_{ij}+8\lambda\frac{\mu^{2}}{2\lambda}a_{i}a_{j}=4\mu^{2}a_{i}a_{j}=\\
+ & =4\mu^{2}\left(\begin{array}{cccc}
+a_{1}a_{1} & a_{1}a_{2} & a_{1}a_{3} & a_{1}a_{4}\\
+a_{2}a_{1} & a_{2}a_{2} & a_{2}a_{3} & a_{2}a_{4}\\
+a_{3}a_{1} & a_{3}a_{2} & a_{3}a_{3} & a_{3}a_{4}\\
+a_{4}a_{1} & a_{4}a_{2} & a_{4}a_{3} & a_{4}a_{4}
+\end{array}\right)=\mathcal{M}^{2}
+\end{align*}
+Diagonalisieren:
+\begin{align*}
+0 & =\det\left(\mathcal{M}-\Lambda\mathbbm{1}\right)=\left(4\mu^{2}\right)^{4}\det\left(\begin{array}{cccc}
+a_{1}a_{1}-\frac{\Lambda}{4\mu^{2}} & a_{1}a_{2} & a_{1}a_{3} & a_{1}a_{4}\\
+a_{2}a_{1} & a_{2}a_{2}-\frac{\Lambda}{4\mu^{2}} & a_{2}a_{3} & a_{2}a_{4}\\
+a_{3}a_{1} & a_{3}a_{2} & a_{3}a_{3}-\frac{\Lambda}{4\mu^{2}} & a_{3}a_{4}\\
+a_{4}a_{1} & a_{4}a_{2} & a_{4}a_{3} & a_{4}a_{4}-\frac{\Lambda}{4\mu^{2}}
+\end{array}\right)
+\end{align*}
+Ohne Beschränkung der Allgemeinheit sei $a_{4}\not=0$. Für $i\in\left\{ 1,2,3\right\} $
+berechne in der Determinante:
+\begin{align*}
+\left(i\text{. Zeile}\right)-\frac{a_{i}}{a_{4}}\left(\text{4. Zeile}\right)
+\end{align*}
+Es folgt mit $\tilde{\Lambda}:=\frac{\Lambda}{4\mu^{2}}$:
+\begin{align*}
+0 & =\det\left(\begin{array}{cccc}
+-\tilde{\Lambda} & 0 & 0 & \frac{a_{1}}{a_{4}}\tilde{\Lambda}\\
+0 & -\tilde{\Lambda} & 0 & \frac{a_{2}}{a_{4}}\tilde{\Lambda}\\
+0 & 0 & -\tilde{\Lambda} & \frac{a_{3}}{a_{4}}\tilde{\Lambda}\\
+a_{4}a_{1} & a_{4}a_{2} & a_{4}a_{3} & a_{4}^{2}-\tilde{\Lambda}
+\end{array}\right)
+\end{align*}
+Berechne
+\begin{align*}
+\left(4\text{. Spalte}\right)+\sum_{i=1}^{3}\frac{a_{i}}{a_{4}}\left(i\text{. Zeile}\right)
+\end{align*}
+und erhalte:
+\begin{align*}
+0 & =\det\left(\begin{array}{cccc}
+-\tilde{\Lambda} & 0 & 0 & 0\\
+0 & -\tilde{\Lambda} & 0 & 0\\
+0 & 0 & -\tilde{\Lambda} & 0\\
+a_{4}a_{1} & a_{4}a_{2} & a_{4}a_{3} & \sum_{j=1}^{4}a_{j}^{2}-\tilde{\Lambda}
+\end{array}\right)\sr ={\sum a_{j}^{2}=1}{}\det\left(\begin{array}{cccc}
+-\tilde{\Lambda} & 0 & 0 & 0\\
+0 & -\tilde{\Lambda} & 0 & 0\\
+0 & 0 & -\tilde{\Lambda} & 0\\
+0 & 0 & 0 & 1-\tilde{\Lambda}
+\end{array}\right)
+\end{align*}
+Also haben 3 Higgs-Felder die Masse $0$ und eines die Masse $2\mu$.
+Experimentell findet man aber keine masselosen skalaren Felder.
+
+Es gilt ganz allgemein: Die Anzahl der massiv werdenden Eichfelder
+ist kleiner oder gleich der Anzahl der masselosen Higgs-Felder. (Goldstone-Theorem)
+
+Jede spontane Symmetriebrechung führt auf Goldstone-Bosonen.
+
+Higgs-Kibble Theorem: Die Goldstone-Freiheitsgrade gehen bei der spontanen
+Symmetriebrechung in die zusätzlichen Eichfeld-Freiheitsgrade über:
+Masselose Vektorfelder wie das Photon haben 2 Freiheitsgrade. Massive
+Vektorfelder haben 3 Freiheitsgrade.
+
+
+\section{Higgsfeld im Standardmodell}
+
+Im Standardmodell hat man die Eichgruppe:
+\begin{align*}
+\text{SU}\left(3\right)_{c}\times\underbrace{\text{SU}\left(2\right)\times\text{U}\left(1\right)}_{\text{werden gebrochen}}
+\end{align*}
+Die Lagrange-Dichte der $\text{SU}\left(2\right)\times\text{U}\left(1\right)$
+ist:
+\begin{align*}
+\mathcal{L}_{\text{Eichfeld}} & =-\frac{1}{4}\left(\partial_{\mu}W_{\nu}^{a}-\partial_{\nu}W_{\mu}^{a}+g\epsilon_{abc}W_{\mu}^{b}W_{\nu}^{c}\right)^{2}-\frac{1}{4}\left(\partial_{\mu}B_{\nu}-\partial_{\nu}B_{\mu}\right)^{2}\\
+\mathcal{L}_{\text{Higgs}} & =\abs{\left(\ii\partial_{\mu}-\frac{1}{2}g'B_{\mu}-\frac{1}{2}g\vec{W}_{\mu}\cdot\vec{\tau}\right)\Phi}^{2}+\mu^{2}\Phi^{\dagger}\Phi-\lambda\left(\Phi^{\dagger}\Phi\right)^{2}
+\end{align*}
+$\Phi$ sei das $\text{SU}\left(2\right)$-Dublett, das wir um den
+Vakuumerwartungswert
+\begin{align*}
+\left\langle \Phi\right\rangle  & =\left(\begin{array}{c}
+0\\
+\frac{1}{\sqrt{2}}V
+\end{array}\right)
+\end{align*}
+entwickeln:
+\begin{align*}
+\Phi & =\left(\begin{array}{c}
+0\\
+\frac{1}{\sqrt{2}}V
+\end{array}\right)+\left(\begin{array}{c}
+\varphi_{1}+\ii\varphi_{2}\\
+\varphi_{3}+\ii\varphi_{4}
+\end{array}\right)
+\end{align*}
+Die Eichfeld-Massenmatrix besteht aus den Termen mit zwei Eichfeldern
+und keinen $\varphi_{i}$-Feldern:
+\begin{align*}
+\abs{\left(\frac{1}{2}\left(\begin{array}{cc}
+g'B_{\mu}+gW_{\mu}^{3} & 0\\
+0 & g'B_{\mu}-gW_{\mu}^{3}
+\end{array}\right)+\frac{g}{2}\left(\begin{array}{cc}
+0 & W_{\mu}^{1}-\ii W_{\mu}^{2}\\
+W_{\mu}^{1}+\ii W_{\mu}^{2} & 0
+\end{array}\right)\right)\left(\begin{array}{c}
+0\\
+\frac{V}{\sqrt{2}}
+\end{array}\right)}^{2}
+\end{align*}
+
+
+%DATE: Do 11.7.13
+
+
+\subsubsection*{Fundamentale Darstellung der $\text{SU}\left(3\right)\times\text{SU}\left(2\right)\times\text{U}\left(1\right)$}
+
+Spin und Masse eines Teilchens charakterisieren eine Darstellung der
+Lorentzgruppe $\text{O}\left(1,3\right)$. Alle Felder transformieren
+sich unter der $\text{SU}\left(3\right)\times\text{SU}\left(2\right)\times U\left(1\right)$
+wie folgt:
+\begin{align*}
+\psi,\phi,\ldots & \to\underbrace{e^{\ii g'y\Lambda\left(x\right)}}_{\text{U}\left(1\right)}\underbrace{e^{\ii g\vartheta^{j}\left(x\right)\frac{\tau^{j}}{2}y_{\text{SU}\left(2\right)}}}_{\text{SU}\left(2\right)}\underbrace{e^{\ii g_{\text{QCD}}\Theta^{a}\left(x\right)\frac{\lambda^{a}}{2}y_{\text{QCD}}}}_{\text{SU}\left(3\right)}\cdot\left(\psi,\phi,\ldots\right)
+\end{align*}
+Universalität: $y_{\text{SU}\left(2\right)},y_{\text{QCD}}\in\left\{ 0,1\right\} $\\
+Für infinitesimale Eichungen folgt:
+\begin{align*}
+\partial_{\mu}\psi & \to\partial_{\mu}\psi+\left(\left(\ii g'y\left(\partial_{\mu}\Lambda\right)\right)+\ii g\left(\partial_{\mu}\vartheta^{j}\right)\frac{\tau^{j}}{2}y_{\text{SU}\left(2\right)}+\ii g_{\text{QCD}}\left(\partial_{\mu}\Theta^{a}\left(x\right)\right)\frac{\lambda^{a}}{2}y_{\text{QCD}}\right)\psi
+\end{align*}
+Man braucht Felder, die sich so transformieren, dass die Zusatzterme
+verschwinden:
+\begin{align*}
+B_{\mu}\left(x\right),W_{\mu}^{j}\left(x\right),G_{\mu}^{a}\left(x\right)
+\end{align*}
+Die eichinvariante Ableitung ist also:
+\begin{align*}
+\ii\DD_{\mu} & =\ii\partial_{\mu}-\frac{1}{2}yg'B_{\mu}-\frac{1}{2}g\vec{W}_{\mu}\cdot\vec{\tau}y_{\text{SU}\left(2\right)}-\frac{1}{2}g_{\text{QCD}}G_{\mu}^{a}\left(x\right)\frac{\lambda^{a}}{2}y_{\text{QCD}}
+\end{align*}
+Das Higgs-Feld ist ein Klein-Gordon-Feld:
+\begin{align*}
+\mathcal{L} & =\phi^{\dagger}\left(x\right)\left(-\overrightarrow{\partial_{\mu}}\overrightarrow{\partial^{\mu}}-m^{2}\right)\phi-\tilde{V}_{\phi}\left(x\right)=\\
+ & =\phi^{\dagger}\left(x\right)\left(\overleftarrow{\partial_{\mu}}\overrightarrow{\partial^{\mu}}\right)\phi-V_{\phi}\left(x\right)\leadsto\norm{\DD^{\mu}\phi\left(x\right)}^{2}-V_{\phi}\left(x\right)
+\end{align*}
+Für das Higgs-Feld definieren wir $y=1$ und legen dadurch $g'$ fest.
+Außerdem nehmen wir $y_{\text{SU}\left(2\right)}=1$, $y_{\text{QCD}}=0$
+und
+\begin{align*}
+V_{\phi}\left(x\right) & =-\mu^{2}\phi^{\dagger}\phi+\lambda\left(\phi^{\dagger}\phi\right)^{2}
+\end{align*}
+an:
+\begin{align*}
+\mathcal{L} & =\norm{\left(\ii\partial_{\mu}-\frac{1}{2}g'B_{\mu}-\frac{1}{2}g\vec{W}_{\mu}\cdot\vec{\tau}\right)\phi}^{2}+\mu^{2}\phi^{\dagger}\phi-\lambda\left(\phi^{\dagger}\phi\right)^{2}
+\end{align*}
+Dies ist das Glashow-Salam-Weinberg-Modell (Nobelpreis 1979).
+
+Spontane Symmetriebrechung:
+\begin{align*}
+\phi & =\left(\begin{array}{c}
+0\\
+\frac{V}{\sqrt{2}}
+\end{array}\right)+\frac{1}{\sqrt{2}}\left(\begin{array}{c}
+\varphi_{1}\left(x\right)+\ii\varphi_{2}\left(x\right)\\
+\varphi_{3}\left(x\right)+\ii\varphi_{4}\left(x\right)
+\end{array}\right)
+\end{align*}
+\begin{align*}
+\BraKet{0|\varphi_{i}|0} & =0
+\end{align*}
+Wir wollen die Masse der Eichbosonen bestimmen. Der entsprechende
+Term der Lagrange-Dichte ist enthalten in:
+\begin{align*}
+ & \norm{\left(-\ii\partial_{\mu}+\frac{1}{2}\left(\begin{array}{cc}
+g'B_{\mu}+gW_{\mu}^{3} & 0\\
+0 & g'B_{\mu}-gW_{\mu}^{3}
+\end{array}\right)+\frac{g}{2}\left(\begin{array}{cc}
+0 & W_{\mu}^{1}-\ii W_{\mu}^{2}\\
+W_{\mu}^{1}+\ii W_{\mu}^{2} & 0
+\end{array}\right)\right)\left(\left(\begin{array}{c}
+0\\
+\frac{V}{\sqrt{2}}
+\end{array}\right)+\frac{1}{\sqrt{2}}\left(\begin{array}{c}
+\varphi_{1}\left(x\right)+\ii\varphi_{2}\left(x\right)\\
+\varphi_{3}\left(x\right)+\ii\varphi_{4}\left(x\right)
+\end{array}\right)\right)}^{2}
+\end{align*}
+Definiere den Weinberg-Winkel $\vartheta_{W}$ über das Verhältnis
+der Kopplungskonstanten:
+\begin{align*}
+\frac{g'}{g} & =\tan\left(\vartheta_{W}\right)
+\end{align*}
+Die Terme, die zwei Eichfelder enthalten, bestimmen die Masse der
+Eichbosonen:
+\begin{align*}
+ & \norm{\frac{g}{2}\frac{V}{\sqrt{2}}\left(\begin{array}{c}
+0\\
+B_{\mu}\tan\left(\vartheta_{W}\right)-W_{\mu}^{3}
+\end{array}\right)+\frac{g}{2}\frac{V}{\sqrt{2}}\left(\begin{array}{c}
+W_{\mu}^{1}-\ii W_{\mu}^{2}\\
+0
+\end{array}\right)}^{2}=\\
+ & \qquad=\frac{1}{2}W_{\mu}^{1}W^{1\mu}\underbrace{\frac{g^{2}V^{2}}{4}}_{=:M_{W}^{2}}+\frac{1}{2}W_{\mu}^{2}W^{2\mu}\frac{g^{2}V^{2}}{4}+\\
+ & \qquad\qquad+\frac{1}{2}\underbrace{\left(\sin\left(\vartheta_{W}\right)B_{\mu}-\cos\left(\vartheta_{W}\right)W_{\mu}^{3}\right)}_{=Z_{\mu}}\vphantom{\big|}^{2}\underbrace{\frac{g^{2}V^{2}}{4\cos^{2}\left(\vartheta_{W}\right)}}_{=:M_{Z}^{2}}+A_{\mu}A^{\mu}\cdot0
+\end{align*}
+Der Anteil senkrecht zu $Z_{\mu}$ ist:
+\begin{align*}
+A_{\mu} & =\cos\left(\vartheta_{W}\right)B_{\mu}+\sin\left(\vartheta_{W}\right)W_{\mu}^{3}
+\end{align*}
+Diese tragen nicht zum Massenterm bei und beschreiben daher masselose
+Teilchen (Photonen). Weiter gibt es zwei Teilchen mit Masse $M_{W}=\frac{gV}{2}$
+und ein Teilchen mit $M_{Z}=\frac{M_{W}}{\cos\left(\vartheta_{W}\right)}$.
+\begin{align*}
+g'B_{\mu} & =g'\cos\left(\vartheta_{W}\right)A_{\mu}+g'\sin\left(\vartheta_{W}\right)Z_{\mu}\\
+gW_{\mu} & =g\sin\left(\vartheta_{W}\right)A_{\mu}-g\cos\left(\vartheta_{W}\right)Z_{\mu}
+\end{align*}
+Die Elementarladung ergibt sich wie folgt:
+\begin{align*}
+g'\cos\left(\vartheta_{W}\right) & =g\sin\left(\vartheta_{W}\right)=q_{e}
+\end{align*}
+Für das $W^{1}$-Eichfeld erhält man auch:
+\begin{align*}
+ & \frac{1}{\sqrt{2}}\left(\begin{array}{cc}
+0 & \frac{V}{\sqrt{2}}\end{array}\right)\left(-\frac{\ii}{2}gW_{\mu}^{1}\right)\left(\begin{array}{cc}
+0 & 1\\
+1 & 0
+\end{array}\right)\partial_{\mu}\left(\begin{array}{c}
+\varphi_{1}+\ii\varphi_{2}\\
+\varphi_{3}+\ii\varphi_{4}
+\end{array}\right)+\text{h.c.}+\\
+ & \qquad\qquad+\frac{1}{2}\left(\partial_{\mu}\varphi_{1}\right)\left(\partial^{\mu}\varphi_{1}\right)-\underbrace{\frac{1}{2}\xi_{W}\left(\partial^{\mu}W_{\mu}^{1}\left(x\right)\right)^{2}}_{\text{eichfixierender Term}}=\\
+ & \qquad=\frac{Vg}{2}W_{\mu}^{1}\left(-\ii\partial_{\mu}\right)\varphi_{1}\left(x\right)-\frac{1}{2}\varphi_{1}\left(\partial_{\mu}\partial^{\mu}\varphi_{1}\right)-\frac{1}{2}\xi_{W}\left(\partial^{\mu}W_{\mu}^{1}\left(x\right)\right)^{2}=\\
+ & \qquad\sr ={\text{part. Int.}}{}\frac{Vg}{2}\left(\ii\partial_{\mu}W_{\mu}^{1}\right)\varphi_{1}\left(x\right)-\frac{1}{2}\varphi_{1}\left(\partial_{\mu}\partial^{\mu}\varphi_{1}\right)-\frac{1}{2}\xi_{W}\left(\partial^{\mu}W_{\mu}^{1}\left(x\right)\right)^{2}=\\
+ & \qquad=-\frac{1}{2}\xi_{W}\left(\partial^{\mu}W_{\mu}^{1}\left(x\right)-\ii\frac{M_{W}}{\xi_{W}}\varphi_{1}\right)^{2}+\frac{1}{2}\varphi_{1}\left(-\partial^{\mu}\partial_{\mu}+\frac{M_{W}^{2}}{\xi_{W}}\right)\varphi_{1}
+\end{align*}
+In der Feynman-Eichung ist $\xi_{W}=1$. Der fordere Term entspricht
+der Zwangsbedingung, dass der Freiheitsgrad $\varphi_{1}$ identisch
+mit dem Freiheitsgrad $W_{\mu}^{1}$ ist. Der zweite Term zeigt, dass
+$\varphi_{1}$ auch die Masse $M_{W}$ hat. Dies ist eine Anwendung
+des Higgs-Kibble-Theorems.
+
+
+\section{Der Fermionische Sektor}
+
+\begin{align*}
+e_{L}\left(x\right) & =\frac{1-\gamma_{5}}{2}e\left(x\right) & e_{R}\left(x\right) & =\frac{1+\gamma_{5}}{2}e\left(x\right)\\
+y_{\text{SU}\left(2\right)} & =1 & y_{\text{SU}\left(2\right)} & =0
+\end{align*}
+\begin{align*}
+W_{\mu}^{\pm} & =\frac{1}{\sqrt{2}}\left(W_{\mu}^{1}\pm\ii W_{\mu}^{2}\right)\\
+B_{\mu} & =\cos\left(\vartheta_{W}\right)A_{\mu}+\sin\left(\vartheta_{W}\right)Z_{\mu}\\
+W_{\mu}^{3} & =\sin\left(\vartheta_{W}\right)A_{\mu}-\cos\left(\vartheta_{W}\right)Z_{\mu}
+\end{align*}
+TODO: Abb109
+
+Dubletts für $f\in\left\{ e,\mu,\tau\right\} $:
+\begin{align*}
+L_{f}\left(x\right) & :=\left(\begin{array}{c}
+\nu_{fL}\left(x\right)\\
+f_{L}\left(x\right)
+\end{array}\right)
+\end{align*}
+Die Lagrange-Dichte der Leptonen ist:
+\begin{align*}
+\mathcal{L}_{\text{Leptonen}} & =\sum_{f}\overline{L}_{f}\left(x\right)\gamma^{\mu}\left(\ii\partial_{\mu}-\frac{1}{2}g'B_{\mu}y_{f}-\frac{1}{2}g\vec{\tau}\cdot\vec{W}_{\mu}\right)L_{f}\left(x\right)+\\
+ & \qquad+\sum_{f}\left(\overline{\nu}_{fR}\gamma^{\mu}\left(\ii\partial_{\mu}-g'\alpha_{f}\frac{1}{2}B_{\mu}\right)\nu_{fR}\right)+\\
+ & \qquad+\sum_{f}\left(\overline{f}_{R}\gamma^{\mu}\left(\ii\partial_{\mu}-g'\beta_{f}\frac{1}{2}B_{\mu}\right)f_{R}\right)
+\end{align*}
+Der Term mit $A_{\mu}$ ist:
+\begin{align*}
+ & \overline{L}_{f}\left(x\right)\gamma^{\mu}\left(\begin{array}{cc}
+-\frac{g'}{2}y_{f}\cos\left(\vartheta_{W}\right)-\frac{g}{2}\sin\left(\vartheta_{W}\right) & 0\\
+0 & -\frac{1}{2}\frac{g'}{2}y_{f}\cos\left(\vartheta_{W}\right)+\frac{g}{2}\sin\left(\vartheta_{W}\right)
+\end{array}\right)A_{\mu}L_{f}\left(x\right)
+\end{align*}
+Dadurch erhält man die Ladungen. Neutrinos sind ungeladen, also folgt:
+\begin{align*}
+0 & =\left(-\frac{y_{f}}{2}-\frac{1}{2}\right)g\sin\left(\vartheta_{W}\right) & \Rightarrow\qquad y_{f} & =-1
+\end{align*}
+Für Elektronen erhält man:
+\begin{align*}
+\left(-\frac{\left(-1\right)}{2}+\frac{1}{2}\right)g\sin\left(\vartheta_{W}\right) & =g\sin\left(\vartheta_{W}\right)\sr =!{}-q_{e}
+\end{align*}
+Analog folgt $\alpha_{f}=0$ und $\beta_{f}=-2$. Für Quarks:
+\begin{align*}
+\left(\begin{array}{c}
+u_{L}\\
+d_{L}
+\end{array}\right)
+\end{align*}
+Die sind Eigenzustände der schwachen Wechselwirkung und keine Masseneigenzustände
+(vgl. CKM-Matrix).
+
+Die Fermionenmassen schreibt man als Linearkombination aller möglichen
+Produkte:
+\begin{align*}
+a_{ij}\overline{\nu}_{iR}\tilde{\phi}^{*}\psi_{jL}+b_{ij}\overline{f}_{iR}\phi^{*}\psi_{jL}
+\end{align*}
+\begin{align*}
+\tilde{\phi} & =\left(-\left(\phi^{0}\right)^{*},\phi^{-}\right)\\
+\phi & =\left(\phi^{+},\phi^{0}\right)
+\end{align*}
+\begin{align*}
+\frac{1}{\sqrt{2}}\left(\begin{array}{c}
+\varphi_{1}+\ii\varphi_{2}\\
+\varphi_{3}+\ii\varphi_{4}
+\end{array}\right) & =\left(\begin{array}{c}
+\phi^{+}\\
+\phi^{0}
+\end{array}\right)\\
+\phi^{-} & :=\left(\phi^{+}\right)^{*}
+\end{align*}
+Symmetriebrechung:
+\begin{align*}
+\phi^{0} & \to\phi^{0}+\frac{V}{\sqrt{2}}
+\end{align*}
+Massenterme koppeln links- und rechtshändige Fermionen.
+\begin{align*}
+m\overline{\psi}\mathbbm{1}\psi_{L} & =m\psi^{\dagger}\gamma_{0}\underbrace{\frac{1-\gamma_{5}}{2}\psi_{L}}_{=\psi_{L}}=m\underbrace{\left(\frac{1+\gamma_{5}}{2}\psi\right)^{\dagger}}_{\psi_{R}^{\dagger}}\gamma_{0}\psi_{L}=m\overline{\psi}_{R}\psi_{L}
+\end{align*}
+Schwache-Wechselwirkungsterme:
+\begin{align*}
+\overline{\psi}\gamma_{\mu}\left(1-\gamma_{5}\right)\psi_{L} & =\psi^{\dagger}\gamma_{0}\gamma_{\mu}\left(1-\gamma_{5}\right)\psi_{L}=\left(\left(1-\gamma_{5}\right)\psi\right)^{\dagger}\gamma_{0}\gamma_{\mu}\psi_{L}=\overline{\psi}_{L}\gamma_{\mu}\left(1-\gamma_{5}\right)\psi_{L}
+\end{align*}
 
 
 
@@ -6113,6 +7313,78 @@ Es folgt:
 \end{align*}
 \qqed[Behauptung]
 \end{description}
+%DATE: Mi 22.5.13 (2. Vorlesung)
+
+
+\chapter{Fermis Goldene Regel\label{chap:Fermis-Goldene-Regel}}
+
+Herleitung von Fermis goldener Regel (vgl. \noun{Jackson}: \emph{Elektrodynamik}):
+
+\begin{figure}[H]
+\noindent \begin{centering}
+\begin{tikzpicture}
+ \begin{scope}
+  \draw[clip] plot[smooth cycle] coordinates {(-1,0) (-0.8,0.8) (0,1) (0.5,0.5) (0.8,0.8) (1,-0.7) (0,-1)};
+  \foreach \x in {-2,-1.5,...,0.5}     \draw (-1,\x) -- (1,{\x +1});
+\end{scope}
+  \draw plot[smooth cycle] coordinates {(-2,0) (0,2) (1,1.8) (2.5,1.7) (2.5,-1) (0,-2)};
+  \node at (1,-2.5){$S_1$};
+  \draw[->] (2,1.9) -- node[right]{$\vec{n}'$} +(0,0.5);
+  \draw[very thick,decoration={markings,mark=at position 1 with {\arrow[scale=1.5]{>}};},postaction={decorate}] (3.5,2.5) -- (5,4) node[above]{$\vec{k}$};
+  \node at (5,3) {$\vec{E}_s,\vec{B}_s$};
+  \draw[very thick,decoration={markings,mark=at position 1 with {\arrow[scale=1.5]{>}};},postaction={decorate}] (-3,4) -- (-1.5,2.5) node[below]{$\vec{k}_\gamma$};
+  \node at (-0.5,2.5) {$\vec{E}_i,\vec{B}_i$};
+  \foreach \x in {0,0.25,...,1}
+    \draw ({-\x -2.5},{\x +2}) -- ({-\x -1},{\x + 3.5});
+\end{tikzpicture}
+\par\end{centering}
+
+\noindent \centering{}\caption{Streuung an kompakten Körper}
+\end{figure}
+
+
+Der Körper sei von endlicher Ausdehnung, sodass man ihn in eine Fläche
+$S_{1}$ einschließen kann.
+\begin{align*}
+\vec{E} & =\vec{E}_{i}+\vec{E}_{s}\\
+\vec{B} & =\vec{B}_{i}+\vec{B}_{s}
+\end{align*}
+Wie viel Energie wird von dem Körper absorbiert? Mit der äußeren Normalen
+$\vec{n}'$ von $S_{1}$ gilt.
+\begin{align*}
+P_{\text{abs}} & =-\frac{c}{8\pi}\oint_{S_{1}}\text{Re}\left(\vec{E}\times\vec{B}^{*}\right)\cdot\vec{n}'\dd a'\\
+P_{\text{scatt}} & =\frac{c}{8\pi}\oint_{s_{1}}\text{Re}\left(\vec{E}_{s}\times\vec{B}_{s}^{*}\right)\cdot\vec{n}'\dd a'
+\end{align*}
+Die gesamte Verlustleistung der einlaufenden Welle ist:
+\begin{align*}
+P & =-\frac{c}{8\pi}\oint_{S_{1}}\text{Re}\left(\left(\vec{E}_{i}+\vec{E}_{s}\right)\times\left(\vec{B}_{i}^{*}+\vec{B}_{s}^{*}\right)-\vec{E}_{s}\times\vec{B}_{s}^{*}-\vec{E}_{i}\times\vec{B}_{i}^{*}\right)\vec{n}'\dd a'=\\
+ & =-\frac{c}{8\pi}\oint_{S_{1}}\text{Re}\left(\vec{E}_{s}\times\vec{B}_{i}^{*}+\vec{E}_{i}\times\vec{B}_{s}^{*}\right)\vec{n}'\dd a'=\\
+ & \sr ={\text{Re}\left(z\right)=\text{Re}\left(z^{*}\right)}{}-\frac{c}{8\pi}\oint_{S_{1}}\text{Re}\left(\vec{E}_{s}\times\vec{B}_{i}^{*}+\vec{E}_{i}^{*}\times\vec{B}_{s}\right)\vec{n}'\dd a'
+\end{align*}
+Mit
+\begin{align*}
+\vec{E}_{i} & =E\vec{\epsilon}_{0}e^{\ii\vec{k}_{0}\vec{x}} & \vec{B}_{i} & =\frac{\vec{k}_{0}}{k_{0}}\times\vec{E}_{i}
+\end{align*}
+und dem Ansatz $\frac{e^{\ii kr}}{r}\vec{F}\left(\vec{k}\right)$
+für die gestreute Welle erhält man:
+\begin{align*}
+P & =\frac{c}{2k}\text{Im}\left(E_{0}\vec{\epsilon}_{0}^{*}\cdot\vec{F}\left(\vec{k},\vec{k}_{0}\right)\right)
+\end{align*}
+Definition des Streuquerschnitts:
+\begin{align*}
+\frac{P}{c\frac{\norm{\vec{E}_{0}}^{2}}{8\pi}} & \sim\frac{\text{Energie}}{\text{Zeit}\cdot\frac{\text{Energie}}{c\cdot\text{Zeit}\cdot\text{Fläche}}}\sim\text{Fläche}=:\sigma
+\end{align*}
+Der Wirkungsquerschnitt ist gegeben durch:
+\begin{align*}
+\sigma_{\text{abs}} & =\frac{4\pi}{k}\text{Im}\left[\vec{\epsilon}_{0}^{*}\cdot\frac{\vec{F}\left(\vec{k},\vec{k}_{0}\right)}{E_{0}}\right]_{\vec{k}=\vec{k}_{0}}
+\end{align*}
+Dies ist das optische Theorem. Die Streuamplitude $F$ berechnet man
+durch Betrachtung von
+\begin{align*}
+Ae^{\ii\vec{k}\cdot\vec{x}}+F\left(\vec{k},\vec{k}_{0}\right)\frac{e^{\ii\norm{\vec{k}}r}}{r}
+\end{align*}
+im Limes $r\to\infty$.
+
 
 \chapter*{Danksagungen}
 
